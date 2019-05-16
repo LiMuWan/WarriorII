@@ -97,6 +97,11 @@ namespace CustomTool
             WriteCurlyBrackets();
         }
 
+        public void WriteEmptyLine()
+        {
+            WriteLine("");
+        }
+
         public override string ToString()
         {
             return stringBuilder.ToString();

@@ -16,9 +16,9 @@ namespace CustomTool
                 string text = "";
                 //读取xml和json建议用File.ReadAllText，因为它会自动的关闭IO流
                 text += File.ReadAllText(path);
-                Debug.Log( GetClassName1(text));
-                var newText = GetNewScriptContext(GetClassName(text));
-                File.WriteAllText(path, newText);
+                //Debug.Log( GetClassName1(text));
+                var newText = GetNewScriptContext(GetClassName(text) + "View");
+                File.WriteAllText(path, newText); 
             }
         }
 
@@ -31,7 +31,8 @@ namespace CustomTool
         {
             var script = new ScriptBuildHelp();
             script.WriteUsing("UnityEngine");
-            script.WriteNameSpace("CustomGame");
+            script.WriteEmptyLine();
+            script.WriteNameSpace("UIFrame");
             script.IndentTimes++;
             script.WriteClass(className);
             script.IndentTimes++;
