@@ -22,4 +22,10 @@ namespace Const
         MainMenu,
         StartGame,
     }
+
+    public enum UiEffect
+    {
+        VIEW_EFFECT,
+        OTHER_EFFECT,
+    }
 }

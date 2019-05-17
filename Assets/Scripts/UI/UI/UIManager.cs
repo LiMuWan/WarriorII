@@ -10,13 +10,18 @@ namespace UIFrame
         private readonly Dictionary<UiId, GameObject> prefabDictionary = new Dictionary<UiId, GameObject>();
         private readonly Stack<UIBase> uiStack = new Stack<UIBase>();
         private UILayerManager uiLayerManager;
-
+        private UIEffectManager uiEffectManager;
         private void Awake()
         {
             uiLayerManager = GetComponent<UILayerManager>();
             if(uiLayerManager == null)
             {
                 Debug.LogErrorFormat("can not find UILayerManager");
+            }
+            uiEffectManager = GetComponent<UIEffectManager>();
+            if(uiEffectManager == null)
+            {
+                Debug.LogErrorFormat("can not find UIEffectManager");
             }
         }
 
@@ -57,6 +62,8 @@ namespace UIFrame
             {
                 uiScript.UIState = UIState.SHOW;
             }
+
+            uiEffectManager.Show(ui.transform);
             uiStack.Push(uiScript);
         }
 
@@ -75,15 +82,18 @@ namespace UIFrame
         {
             if(uiStack.Count > 0)
             {
-                if(uiStack.Peek().Layer == UILayer.BASIC_UI)
+                UIBase hideUI = uiStack.Pop();
+                if (hideUI.Layer == UILayer.BASIC_UI)
                 {
-                    uiStack.Pop().UIState = UIState.HIDE;
+                    hideUI.UIState = UIState.HIDE;
                     uiStack.Peek().UIState = UIState.SHOW;
+                    uiEffectManager.Show(uiStack.Peek().transform);
                 }
                 else
                 {
-                    uiStack.Pop().UIState = UIState.HIDE;
+                    hideUI.UIState = UIState.HIDE;
                 }
+                uiEffectManager.Hide(hideUI.transform);
             }
             else
             {
@@ -96,6 +106,7 @@ namespace UIFrame
             if(uiStack.Count != 0)
             {
                 uiStack.Peek().UIState = UIState.HIDE;
+                uiEffectManager.Hide(uiStack.Peek().transform);
             }
         }
 
