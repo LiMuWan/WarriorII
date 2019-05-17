@@ -7,12 +7,15 @@ namespace UIFrame
 {
     public class UIManager : MonoBehaviour    
     {
+        public static UIManager Instance { get; private set; }
+
         private readonly Dictionary<UiId, GameObject> prefabDictionary = new Dictionary<UiId, GameObject>();
         private readonly Stack<UIBase> uiStack = new Stack<UIBase>();
         private UILayerManager uiLayerManager;
         private UIEffectManager uiEffectManager;
         private void Awake()
         {
+            Instance = this;
             uiLayerManager = GetComponent<UILayerManager>();
             if(uiLayerManager == null)
             {
@@ -75,6 +78,7 @@ namespace UIFrame
                 //根据层级信息，添加到对应的父物体下
                 ui.SetParent(uiLayerManager.GetLayerObject(uiScript.Layer));
                 ui.localPosition = Vector3.zero;
+                ui.localScale = Vector3.one;
             }
         }
 
