@@ -1,5 +1,6 @@
 using Const;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UIFrame
 {
@@ -12,6 +13,10 @@ namespace UIFrame
 
         public void Start()        
         {
+            //transform.Find("Buttons/Continue").GetComponent<Button>().onClick.AddListener();
+            //transform.Find("Buttons/Easy").GetComponent<Button>().onClick.AddListener();
+            //transform.Find("Buttons/Normal").GetComponent<Button>().onClick.AddListener();
+            //transform.Find("Buttons/Hard").GetComponent<Button>().onClick.AddListener();
         }
     }
 }

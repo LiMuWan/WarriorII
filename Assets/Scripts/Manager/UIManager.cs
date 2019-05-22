@@ -7,114 +7,106 @@ namespace UIFrame
 {
     public class UIManager : MonoBehaviour    
     {
-        public static UIManager Instance { get; private set; }
-
         private readonly Dictionary<UiId, GameObject> prefabDictionary = new Dictionary<UiId, GameObject>();
         private readonly Stack<UIBase> uiStack = new Stack<UIBase>();
-        private UILayerManager uiLayerManager;
-        private UIEffectManager uiEffectManager;
-        private void Awake()
+        private Func<UILayer, Transform> GetLayerObject;
+
+        public void AddGetLayerObjectListener(Func<UILayer, Transform> func)
         {
-            Instance = this;
-            uiLayerManager = GetComponent<UILayerManager>();
-            if(uiLayerManager == null)
+            if(func == null)
             {
-                Debug.LogErrorFormat("can not find UILayerManager");
+                Debug.LogError("func could not be null");
+                return;
             }
-            uiEffectManager = GetComponent<UIEffectManager>();
-            if(uiEffectManager == null)
-            {
-                Debug.LogErrorFormat("can not find UIEffectManager");
-            }
+            GetLayerObject = func;
         }
 
-        private async void Start()
-        {
-            Show(UiId.MainMenu);
-
-            await Task.Delay(TimeSpan.FromSeconds(1));
-
-            //Show(UiId.StartGame);
-
-            //await Task.Delay(TimeSpan.FromSeconds(1));
-
-            //Back();
-        }
-        public void Show(UiId id)
+        public Tuple<Transform, Transform> Show(UiId id)
         {
             GameObject ui = GetPrefabObject(id);
 
             if(ui == null)
             {
                 Debug.LogErrorFormat("can't find prefab,UiId == {0}", id.ToString());
-                return;
+                return null;
             }
 
             UIBase uiScript = GetUIScript(ui,id);
 
-            if (uiScript == null) return;
+            if (uiScript == null) return null;
 
             InitUI(uiScript);
+
+            Transform hideUI = null;
 
             if(uiScript.Layer == UILayer.BASIC_UI) //如果打开主界面，需要隐藏之前的界面
             {
                 uiScript.UIState = UIState.SHOW;
-                Hide();
+                hideUI = Hide();
             }
             else
             {
                 uiScript.UIState = UIState.SHOW;
             }
 
-            uiEffectManager.Show(ui.transform);
+            //uiEffectManager.Show(ui.transform);
             uiStack.Push(uiScript);
+
+            return new Tuple<Transform,Transform>(ui.transform,hideUI);
         }
 
-        public void InitUI(UIBase uiScript)
+        private void InitUI(UIBase uiScript)
         {
             if(uiScript.UIState == UIState.NORMAL)
             {
                 Transform ui = uiScript.transform;
                 //根据层级信息，添加到对应的父物体下
-                ui.SetParent(uiLayerManager.GetLayerObject(uiScript.Layer));
+                ui.SetParent(GetLayerObject(uiScript.Layer));
                 ui.localPosition = Vector3.zero;
                 ui.localScale = Vector3.one;
             }
         }
 
-        public void Back()
+        public Tuple<Transform,Transform> Back()
         {
             if(uiStack.Count > 0)
             {
                 UIBase hideUI = uiStack.Pop();
+                Transform showUI = null;
                 if (hideUI.Layer == UILayer.BASIC_UI)
                 {
                     hideUI.UIState = UIState.HIDE;
                     uiStack.Peek().UIState = UIState.SHOW;
-                    uiEffectManager.Show(uiStack.Peek().transform);
+                    showUI = uiStack.Peek().transform;
+                    //uiEffectManager.Show(uiStack.Peek().transform);
                 }
                 else
                 {
                     hideUI.UIState = UIState.HIDE;
                 }
-                uiEffectManager.Hide(hideUI.transform);
+                //uiEffectManager.Hide(hideUI.transform);
+
+                return new Tuple<Transform, Transform>(showUI, hideUI.transform); 
             }
             else
             {
                 Debug.LogError("uiStack has one or no element");
+                return null;
             }
         }
 
-        public void Hide()
+        private Transform Hide()
         {
             if(uiStack.Count != 0)
             {
-                uiEffectManager.Hide(uiStack.Peek().transform);
+                //uiEffectManager.Hide(uiStack.Peek().transform);
                 uiStack.Peek().UIState = UIState.HIDE;
+                return uiStack.Peek().transform;
             }
+            return null;
         }
 
-        public GameObject GetPrefabObject(UiId id)
+        private GameObject GetPrefabObject(UiId id)
         {
              if(!prefabDictionary.ContainsKey(id))
              {
@@ -132,7 +124,7 @@ namespace UIFrame
             return prefabDictionary[id];
         }
 
-        public UIBase GetUIScript(GameObject prefab,UiId id)
+        private UIBase GetUIScript(GameObject prefab,UiId id)
         {
             UIBase ui = prefab.GetComponent<UIBase>();
             if(ui == null)
@@ -145,7 +137,7 @@ namespace UIFrame
             }
         }
 
-        public UIBase AddUIScript(GameObject prefab,UiId id)
+        private UIBase AddUIScript(GameObject prefab,UiId id)
         {
             string scriptName = ConstValue.UI_NAMESPACE_NAME + "." + id + ConstValue.UI_SCRIPT_POSFIX;
             Type ui = Type.GetType(scriptName);

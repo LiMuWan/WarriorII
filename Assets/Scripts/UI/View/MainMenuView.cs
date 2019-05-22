@@ -13,7 +13,7 @@ namespace UIFrame
 
         public void Start()        
         {
-            transform.Find("Buttons/StartGame").RectTransform().AddBtnListener(() => UIManager.Instance.Show(UiId.StartGame));
+            transform.Find("Buttons/StartGame").RectTransform().AddBtnListener(() => RootManager.Instance.Show(UiId.StartGame));
             transform.Find("Buttons/DOJO").RectTransform().AddBtnListener(() => { });
             transform.Find("Buttons/Help").RectTransform().AddBtnListener(() => { });
             transform.Find("Buttons/ExitGame").RectTransform().AddBtnListener(() => Application.Quit());

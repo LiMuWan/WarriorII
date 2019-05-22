@@ -7,6 +7,8 @@ namespace UIFrame
     {
         public void Show(Transform ui)
         {
+            if (ui == null) return;
+
             foreach (var effect in ui.GetComponentsInChildren<UIEffectBase>(true))
             {
                 effect.Enter();
@@ -15,6 +17,8 @@ namespace UIFrame
 
         public void Hide(Transform ui)
         {
+            if (ui == null) return;
+
             foreach (var effect in ui.GetComponentsInChildren<UIEffectBase>(true))
             {
                 effect.Exit();
