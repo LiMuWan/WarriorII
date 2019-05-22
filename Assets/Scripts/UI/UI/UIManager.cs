@@ -34,11 +34,11 @@ namespace UIFrame
 
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            Show(UiId.StartGame);
+            //Show(UiId.StartGame);
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            //await Task.Delay(TimeSpan.FromSeconds(1));
 
-            Back();
+            //Back();
         }
         public void Show(UiId id)
         {
@@ -109,8 +109,8 @@ namespace UIFrame
         {
             if(uiStack.Count != 0)
             {
-                uiStack.Peek().UIState = UIState.HIDE;
                 uiEffectManager.Hide(uiStack.Peek().transform);
+                uiStack.Peek().UIState = UIState.HIDE;
             }
         }
 
