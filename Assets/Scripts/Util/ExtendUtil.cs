@@ -26,5 +26,33 @@ namespace Util
                 return null;
             }
         }
+
+        public static Image Image(this Transform transform)
+        {
+            Image image = transform.GetComponent<Image>();
+            if (image != null)
+            {
+                return image;
+            }
+            else
+            {
+                Debug.LogErrorFormat("can't find image in this gameObject == {0}", transform.gameObject);
+                return null;
+            }
+        }
+
+        public static Button Button(this Transform transform)
+        {
+            Button button = transform.GetComponent<Button>();
+            if (button != null)
+            {
+                return button;
+            }
+            else
+            {
+                Debug.LogErrorFormat("can't find button in this gameObject == {0}", transform.gameObject);
+                return null;
+            }
+        }
     }
 }

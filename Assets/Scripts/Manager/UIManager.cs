@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using Util;
+
 namespace UIFrame
 {
     public class UIManager : MonoBehaviour    
@@ -64,12 +66,14 @@ namespace UIFrame
                 ui.SetParent(GetLayerObject(uiScript.Layer));
                 ui.localPosition = Vector3.zero;
                 ui.localScale = Vector3.one;
+                ui.RectTransform().offsetMax = Vector2.zero;
+                ui.RectTransform().offsetMin = Vector2.zero;
             }
         }
 
         public Tuple<Transform,Transform> Back()
         {
-            if(uiStack.Count > 0)
+            if(uiStack.Count > 1)
             {
                 UIBase hideUI = uiStack.Pop();
                 Transform showUI = null;
@@ -151,6 +155,16 @@ namespace UIFrame
                 return prefab.AddComponent(ui) as UIBase; 
             }
              
+        }
+
+        public List<Transform> GetBtnParents(Transform showUI)
+        {
+            if (showUI != null)
+            {
+                return showUI.GetComponent<UIBase>().GetBtnParents();
+            }
+
+            return null;
         }
     }
 }

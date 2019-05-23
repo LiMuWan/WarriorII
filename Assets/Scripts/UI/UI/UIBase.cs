@@ -1,4 +1,5 @@
 using Const;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UIFrame
@@ -63,5 +64,7 @@ namespace UIFrame
         }
 
         public abstract UiId GetUiId();
+
+        public abstract List<Transform> GetBtnParents();
     }
 }

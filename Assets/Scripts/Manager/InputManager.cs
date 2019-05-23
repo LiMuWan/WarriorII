@@ -10,6 +10,20 @@ namespace UIFrame
             {
                 RootManager.Instance.Back();
             }
+            BtnSelected();
+        }
+
+        private void BtnSelected()
+        {
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+
+            }
+
+            if(Input.GetKeyDown(KeyCode.RightArrow))
+            {
+
+            }
         }
     }
 }

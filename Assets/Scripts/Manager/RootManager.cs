@@ -10,6 +10,7 @@ namespace UIFrame
         private UIEffectManager uiEffectManager;
         private UILayerManager uiLayerManager;
         private InputManager inputManager;
+        private BtnStateManager btnStateManager;
 
         public static RootManager Instance;
         private void Awake()
@@ -19,6 +20,7 @@ namespace UIFrame
             uiEffectManager = gameObject.AddComponent<UIEffectManager>();
             uiLayerManager = gameObject.AddComponent<UILayerManager>();
             inputManager = gameObject.AddComponent<InputManager>();
+            btnStateManager = gameObject.AddComponent<BtnStateManager>();
 
             uiManager.AddGetLayerObjectListener(uiLayerManager.GetLayerObject);
         }
@@ -42,8 +44,12 @@ namespace UIFrame
 
         private void ExcuteEffect(Tuple<Transform,Transform> uiParam)
         {
+            if (uiParam == null) return;
+
             uiEffectManager.Show(uiParam.Item1);
             uiEffectManager.Hide(uiParam.Item2);
+
+            btnStateManager.CurrentParents = uiManager.GetBtnParents(uiParam.Item1);
         }
     }
 }
