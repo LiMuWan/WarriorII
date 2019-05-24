@@ -28,4 +28,10 @@ namespace Const
         VIEW_EFFECT,
         OTHER_EFFECT,
     }
+
+    public enum SelectedState
+    {
+        SELECTED,
+        UNSELECTED,
+    }
 }

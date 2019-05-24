@@ -12,7 +12,7 @@ namespace UIFrame
         private readonly Dictionary<UiId, GameObject> prefabDictionary = new Dictionary<UiId, GameObject>();
         private readonly Stack<UIBase> uiStack = new Stack<UIBase>();
         private Func<UILayer, Transform> GetLayerObject;
-
+        private Action<Transform> InitBtnParentCallBack;
         public void AddGetLayerObjectListener(Func<UILayer, Transform> func)
         {
             if(func == null)
@@ -68,6 +68,7 @@ namespace UIFrame
                 ui.localScale = Vector3.one;
                 ui.RectTransform().offsetMax = Vector2.zero;
                 ui.RectTransform().offsetMin = Vector2.zero;
+                InitBtnParentCallBack ?. Invoke(ui);
             }
         }
 
@@ -165,6 +166,16 @@ namespace UIFrame
             }
 
             return null;
+        }
+
+        public void AddInitBtnParentCallBack(Action<Transform> callBack)
+        {
+            if(callBack == null)
+            {
+                Debug.LogError("InitBtnParentCallBack can't be null!");
+            }
+
+            InitBtnParentCallBack = callBack;
         }
     }
 }

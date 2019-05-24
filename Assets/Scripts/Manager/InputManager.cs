@@ -17,12 +17,12 @@ namespace UIFrame
         {
             if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
-
+                RootManager.Instance.ButtonLeft();
             }
 
             if(Input.GetKeyDown(KeyCode.RightArrow))
             {
-
+                RootManager.Instance.ButtonRight();
             }
         }
     }

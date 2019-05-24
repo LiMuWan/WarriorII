@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Util;
 using DG.Tweening;
+using System.Linq;
+using System;
 
 namespace UIFrame
 {
@@ -11,69 +13,126 @@ namespace UIFrame
 
         private Transform lastBtnTrans;
 
-        private List<Transform> currentParents = new List<Transform>();
+        private int parentId;
 
-        public List<Transform> CurrentParents
+        private List<BtnParent> currentParents = new List<BtnParent>();
+
+        //public List<Transform> CurrentParents
+        //{
+        //    set
+        //    {
+        //        if (!JudgeException(value))
+        //        {
+        //            parentId = 0;
+        //            SetDefaultBtn(value);
+        //        }
+        //    }
+        //}
+        
+
+        public void InitBtnParent(List<Transform> btnParents)
         {
-            set
+            BtnParent temp;
+            for (int i = 0; i < btnParents.Count; i++)
             {
-                JudgeException(value);
-                currentParents = value;
-                SetDefaultBtn(value);
+                temp = btnParents[i].gameObject.AddComponent<BtnParent>( );
+                temp.Init(i);
             }
         }
-        
 
         private bool JudgeException(List<Transform> parents)
         {
             return parents == null || parents.Count == 0;
         }
 
-        public void SetDefaultBtn(List<Transform> parents)
+        public void SetDefaultBtn(List<BtnParent> parents)
         {
-            if(parents[0].childCount > 0)
+            foreach (BtnParent parent in parents)
             {
-                Selected(parents[0].GetChild(0));
+                if(parent.Index == 0)
+                {
+                    parent.SelectedDefault();
+                }
             }
         }
 
-        private void Selected(Transform trans)
+        public void Show(Transform showUI)
         {
-            KillEffect(lastBtnTrans);
-            if (!JudgeException(trans))
+            ResetData();
+            currentParents =  showUI.GetComponentsInChildren<BtnParent>(true).ToList();
+            SetDefaultBtn(currentParents);
+        }
+
+        private void ResetData()
+        {
+            parentId = 0;
+            currentParents.Clear();
+        }
+
+        public void Left()
+        {
+            MoveIndex(currentParents[parentId].Left, -1);
+        }
+
+        public void Right()
+        {
+            MoveIndex(currentParents[parentId].Right, 1);
+        }
+
+        private bool MoveIndex(Func<bool> moveAction,int symbol)
+        {
+            if (JudgeException(moveAction, symbol))
+                return false;
+
+            if(parentId >= 0 && parentId < currentParents.Count)
             {
-                SaveDefaultColor(trans);
-                PlayEffect(trans);
+                if(moveAction())
+                {
+                    currentParents[parentId].SelectedState = Const.SelectedState.SELECTED;
+                    return true;
+                }
+                else
+                {
+                    currentParents[parentId].SelectedState = Const.SelectedState.UNSELECTED; //id改变之前把它设为未选中状态
+                    parentId += symbol;
+                    return MoveIndex(moveAction,symbol);
+                }
             }
-            lastBtnTrans = trans;
-        }
-        private bool JudgeException(Transform btn)
-        {
-            return btn.Button() == null || btn.Image() == null;
-        }
-
-        private void SaveDefaultColor(Transform btn)
-        {
-            if(!defaultColorDic.ContainsKey(btn))
+            else
             {
-                defaultColorDic[btn] = btn.Image().color;
+                ResetParentId();
+                currentParents[parentId].SelectedState = Const.SelectedState.SELECTED; //复位的id设为选中状态
+                return true;
             }
         }
 
-        private void PlayEffect(Transform btn)
+        private bool JudgeException(Func<bool> moveAction, int symbol)
         {
-           btn.Image().DOColor(new Color(47, 85, 214, 255),0.5f).SetLoops(-1,LoopType.Yoyo);
+            if(moveAction == null)
+            {
+                Debug.LogError("moveAction is null! ");
+                return true;
+            }
+
+            if(symbol != 1 && symbol != -1)
+            {
+                Debug.LogError("symbol must be 1 or -1 !!!");
+                return true;
+            }
+
+            return false;
         }
 
-        private void KillEffect(Transform btn)
+        private void ResetParentId()
         {
-            if (btn == null)
+            if(parentId <= 0)
+            {
+                parentId = 0;
                 return;
-
-            btn.Image().DOKill();
-            if(defaultColorDic.ContainsKey(btn))
+            }
+            else if(parentId >= currentParents.Count)
             {
-                btn.Image().color = defaultColorDic[btn];
+                parentId = currentParents.Count - 1;
             }
         }
     }

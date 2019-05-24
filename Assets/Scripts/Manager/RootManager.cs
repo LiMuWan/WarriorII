@@ -1,5 +1,6 @@
 using Const;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UIFrame
@@ -23,6 +24,11 @@ namespace UIFrame
             btnStateManager = gameObject.AddComponent<BtnStateManager>();
 
             uiManager.AddGetLayerObjectListener(uiLayerManager.GetLayerObject);
+            uiManager.AddInitBtnParentCallBack((uiTrans) =>
+            {
+                List<Transform> btnParents = uiManager.GetBtnParents(uiTrans);
+                btnStateManager.InitBtnParent(btnParents);
+             });
         }
 
         private void Start()
@@ -34,6 +40,16 @@ namespace UIFrame
         {
             var uiParam = uiManager.Back();
             ExcuteEffect(uiParam);
+        }
+
+        public void ButtonLeft()
+        {
+            btnStateManager.Left();
+        }
+
+        public void ButtonRight()
+        {
+            btnStateManager.Right();
         }
 
         public void Show(UiId uiId)
@@ -48,8 +64,7 @@ namespace UIFrame
 
             uiEffectManager.Show(uiParam.Item1);
             uiEffectManager.Hide(uiParam.Item2);
-
-            btnStateManager.CurrentParents = uiManager.GetBtnParents(uiParam.Item1);
+            btnStateManager.Show(uiParam.Item1);
         }
     }
 }
