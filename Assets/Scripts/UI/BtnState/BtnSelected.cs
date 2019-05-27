@@ -7,7 +7,21 @@ namespace UIFrame
 {
     public class BtnSelected : MonoBehaviour    
     {
-        public SelectedState SelectedState { get; set; }
+        public SelectedState SelectedState
+        {
+            set
+            {
+                switch (value)
+                {
+                    case SelectedState.SELECTED:
+                        Selected();
+                        break;
+                    case SelectedState.UNSELECTED:
+                        CancelSelected();
+                        break;
+                }
+            }
+        }
 
         public int Index
         {
@@ -18,11 +32,15 @@ namespace UIFrame
         }
 
         private Color defaultColor;
+
+        private void Awake()
+        {
+            SaveDefaultColor(transform);
+        }
         public void Selected()
         {
             if (!JudgeException(transform))
-            {
-                SaveDefaultColor(transform);
+            {    
                 PlayEffect(transform);
             }
         }

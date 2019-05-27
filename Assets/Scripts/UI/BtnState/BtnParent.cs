@@ -48,7 +48,7 @@ namespace UIFrame
             Selected(childs[0].transform);
         }
 
-        public void Selected(Transform selected)
+        private void Selected(Transform selected)
         {
             BtnSelected btn = selected.GetComponentInChildren<BtnSelected>();
             if(btn != null)
@@ -67,7 +67,7 @@ namespace UIFrame
             childId--;
             if(childId >= 0)
             {
-                Selected(childs[childId].transform);
+                Selected(childs[childId].transform); 
                 return true;
             }
             else
