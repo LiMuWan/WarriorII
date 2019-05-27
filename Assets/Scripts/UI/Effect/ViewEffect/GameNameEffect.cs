@@ -13,7 +13,7 @@ namespace UIFrame
             float time = 1;
             transform.DOKill();
             transform.RectTransform().DOKill();
-            transform.DOScale(Vector3.one * 2, time);
+            transform.DOScale(Vector3.one * 2f, time);
             transform.RectTransform().DOAnchorPos(defaultAnchorPos, time).OnComplete(() => onExitComplete?.Invoke()); 
         }
 
@@ -22,8 +22,8 @@ namespace UIFrame
             float time = 1;
             transform.DOKill();
             transform.RectTransform().DOKill();
-            transform.DOScale(Vector3.one, time);
-            transform.RectTransform().DOAnchorPos(new Vector2(607, 210), time).OnComplete(() => onEnterComplete?.Invoke());
+            transform.DOScale(Vector3.one * 1.5f, time);
+            transform.RectTransform().DOAnchorPos(new Vector2(514, 193), time).OnComplete(() => onEnterComplete?.Invoke());
         }
 
         public override UiEffect GetUIEffectLevel()
