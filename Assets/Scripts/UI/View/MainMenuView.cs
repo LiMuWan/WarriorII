@@ -10,7 +10,7 @@ namespace UIFrame
         public override List<Transform> GetBtnParents()
         {
             List<Transform> transforms = new List<Transform>();
-            transforms.Add(transform.Find("Buttons"));
+            transforms.Add(transform.GetBtnParent());
             return transforms;
         }
 

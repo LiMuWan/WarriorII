@@ -53,7 +53,7 @@ namespace UIFrame
             //SetActive(true);
         }
 
-        public virtual void Hide()
+        protected virtual void Hide()
         {
            // SetActive(false);
         }

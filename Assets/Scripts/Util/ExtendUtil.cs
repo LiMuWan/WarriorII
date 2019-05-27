@@ -1,3 +1,4 @@
+using Const;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,6 +53,20 @@ namespace Util
             {
                 Debug.LogErrorFormat("can't find button in this gameObject == {0}", transform.gameObject);
                 return null;
+            }
+        }
+
+        public static Transform GetBtnParent(this Transform transform)
+        {
+            var parent = transform.Find(ConstValue.BUTTON_PARENT_NAME);
+            if(parent == null)
+            {
+                Debug.LogError("can not find btn parent : " + ConstValue.BUTTON_PARENT_NAME);
+                return null;
+            }
+            else
+            {
+                return parent;
             }
         }
     }

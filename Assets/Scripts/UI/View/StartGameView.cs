@@ -2,6 +2,7 @@ using Const;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
 
 namespace UIFrame
 {
@@ -10,7 +11,7 @@ namespace UIFrame
         public override List<Transform> GetBtnParents()
         {
             List<Transform> transforms = new List<Transform>();
-            transforms.Add(transform.Find("Buttons"));
+            transforms.Add(transform.GetBtnParent());
             return transforms;
         }
         public override UiId GetUiId()
