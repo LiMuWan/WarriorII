@@ -6,7 +6,7 @@ namespace UIFrame
 {
     public class BtnParent : MonoBehaviour    
     {
-        private List<BtnSelected> childs;
+      
         public SelectedState SelectedState
         {
             set
@@ -24,23 +24,28 @@ namespace UIFrame
         }
 
         public int Index { get;private set; }
+        private List<BtnSelected> childs;
         private int childId;
+       
         public void Init(int index)
         {
             Index = index;
+            childId = 0;
             childs = new List<BtnSelected>();
+            BtnSelected temp;
             foreach (Transform trans in transform)
             {
-              childs.Add (trans.gameObject.AddComponent<BtnSelected>());
+               temp = trans.gameObject.AddComponent<BtnSelected>();
+                temp.AddSelectButtonByMouseListener(SelectButtonByMouse);
+               childs.Add (temp);
             }
         }
 
-        public void SetDefaultBtn()
+        private void SelectButtonByMouse(BtnSelected btn)
         {
-           if(childs.Count > 0)
-            {
-                childs[0].Selected();
-            }
+            childId = btn.Index;
+            ResetChildState();
+            btn.SelectedState = SelectedState.SELECTED;
         }
 
         public void SelectedDefault()

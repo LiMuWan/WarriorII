@@ -1,12 +1,16 @@
 using Const;
 using DG.Tweening;
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Util;
 
 namespace UIFrame
 {
-    public class BtnSelected : MonoBehaviour    
+    public class BtnSelected : MonoBehaviour,IPointerEnterHandler 
     {
+
+        private Action<BtnSelected> SelectButtonByMouse;
         public SelectedState SelectedState
         {
             set
@@ -36,6 +40,11 @@ namespace UIFrame
         private void Awake()
         {
             SaveDefaultColor(transform);
+        }
+
+        public void AddSelectButtonByMouseListener(Action<BtnSelected> action)
+        {
+            this.SelectButtonByMouse = action;
         }
         public void Selected()
         {
@@ -78,6 +87,9 @@ namespace UIFrame
             btn.Image().DOColor(new Color(47, 85, 214, 255), 0.5f).SetLoops(-1, LoopType.Yoyo);
         }
 
-       
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            SelectButtonByMouse ?.Invoke(this);
+        }
     }
 }
