@@ -21,10 +21,10 @@ namespace UIFrame
 
         protected override void Init()        
         {
-            transform.Find("Buttons/Continue").GetComponent<Button>().onClick.AddListener(() => { });
-            transform.Find("Buttons/Easy").GetComponent<Button>().onClick.AddListener(() => { });
-            transform.Find("Buttons/Normal").GetComponent<Button>().onClick.AddListener(() => { });
-            transform.Find("Buttons/Hard").GetComponent<Button>().onClick.AddListener(() => { });
+            transform.AddBtnListener("Continue" , () => { });
+            transform.AddBtnListener("Easy", () => { });
+            transform.AddBtnListener("Normal", () => { });
+            transform.AddBtnListener("Hard", () => { });
         }
     }
 }

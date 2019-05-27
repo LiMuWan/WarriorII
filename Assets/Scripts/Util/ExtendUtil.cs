@@ -14,6 +14,13 @@ namespace Util
             button.onClick.AddListener(() => action());
         }
 
+        public static void AddBtnListener(this Transform transform, Action action)
+        {
+            var button = transform.GetComponent<Button>() ?? transform.gameObject.AddComponent<Button>();
+
+            button.onClick.AddListener(() => action());
+        }
+
         public static RectTransform RectTransform(this Transform transform)
         {
             RectTransform rect = transform.GetComponent<RectTransform>();
@@ -67,6 +74,19 @@ namespace Util
             else
             {
                 return parent;
+            }
+        }
+
+        public static void AddBtnListener(this Transform transform , string btnName , Action callBack)
+        {
+            var btnTrans = transform.Find(ConstValue.BUTTON_PARENT_NAME + "/" + btnName);
+            if(btnTrans == null)
+            {
+                Debug.LogError("can not find btnName : " + btnName);
+            }
+            else
+            {
+                transform.AddBtnListener(callBack);
             }
         }
     }

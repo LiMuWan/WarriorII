@@ -21,10 +21,10 @@ namespace UIFrame
 
         protected override void Init()
         {
-            transform.Find("Buttons/StartGame").RectTransform().AddBtnListener(() => RootManager.Instance.Show(UiId.StartGame));
-            transform.Find("Buttons/DOJO").RectTransform().AddBtnListener(() => { });
-            transform.Find("Buttons/Help").RectTransform().AddBtnListener(() => { });
-            transform.Find("Buttons/ExitGame").RectTransform().AddBtnListener(() => Application.Quit());
+            transform.AddBtnListener("StartGame", () => { RootManager.Instance.Show(UiId.StartGame); });
+            transform.AddBtnListener("DOJO", () => { });
+            transform.AddBtnListener("Help", () => { });
+            transform.AddBtnListener("ExitGame", () => { Application.Quit(); });
         }
     }
 }
