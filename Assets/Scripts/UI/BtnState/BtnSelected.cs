@@ -50,6 +50,10 @@ namespace UIFrame
             KillEffect(transform);
         }
 
+        public  void SelectedButton()
+        {
+            transform.Button().onClick.Invoke();
+        }
         private void KillEffect(Transform btn)
         {
             if (btn == null)

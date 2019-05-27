@@ -57,9 +57,9 @@ namespace UIFrame
             }
         }
 
-        public void CancelSelected()
+        public void SelectedButton()
         {
-
+            childs[childId].SelectedButton();
         }
 
         public bool Left()

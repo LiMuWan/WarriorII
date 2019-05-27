@@ -66,5 +66,10 @@ namespace UIFrame
             uiEffectManager.Hide(uiParam.Item2);
             btnStateManager.Show(uiParam.Item1);
         }
+
+        public void SelectedButton()
+        {
+            btnStateManager.SelectedButton();
+        }
     }
 }

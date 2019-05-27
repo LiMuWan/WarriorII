@@ -101,7 +101,7 @@ namespace UIFrame
             else
             {
                 ResetParentId();
-                currentParents[parentId].SelectedState = Const.SelectedState.SELECTED; //复位的id设为选中状态
+                currentParents[parentId].SelectedState = Const.SelectedState.SELECTED; //复位的id设为选中状态 
                 return true;
             }
         }
@@ -134,6 +134,11 @@ namespace UIFrame
             {
                 parentId = currentParents.Count - 1;
             }
+        }
+
+        public void SelectedButton()
+        {
+            currentParents[parentId].SelectedButton();
         }
     }
 }

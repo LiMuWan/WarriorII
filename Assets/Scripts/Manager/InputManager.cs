@@ -24,6 +24,11 @@ namespace UIFrame
             {
                 RootManager.Instance.ButtonRight();
             }
+
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                RootManager.Instance.SelectedButton();
+            }
         }
     }
 }
