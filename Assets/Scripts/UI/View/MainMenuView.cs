@@ -19,7 +19,7 @@ namespace UIFrame
             return UiId.MainMenu;
         }
 
-        public void Start()        
+        protected override void Init()
         {
             transform.Find("Buttons/StartGame").RectTransform().AddBtnListener(() => RootManager.Instance.Show(UiId.StartGame));
             transform.Find("Buttons/DOJO").RectTransform().AddBtnListener(() => { });

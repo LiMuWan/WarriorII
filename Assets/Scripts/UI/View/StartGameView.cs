@@ -18,7 +18,7 @@ namespace UIFrame
             return UiId.StartGame;
         }
 
-        public void Start()        
+        protected override void Init()        
         {
             transform.Find("Buttons/Continue").GetComponent<Button>().onClick.AddListener(() => { });
             transform.Find("Buttons/Easy").GetComponent<Button>().onClick.AddListener(() => { });
