@@ -4,7 +4,9 @@ namespace Const
 {
     public class Path    
     {
-        public const string prefabPath = "Prefabs/";
-        public const string UIPath = prefabPath + "UI/";
+        public const string PREFAB_PATH = "Prefabs/";
+        public const string UI_PATH = PREFAB_PATH + "UI/";
+        public const string AUDIO_PATH = "Audio/";
+        public const string UI_AUDIO_PATH = AUDIO_PATH + "UI/";
     }
 }

@@ -12,6 +12,7 @@ namespace UIFrame
         private UILayerManager uiLayerManager;
         private InputManager inputManager;
         private BtnStateManager btnStateManager;
+        private UIAudioManager audioManager;
 
         public static RootManager Instance;
         private void Awake()
@@ -22,6 +23,7 @@ namespace UIFrame
             uiLayerManager = gameObject.AddComponent<UILayerManager>();
             inputManager = gameObject.AddComponent<InputManager>();
             btnStateManager = gameObject.AddComponent<BtnStateManager>();
+            audioManager = gameObject.AddComponent<UIAudioManager>();
 
             uiManager.AddGetLayerObjectListener(uiLayerManager.GetLayerObject);
             uiManager.AddInitBtnParentCallBack((uiTrans) =>
@@ -29,6 +31,7 @@ namespace UIFrame
                 List<Transform> btnParents = uiManager.GetBtnParents(uiTrans);
                 btnStateManager.InitBtnParent(btnParents);
              });
+            audioManager.Init(Path.UI_AUDIO_PATH, LoadManager.Instance.LoadAll<AudioClip>);
         }
 
         private void Start()
@@ -62,22 +65,53 @@ namespace UIFrame
 
         private void ExcuteEffect(Tuple<Transform,Transform> uiParam)
         {
-            if (uiParam.Item2 == null)
-            {
-                uiEffectManager.HideOthersEffect(uiManager.GetBasicUITransform());
-            }
-            else
-            {
-                uiEffectManager.Hide(uiParam.Item2);
-            }
+            ShowUI(uiParam.Item1);
+            HideUI(uiParam.Item2);
+        }
 
-            if (uiParam.Item1 == null)
+        private void ShowUI(Transform showUI)
+        {
+            ShowUIEffect(showUI);
+            ShowUIAudio();
+        }
+
+        private void HideUI(Transform hideUI)
+        {
+            HideUIEffect(hideUI);
+            HideUIAudio();
+        }
+
+        private void ShowUIAudio()
+        {
+            audioManager.Play(UIAudioClip.UI_in.ToString());
+        }
+
+        private void HideUIAudio()
+        {
+            audioManager.Play(UIAudioClip.UI_out.ToString());
+        }
+
+        private void ShowUIEffect(Transform showUI)
+        {
+            if (showUI == null)
             {
                 uiEffectManager.ShowOthersEffect(uiManager.GetBasicUITransform());
             }
             else
             {
-                uiEffectManager.Show(uiParam.Item1);
+                uiEffectManager.Show(showUI);
+            }
+        }
+
+        private void HideUIEffect(Transform hideUI)
+        {
+            if (hideUI == null)
+            {
+                uiEffectManager.HideOthersEffect(uiManager.GetBasicUITransform());
+            }
+            else
+            {
+                uiEffectManager.Hide(hideUI);
             }
         }
 
