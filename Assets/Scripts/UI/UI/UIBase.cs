@@ -12,7 +12,11 @@ namespace UIFrame
         public UIState UIState
         {
             get { return uiState; }
-            set { HandleState(value); }
+            set
+            {
+                HandleState(value);
+                uiState = value;
+            }
         }
 
         public void HandleState(UIState value)
