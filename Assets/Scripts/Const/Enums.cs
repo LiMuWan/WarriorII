@@ -45,4 +45,12 @@ namespace Const
         UI_logo_out,
         UI_out,
     }
+
+    public enum DifficultLevel
+    {
+        None,
+        Easy,
+        Normal,
+        Hard,
+    }
 }
