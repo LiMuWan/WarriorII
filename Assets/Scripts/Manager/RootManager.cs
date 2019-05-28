@@ -32,6 +32,8 @@ namespace UIFrame
                 btnStateManager.InitBtnParent(btnParents);
              });
             audioManager.Init(Path.UI_AUDIO_PATH, LoadManager.Instance.LoadAll<AudioClip>);
+
+            audioManager.PlayBG(UIAudioName.UI_bg.ToString());
         }
 
         private void Start()
@@ -83,12 +85,12 @@ namespace UIFrame
 
         private void ShowUIAudio()
         {
-            audioManager.Play(UIAudioClip.UI_in.ToString());
+            audioManager.Play(UIAudioName.UI_in.ToString());
         }
 
         private void HideUIAudio()
         {
-            audioManager.Play(UIAudioClip.UI_out.ToString());
+            audioManager.Play(UIAudioName.UI_out.ToString());
         }
 
         private void ShowUIEffect(Transform showUI)
@@ -123,6 +125,11 @@ namespace UIFrame
         public void ShowBtnState(Transform uiTransform)
         {
             btnStateManager.Show(uiTransform);
+        }
+
+        public void PlayUIAudio(UIAudioName uIAudioName)
+        {
+            audioManager.Play(uIAudioName.ToString());
         }
     }
 }

@@ -61,7 +61,20 @@ namespace UIFrame
             var clip = GetAudioClip(clipName);
             if(clip != null)
             {
+                //audioSource.clip = clip;
+                audioSource.PlayOneShot(clip,0.5f); //PlayOnShot可以同时播放好多个声音，它的原译是使用完马上释放，不会占用audiosource
+            }
+        }
+
+        public void PlayBG(string bgAudioName)
+        {
+            var clip = GetAudioClip(bgAudioName);
+            if (clip != null)
+            {
                 audioSource.clip = clip;
+                audioSource.loop = true;
+                audioSource.volume = 0.6f;
+                audioSource.Play(); //Play会去占用audioSource 
             }
         }
     }

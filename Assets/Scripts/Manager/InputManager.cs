@@ -10,6 +10,12 @@ namespace UIFrame
             {
                 RootManager.Instance.Back();
             }
+
+            if(Input.GetMouseButtonDown(0))
+            {
+                RootManager.Instance.PlayUIAudio(Const.UIAudioName.UI_click);
+            }
+
             BtnSelected();
         }
 

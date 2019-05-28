@@ -36,7 +36,7 @@ namespace Const
         UNSELECTED,
     }
 
-    public enum UIAudioClip
+    public enum UIAudioName
     {
         UI_bg,
         UI_click,
