@@ -104,5 +104,10 @@ namespace UIFrame
                 child.SelectedState = SelectedState.UNSELECTED;
             }
         }
+
+        public void ResetChild()
+        {
+            ResetChildState();
+        }
     }
 }

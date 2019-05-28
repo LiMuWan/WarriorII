@@ -6,7 +6,6 @@ namespace UIFrame
 {
     public abstract class UIBase : MonoBehaviour    
     {
-        public UILayer Layer { get; protected set;}
 
         private UIState uiState;
 
@@ -65,6 +64,7 @@ namespace UIFrame
 
         public abstract UiId GetUiId();
 
+        public abstract UILayer GetUILayer();
         public abstract List<Transform> GetBtnParents();
     }
 }

@@ -1,3 +1,4 @@
+using Const;
 using UnityEngine;
 
 namespace UIFrame
@@ -5,9 +6,9 @@ namespace UIFrame
     //显示在整个界面的UI
     public abstract class BasicUI : UIBase   
     {
-        protected override void Init()
+        public override UILayer GetUILayer()
         {
-            Layer = Const.UILayer.BASIC_UI;
+            return UILayer.BASIC_UI;
         }
     }
 }

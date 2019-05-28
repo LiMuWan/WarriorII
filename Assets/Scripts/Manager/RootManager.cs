@@ -40,6 +40,7 @@ namespace UIFrame
         {
             var uiParam = uiManager.Back();
             ExcuteEffect(uiParam);
+            ShowBtnState(uiManager.GetCurrentUITransform());
         }
 
         public void ButtonLeft()
@@ -56,6 +57,7 @@ namespace UIFrame
         {
             var uiParam = uiManager.Show(uiId);
             ExcuteEffect(uiParam);
+            ShowBtnState(uiParam.Item1);
         }
 
         private void ExcuteEffect(Tuple<Transform,Transform> uiParam)
@@ -63,13 +65,17 @@ namespace UIFrame
             if (uiParam == null) return;
 
             uiEffectManager.Show(uiParam.Item1);
-            uiEffectManager.Hide(uiParam.Item2);
-            btnStateManager.Show(uiParam.Item1);
+            uiEffectManager.Hide(uiParam.Item2); 
         }
 
         public void SelectedButton()
         {
             btnStateManager.SelectedButton();
+        }
+
+        public void ShowBtnState(Transform uiTransform)
+        {
+            btnStateManager.Show(uiTransform);
         }
     }
 }

@@ -15,20 +15,7 @@ namespace UIFrame
 
         private int parentId;
 
-        private List<BtnParent> currentParents = new List<BtnParent>();
-
-        //public List<Transform> CurrentParents
-        //{
-        //    set
-        //    {
-        //        if (!JudgeException(value))
-        //        {
-        //            parentId = 0;
-        //            SetDefaultBtn(value);
-        //        }
-        //    }
-        //}
-        
+        private List<BtnParent> currentParents = new List<BtnParent>();   
 
         public void InitBtnParent(List<Transform> btnParents)
         {
@@ -58,6 +45,7 @@ namespace UIFrame
 
         public void Show(Transform showUI)
         {
+            ResetBtnState();
             ResetData();
             currentParents =  showUI.GetComponentsInChildren<BtnParent>(true).ToList();
             SetDefaultBtn(currentParents);
@@ -139,6 +127,14 @@ namespace UIFrame
         public void SelectedButton()
         {
             currentParents[parentId].SelectedButton();
+        }
+
+        private void ResetBtnState()
+        {
+            foreach (var parent in currentParents)
+            {
+                parent.ResetChild();
+            }
         }
     }
 }

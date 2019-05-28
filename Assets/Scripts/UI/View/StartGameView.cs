@@ -22,7 +22,7 @@ namespace UIFrame
         protected override void Init()        
         {
             transform.AddBtnListener("Continue" , () => { });
-            transform.AddBtnListener("Easy", () => { });
+            transform.AddBtnListener("Easy", () => { RootManager.Instance.Show(UiId.NewGameWarning); });
             transform.AddBtnListener("Normal", () => { });
             transform.AddBtnListener("Hard", () => { });
         }
