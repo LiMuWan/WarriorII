@@ -86,7 +86,7 @@ namespace Util
             }
             else
             {
-                transform.AddBtnListener(callBack);
+                btnTrans.AddBtnListener(callBack);
             }
         }
     }
