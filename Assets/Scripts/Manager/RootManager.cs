@@ -62,10 +62,23 @@ namespace UIFrame
 
         private void ExcuteEffect(Tuple<Transform,Transform> uiParam)
         {
-            if (uiParam == null) return;
+            if (uiParam.Item2 == null)
+            {
+                uiEffectManager.HideOthersEffect(uiManager.GetBasicUITransform());
+            }
+            else
+            {
+                uiEffectManager.Hide(uiParam.Item2);
+            }
 
-            uiEffectManager.Show(uiParam.Item1);
-            uiEffectManager.Hide(uiParam.Item2); 
+            if (uiParam.Item1 == null)
+            {
+                uiEffectManager.ShowOthersEffect(uiManager.GetBasicUITransform());
+            }
+            else
+            {
+                uiEffectManager.Show(uiParam.Item1);
+            }
         }
 
         public void SelectedButton()

@@ -182,5 +182,18 @@ namespace UIFrame
         {
            return uiStack.Peek().transform;
         }
+
+        public Transform GetBasicUITransform()
+        {
+           UIBase[]  array = uiStack.ToArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if(array[i].GetUILayer() == UILayer.BASIC_UI)
+                {
+                    return array[i].transform;
+                }
+            }
+            return null;
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace UIFrame
 
         public override UiEffect GetUIEffectLevel()
         {
-            return UiEffect.OTHER_EFFECT;
+            return UiEffect.VIEW_EFFECT;
         }
 
     }
