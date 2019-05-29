@@ -19,6 +19,8 @@ namespace UIFrame
 
         public void InitBtnParent(List<Transform> btnParents)
         {
+            if (btnParents == null) return;
+
             BtnParent temp;
             for (int i = 0; i < btnParents.Count; i++)
             {

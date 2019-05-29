@@ -14,5 +14,6 @@ namespace Const
 
         public const string MAIN_SCENE = "Main";
         public const string COMICS_SCENE = "Comics";
+        public const string LEVEL_SCENE = "Level";
     }
 }

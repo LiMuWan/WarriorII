@@ -21,10 +21,10 @@ namespace UIFrame
 
         protected override void Init()        
         {
-            transform.AddBtnListener("Continue" , () => { });
-            transform.AddBtnListener("Easy", () => {  LoadScene(); });
-            transform.AddBtnListener("Normal", () => {  LoadScene(); });
-            transform.AddBtnListener("Hard", () => {  LoadScene(); });
+            transform.AddBtnListener("Continue" , () => { LoadScene(true); });
+            transform.AddBtnListener("Easy", () => {  LoadScene(false); });
+            transform.AddBtnListener("Normal", () => {  LoadScene(false); });
+            transform.AddBtnListener("Hard", () => {  LoadScene(false); });
         }
 
         protected override void Show()
@@ -45,7 +45,7 @@ namespace UIFrame
             }
         }
 
-        private void LoadScene()
+        private void LoadScene(bool isContinue)
         {
             if(DataManager.Single.JudgeExistData())
             {
@@ -53,8 +53,13 @@ namespace UIFrame
             }
             else
             {
-                //LoadScene() Todo
+                StartLoading();
             }
+        }
+
+        private void StartLoading()
+        {
+            RootManager.Instance.Show(UiId.Loading);
         }
     }
 }

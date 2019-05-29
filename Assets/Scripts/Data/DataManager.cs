@@ -58,7 +58,7 @@ namespace UIFrame
             }
             else if(JudgeCurrentScene(ConstValue.COMICS_SCENE))
             {
-                return "";
+                return ConstValue.LEVEL_SCENE + LevelIndex.ToString("00");
             }
             else
             {
@@ -68,7 +68,7 @@ namespace UIFrame
 
         private bool JudgeCurrentScene(string name)
         {
-            return string.Equals(SceneManager.GetActiveScene() , name);
+            return string.Equals(SceneManager.GetActiveScene().name , name);
         }
     }
 }
