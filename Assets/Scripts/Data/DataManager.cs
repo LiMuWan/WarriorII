@@ -50,6 +50,12 @@ namespace UIFrame
             return DifficultLevel != DifficultLevel.None;
         }
 
+        public void ResetData()
+        {
+            LevelIndex = 1;
+            LevelPartIndex = 1;
+        }
+
         public string GetSceneName()
         {
             if(JudgeCurrentScene(ConstValue.MAIN_SCENE))

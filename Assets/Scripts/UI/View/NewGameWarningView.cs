@@ -21,7 +21,11 @@ namespace UIFrame
 
         protected override void Init()
         {
-           transform.AddBtnListener("Yes", () => { Debug.LogError("Yes!"); });
+           transform.AddBtnListener("Yes", () => 
+           {
+               DataManager.Single.ResetData();
+               RootManager.Instance.Show(UiId.Loading);
+           });
            transform.AddBtnListener("No", () => { RootManager.Instance.Back(); });
         }
 

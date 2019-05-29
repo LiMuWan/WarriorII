@@ -21,10 +21,25 @@ namespace UIFrame
 
         protected override void Init()        
         {
-            transform.AddBtnListener("Continue" , () => { LoadScene(true); });
-            transform.AddBtnListener("Easy", () => {  LoadScene(false); });
-            transform.AddBtnListener("Normal", () => {  LoadScene(false); });
-            transform.AddBtnListener("Hard", () => {  LoadScene(false); });
+            transform.AddBtnListener("Continue" , () => 
+            {
+                LoadScene(true);         
+            });
+            transform.AddBtnListener("Easy", () => 
+            {
+                LoadScene(false);
+                DataManager.Single.DifficultLevel = DifficultLevel.Easy;
+            });
+            transform.AddBtnListener("Normal", () => 
+            {
+                LoadScene(false);
+                DataManager.Single.DifficultLevel = DifficultLevel.Normal;
+            });
+            transform.AddBtnListener("Hard", () => 
+            {
+                LoadScene(false);
+                DataManager.Single.DifficultLevel = DifficultLevel.Hard;
+            });
         }
 
         protected override void Show()
@@ -53,11 +68,11 @@ namespace UIFrame
             }
             else
             {
-                StartLoading();
+                Continue();
             }
         }
 
-        private void StartLoading()
+        private void Continue()
         {
             RootManager.Instance.Show(UiId.Loading);
         }
