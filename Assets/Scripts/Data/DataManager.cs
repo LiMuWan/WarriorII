@@ -6,7 +6,7 @@ namespace UIFrame
 {
     public class DataManager : MonoBehaviour    
     {
-        public DifficultLevel GetDifficultLevel
+        public static DifficultLevel DifficultLevel
         {
             set { PlayerPrefs.SetString(ConstValue.DIFFICULT_LEVEL, value.ToString()); }
             get
@@ -25,7 +25,7 @@ namespace UIFrame
             }
         }
 
-        public int LevelIndex
+        public static int LevelIndex
         {
             set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, value); }
             get
@@ -34,13 +34,18 @@ namespace UIFrame
             }
         }
 
-        public int LevelPartIndex
+        public static int LevelPartIndex
         {
             set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, value); }
             get
             {
                 return PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, 1);
             }
+        }
+
+        public static bool JudgeExistData()
+        {
+            return DifficultLevel != DifficultLevel.None;
         }
     }
 }
