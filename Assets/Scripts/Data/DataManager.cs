@@ -25,5 +25,22 @@ namespace UIFrame
             }
         }
 
+        public int LevelIndex
+        {
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, value); }
+            get
+            {
+               return PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX, 1);
+            }
+        }
+
+        public int LevelPartIndex
+        {
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, value); }
+            get
+            {
+                return PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, 1);
+            }
+        }
     }
 }

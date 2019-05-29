@@ -9,5 +9,7 @@ namespace Const
         public const string BUTTON_PARENT_NAME = "Buttons";
 
         public const string DIFFICULT_LEVEL = "DifficultLevel";
+        public const string LEVEL_INDEX = "LevelIndex";
+        public const string LEVEL_PART_INDEX = "LevelPartIndex";
     }
 }
