@@ -1,12 +1,14 @@
 using UnityEngine;
 using Const;
 using System;
+using Util;
+using UnityEngine.SceneManagement;
 
 namespace UIFrame
 {
-    public class DataManager : MonoBehaviour    
+    public class DataManager : SingletonBase<DataManager>    
     {
-        public static DifficultLevel DifficultLevel
+        public DifficultLevel DifficultLevel
         {
             set { PlayerPrefs.SetString(ConstValue.DIFFICULT_LEVEL, value.ToString()); }
             get
@@ -25,7 +27,7 @@ namespace UIFrame
             }
         }
 
-        public static int LevelIndex
+        public int LevelIndex
         {
             set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, value); }
             get
@@ -34,7 +36,7 @@ namespace UIFrame
             }
         }
 
-        public static int LevelPartIndex
+        public int LevelPartIndex
         {
             set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, value); }
             get
@@ -43,9 +45,30 @@ namespace UIFrame
             }
         }
 
-        public static bool JudgeExistData()
+        public bool JudgeExistData()
         {
             return DifficultLevel != DifficultLevel.None;
+        }
+
+        public string GetSceneName()
+        {
+            if(JudgeCurrentScene(ConstValue.MAIN_SCENE))
+            {
+                return ConstValue.COMICS_SCENE;
+            }
+            else if(JudgeCurrentScene(ConstValue.COMICS_SCENE))
+            {
+                return "";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        private bool JudgeCurrentScene(string name)
+        {
+            return string.Equals(SceneManager.GetActiveScene() , name);
         }
     }
 }

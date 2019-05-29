@@ -35,7 +35,7 @@ namespace UIFrame
 
         private void SetContinueBtnState()
         {
-            if(!DataManager.JudgeExistData())
+            if(!DataManager.Single.JudgeExistData())
             {
                 transform.GetBtnParent().Find("Continue").gameObject.SetActive(false);
             }
@@ -47,7 +47,7 @@ namespace UIFrame
 
         private void LoadScene()
         {
-            if(DataManager.JudgeExistData())
+            if(DataManager.Single.JudgeExistData())
             {
                 RootManager.Instance.Show(UiId.NewGameWarning);
             }

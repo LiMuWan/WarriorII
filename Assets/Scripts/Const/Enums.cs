@@ -22,6 +22,7 @@ namespace Const
         MainMenu,
         StartGame,
         NewGameWarning,
+        Loading,
     }
 
     public enum UiEffect
