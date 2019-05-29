@@ -14,5 +14,19 @@ namespace UIFrame
         {
            return Resources.LoadAll<T>(path);
         }
+
+        public GameObject LoadAndInstantiate(string path)
+        {
+            var temp = Resources.Load<GameObject>(path);
+            if(temp == null)
+            {
+                Debug.LogError("can not find the gameobject : " + temp.name + "under the path : " + path);
+                return null;
+            }
+            else
+            {
+               return GameObject.Instantiate(temp);
+            }
+        }
     }
 }

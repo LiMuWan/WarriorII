@@ -54,4 +54,11 @@ namespace Const
         Normal,
         Hard,
     }
+
+    public enum ComicsParentId
+    {
+        LeftComics,
+        CurrentComics,
+        RightComics
+    }
 }
