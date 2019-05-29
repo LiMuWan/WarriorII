@@ -1,10 +1,10 @@
 using UnityEngine;
+using Util;
 
 namespace UIFrame
 {
-    public class LoadManager    
+    public class LoadManager:SingletonBase<LoadManager>    
     {
-        public static LoadManager Instance { get; private set; } = new LoadManager();
         public T Load<T>(string path,string name) where T: class
         {
            return Resources.Load(path + name) as T;

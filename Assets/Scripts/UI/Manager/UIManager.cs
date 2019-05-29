@@ -115,7 +115,7 @@ namespace UIFrame
         {
              if(!prefabDictionary.ContainsKey(id))
              {
-                GameObject prefab = LoadManager.Instance.Load<GameObject>(Path.UI_PATH, id.ToString());
+                GameObject prefab = LoadManager.Single.Load<GameObject>(Path.UI_PATH, id.ToString());
                 if (prefab != null)
                 {
                     prefabDictionary[id] = Instantiate(prefab);

@@ -31,7 +31,7 @@ namespace UIFrame
                 List<Transform> btnParents = uiManager.GetBtnParents(uiTrans);
                 btnStateManager.InitBtnParent(btnParents);
              });
-            audioManager.Init(Path.UI_AUDIO_PATH, LoadManager.Instance.LoadAll<AudioClip>);
+            audioManager.Init(Path.UI_AUDIO_PATH, LoadManager.Single.LoadAll<AudioClip>);
 
             audioManager.PlayBG(UIAudioName.UI_bg.ToString());
         }
