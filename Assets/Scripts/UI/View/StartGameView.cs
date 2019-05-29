@@ -62,13 +62,25 @@ namespace UIFrame
 
         private void LoadScene(bool isContinue)
         {
-            if(DataManager.Single.JudgeExistData())
+            if(isContinue)
+            {
+                Continue();
+            }
+            else
+            {
+                NewGame();
+            } 
+        }
+
+        private void NewGame()
+        {
+            if (DataManager.Single.JudgeExistData())
             {
                 RootManager.Instance.Show(UiId.NewGameWarning);
             }
             else
             {
-                Continue();
+                RootManager.Instance.Show(UiId.Loading);
             }
         }
 

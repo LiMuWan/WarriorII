@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Util;
@@ -9,8 +11,9 @@ namespace Manager
     {
         private AsyncOperation asyncOperation;
 
-        public void AllowSwitchScene()
+        public async void AllowSwitchScene()
         {
+            await Task.Delay(TimeSpan.FromSeconds(3f));
             asyncOperation.allowSceneActivation = true;
         }
 
