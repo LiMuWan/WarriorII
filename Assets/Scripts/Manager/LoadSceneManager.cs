@@ -13,7 +13,7 @@ namespace Manager
 
         public async void AllowSwitchScene()
         {
-            await Task.Delay(TimeSpan.FromSeconds(3f));
+            await Task.Delay(TimeSpan.FromSeconds(2f));
             asyncOperation.allowSceneActivation = true;
         }
 

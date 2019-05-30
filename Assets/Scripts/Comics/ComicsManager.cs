@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Util;
+using Manager;
 
 namespace UIFrame
 {
@@ -59,7 +60,11 @@ namespace UIFrame
             transform.AddBtnListener("Back", Back);
             transform.AddBtnListener("Left", LeftBtn);
             transform.AddBtnListener("Right", RightBtn);
-            transform.AddBtnListener("Done", () => { });
+            transform.AddBtnListener("Done", () => 
+            {
+                StartCoroutine(LoadSceneManager.Single.LoadSceneAsync(DataManager.Single.GetSceneName()));
+                LoadSceneManager.Single.AllowSwitchScene();
+            });
         }
 
         private void LeftBtn()

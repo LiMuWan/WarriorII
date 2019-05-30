@@ -64,7 +64,7 @@ namespace UIFrame
             }
             else if(JudgeCurrentScene(ConstValue.COMICS_SCENE))
             {
-                return ConstValue.LEVEL_SCENE + LevelIndex.ToString("00");
+                return ConstValue.LEVEL_SCENE + "_" + LevelIndex.ToString("00");
             }
             else
             {
