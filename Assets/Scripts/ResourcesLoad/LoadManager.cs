@@ -15,7 +15,7 @@ namespace UIFrame
            return Resources.LoadAll<T>(path);
         }
 
-        public GameObject LoadAndInstantiate(string path)
+        public GameObject LoadAndInstantiate(string path , Transform parent)
         {
             var temp = Resources.Load<GameObject>(path);
             if(temp == null)
@@ -25,7 +25,7 @@ namespace UIFrame
             }
             else
             {
-               return GameObject.Instantiate(temp);
+                return GameObject.Instantiate(temp,parent);
             }
         }
     }
