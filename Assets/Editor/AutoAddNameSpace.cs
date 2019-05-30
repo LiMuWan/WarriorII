@@ -17,8 +17,12 @@ namespace CustomTool
                 string text = "";
                 //读取xml和json建议用File.ReadAllText，因为它会自动的关闭IO流
                 text += File.ReadAllText(path);
-                //Debug.Log( GetClassName1(text));
-                var newText = GetNewScriptContext(GetClassName(text) + "View");
+                string name = GetClassName(text);
+                if (string.IsNullOrEmpty(name))
+                {
+                    return;
+                }
+                var newText = GetNewScriptContext(name);
                 File.WriteAllText(path, newText); 
             }
             AssetDatabase.Refresh();
