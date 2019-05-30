@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 
 namespace CustomTool
@@ -20,6 +21,7 @@ namespace CustomTool
                 var newText = GetNewScriptContext(GetClassName(text) + "View");
                 File.WriteAllText(path, newText); 
             }
+            AssetDatabase.Refresh();
         }
 
         private static void CreateClass()
