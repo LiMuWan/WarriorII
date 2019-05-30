@@ -38,7 +38,9 @@ namespace CustomTool
             var script = new ScriptBuildHelp();
             script.WriteUsing("UnityEngine");
             script.WriteEmptyLine();
-            script.WriteNameSpace("UIFrame");
+            AddNamespaceData data = AddNamespaceWindow.GetData();
+            string name = data == null ? "UIFrame" : data.name;
+            script.WriteNameSpace(name);
             script.IndentTimes++;
             script.WriteClass(className);
             script.IndentTimes++;
