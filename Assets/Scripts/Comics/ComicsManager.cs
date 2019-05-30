@@ -19,11 +19,19 @@ namespace UIFrame
             InitButtons();
             SpawItem();
             InitPage();
+            InitBGAudio();
         }
 
         private void InitPage()
         {
             comicsPage = transform.GetByName("Page").GetOrAddComponent<ComicsPage>();
+        }
+
+        private void InitBGAudio()
+        {
+            var manager = gameObject.AddComponent<UIAudioManager>();
+            manager.Init(Path.BG_AUDIO_PATH, LoadManager.Single.LoadAll<AudioClip>);
+            manager.PlayBG(BGAudioName.Level_Bg.ToString());
         }
 
         private void InitParent()

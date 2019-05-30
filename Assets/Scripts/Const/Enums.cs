@@ -47,6 +47,11 @@ namespace Const
         UI_out,
     }
 
+    public enum BGAudioName
+    {
+        Level_Bg
+    }
+
     public enum DifficultLevel
     {
         None,
