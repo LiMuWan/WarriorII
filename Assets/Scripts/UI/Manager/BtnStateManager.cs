@@ -4,8 +4,9 @@ using Util;
 using DG.Tweening;
 using System.Linq;
 using System;
+using UIFrame;
 
-namespace UIFrame
+namespace Manager
 {
     public class BtnStateManager : MonoBehaviour    
     {

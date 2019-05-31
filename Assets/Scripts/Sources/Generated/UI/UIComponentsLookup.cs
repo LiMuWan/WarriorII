@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UIFrame
+namespace Game
 {
     public class UIComponentsLookup : MonoBehaviour    
     {

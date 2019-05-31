@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Const;
+using Manager;
 using UnityEngine;
 using Util;
 

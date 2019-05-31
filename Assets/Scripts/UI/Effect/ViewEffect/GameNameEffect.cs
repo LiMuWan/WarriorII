@@ -2,6 +2,7 @@ using Const;
 using UnityEngine;
 using DG.Tweening;
 using Util;
+using Manager;
 
 namespace UIFrame
 {

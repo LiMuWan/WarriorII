@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UIFrame
+namespace Manager
 {
     public class UILayerManager : MonoBehaviour    
     {

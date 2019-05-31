@@ -1,9 +1,10 @@
 using Const;
+using Manager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UIFrame
+namespace Manager
 {
     public class RootManager : MonoBehaviour
     {

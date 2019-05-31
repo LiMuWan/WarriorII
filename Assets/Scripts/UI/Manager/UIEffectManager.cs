@@ -1,7 +1,8 @@
 using System;
+using UIFrame;
 using UnityEngine;
 
-namespace UIFrame
+namespace Manager
 {
     public class UIEffectManager : MonoBehaviour    
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Util;
 
-namespace UIFrame
+namespace Manager
 {
     public class LoadManager:SingletonBase<LoadManager>    
     {

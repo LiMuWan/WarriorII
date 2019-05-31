@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Util;
+using UIFrame;
 
-namespace UIFrame
+namespace Manager
 {
     public class UIManager : MonoBehaviour    
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Util;
 
-namespace UIFrame
+namespace Manager
 {
     public class UIAudioManager : MonoBehaviour    
     {

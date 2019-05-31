@@ -1,7 +1,7 @@
 using Const;
 using UnityEngine;
 
-namespace UIFrame
+namespace Manager
 {
     public interface IUIManager    
     {

@@ -4,7 +4,7 @@ using System;
 using Util;
 using UnityEngine.SceneManagement;
 
-namespace UIFrame
+namespace Manager
 {
     public class DataManager : SingletonBase<DataManager>    
     {
