@@ -12,7 +12,8 @@ namespace CustomTool
         private static void OnWillCreateAsset(string path)
         {
             path = path.Replace(".meta", "");
-            if(path.EndsWith(".cs"))
+            if (path.Contains("Sources")) return;
+            if (path.EndsWith(".cs"))
             {
                 string text = "";
                 //读取xml和json建议用File.ReadAllText，因为它会自动的关闭IO流
@@ -23,7 +24,7 @@ namespace CustomTool
                     return;
                 }
                 var newText = GetNewScriptContext(name);
-                File.WriteAllText(path, newText); 
+                File.WriteAllText(path, newText);
             }
             AssetDatabase.Refresh();
         }
