@@ -4,14 +4,15 @@ namespace Game
 {
     public class ViewFeature : Feature    
     {
-        public ViewFeature(Contexts contexts): base("View")
+        public ViewFeature(Contexts contexts) : base("View")
         {
-            Init();
+            Init(contexts);
         }
 
-        private void Init()
+        private void Init(Contexts contexts )
         {
-            Add(new InitViewSystem());
+            Add(new InitViewSystem(contexts)); 
         }
     }
 }
+ 

@@ -13,4 +13,28 @@ namespace Game
         /// </summary>
         START_GAME_ANI
     }
+
+    public enum CameraParent
+    {
+        START,
+        IN_GAME
+    }
+
+    /// <summary>
+    /// 关卡ID
+    /// </summary>
+    public enum LevelID
+    {
+        ONE = 1,
+        TWO = 2,
+    }
+
+    /// <summary>
+    /// 关卡部分ID
+    /// </summary>
+    public enum LevelPartID
+    {
+        ONE = 1,
+        TWO
+    }
 }

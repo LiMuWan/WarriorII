@@ -3,6 +3,7 @@ using Const;
 using System;
 using Util;
 using UnityEngine.SceneManagement;
+using Game;
 
 namespace Manager
 {
@@ -27,21 +28,28 @@ namespace Manager
             }
         }
 
-        public int LevelIndex
+        /// <summary>
+        /// 管卡数据标记，默认是1
+        /// </summary>
+        public LevelID  LevelIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, value); }
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, (int)value); }
             get
             {
-               return PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX, 1);
+               return (LevelID)PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX,(int)LevelID.ONE);
             }
         }
 
-        public int LevelPartIndex
+
+        /// <summary>
+        /// 关卡的第几部分的标记，默认是1
+        /// </summary>
+        public LevelPartID LevelPartIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, value); }
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value); }
             get
             {
-                return PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, 1);
+                return (LevelPartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, (int)LevelPartID.ONE);
             }
         }
 
@@ -52,8 +60,8 @@ namespace Manager
 
         public void ResetData()
         {
-            LevelIndex = 1;
-            LevelPartIndex = 1;
+            LevelIndex = LevelID.ONE;
+            LevelPartIndex = LevelPartID.ONE;
         }
 
         public string GetSceneName()

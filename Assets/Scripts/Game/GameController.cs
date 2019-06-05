@@ -8,7 +8,8 @@ namespace Game
         private Systems systems;
         public void Start()
         {
-            systems = new InitFeature(Contexts.sharedInstance);
+            Services services = new Services(new FindObjectService());
+            systems = new InitFeature(Contexts.sharedInstance,services);
             systems.Initialize(); 
         }
 

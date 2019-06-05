@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Game
@@ -5,7 +6,7 @@ namespace Game
     /// <summary>
     ///  查找场景中物体的服务
     /// </summary>
-    public class FindObjectService : IFindObjectService   
+    public class FindObjectService : IFindObjectService
     {
         public T[] FindAllType<T>() where T : Object
         {
@@ -15,6 +16,12 @@ namespace Game
                 Debug.LogError("未找到类型 ：" + typeof(T).FullName + "对象");
             }
             return temp;
+        }
+
+        public IView[] FindAllView()
+        {
+           var array = FindAllType<ViewService>();
+           return array;
         }
     }
 }
