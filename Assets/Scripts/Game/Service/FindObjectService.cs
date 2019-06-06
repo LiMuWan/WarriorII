@@ -4,6 +4,15 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
+    /// 查找场景内物体的服务接口
+    /// </summary>
+    public interface IFindObjectService
+    {
+        T[] FindAllType<T>() where T : Object;
+        IView[] FindAllView();
+    }
+
+    /// <summary>
     ///  查找场景中物体的服务
     /// </summary>
     public class FindObjectService : IFindObjectService

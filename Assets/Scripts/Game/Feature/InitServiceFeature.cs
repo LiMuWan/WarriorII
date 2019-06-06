@@ -6,7 +6,8 @@ namespace Game
     {
         public InitServiceFeature(Contexts contexts,Services services):base("InitService")
         {
-            contexts.game.ReplaceGameFindObjectService(services.FindObjectService);
+            Add(new InitServiceSystem(contexts,services));
+            Add(new ExcuteServiceSystem(contexts, services)); 
         }
     }
 }

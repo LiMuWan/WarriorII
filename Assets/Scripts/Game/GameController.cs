@@ -8,8 +8,12 @@ namespace Game
         private Systems systems;
         public void Start()
         {
-            Services services = new Services(new FindObjectService());
+            Services services = new Services(new FindObjectService(),
+                                        new EntitasInputService(),
+                                        new UnityInputService());
+
             systems = new InitFeature(Contexts.sharedInstance,services);
+
             systems.Initialize(); 
         }
 

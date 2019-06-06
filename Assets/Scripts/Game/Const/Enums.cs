@@ -37,4 +37,18 @@ namespace Game
         ONE = 1,
         TWO
     }
+
+    /// <summary>
+    ///  ‰»Î∞¥≈• 
+    /// </summary>
+    public enum InputButton
+    {
+        NONE,
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        ATTACK_O,
+        ATTACK_X
+    }
 }
