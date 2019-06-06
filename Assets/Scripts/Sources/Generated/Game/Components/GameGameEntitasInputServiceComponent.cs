@@ -12,22 +12,22 @@ public partial class GameContext {
     public Game.EntitasInputServiceComponent gameEntitasInputService { get { return gameEntitasInputServiceEntity.gameEntitasInputService; } }
     public bool hasGameEntitasInputService { get { return gameEntitasInputServiceEntity != null; } }
 
-    public GameEntity SetGameEntitasInputService(Game.IInputService newInputService) {
+    public GameEntity SetGameEntitasInputService(Game.IInputService newEntitasInputService) {
         if (hasGameEntitasInputService) {
             throw new Entitas.EntitasException("Could not set GameEntitasInputService!\n" + this + " already has an entity with Game.EntitasInputServiceComponent!",
                 "You should check if the context already has a gameEntitasInputServiceEntity before setting it or use context.ReplaceGameEntitasInputService().");
         }
         var entity = CreateEntity();
-        entity.AddGameEntitasInputService(newInputService);
+        entity.AddGameEntitasInputService(newEntitasInputService);
         return entity;
     }
 
-    public void ReplaceGameEntitasInputService(Game.IInputService newInputService) {
+    public void ReplaceGameEntitasInputService(Game.IInputService newEntitasInputService) {
         var entity = gameEntitasInputServiceEntity;
         if (entity == null) {
-            entity = SetGameEntitasInputService(newInputService);
+            entity = SetGameEntitasInputService(newEntitasInputService);
         } else {
-            entity.ReplaceGameEntitasInputService(newInputService);
+            entity.ReplaceGameEntitasInputService(newEntitasInputService);
         }
     }
 
@@ -49,17 +49,17 @@ public partial class GameEntity {
     public Game.EntitasInputServiceComponent gameEntitasInputService { get { return (Game.EntitasInputServiceComponent)GetComponent(GameComponentsLookup.GameEntitasInputService); } }
     public bool hasGameEntitasInputService { get { return HasComponent(GameComponentsLookup.GameEntitasInputService); } }
 
-    public void AddGameEntitasInputService(Game.IInputService newInputService) {
+    public void AddGameEntitasInputService(Game.IInputService newEntitasInputService) {
         var index = GameComponentsLookup.GameEntitasInputService;
         var component = (Game.EntitasInputServiceComponent)CreateComponent(index, typeof(Game.EntitasInputServiceComponent));
-        component.EntitasInputService = newInputService;
+        component.EntitasInputService = newEntitasInputService;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameEntitasInputService(Game.IInputService newInputService) {
+    public void ReplaceGameEntitasInputService(Game.IInputService newEntitasInputService) {
         var index = GameComponentsLookup.GameEntitasInputService;
         var component = (Game.EntitasInputServiceComponent)CreateComponent(index, typeof(Game.EntitasInputServiceComponent));
-        component.EntitasInputService = newInputService;
+        component.EntitasInputService = newEntitasInputService;
         ReplaceComponent(index, component);
     }
 

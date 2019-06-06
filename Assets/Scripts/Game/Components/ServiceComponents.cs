@@ -22,4 +22,13 @@ namespace Game
     {
         public IInputService EntitasInputService;
     }
+
+    /// <summary>
+    /// 日志服务组件 
+    /// </summary>
+    [Game,Unique]
+    public class LogServiceComponent:IComponent
+    {
+        public ILogService LogService;
+    }
 }

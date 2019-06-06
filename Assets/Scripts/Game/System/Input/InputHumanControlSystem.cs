@@ -20,7 +20,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLogService.LogService.Log("Up");
         }
     }
 
@@ -41,7 +41,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLogService.LogService.Log("Down");
         }
     }
 
@@ -62,12 +62,12 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLogService.LogService.Log("Left");
         }
     }
 
     /// <summary>
-    ///向下按键响应系统
+    ///向右按键响应系统
     /// </summary>
     public class InputRightButtonSystem : InputButtonSystemBase
     {
@@ -83,7 +83,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLogService.LogService.Log("Right");
         }
     }
 
@@ -103,7 +103,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLogService.LogService.Log("attack o");
         }
     }
 
@@ -123,7 +123,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLogService.LogService.Log("attack x");
         }
     }
 }

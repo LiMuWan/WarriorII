@@ -42,34 +42,34 @@ namespace Game
 
         }
 
-        public void AttackO()
+        public void Up()
         {
-            this.contexts.input.SetGameInputButton(InputButton.ATTACK_O);
-        }
-
-        public void AttackX()
-        {
-            this.contexts.input.SetGameInputButton(InputButton.ATTACK_X);
+            this.contexts.input.ReplaceGameInputButton(InputButton.UP);
         }
 
         public void Down()
         {
-            this.contexts.input.SetGameInputButton(InputButton.DOWN);
+            this.contexts.input.ReplaceGameInputButton(InputButton.DOWN);
         }
 
         public void Left()
         {
-            this.contexts.input.SetGameInputButton(InputButton.LEFT);
+            this.contexts.input.ReplaceGameInputButton(InputButton.LEFT);
         }
 
         public void Right()
         {
-            this.contexts.input.SetGameInputButton(InputButton.RIGHT);
+            this.contexts.input.ReplaceGameInputButton(InputButton.RIGHT);
         }
 
-        public void Up()
+        public void AttackO()
         {
-            this.contexts.input.SetGameInputButton(InputButton.UP);
+            this.contexts.input.ReplaceGameInputButton(InputButton.ATTACK_O);
+        }
+
+        public void AttackX()
+        {
+            this.contexts.input.ReplaceGameInputButton(InputButton.ATTACK_X);
         }
     }
 
@@ -87,60 +87,61 @@ namespace Game
 
         public void Update()
         {
-            if(Input.GetKeyDown(KeyCode.W))
-            {
-                Up();
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Down();
-            }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Left();
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                Right();
-            }
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                AttackO();
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                AttackX();
-            }
+
+            Up();
+            Down();
+            Left();
+            Right();
+            AttackO();
+            AttackX();
         }
          
-        public void AttackO()
+        public void Up()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void AttackX()
-        {
-            throw new System.NotImplementedException();
+            if (Input.GetKey(KeyCode.W))
+            {
+                entitasInputService.Up();
+            }
         }
 
         public void Down()
         {
-            throw new System.NotImplementedException();
+         if (Input.GetKey(KeyCode.S))
+            {
+                entitasInputService.Down();
+            }
         }
 
         public void Left()
         {
-            throw new System.NotImplementedException();
+            if (Input.GetKey(KeyCode.A))
+            {
+                entitasInputService.Left();
+            }
         }
 
         public void Right()
         {
-            throw new System.NotImplementedException();
+            if (Input.GetKey(KeyCode.D))
+            {
+                entitasInputService.Right();
+            }
         }
 
-        public void Up()
+        public void AttackO()
         {
-            throw new System.NotImplementedException();
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                entitasInputService.AttackO();
+            }
+        }
+
+        public void AttackX()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                entitasInputService.AttackX();
+            }
         }
     }
 

@@ -10,7 +10,8 @@ namespace Game
         {
             Services services = new Services(new FindObjectService(),
                                         new EntitasInputService(),
-                                        new UnityInputService());
+                                        new UnityInputService(),
+                                        new LogService());
 
             systems = new InitFeature(Contexts.sharedInstance,services);
 
