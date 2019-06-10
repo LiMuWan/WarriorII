@@ -23,7 +23,9 @@ namespace Game
 
         private void ReactiveSystem(Contexts contexts)
         {
-            Add(new GameStateSystem(contexts));
+            Add(new GameStartSystem(contexts));
+            Add(new GamePauseSystem(contexts));
+            Add(new GameEndSystem(contexts)); 
         }
     }
 }
