@@ -31,4 +31,10 @@ namespace Game
     {
         public ILogService LogService;
     }
+
+    [Game,Unique]
+    public class LoadServiceComponent : IComponent
+    {
+        public ILoadService LoadService; 
+    }
 }

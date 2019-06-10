@@ -10,6 +10,15 @@ namespace Game
     [Game, Event(EventTarget.Self),Unique ]
     public class CameraState : IComponent
     {
-        public CameraAniName state;
+        public CameraAniName State;
+    }
+
+    /// <summary>
+    /// ÓÎÏ·×´Ì¬
+    /// </summary>
+    [Game,Unique]
+    public class GameStateComponent : IComponent
+    {
+        public GameState GameState;
     }
 }

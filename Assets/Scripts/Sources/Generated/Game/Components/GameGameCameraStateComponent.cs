@@ -52,14 +52,14 @@ public partial class GameEntity {
     public void AddGameCameraState(Game.CameraAniName newState) {
         var index = GameComponentsLookup.GameCameraState;
         var component = (Game.CameraState)CreateComponent(index, typeof(Game.CameraState));
-        component.state = newState;
+        component.State = newState;
         AddComponent(index, component);
     }
 
     public void ReplaceGameCameraState(Game.CameraAniName newState) {
         var index = GameComponentsLookup.GameCameraState;
         var component = (Game.CameraState)CreateComponent(index, typeof(Game.CameraState));
-        component.state = newState;
+        component.State = newState;
         ReplaceComponent(index, component);
     }
 
