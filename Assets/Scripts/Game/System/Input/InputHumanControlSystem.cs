@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
-    /// 向上按键响应系统
+    /// 向前按键响应系统
     /// </summary>
-    public class InputUpButtonSystem : InputButtonSystemBase
+    public class InputForwardButtonSystem : InputButtonSystemBase
     {
-        public InputUpButtonSystem(Contexts contexts) : base(contexts)
+        public InputForwardButtonSystem(Contexts contexts) : base(contexts)
         {
 
         }
@@ -25,11 +25,11 @@ namespace Game
     }
 
     /// <summary>
-    ///向下按键响应系统
+    ///向后按键响应系统
     /// </summary>
-    public class InputDownButtonSystem : InputButtonSystemBase
+    public class InputBackButtonSystem : InputButtonSystemBase
     {
-        public InputDownButtonSystem(Contexts contexts) : base(contexts)
+        public InputBackButtonSystem(Contexts contexts) : base(contexts)
         {
 
         }
