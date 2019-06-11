@@ -40,7 +40,7 @@ namespace Game
 
         protected override void Execute(List<GameEntity> entities)
         {
-            throw new System.NotImplementedException();
+            contexts.game.gameLoadService.LoadService.LoadPlayer();
         }
     }
 
