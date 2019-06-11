@@ -9,6 +9,10 @@ namespace Game
     public enum CameraAniName
     {
         /// <summary>
+        /// 默认
+        /// </summary>
+        NONE,
+        /// <summary>
         /// 相机开场动画
         /// </summary>
         START_GAME_ANI

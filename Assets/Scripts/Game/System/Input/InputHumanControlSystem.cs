@@ -20,7 +20,6 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gameLogService.LogService.Log("Up");
             contexts.game.gamePlayer.PlayerBehaviour.Forward();
         }
     }
@@ -42,7 +41,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gameLogService.LogService.Log("Down");
+            contexts.game.gamePlayer.PlayerBehaviour.Back();
         }
     }
 
@@ -63,7 +62,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gameLogService.LogService.Log("Left");
+            contexts.game.gamePlayer.PlayerBehaviour.Left();
         }
     }
 
@@ -84,7 +83,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gameLogService.LogService.Log("Right");
+            contexts.game.gamePlayer.PlayerBehaviour.Right();
         }
     }
 

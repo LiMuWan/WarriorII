@@ -15,22 +15,22 @@ namespace Game
 
         public void Forward()
         {
-            playerTrans.Translate(Time.deltaTime * 10 * Vector3.forward,Space.Self);
+            Move(5f, Vector3.forward);
         }
 
-        public void Down()
+        public void Back()
         {
-            throw new System.NotImplementedException();
+            Move(5f, Vector3.back);
         }
 
         public void Left()
         {
-            throw new System.NotImplementedException();
+            Move(5f, Vector3.left);
         }
 
         public void Right()
         {
-            throw new System.NotImplementedException();
+            Move(5f, Vector3.right);
         }
         public void AttackO()
         {
@@ -42,5 +42,9 @@ namespace Game
             throw new System.NotImplementedException();
         }
 
+        private void Move(float speed,Vector3 direction)
+        {
+            playerTrans.Translate(Time.deltaTime * speed * direction, Space.Self);
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace Game
             var cameraControllerTrans = gameParentManager.GetParentTrans(ParentName.CameraController);
             CameraController cameraController = cameraControllerTrans.gameObject.AddComponent<CameraController>();
             var entity = contexts.game.CreateEntity();
-            entity.AddGameCameraState(CameraAniName.START_GAME_ANI);
+            entity.AddGameCameraState(CameraAniName.NONE);
             cameraController.Init(contexts, entity);
         }
 

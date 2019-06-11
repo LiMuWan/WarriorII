@@ -34,7 +34,7 @@ namespace Game
             this.contexts.input.ReplaceGameInputButton(InputButton.UP);
         }
 
-        public void Down()
+        public void Back()
         {
             this.contexts.input.ReplaceGameInputButton(InputButton.DOWN);
         }
@@ -76,7 +76,7 @@ namespace Game
         {
 
             Forward();
-            Down();
+            Back();
             Left();
             Right();
             AttackO();
@@ -91,11 +91,11 @@ namespace Game
             }
         }
 
-        public void Down()
+        public void Back()
         {
          if (Input.GetKey(KeyCode.S))
             {
-                entitasInputService.Down();
+                entitasInputService.Back();
             }
         }
 
