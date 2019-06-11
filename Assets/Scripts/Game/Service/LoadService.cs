@@ -10,7 +10,7 @@ namespace Game
     /// </summary>
     public interface ILoadService:ILoad
     {
-        IPlayerBehaviour LoadPlayer();
+        void LoadPlayer();
     }
 
     public class LoadService : ILoadService
@@ -37,15 +37,15 @@ namespace Game
             return LoadManager.Single.LoadAndInstantiate(path, parent);
         }
 
-        public IPlayerBehaviour LoadPlayer()
+        public void LoadPlayer()
         {
            var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
            PlayerView playerView = player.AddComponent<PlayerView>();
+           IPlayerBehaviour playerBehaviour = new PlayerBehaviour();
 
            GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
-           entity.AddGamePlayer(playerView);
+           entity.AddGamePlayer(playerView,playerBehaviour);
            playerView.Init(Contexts.sharedInstance,entity);
-           return playerView;
         }
     }
 }

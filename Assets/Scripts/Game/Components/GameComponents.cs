@@ -25,6 +25,7 @@ namespace Game
     [Game,Unique]
     public class PlayerComponent : IComponent
     {
+        public IView PlayerView;
         public IPlayerBehaviour PlayerBehaviour;
     }
 }
