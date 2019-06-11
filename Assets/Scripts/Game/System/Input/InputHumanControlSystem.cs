@@ -21,6 +21,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             contexts.game.gameLogService.LogService.Log("Up");
+            contexts.game.gamePlayer.PlayerBehaviour.Forward();
         }
     }
 

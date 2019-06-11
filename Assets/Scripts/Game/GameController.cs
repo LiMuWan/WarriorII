@@ -12,6 +12,7 @@ namespace Game
         private Contexts contexts;
         public void Start()
         {
+            contexts = Contexts.sharedInstance;
             InitManager();
 
             Services services = new Services(new FindObjectService(),
@@ -24,7 +25,6 @@ namespace Game
 
             systems.Initialize();
 
-            contexts = Contexts.sharedInstance;
             contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
         }
 

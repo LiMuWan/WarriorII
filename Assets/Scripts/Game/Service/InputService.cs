@@ -29,7 +29,7 @@ namespace Game
 
         }
 
-        public void Up()
+        public void Forward()
         {
             this.contexts.input.ReplaceGameInputButton(InputButton.UP);
         }
@@ -75,7 +75,7 @@ namespace Game
         public void Update()
         {
 
-            Up();
+            Forward();
             Down();
             Left();
             Right();
@@ -83,11 +83,11 @@ namespace Game
             AttackX();
         }
          
-        public void Up()
+        public void Forward()
         {
             if (Input.GetKey(KeyCode.W))
             {
-                entitasInputService.Up();
+                entitasInputService.Forward();
             }
         }
 

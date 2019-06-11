@@ -2,11 +2,20 @@ using UnityEngine;
 
 namespace Game
 {
+    /// <summary>
+    /// 玩家基础行为
+    /// </summary>
     public class PlayerBehaviour : IPlayerBehaviour
     {
-        public void Up()
+        private Transform playerTrans;
+        public PlayerBehaviour(Transform player)
         {
-            throw new System.NotImplementedException();
+            playerTrans = player;
+        }
+
+        public void Forward()
+        {
+            playerTrans.Translate(Time.deltaTime * 10 * Vector3.forward,Space.Self);
         }
 
         public void Down()

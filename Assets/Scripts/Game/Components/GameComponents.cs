@@ -22,6 +22,9 @@ namespace Game
         public GameState GameState;
     }
 
+    /// <summary>
+    /// Íæ¼Ò
+    /// </summary>
     [Game,Unique]
     public class PlayerComponent : IComponent
     {
