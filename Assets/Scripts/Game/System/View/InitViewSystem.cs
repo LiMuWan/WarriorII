@@ -16,7 +16,7 @@ namespace Game
             var views = contexts.game.gameFindObjectService.FindObjectService.FindAllView();
             foreach (IView view in views)
             {
-                view.Init();
+                view. Init();
             }
         }
     }

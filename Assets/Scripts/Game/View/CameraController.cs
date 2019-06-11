@@ -1,4 +1,4 @@
-using Entitas;
+ using Entitas;
 using Entitas.Unity;
 using Manager;
 using System;
@@ -12,7 +12,7 @@ namespace Game
         private Dictionary<CameraParent, Transform> parentDic;
         private CameraMove cameraMove;
 
-        public override void Init()
+        public override void Init(Contexts contexts,IEntity entity)
         {
             InitParent();
             InitCamera();

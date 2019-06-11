@@ -1,9 +1,10 @@
+using Entitas;
 using UnityEngine;
 
 namespace Game
 {
     public interface IView   
     {
-        void Init();
+        void Init(Contexts contexts,IEntity entity);
     }
 }

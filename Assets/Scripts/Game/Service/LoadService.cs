@@ -9,7 +9,7 @@ namespace Game
     /// </summary>
     public interface ILoadService:ILoad
     {
-        GameObject LoadPlayer();
+        IPlayerBehaviour LoadPlayer();
     }
 
     public class LoadService : ILoadService
@@ -36,9 +36,12 @@ namespace Game
             return LoadManager.Single.LoadAndInstantiate(path, parent);
         }
 
-        public GameObject LoadPlayer()
+        public IPlayerBehaviour LoadPlayer()
         {
-            return LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
+           var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
+           PlayerView playerView = player.AddComponent<PlayerView>();
+           playerView.Init();
+            return playerView;
         }
     }
 }
