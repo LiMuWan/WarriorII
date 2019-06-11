@@ -9,6 +9,7 @@ namespace Game
     {
         private Systems systems;
         private GameParentManager gameParentManager;
+        private Contexts contexts;
         public void Start()
         {
             InitManager();
@@ -23,7 +24,8 @@ namespace Game
 
             systems.Initialize();
 
-            Contexts.sharedInstance.game.SetGameGameState(GameState.START);//发出游戏开始事件 
+            contexts = Contexts.sharedInstance;
+            contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
         }
 
         private void InitManager()
@@ -31,10 +33,11 @@ namespace Game
             gameParentManager = transform.GetOrAddComponent<GameParentManager>();
             gameParentManager.Init();
 
-            var cameraController = gameParentManager.GetParentTrans(ParentName.CameraController);
-            cameraController.gameObject.AddComponent<CameraController>();
-            //get CameraController
-            //get 
+            var cameraControllerTrans = gameParentManager.GetParentTrans(ParentName.CameraController);
+            CameraController cameraController = cameraControllerTrans.gameObject.AddComponent<CameraController>();
+            var entity = contexts.game.CreateEntity();
+            entity.AddGameCameraState(CameraAniName.START_GAME_ANI);
+            cameraController.Init(contexts, entity);
         }
 
         private void Update()

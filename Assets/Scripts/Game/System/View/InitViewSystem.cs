@@ -13,11 +13,11 @@ namespace Game
 
         public void Initialize()
         {
-            var views = contexts.game.gameFindObjectService.FindObjectService.FindAllView();
-            foreach (IView view in views)
-            {
-                view. Init();
-            }
+            //var views = contexts.game.gameFindObjectService.FindObjectService.FindAllView();
+            //foreach (IView view in views)
+            //{
+            //    view. Init();
+            //}
         }
     }
 }

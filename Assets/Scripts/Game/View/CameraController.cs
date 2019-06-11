@@ -16,10 +16,8 @@ namespace Game
         {
             InitParent();
             InitCamera();
-            GameEntity entity = Contexts.sharedInstance.game.SetGameCameraState(CameraAniName.START_GAME_ANI);
-            gameObject.Link(entity, Contexts.sharedInstance.game);
-            entity.AddGameCameraStateListener(this);
-            entity.ReplaceGameCameraState(CameraAniName.START_GAME_ANI);
+            gameObject.Link(entity, contexts.game);
+            ((GameEntity)entity).AddGameCameraStateListener(this);
         }
 
         public void OnGameCameraState(GameEntity entity, CameraAniName state)

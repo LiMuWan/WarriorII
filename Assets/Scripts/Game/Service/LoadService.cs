@@ -1,3 +1,4 @@
+using Entitas;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
@@ -40,8 +41,11 @@ namespace Game
         {
            var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
            PlayerView playerView = player.AddComponent<PlayerView>();
-           playerView.Init();
-            return playerView;
+
+           GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
+           entity.AddGamePlayer(playerView);
+           playerView.Init(Contexts.sharedInstance,entity);
+           return playerView;
         }
     }
 }
