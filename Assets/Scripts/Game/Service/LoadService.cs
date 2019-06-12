@@ -39,14 +39,26 @@ namespace Game
 
         public void LoadPlayer()
         {
-           var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
-           PlayerView playerView = player.AddComponent<PlayerView>();
-           IPlayerBehaviour playerBehaviour = new PlayerBehaviour(player.transform,ModelManager.Single.PlayerData);
+            var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
+            Animator animator = player.GetComponent<Animator>();
 
-           GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
-           entity.AddGamePlayer(playerView,playerBehaviour);
+            IView playerView = player.AddComponent<PlayerView>();
+            IPlayerBehaviour playerBehaviour = new PlayerBehaviour(player.transform, ModelManager.Single.PlayerData);
+            IPlayerAni playerAni = null;
+
+            if (animator == null)
+            {
+                Debug.LogError("player身上未找到Animator组件！！！");
+            }
+            else
+            {
+                playerAni = new PlayerAni(animator);
+            }
+
+            GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
+            entity.AddGamePlayer(playerView, playerBehaviour, playerAni);
             entity.AddGamePlayerAniState(Const.PlayerAniIndex.IDLE);
-           playerView.Init(Contexts.sharedInstance,entity);
+            playerView.Init(Contexts.sharedInstance, entity);
         }
     }
 }

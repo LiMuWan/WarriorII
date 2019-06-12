@@ -31,7 +31,7 @@ namespace Game
     {
         public IView PlayerView;
         public IPlayerBehaviour PlayerBehaviour;
-        //¶¯»­½Ó¿Ú
+        public IPlayerAni PlayerAni;
     }
 
     /// <summary>

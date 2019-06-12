@@ -7,7 +7,7 @@ namespace Game
         void Play(int aniIndex);
     }
 
-    public interface IPlayerAni:IAni,IBehaviour
+    public interface IPlayerAni:IAni,IPlayerBehaviour
     {
         
     }
