@@ -26,6 +26,9 @@ namespace Game
             systems.Initialize();
 
             contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
+
+            PlayerDataModel playerData = ConfigManager.Single.LoadJson<PlayerDataModel>();
+            Debug.Log(playerData.Speed);
         }
 
         private void InitManager()
