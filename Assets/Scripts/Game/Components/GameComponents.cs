@@ -1,3 +1,4 @@
+using Const;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using UnityEngine;
@@ -30,5 +31,15 @@ namespace Game
     {
         public IView PlayerView;
         public IPlayerBehaviour PlayerBehaviour;
+        //动画接口
+    }
+
+    /// <summary>
+    /// 玩家动画
+    /// </summary>
+    [Game]
+    public class PlayerAniState : IComponent
+    {
+        public PlayerAniIndex PlayerAniIndex;
     }
 }

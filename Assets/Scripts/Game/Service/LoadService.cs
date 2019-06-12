@@ -45,6 +45,7 @@ namespace Game
 
            GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
            entity.AddGamePlayer(playerView,playerBehaviour);
+            entity.AddGamePlayerAniState(Const.PlayerAniIndex.IDLE);
            playerView.Init(Contexts.sharedInstance,entity);
         }
     }
