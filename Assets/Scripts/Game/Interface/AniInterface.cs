@@ -9,6 +9,6 @@ namespace Game
 
     public interface IPlayerAni:IAni,IPlayerBehaviour
     {
-        
+
     }
 }

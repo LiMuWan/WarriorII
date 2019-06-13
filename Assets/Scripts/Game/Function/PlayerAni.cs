@@ -13,13 +13,13 @@ namespace Game
         }
         public void Play(int aniIndex)
         {
-            ani.Play(aniIndex);
+            ani.SetInteger(ConstValue.PLAYER_PARA_NAME,aniIndex);
         }
 
         private void Play(PlayerAniIndex index)
         {
             Play((int)index);
-        }
+        }       
 
         public void Forward()
         {
@@ -54,6 +54,11 @@ namespace Game
         private void Move()
         {
             Play(PlayerAniIndex.WALK);
+        }
+
+        public void Idle()
+        {
+            Play(PlayerAniIndex.IDLE);
         }
     }
 }

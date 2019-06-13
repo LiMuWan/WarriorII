@@ -58,6 +58,11 @@ namespace Game
         {
             this.contexts.input.ReplaceGameInputButton(InputButton.ATTACK_X);
         }
+
+        public void Idle()
+        {
+            this.contexts.input.ReplaceGameInputButton(InputButton.NONE);
+        }
     }
 
     /// <summary>
@@ -66,6 +71,7 @@ namespace Game
     public class UnityInputService : IInputService
     {
         private IInputService entitasInputService;
+        private bool isPress;
 
         public void Init(Contexts contexts)
         {
@@ -74,13 +80,14 @@ namespace Game
 
         public void Update()
         {
-
+            isPress = false;
             Forward();
             Back();
             Left();
             Right();
             AttackO();
             AttackX();
+            Idle();
         }
          
         public void Forward()
@@ -88,6 +95,7 @@ namespace Game
             if (Input.GetKey(KeyCode.W))
             {
                 entitasInputService.Forward();
+                isPress = true;
             }
         }
 
@@ -96,6 +104,7 @@ namespace Game
          if (Input.GetKey(KeyCode.S))
             {
                 entitasInputService.Back();
+                isPress = true;
             }
         }
 
@@ -104,6 +113,7 @@ namespace Game
             if (Input.GetKey(KeyCode.A))
             {
                 entitasInputService.Left();
+                isPress = true;
             }
         }
 
@@ -112,6 +122,7 @@ namespace Game
             if (Input.GetKey(KeyCode.D))
             {
                 entitasInputService.Right();
+                isPress = true;
             }
         }
 
@@ -120,6 +131,7 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.K))
             {
                 entitasInputService.AttackO();
+                isPress = true;
             }
         }
 
@@ -128,6 +140,15 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.L))
             {
                 entitasInputService.AttackX();
+                isPress = true;
+            }
+        }
+
+        public void Idle()
+        {
+            if(!isPress)
+            {
+                entitasInputService.Idle();
             }
         }
     }

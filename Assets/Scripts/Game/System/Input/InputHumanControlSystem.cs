@@ -3,6 +3,27 @@ using UnityEngine;
 
 namespace Game
 {
+    public class InputNullSystem:InputButtonSystemBase
+    {
+        public InputNullSystem(Contexts contexts) : base(contexts)
+        {
+
+        }
+
+        protected override bool FilterCondition(InputEntity entity)
+        {
+            return entity.gameInputButton.InputButton == InputButton.NONE;
+        }
+
+        protected override void Execute(List<InputEntity> entities)
+        {
+            if (contexts.game.hasGamePlayer)
+            {
+                contexts.game.gamePlayer.PlayerAni.Idle();
+            }
+        }
+    }
+
     /// <summary>
     /// 向前按键响应系统
     /// </summary>
@@ -21,6 +42,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             contexts.game.gamePlayer.PlayerBehaviour.Forward();
+            contexts.game.gamePlayer.PlayerAni.Forward();
         }
     }
 
@@ -42,6 +64,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             contexts.game.gamePlayer.PlayerBehaviour.Back();
+            contexts.game.gamePlayer.PlayerAni.Back();
         }
     }
 
@@ -63,6 +86,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             contexts.game.gamePlayer.PlayerBehaviour.Left();
+            contexts.game.gamePlayer.PlayerAni.Left();
         }
     }
 
@@ -84,6 +108,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             contexts.game.gamePlayer.PlayerBehaviour.Right();
+            contexts.game.gamePlayer.PlayerAni.Right();
         }
     }
 

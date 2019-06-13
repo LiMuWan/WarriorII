@@ -57,5 +57,10 @@ namespace Game
         {
             playerTrans.eulerAngles = direction;
         }
+
+        public void Idle()
+        {
+            
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Game
     public abstract class InputButtonSystemBase : ReactiveSystem<InputEntity>
     {
         protected Contexts contexts;
+        protected PlayerComponent player;
         public InputButtonSystemBase(Contexts contexts):base(contexts.input)
         {
             this.contexts = contexts;
@@ -19,7 +20,7 @@ namespace Game
 
         protected override bool Filter(InputEntity entity)
         {
-            return entity.hasGameInputButton && entity.gameInputButton.InputButton != InputButton.NONE && FilterCondition(entity);
+            return entity.hasGameInputButton && FilterCondition(entity);
         }
         /// <summary>
         /// 事件执行的筛选条件

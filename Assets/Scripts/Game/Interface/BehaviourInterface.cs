@@ -19,6 +19,10 @@ namespace Game
     public interface IPlayerBehaviour:IBehaviour
     {
         /// <summary>
+        /// ´ý»ú
+        /// </summary>
+        void Idle();
+        /// <summary>
         /// ¹¥»÷¼ü£¨°´ÏÂK£©
         /// </summary>
         void AttackO();
