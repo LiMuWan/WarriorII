@@ -32,9 +32,21 @@ namespace Game.Component
         public ILogService LogService;
     }
 
+    /// <summary>
+    /// 加载服务组件
+    /// </summary>
     [Game,Unique]
     public class LoadServiceComponent : IComponent
     {
         public ILoadService LoadService; 
+    }
+
+    /// <summary>
+    /// 计时器服务组件
+    /// </summary>
+    [Game,Unique]
+    public class TimerServiceComponent:IComponent
+    {
+        public TimerService TimerService;
     }
 }

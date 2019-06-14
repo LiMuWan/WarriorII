@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Service
 {
-    public interface ILogService:IService
+    public interface ILogService:IInitService
     {
         void Log(string message);
         void LogError(string message);
@@ -13,7 +13,7 @@ namespace Game.Service
     {
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameLogService(this);
+            contexts.game.SetGameComponentLogService(this);
         }
 
         public void Update()

@@ -6,7 +6,7 @@ namespace Game.Service
     /// <summary>
     /// 查找场景内物体的服务接口
     /// </summary>
-    public interface IFindObjectService:IService
+    public interface IFindObjectService:IInitService
     {
         T[] FindAllType<T>() where T : Object;
         IView[] FindAllView();
@@ -35,12 +35,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameFindObjectService(this);
-        }
-
-        public void Update()
-        {
-            throw new System.NotImplementedException();
+            contexts.game.SetGameComponentFindObjectService(this);
         }
     }
 }

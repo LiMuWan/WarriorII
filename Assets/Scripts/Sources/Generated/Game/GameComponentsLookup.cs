@@ -9,24 +9,26 @@
 public static class GameComponentsLookup {
 
     public const int GameCameraState = 0;
-    public const int GameEntitasInputService = 1;
-    public const int GameFindObjectService = 2;
-    public const int GameGameState = 3;
-    public const int GameLoadService = 4;
-    public const int GameLogService = 5;
-    public const int GamePlayerAniState = 6;
-    public const int GamePlayer = 7;
-    public const int GameCameraStateListener = 8;
+    public const int GameComponentEntitasInputService = 1;
+    public const int GameComponentFindObjectService = 2;
+    public const int GameComponentLoadService = 3;
+    public const int GameComponentLogService = 4;
+    public const int GameComponentTimerService = 5;
+    public const int GameGameState = 6;
+    public const int GamePlayerAniState = 7;
+    public const int GamePlayer = 8;
+    public const int GameCameraStateListener = 9;
 
-    public const int TotalComponents = 9;
+    public const int TotalComponents = 10;
 
     public static readonly string[] componentNames = {
         "GameCameraState",
-        "GameEntitasInputService",
-        "GameFindObjectService",
+        "GameComponentEntitasInputService",
+        "GameComponentFindObjectService",
+        "GameComponentLoadService",
+        "GameComponentLogService",
+        "GameComponentTimerService",
         "GameGameState",
-        "GameLoadService",
-        "GameLogService",
         "GamePlayerAniState",
         "GamePlayer",
         "GameCameraStateListener"
@@ -36,9 +38,10 @@ public static class GameComponentsLookup {
         typeof(Game.CameraState),
         typeof(Game.Component.EntitasInputServiceComponent),
         typeof(Game.Component.FindObjectServiceComponent),
-        typeof(Game.GameStateComponent),
         typeof(Game.Component.LoadServiceComponent),
         typeof(Game.Component.LogServiceComponent),
+        typeof(Game.Component.TimerServiceComponent),
+        typeof(Game.GameStateComponent),
         typeof(Game.PlayerAniState),
         typeof(Game.PlayerComponent),
         typeof(GameCameraStateListenerComponent)

@@ -3,6 +3,7 @@ using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using Game.Interface;
 using Game.Service;
+using Module.Timer;
 using UnityEngine;
 
 namespace Game

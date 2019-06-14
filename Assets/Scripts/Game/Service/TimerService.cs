@@ -4,19 +4,20 @@ using UnityEngine;
 
 namespace Game.Service
 {
-    public interface ITimerService:IService
+    public interface ITimerService:IInitService,IExcuteService
     {
 
     }
-    public class TimerService : IExecuteSystem, ITimerService
+    public class TimerService :ITimerService
     {
         public TimerService(Contexts contexts)
         {
 
         }
-        public void Execute()
+
+        public void Excute()
         {
-           
+            throw new System.NotImplementedException();
         }
 
         public void Init(Contexts contexts)

@@ -9,7 +9,7 @@ namespace Game.Service
     /// <summary>
     /// 加载服务接口
     /// </summary>
-    public interface ILoadService:ILoad,IService
+    public interface ILoadService:ILoad,IInitService
     {
         void LoadPlayer();
     }
@@ -25,7 +25,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameLoadService(this);
+            contexts.game.SetGameComponentLoadService(this);
         }
 
         public T Load<T>(string path, string name) where T : class

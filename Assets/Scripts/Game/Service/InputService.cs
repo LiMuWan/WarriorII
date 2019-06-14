@@ -6,7 +6,7 @@ namespace Game.Service
     /// <summary>
     /// 输入服务接口
     /// </summary>
-    public interface IInputService:IPlayerBehaviour,IService
+    public interface IInputService:IPlayerBehaviour,IInitService,IExcuteService
     {
    
     }
@@ -20,11 +20,11 @@ namespace Game.Service
         public void Init(Contexts contexts)
         {
             this.contexts = contexts;
-            contexts.game.SetGameEntitasInputService(this);
+            contexts.game.SetGameComponentEntitasInputService(this);
             this.contexts.input.SetGameInputButton(InputButton.NONE);
         }
 
-        public void Update()
+        public void Excute()
         {
 
         }
@@ -68,17 +68,17 @@ namespace Game.Service
     /// <summary>
     /// 与Unity交互的输入服务
     /// </summary>
-    public class UnityInputService : IInputService
+    public class UnityInputService : IInputService,IInitService,IExcuteService
     {
         private IInputService entitasInputService;
         private bool isPress;
 
         public void Init(Contexts contexts)
         {
-            entitasInputService = contexts.game.gameEntitasInputService.EntitasInputService;
+            entitasInputService = contexts.game.gameComponentEntitasInputService.EntitasInputService;
         }
 
-        public void Update()
+        public void Excute()
         {
             isPress = false;
             Forward();

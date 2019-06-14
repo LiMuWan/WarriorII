@@ -2,9 +2,13 @@ using UnityEngine;
 
 namespace Game.Interface
 {
-    public interface IService 
+    public interface IInitService 
     {
         void Init(Contexts contexts);
-        void Update();
+    }
+
+    public interface IExcuteService
+    {
+        void Excute();
     }
 }

@@ -128,7 +128,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gameLogService.LogService.Log("attack o");
+            contexts.game.gameComponentLogService.LogService.Log("attack o");
         }
     }
 
@@ -148,7 +148,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gameLogService.LogService.Log("attack x");
+            contexts.game.gameComponentLogService.LogService.Log("attack x");
         }
     }
 }
