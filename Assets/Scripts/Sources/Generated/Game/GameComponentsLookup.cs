@@ -34,11 +34,11 @@ public static class GameComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(Game.CameraState),
-        typeof(Game.EntitasInputServiceComponent),
-        typeof(Game.FindObjectServiceComponent),
+        typeof(Game.Component.EntitasInputServiceComponent),
+        typeof(Game.Component.FindObjectServiceComponent),
         typeof(Game.GameStateComponent),
-        typeof(Game.LoadServiceComponent),
-        typeof(Game.LogServiceComponent),
+        typeof(Game.Component.LoadServiceComponent),
+        typeof(Game.Component.LogServiceComponent),
         typeof(Game.PlayerAniState),
         typeof(Game.PlayerComponent),
         typeof(GameCameraStateListenerComponent)

@@ -35,10 +35,10 @@ namespace Game
         /// <param name="services"></param>
         public void InitUniqueComponents(Contexts contexts, Services services)
         {
-            contexts.game.SetGameFindObjectService(services.FindObjectService);
-            contexts.game.SetGameEntitasInputService(services.EntitasInputService);
-            contexts.game.SetGameLogService(services.LogService);
-            contexts.game.SetGameLoadService(services.LoadService);
+           
+            
+            
+           
         }
     }
 }

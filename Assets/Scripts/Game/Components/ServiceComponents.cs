@@ -1,8 +1,8 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-using UnityEngine;
+using Game.Service;
 
-namespace Game
+namespace Game.Component
 {
     /// <summary>
     /// 查找服务组件

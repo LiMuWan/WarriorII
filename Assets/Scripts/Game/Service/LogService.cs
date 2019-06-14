@@ -1,8 +1,9 @@
- using UnityEngine;
+using Game.Interface;
+using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
-    public interface ILogService
+    public interface ILogService:IService
     {
         void Log(string message);
         void LogError(string message);
@@ -10,6 +11,16 @@ namespace Game
 
     public class LogService :ILogService   
     {
+        public void Init(Contexts contexts)
+        {
+            contexts.game.SetGameLogService(this);
+        }
+
+        public void Update()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Log(string message)
         {
             Debug.Log(message);

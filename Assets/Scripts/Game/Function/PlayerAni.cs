@@ -1,4 +1,5 @@
 using Const;
+using Game.Interface;
 using UnityEngine;
 
 namespace Game

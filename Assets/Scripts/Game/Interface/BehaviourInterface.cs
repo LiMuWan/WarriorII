@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Interface
 {
     /// <summary>
     /// 基础行为接口

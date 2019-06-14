@@ -1,12 +1,12 @@
-using System.Linq;
+using Game.Interface;
 using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 查找场景内物体的服务接口
     /// </summary>
-    public interface IFindObjectService
+    public interface IFindObjectService:IService
     {
         T[] FindAllType<T>() where T : Object;
         IView[] FindAllView();
@@ -31,6 +31,16 @@ namespace Game
         {
            var array = FindAllType<ViewService>();
            return array;
+        }
+
+        public void Init(Contexts contexts)
+        {
+            contexts.game.SetGameFindObjectService(this);
+        }
+
+        public void Update()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

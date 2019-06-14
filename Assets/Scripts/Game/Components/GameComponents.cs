@@ -1,6 +1,8 @@
 using Const;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
+using Game.Interface;
+using Game.Service;
 using UnityEngine;
 
 namespace Game

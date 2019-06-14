@@ -1,4 +1,5 @@
 using Entitas;
+using Game.Service;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
@@ -20,7 +21,8 @@ namespace Game
                                         new EntitasInputService(),
                                         new UnityInputService(),
                                         new LogService(),
-                                        new LoadService(gameParentManager));
+                                        new LoadService(gameParentManager),
+                                        new TimerService(contexts));
 
             systems = new InitFeature(Contexts.sharedInstance,services);
 

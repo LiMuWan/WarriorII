@@ -1,14 +1,15 @@
 using Entitas;
+using Game.Interface;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 加载服务接口
     /// </summary>
-    public interface ILoadService:ILoad
+    public interface ILoadService:ILoad,IService
     {
         void LoadPlayer();
     }
@@ -20,6 +21,11 @@ namespace Game
         public LoadService(GameParentManager parentManager)
         {
             this.parentManager = parentManager;
+        }
+
+        public void Init(Contexts contexts)
+        {
+            contexts.game.SetGameLoadService(this);
         }
 
         public T Load<T>(string path, string name) where T : class
@@ -59,6 +65,11 @@ namespace Game
             entity.AddGamePlayer(playerView, playerBehaviour, playerAni);
             entity.AddGamePlayerAniState(Const.PlayerAniIndex.IDLE);
             playerView.Init(Contexts.sharedInstance, entity);
+        }
+
+        public void Update()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

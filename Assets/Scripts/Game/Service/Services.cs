@@ -1,3 +1,4 @@
+using Game.Service;
 using UnityEngine;
 
 namespace Game
@@ -9,18 +10,22 @@ namespace Game
         public IInputService        UnityInputService { get; private set; }
         public ILogService          LogService { get; private set; }
         public ILoadService         LoadService { get; private set; }
+
+        public ITimerService TimerService { get; private set; }
         public Services(
             IFindObjectService findObjectService,
             IInputService entitasInputService,
             IInputService unityInputService,
             ILogService logService,
-            ILoadService loadService)
+            ILoadService loadService,
+            ITimerService timerService)
         {
             FindObjectService = findObjectService;
             EntitasInputService = entitasInputService;
             UnityInputService = unityInputService; 
             LogService = logService;
             LoadService = loadService;
+            TimerService = timerService;
         }
     }
 }

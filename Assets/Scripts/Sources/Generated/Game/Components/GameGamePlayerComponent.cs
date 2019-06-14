@@ -12,7 +12,7 @@ public partial class GameContext {
     public Game.PlayerComponent gamePlayer { get { return gamePlayerEntity.gamePlayer; } }
     public bool hasGamePlayer { get { return gamePlayerEntity != null; } }
 
-    public GameEntity SetGamePlayer(Game.IView newPlayerView, Game.IPlayerBehaviour newPlayerBehaviour, Game.IPlayerAni newPlayerAni) {
+    public GameEntity SetGamePlayer(Game.Interface.IView newPlayerView, Game.Interface.IPlayerBehaviour newPlayerBehaviour, Game.Interface.IPlayerAni newPlayerAni) {
         if (hasGamePlayer) {
             throw new Entitas.EntitasException("Could not set GamePlayer!\n" + this + " already has an entity with Game.PlayerComponent!",
                 "You should check if the context already has a gamePlayerEntity before setting it or use context.ReplaceGamePlayer().");
@@ -22,7 +22,7 @@ public partial class GameContext {
         return entity;
     }
 
-    public void ReplaceGamePlayer(Game.IView newPlayerView, Game.IPlayerBehaviour newPlayerBehaviour, Game.IPlayerAni newPlayerAni) {
+    public void ReplaceGamePlayer(Game.Interface.IView newPlayerView, Game.Interface.IPlayerBehaviour newPlayerBehaviour, Game.Interface.IPlayerAni newPlayerAni) {
         var entity = gamePlayerEntity;
         if (entity == null) {
             entity = SetGamePlayer(newPlayerView, newPlayerBehaviour, newPlayerAni);
@@ -49,7 +49,7 @@ public partial class GameEntity {
     public Game.PlayerComponent gamePlayer { get { return (Game.PlayerComponent)GetComponent(GameComponentsLookup.GamePlayer); } }
     public bool hasGamePlayer { get { return HasComponent(GameComponentsLookup.GamePlayer); } }
 
-    public void AddGamePlayer(Game.IView newPlayerView, Game.IPlayerBehaviour newPlayerBehaviour, Game.IPlayerAni newPlayerAni) {
+    public void AddGamePlayer(Game.Interface.IView newPlayerView, Game.Interface.IPlayerBehaviour newPlayerBehaviour, Game.Interface.IPlayerAni newPlayerAni) {
         var index = GameComponentsLookup.GamePlayer;
         var component = (Game.PlayerComponent)CreateComponent(index, typeof(Game.PlayerComponent));
         component.PlayerView = newPlayerView;
@@ -58,7 +58,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceGamePlayer(Game.IView newPlayerView, Game.IPlayerBehaviour newPlayerBehaviour, Game.IPlayerAni newPlayerAni) {
+    public void ReplaceGamePlayer(Game.Interface.IView newPlayerView, Game.Interface.IPlayerBehaviour newPlayerBehaviour, Game.Interface.IPlayerAni newPlayerAni) {
         var index = GameComponentsLookup.GamePlayer;
         var component = (Game.PlayerComponent)CreateComponent(index, typeof(Game.PlayerComponent));
         component.PlayerView = newPlayerView;

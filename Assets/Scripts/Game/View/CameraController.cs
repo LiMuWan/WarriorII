@@ -1,5 +1,6 @@
  using Entitas;
 using Entitas.Unity;
+using Game.Service;
 using Manager;
 using System;
 using System.Collections.Generic;

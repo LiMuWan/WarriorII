@@ -1,15 +1,14 @@
+using Game.Interface;
 using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 输入服务接口
     /// </summary>
-    public interface IInputService:IPlayerBehaviour
+    public interface IInputService:IPlayerBehaviour,IService
     {
-        void Init(Contexts contexts);
-
-        void Update();
+   
     }
 
     /// <summary>
@@ -21,6 +20,7 @@ namespace Game
         public void Init(Contexts contexts)
         {
             this.contexts = contexts;
+            contexts.game.SetGameEntitasInputService(this);
             this.contexts.input.SetGameInputButton(InputButton.NONE);
         }
 
