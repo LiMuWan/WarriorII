@@ -17,12 +17,7 @@ namespace Game
             contexts = Contexts.sharedInstance;
             InitManager();
 
-            Services services = new Services(new FindObjectService(),
-                                        new EntitasInputService(),
-                                        new UnityInputService(),
-                                        new LogService(),
-                                        new LoadService(gameParentManager),
-                                        new TimerService(contexts));
+            var services = InitService();
 
             systems = new InitFeature(Contexts.sharedInstance,services);
 
@@ -31,6 +26,30 @@ namespace Game
             contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
         }
 
+        private Services InitService()
+        {
+            Services services = new Services();
+            AddInitService(services);
+            AddExecuteService(services);
+            return services;
+        }
+
+        private void AddInitService(Services services)
+        {
+            services.AddInitService(new FindObjectService());
+            services.AddInitService(new LogService());
+            services.AddInitService(new LoadService(gameParentManager));
+            services.AddInitService(new TimerService(contexts));
+            services.AddInitService(new EntitasInputService());
+            services.AddInitService(new UnityInputService());
+        }
+
+        private void AddExecuteService(Services services)
+        {
+            services.AddExecuteService(new EntitasInputService());
+            services.AddExecuteService(new UnityInputService());
+            services.AddExecuteService(new TimerService(contexts));
+        }
         private void InitManager()
         {
             gameParentManager = transform.GetOrAddComponent<GameParentManager>();

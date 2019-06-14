@@ -7,8 +7,8 @@ namespace Game.Interface
         void Init(Contexts contexts);
     }
 
-    public interface IExcuteService
+    public interface IExecuteService
     {
-        void Excute();
+        void Execute();
     }
 }

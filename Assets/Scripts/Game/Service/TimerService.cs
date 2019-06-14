@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Service
 {
-    public interface ITimerService:IInitService,IExcuteService
+    public interface ITimerService:IInitService,IExecuteService
     {
 
     }
@@ -12,20 +12,15 @@ namespace Game.Service
     {
         public TimerService(Contexts contexts)
         {
-
-        }
-
-        public void Excute()
-        {
-            throw new System.NotImplementedException();
+           
         }
 
         public void Init(Contexts contexts)
         {
-            throw new System.NotImplementedException();
+            contexts.game.SetGameComponentTimerService(this);
         }
 
-        public void Update()
+        public void Execute()
         {
             throw new System.NotImplementedException();
         }

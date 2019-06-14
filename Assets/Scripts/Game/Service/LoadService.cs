@@ -66,10 +66,5 @@ namespace Game.Service
             entity.AddGamePlayerAniState(Const.PlayerAniIndex.IDLE);
             playerView.Init(Contexts.sharedInstance, entity);
         }
-
-        public void Update()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

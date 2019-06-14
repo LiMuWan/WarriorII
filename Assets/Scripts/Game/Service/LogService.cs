@@ -16,11 +16,6 @@ namespace Game.Service
             contexts.game.SetGameComponentLogService(this);
         }
 
-        public void Update()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Log(string message)
         {
             Debug.Log(message);
