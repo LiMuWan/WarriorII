@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 324dfd59a13dd4f0ba3ae88e80e7667a
-timeCreated: 1547882435
-licenseType: Pro
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: Lcalf
     100002: Lshin
@@ -116,6 +114,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -634,6 +633,7 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -651,17 +651,107 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 2
     tangentImportMode: 2
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 2
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human: []
-    skeleton: []
+    skeleton:
+    - name: player-1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: player
+      parentName: player-1(Clone)
+      position: {x: -0, y: 0.9329874, z: 0.000000055440285}
+      rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: root
+      parentName: player-1(Clone)
+      position: {x: -0, y: 0.95923287, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: spine01
+      parentName: root
+      position: {x: -0, y: 0.08394767, z: 0.000000076293965}
+      rotation: {x: 7.1054274e-15, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: spine02
+      parentName: spine01
+      position: {x: -0, y: 0.30088255, z: 0}
+      rotation: {x: 0.000000059604645, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Rarm01
+      parentName: spine02
+      position: {x: -0.21689723, y: 0.16696197, z: 0.0051445006}
+      rotation: {x: -0.069745, y: -0.03870598, z: -0.15560895, w: 0.984593}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000001}
+    - name: Rforearm01
+      parentName: Rarm01
+      position: {x: 0.00083076477, y: -0.30988783, z: 0.001927948}
+      rotation: {x: -0.12648939, y: 0.000000014781476, z: 0.0000000018848387, w: 0.991968}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000005}
+    - name: Rhand01
+      parentName: Rforearm01
+      position: {x: 0.000000076293944, y: -0.30701277, z: -0.000000038146972}
+      rotation: {x: 1.8873791e-15, y: 0.000000063329935, z: -0.000000029802322, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: head
+      parentName: spine02
+      position: {x: -0, y: 0.29208496, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ponytail
+      parentName: head
+      position: {x: 0.002246809, y: 0.19245178, z: -0.087997586}
+      rotation: {x: 0.1305261, y: 0, z: -0, w: 0.9914449}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Rarm
+      parentName: spine02
+      position: {x: 0.22400604, y: 0.16657074, z: 0.0041452027}
+      rotation: {x: -0.047173757, y: -0.0077207596, z: 0.1613331, w: 0.9857417}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: Rforearm
+      parentName: Rarm
+      position: {x: 0.00083076477, y: -0.30988768, z: 0.001927948}
+      rotation: {x: -0.1264894, y: 0.000000011086106, z: 0.0000000014136293, w: 0.991968}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000005}
+    - name: Rhand
+      parentName: Rforearm
+      position: {x: 0.000000076293944, y: -0.3070127, z: -0.000000076293944}
+      rotation: {x: 2.3314684e-15, y: 0.000000052154064, z: -0.000000044703484, w: 1}
+      scale: {x: 1, y: 1.0000004, z: 1}
+    - name: Lcalf
+      parentName: root
+      position: {x: -0.11567824, y: -0.051702116, z: -0.017813643}
+      rotation: {x: 7.066574e-15, y: -7.4204305e-16, z: -0.104433276, w: 0.99453187}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: Lshin
+      parentName: Lcalf
+      position: {x: -0.001134243, y: -0.4310087, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+    - name: Rcalf
+      parentName: root
+      position: {x: 0.12213334, y: -0.051702116, z: -0.017813643}
+      rotation: {x: 7.252085e-15, y: -1.0246024e-15, z: 0.10443303, w: 0.9945319}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.9999999}
+    - name: Rshin
+      parentName: Rcalf
+      position: {x: -0.0011343383, y: -0.43100867, z: 0}
+      rotation: {x: -7.105425e-15, y: 1.776356e-15, z: 1.2621764e-29, w: 1}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -670,7 +760,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 0
