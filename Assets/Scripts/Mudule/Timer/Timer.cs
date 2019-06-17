@@ -183,6 +183,7 @@ namespace Module.Timer
             {
                 if (IsComplete)
                 {
+                    IsComplete = false;
                     onComplete?.Invoke();
                     ResetData();
                 }

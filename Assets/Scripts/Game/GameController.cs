@@ -41,7 +41,7 @@ namespace Game
             serviceManager = new ServiceManager(gameParentManager);
             serviceManager.Init(contexts);
 
-            ITimer timer = contexts.game.gameComponentTimerService.TimerService.CreateTimer(1, false);
+            ITimer timer = contexts.game.gameComponentTimerService.TimerService.CreateTimer(1, true);
             timer.AddCompleteListener(() => Debug.Log("11111111111111"));
         }
 
