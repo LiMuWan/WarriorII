@@ -10,7 +10,7 @@ namespace Game.Service
     }
     public class TimerService :ITimerService
     {
-        public TimerService(Contexts contexts)
+        public TimerService()
         {
            
         }

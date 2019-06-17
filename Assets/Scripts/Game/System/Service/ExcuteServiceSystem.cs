@@ -6,9 +6,9 @@ namespace Game
     public class ExcuteServiceSystem : IExecuteSystem   
     {
         private Contexts contexts;
-        private Services services;
+        private ServiceManager services;
 
-        public ExcuteServiceSystem(Contexts contexts,Services services)
+        public ExcuteServiceSystem(Contexts contexts,ServiceManager services)
         {
             this.contexts = contexts;
             this.services = services;

@@ -9,8 +9,8 @@ namespace Game
     public class InitServiceSystem : IInitializeSystem
     {
         private Contexts contexts;
-        private Services services;
-        public InitServiceSystem(Contexts contexts,Services services)
+        private ServiceManager services;
+        public InitServiceSystem(Contexts contexts,ServiceManager services)
         {
             this.contexts = contexts;
             this.services = services;
@@ -22,7 +22,7 @@ namespace Game
             InitService(contexts, services);
         }
 
-        public void InitService(Contexts contexts,Services services)
+        public void InitService(Contexts contexts,ServiceManager services)
         {
             services.EntitasInputService.Init(contexts);
             services.UnityInputService.Init(contexts);
@@ -33,7 +33,7 @@ namespace Game
         /// </summary>
         /// <param name="contexts"></param>
         /// <param name="services"></param>
-        public void InitUniqueComponents(Contexts contexts, Services services)
+        public void InitUniqueComponents(Contexts contexts, ServiceManager services)
         {
            
             
