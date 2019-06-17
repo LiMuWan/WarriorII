@@ -16,7 +16,7 @@ namespace Game
 
         public void Execute()
         {
-            services.UnityInputService.Execute();
+            //services.UnityInputService.Execute();
             services.TimerService.Execute();
         }
     }

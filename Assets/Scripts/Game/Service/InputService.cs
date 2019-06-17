@@ -24,6 +24,11 @@ namespace Game.Service
             this.contexts.input.SetGameInputButton(InputButton.NONE);
         }
 
+        public int GetPriority()
+        {
+            return 0;
+        }
+
         public void Execute()
         {
 
@@ -150,6 +155,11 @@ namespace Game.Service
             {
                 entitasInputService.Idle();
             }
+        }
+
+        public int GetPriority()
+        {
+            return 1;
         }
     }
 

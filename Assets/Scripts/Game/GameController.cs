@@ -45,6 +45,7 @@ namespace Game
         {
             systems.Execute();//每一帧执行
             systems.Cleanup();//每一帧执行完之后调用
+            serviceManager.Execute();
         }
 
         private void OnDestroy()

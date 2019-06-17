@@ -24,8 +24,8 @@ namespace Game
 
         public void InitService(Contexts contexts,ServiceManager services)
         {
-            services.EntitasInputService.Init(contexts);
-            services.UnityInputService.Init(contexts);
+            //services.EntitasInputService.Init(contexts);
+            //services.UnityInputService.Init(contexts);
         }
 
         /// <summary>

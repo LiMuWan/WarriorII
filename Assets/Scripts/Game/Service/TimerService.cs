@@ -22,7 +22,12 @@ namespace Game.Service
 
         public void Execute()
         {
-            throw new System.NotImplementedException();
+            
+        }
+
+        public int GetPriority()
+        {
+            return 0;
         }
     }
 }

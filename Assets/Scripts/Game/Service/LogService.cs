@@ -11,6 +11,11 @@ namespace Game.Service
 
     public class LogService :ILogService   
     {
+        public int GetPriority()
+        {
+            return 0;
+        }
+
         public void Init(Contexts contexts)
         {
             contexts.game.SetGameComponentLogService(this);

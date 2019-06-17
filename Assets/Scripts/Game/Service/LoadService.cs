@@ -23,6 +23,11 @@ namespace Game.Service
             this.parentManager = parentManager;
         }
 
+        public int GetPriority()
+        {
+            return 0;
+        }
+
         public void Init(Contexts contexts)
         {
             contexts.game.SetGameComponentLoadService(this);
