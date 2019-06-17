@@ -2,6 +2,7 @@ using Entitas;
 using Game.Service;
 using Manager;
 using Manager.Parent;
+using Module.Timer;
 using UnityEngine;
 using Util;
 
@@ -39,6 +40,9 @@ namespace Game
 
             serviceManager = new ServiceManager(gameParentManager);
             serviceManager.Init(contexts);
+
+            ITimer timer = contexts.game.gameComponentTimerService.TimerService.CreateTimer(1, false);
+            timer.AddCompleteListener(() => Debug.Log("11111111111111"));
         }
 
         private void Update()

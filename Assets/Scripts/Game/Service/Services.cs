@@ -1,6 +1,7 @@
 using Game.Interface;
 using Game.Service;
 using Manager.Parent;
+using Module.Timer;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace Game
                    new EntitasInputService(),
                    new LogService(),
                    new LoadService(gameParentManager),
-                   new TimerService(),
+                   new TimerService(new TimerManager()),
                    new UnityInputService(),
             };
             return services;

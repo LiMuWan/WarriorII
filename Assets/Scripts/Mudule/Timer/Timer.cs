@@ -80,7 +80,7 @@ namespace Module.Timer
         void StopAll();
     }
 
-    public class TimerManager
+    public class TimerManager:ITimeManager
     {
         /// <summary>
         /// 计时器
@@ -103,13 +103,7 @@ namespace Module.Timer
             public bool Isloop { get; private set; }
 
             //是否完成
-            public bool IsComplete
-            {
-                get
-                {
-                    return runTimeTotal >= duration;
-                }
-            }
+            public bool IsComplete { get; private set; }
 
             private Action onUpdate;
             private Action onComplete;
@@ -122,12 +116,19 @@ namespace Module.Timer
             //总运行时间
             private float runTimeTotal;
           
-                                 //持续时间 
+            //持续时间 
             private float duration;
+
+            private int offsetFrame = 20;
+            private int frameTimes = 0;
             public void Update()
             {
-                if (!IsComplete || !isTiming)
+                frameTimes++;
+                if (frameTimes < offsetFrame)
                     return;
+                if (IsComplete || !isTiming)
+                    return;
+                IsComplete = JudgeIsComplete();
                 if (Isloop)
                 {
                     Loop();
@@ -139,6 +140,7 @@ namespace Module.Timer
 
                 onUpdate?.Invoke();
             }
+
             /// <summary>
             /// 持续时间单位为秒
             /// </summary>
@@ -155,6 +157,11 @@ namespace Module.Timer
                 ResetData();
             }
 
+            /// <summary>
+            /// 重置计时器数据
+            /// </summary>
+            /// <param name="duration"></param>
+            /// <param name="loop"></param>
             public void ResetData(float duration, bool loop)
             {
                 InitData(duration, loop);
@@ -165,6 +172,11 @@ namespace Module.Timer
                 isTiming = true;
                 startTime = DateTime.Now;
                 runTimeTotal = 0;
+            }
+
+            private bool JudgeIsComplete()
+            {
+                return runTimeTotal + GetCurrentTimingTime() >= duration;
             }
 
             private void Loop()
@@ -184,17 +196,27 @@ namespace Module.Timer
                 }
             }
 
+            /// <summary>
+            /// 继续执行计时器
+            /// </summary>
             public void Continue()
             {
                 isTiming = true;
                 startTime = DateTime.Now;
             }
+
+            /// <summary>
+            /// 暂停计时器
+            /// </summary>
             public void Pause()
             {
                 isTiming = false;
                 runTimeTotal += GetCurrentTimingTime();
             }
 
+            /// <summary>
+            /// 停止计时器
+            /// </summary>
             public void Stop()
             {
                 if (IsComplete)
@@ -224,7 +246,7 @@ namespace Module.Timer
 
         private HashSet<ITimer> activeTimer;
         private HashSet<ITimer> inactiveTimer;
-
+        private HashSet<ITimer>.Enumerator activeEnum;
         public TimerManager()
         {
             activeTimer = new HashSet<ITimer>();
@@ -250,18 +272,27 @@ namespace Module.Timer
             {
                 timer = new Timer(duration, loop);
                 activeTimer.Add(timer);
+                timer.AddCompleteListener(() => TimerComplete(timer));
             }
             return timer;
         }
 
+        /// <summary>
+        /// 更新所有计时器
+        /// </summary>
         public void Update()
         {
-            if(activeTimer.Count > 0)
+            activeEnum = activeTimer.GetEnumerator();
+            int count = activeTimer.Count;
+            for (int i = 0; i < count; i++)
             {
-                foreach (var timer in activeTimer)
+                if(!activeEnum.MoveNext())
                 {
-                    timer.Update();
-                    SetInactiveTimer(timer);
+                    continue;
+                }
+                else
+                {
+                    activeEnum.Current.Update();
                 }
             }
         }
@@ -270,15 +301,18 @@ namespace Module.Timer
         /// 执行完毕的计时器，存入缓存
         /// </summary>
         /// <param name="timer"></param>
-        public void SetInactiveTimer(ITimer timer)
+        public void TimerComplete(ITimer timer)
         {
-            if(!timer.Isloop && timer.IsComplete)
+            if(!timer.Isloop)
             {
                 activeTimer.Remove(timer);
                 inactiveTimer.Add(timer);
             }
         }
 
+        /// <summary>
+        /// 继续执行所有计时器
+        /// </summary>
         public void ContinueAll()
         {
             foreach (ITimer timer in activeTimer)
@@ -287,6 +321,9 @@ namespace Module.Timer
             }
         }
 
+        /// <summary>
+        /// 暂停执行所有计时器
+        /// </summary>
         public void PauseAll()
         {
             foreach (ITimer timer in activeTimer)
@@ -295,6 +332,9 @@ namespace Module.Timer
             }
         }
 
+        /// <summary>
+        /// 停止所有计时器
+        /// </summary>
         public void StopAll()
         {
             foreach (ITimer timer in activeTimer)
