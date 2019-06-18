@@ -20,7 +20,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameComponentTimerService(this);
+            contexts.service.SetGameServiceTimerService(this);
         }
 
         public void Execute()

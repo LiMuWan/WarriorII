@@ -30,7 +30,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameComponentLoadService(this);
+            contexts.service.SetGameServiceLoadService(this);
         }
 
         public T Load<T>(string path, string name) where T : class

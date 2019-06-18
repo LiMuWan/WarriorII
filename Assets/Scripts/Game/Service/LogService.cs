@@ -18,7 +18,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameComponentLogService(this);
+            contexts.service.SetGameServiceLogService(this);
         }
 
         public void Log(string message)

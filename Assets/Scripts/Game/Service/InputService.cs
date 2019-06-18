@@ -20,7 +20,7 @@ namespace Game.Service
         public void Init(Contexts contexts)
         {
             this.contexts = contexts;
-            contexts.game.SetGameComponentEntitasInputService(this);
+            contexts.service.SetGameServiceEntitasInputService(this);
             this.contexts.input.SetGameInputButton(InputButton.NONE,InputState.NONE);
         }
 
@@ -50,7 +50,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            entitasInputService = contexts.game.gameComponentEntitasInputService.EntitasInputService;
+            entitasInputService = contexts.service.gameServiceEntitasInputService.EntitasInputService;
         }
 
         public void Execute()

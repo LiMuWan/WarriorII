@@ -40,7 +40,7 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameComponentFindObjectService(this);
+            contexts.service.SetGameServiceFindObjectService(this);
         }
     }
 }
