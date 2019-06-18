@@ -48,12 +48,23 @@ namespace Game
     public enum InputButton
     {
         NONE,
-        UP,
-        DOWN,
+        FORWARD,
+        BACK,
         LEFT,
         RIGHT,
         ATTACK_O,
         ATTACK_X
+    }
+
+    /// <summary>
+    ///  ‰»Î◊¥Ã¨
+    /// </summary>
+    public enum InputState
+    {
+        NONE,
+        UP,
+        PRESS,
+        DOWN,
     }
 
     /// <summary>

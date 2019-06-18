@@ -12,7 +12,8 @@ namespace Game
 
         protected override bool FilterCondition(InputEntity entity)
         {
-            return entity.gameInputButton.InputButton == InputButton.NONE;
+            return entity.gameInputButton.InputButton == InputButton.NONE
+                  && entity.gameInputButton.InputState == InputState.NONE;
         }
 
         protected override void Execute(List<InputEntity> entities)
@@ -27,7 +28,7 @@ namespace Game
     /// <summary>
     /// 向前按键响应系统
     /// </summary>
-    public class InputForwardButtonSystem : InputButtonSystemBase
+    public class InputForwardButtonSystem : InputPressButtonSystemBase
     {
         public InputForwardButtonSystem(Contexts contexts) : base(contexts)
         {
@@ -36,20 +37,22 @@ namespace Game
 
         protected override bool FilterCondition(InputEntity entity)
         {
-            return entity.gameInputButton.InputButton == InputButton.UP;
+            return  entity.gameInputButton.InputButton == InputButton.FORWARD 
+               ||   entity.gameInputButton.InputButton == InputButton.BACK    
+               ||   entity.gameInputButton.InputButton == InputButton.LEFT    
+               ||   entity.gameInputButton.InputButton == InputButton.RIGHT;
         }
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Forward();
-            contexts.game.gamePlayer.PlayerAni.Forward();
+            
         }
     }
 
     /// <summary>
     ///向后按键响应系统
     /// </summary>
-    public class InputBackButtonSystem : InputButtonSystemBase
+    public class InputBackButtonSystem : InputPressButtonSystemBase
     {
         public InputBackButtonSystem(Contexts contexts) : base(contexts)
         {
@@ -58,7 +61,7 @@ namespace Game
 
         protected override bool FilterCondition(InputEntity entity)
         {
-            return entity.gameInputButton.InputButton == InputButton.DOWN;
+            return entity.gameInputButton.InputButton == InputButton.BACK;
         }
 
         protected override void Execute(List<InputEntity> entities)
@@ -71,7 +74,7 @@ namespace Game
     /// <summary>
     ///向左按键响应系统
     /// </summary>
-    public class InputLeftButtonSystem : InputButtonSystemBase
+    public class InputLeftButtonSystem : InputPressButtonSystemBase
     {
         public InputLeftButtonSystem(Contexts contexts) : base(contexts)
         {
@@ -93,7 +96,7 @@ namespace Game
     /// <summary>
     ///向右按键响应系统
     /// </summary>
-    public class InputRightButtonSystem : InputButtonSystemBase
+    public class InputRightButtonSystem : InputPressButtonSystemBase
     {
         public InputRightButtonSystem(Contexts contexts) : base(contexts)
         {
@@ -113,9 +116,31 @@ namespace Game
     }
 
     /// <summary>
+    ///移动按键响应系统
+    /// </summary>
+    public class InputMoveButtonSystem : InputButtonSystemBase
+    {
+        public InputMoveButtonSystem(Contexts contexts) : base(contexts)
+        {
+
+        }
+
+        protected override bool FilterCondition(InputEntity entity)
+        {
+            return entity.gameInputButton.InputButton == InputButton.FORWARD;
+        }
+
+        protected override void Execute(List<InputEntity> entities)
+        {
+            contexts.game.gamePlayer.PlayerBehaviour.Right();
+            contexts.game.gamePlayer.PlayerAni.Right();
+        }
+    }
+
+    /// <summary>
     ///按键J响应系统
     /// </summary>
-    public class InputAttackOButtonSystem : InputButtonSystemBase
+    public class InputAttackOButtonSystem : InputDownButtonSystemBase
     {
         public InputAttackOButtonSystem(Contexts contexts) : base(contexts)
         {
@@ -135,7 +160,7 @@ namespace Game
     /// <summary>
     ///按键K响应系统
     /// </summary>
-    public class InputAttackXButtonSystem : InputButtonSystemBase
+    public class InputAttackXButtonSystem : InputDownButtonSystemBase
     {
         public InputAttackXButtonSystem(Contexts contexts) : base(contexts)
         {
