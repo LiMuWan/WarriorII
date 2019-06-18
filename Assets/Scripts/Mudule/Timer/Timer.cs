@@ -1,3 +1,4 @@
+using Const;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,10 @@ namespace Module.Timer
 {
     public interface ITimer
     {
+        /// <summary>
+        /// 唯一标识
+        /// </summary>
+        string ID { get; }
         /// <summary>
         /// 当前的时间
         /// </summary>
@@ -49,10 +54,10 @@ namespace Module.Timer
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        void ResetData(float duration, bool loop);
+        void ResetData(string id,float duration, bool loop);
 
-        void AddUpdateListener(Action onUpdate);
-        void AddCompleteListener(Action onComplete);
+        ITimer AddUpdateListener(Action onUpdate);
+        ITimer AddCompleteListener(Action onComplete);
     }
    
     public interface ITimeManager
@@ -63,17 +68,41 @@ namespace Module.Timer
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
-        ITimer CreateTimer(float duration, bool loop);
+        ITimer CreateTimer(string id,float duration, bool loop);
+
+        /// <summary>
+        /// 创建计时器
+        /// </summary>
+        ITimer CreateTimer(TimerId timerId, float duration, bool loop);
+
+        /// <summary>
+        /// 根据id获取计时器
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ITimer GetTimer(string id);
+
+        /// <summary>
+        /// 根据id获取计时器
+        /// </summary>
+        /// <param name="timerId"></param>
+        /// <returns></returns>
+        ITimer GetTimer(TimerId timerId);
         /// <summary>
         /// 帧函数
         /// </summary>
         void Update();
-        //继续执行所有计时器
+
+        /// <summary>
+        /// 继续执行所有计时器
+        /// </summary>
         void ContinueAll();
+
         /// <summary>
         /// 暂停所有计时器
         /// </summary>
         void PauseAll();
+
         /// <summary>
         /// 关闭所有计时器
         /// </summary>
@@ -87,6 +116,10 @@ namespace Module.Timer
         /// </summary>
         private class Timer : ITimer
         {
+            /// <summary>
+            /// 唯一标识
+            /// </summary>
+            public string ID { get; private set; }
             /// <summary>
             /// 当前的时间
             /// </summary>
@@ -145,13 +178,14 @@ namespace Module.Timer
             /// 持续时间单位为秒
             /// </summary>
             /// <param name="duration"></param>
-            public Timer(float duration, bool loop)
+            public Timer(string id,float duration, bool loop)
             {
-                InitData(duration, loop);
+                InitData(id,duration, loop);
             }
 
-            private void InitData(float duration, bool loop)
+            private void InitData(string id,float duration, bool loop)
             {
+                this.ID = id;
                 this.duration = duration;
                 Isloop = loop;
                 ResetData();
@@ -162,9 +196,9 @@ namespace Module.Timer
             /// </summary>
             /// <param name="duration"></param>
             /// <param name="loop"></param>
-            public void ResetData(float duration, bool loop)
+            public void ResetData(string id,float duration, bool loop)
             {
-                InitData(duration, loop);
+                InitData(id,duration, loop);
             }
 
             private void ResetData()
@@ -228,14 +262,16 @@ namespace Module.Timer
                 isTiming = false;
             }
 
-            public void AddUpdateListener(Action onUpdate)
+            public ITimer AddUpdateListener(Action onUpdate)
             {
                 this.onUpdate += onUpdate;
+                return this;
             }
 
-            public void AddCompleteListener(Action onComplete)
+            public ITimer AddCompleteListener(Action onComplete)
             {
                 this.onComplete += onComplete;
+                return this;
             }
 
             public float GetCurrentTimingTime()
@@ -244,14 +280,17 @@ namespace Module.Timer
                 return (float)time.TotalSeconds;
             }
         }
-
+       
         private HashSet<ITimer> activeTimer;
         private HashSet<ITimer> inactiveTimer;
         private HashSet<ITimer>.Enumerator activeEnum;
+        private Dictionary<string, ITimer> timerDic;
+
         public TimerManager()
         {
             activeTimer = new HashSet<ITimer>();
             inactiveTimer = new HashSet<ITimer>();
+            timerDic = new Dictionary<string, ITimer>();
         }
 
         /// <summary>
@@ -259,23 +298,70 @@ namespace Module.Timer
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        public ITimer CreateTimer(float duration, bool loop)
+        public ITimer CreateTimer(string id,float duration, bool loop)
         {
-            ITimer timer = null;
-            if (inactiveTimer.Count > 0)
+            if (timerDic.ContainsKey(id))
             {
-                timer = inactiveTimer.First();
-                inactiveTimer.Remove(timer);
-                timer.ResetData(duration, loop);
-                activeTimer.Add(timer);
+                Debug.LogError("id:" + id + "已存在！");
+                return null;
             }
             else
             {
-                timer = new Timer(duration, loop);
-                activeTimer.Add(timer);
-                timer.AddCompleteListener(() => TimerComplete(timer));
+                ITimer timer = null;
+                if (inactiveTimer.Count > 0)
+                {
+                    timer = inactiveTimer.First();
+
+                    timerDic.Remove(timer.ID);
+
+                    inactiveTimer.Remove(timer);
+                    timer.ResetData(id, duration, loop);
+                    activeTimer.Add(timer);
+                }
+                else
+                {
+                    timer = new Timer(id, duration, loop);
+                    activeTimer.Add(timer);
+                    timer.AddCompleteListener(() => TimerComplete(timer));
+                }
+                timerDic[id] = timer; 
+                return timer;
             }
-            return timer;
+        }
+
+        /// <summary>
+        /// 创建计时器
+        /// </summary>
+        public ITimer CreateTimer(TimerId timerId,float duration,bool loop)
+        {
+           return  CreateTimer(timerId.ToString(), duration, loop);
+        }
+
+        /// <summary>
+        /// 根据id获取计时器
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ITimer GetTimer(string id)
+        {
+            if(timerDic.ContainsKey(id))
+            {
+                return timerDic[id];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 根据id获取计时器
+        /// </summary>
+        /// <param name="timerId"></param>
+        /// <returns></returns>
+        public ITimer GetTimer(TimerId timerId)
+        {
+            return GetTimer(timerId.ToString());
         }
 
         /// <summary>

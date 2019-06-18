@@ -40,9 +40,6 @@ namespace Game
 
             serviceManager = new ServiceManager(gameParentManager);
             serviceManager.Init(contexts);
-
-            ITimer timer = contexts.service.gameServiceTimerService.TimerService.CreateTimer(1, true);
-            timer.AddCompleteListener(() => Debug.Log("11111111111111"));
         }
 
         private void Update()

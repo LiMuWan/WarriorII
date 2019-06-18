@@ -1,3 +1,4 @@
+using Const;
 using Entitas;
 using Game.Interface;
 using Module.Timer;
@@ -7,7 +8,7 @@ namespace Game.Service
 {
     public interface ITimerService:IInitService,IExecuteService,ITimeManager
     {
-
+ 
     }
     public class TimerService :ITimerService
     {
@@ -33,11 +34,16 @@ namespace Game.Service
             return 0;
         }
 
-        public ITimer CreateTimer(float duration, bool loop)
+        public ITimer CreateTimer(TimerId timerId,float duration,bool loop)
         {
-            return timeManager.CreateTimer(duration, loop);
+            return timeManager.CreateTimer(timerId, duration,loop);
         }
- 
+
+        public ITimer GetTimer(TimerId timerid)
+        {
+            return timeManager.GetTimer(timerid);
+        }
+
         public void ContinueAll()
         {
             timeManager.ContinueAll();
@@ -56,6 +62,16 @@ namespace Game.Service
         public void Update()
         {
             timeManager.Update();
-        } 
+        }
+
+        public ITimer CreateTimer(string id, float duration, bool loop)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ITimer GetTimer(string id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -76,4 +76,12 @@ namespace Const
         RUN,
         WALK
     }
+
+    /// <summary>
+    /// ¼ÆÊ±Æ÷id
+    /// </summary>
+    public enum TimerId
+    {
+        MOVE_TIMER,
+    }
 }

@@ -1,3 +1,4 @@
+using Const;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -132,8 +133,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Right();
-            contexts.game.gamePlayer.PlayerAni.Right();
+            contexts.service.gameServiceTimerService.TimerService.CreateTimer(TimerId.MOVE_TIMER, 1, true).AddCompleteListener();
         }
     }
 
