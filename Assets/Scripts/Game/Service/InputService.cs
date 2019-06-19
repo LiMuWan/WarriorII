@@ -49,6 +49,9 @@ namespace Game.Service
         private bool isPress;
         private Contexts contexts;
         private InputButtonComponent inputButtonComponent;
+
+        public bool IsRun { get; set; }
+
         public void Init(Contexts contexts)
         {
             this.contexts = contexts;

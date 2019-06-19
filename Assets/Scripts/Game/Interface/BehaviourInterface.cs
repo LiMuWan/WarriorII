@@ -19,6 +19,10 @@ namespace Game.Interface
     public interface IPlayerBehaviour:IBehaviour
     {
         /// <summary>
+        /// 是否正在跑
+        /// </summary>
+        bool IsRun { get; set;}
+        /// <summary>
         /// 待机
         /// </summary>
         void Idle();

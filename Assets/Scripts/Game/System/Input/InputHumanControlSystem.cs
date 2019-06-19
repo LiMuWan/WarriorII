@@ -24,6 +24,7 @@ namespace Game
                 contexts.game.gamePlayer.PlayerAni.Idle();
             }
             contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop();
+            contexts.game.gamePlayer.PlayerAni.IsRun = false;
         }
     }
 
@@ -138,11 +139,11 @@ namespace Game
             var timerService = contexts.service.gameServiceTimerService.TimerService;
             var timer = timerService.CreateTimer(TimerId.MOVE_TIMER, 1, true);
             if (timer != null)
-            { 
-               timer.AddCompleteListener
-                (
-                    () => contexts.service.gameServiceLogService.LogService.Log("11111111")
-                );
+            {
+                timer.AddCompleteListener
+                 (
+                     () => contexts.game.gamePlayer.PlayerAni.IsRun = true
+                 ) ;
             }
         }
     }

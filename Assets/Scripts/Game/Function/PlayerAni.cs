@@ -6,6 +6,7 @@ namespace Game
 {
     public class PlayerAni : IPlayerAni
     {
+        public bool IsRun { get; set; }
         private Animator ani;
 
         public PlayerAni(Animator animator)
@@ -54,7 +55,15 @@ namespace Game
 
         private void Move()
         {
-            Play(PlayerAniIndex.WALK);
+            if (IsRun)
+            {
+                Play(PlayerAniIndex.RUN);
+            }
+            else
+            {
+                Play(PlayerAniIndex.WALK);
+            }
+            
         }
 
         public void Idle()

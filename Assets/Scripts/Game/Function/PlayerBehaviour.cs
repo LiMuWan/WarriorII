@@ -10,6 +10,9 @@ namespace Game
     {
         private Transform playerTrans;
         private PlayerDataModel model;
+
+        public bool IsRun { get; set; }
+
         public PlayerBehaviour(Transform player,PlayerDataModel model)
         {
             playerTrans = player;
@@ -41,12 +44,12 @@ namespace Game
         }
         public void AttackO()
         {
-            throw new System.NotImplementedException();
+           
         }
 
         public void AttackX()
         {
-            throw new System.NotImplementedException();
+           
         }
 
         private void Move(Vector3 direction)
