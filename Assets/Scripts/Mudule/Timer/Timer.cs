@@ -34,6 +34,10 @@ namespace Module.Timer
         /// </summary>
         bool IsComplete { get; }
         /// <summary>
+        /// 是否正在计时
+        /// </summary>
+        bool IsTiming { get;}
+        /// <summary>
         /// 帧函数
         /// </summary>
         void Update();
@@ -142,7 +146,7 @@ namespace Module.Timer
             private Action onComplete;
 
             //是否正在计时
-            private bool isTiming;
+            public bool IsTiming { get; private set; }
           
             //计时开始时间
             private DateTime startTime;
@@ -159,7 +163,7 @@ namespace Module.Timer
                 frameTimes++;
                 if (frameTimes < offsetFrame)
                     return;
-                if (IsComplete || !isTiming)
+                if (IsComplete || !IsTiming)
                     return;
                 IsComplete = JudgeIsComplete();
                 if (Isloop)
@@ -203,7 +207,8 @@ namespace Module.Timer
 
             private void ResetData()
             {
-                isTiming = true;
+                IsComplete = false;
+                IsTiming = true;
                 startTime = DateTime.Now;
                 runTimeTotal = 0;
             }
@@ -217,7 +222,6 @@ namespace Module.Timer
             {
                 if (IsComplete)
                 {
-                    IsComplete = false;
                     onComplete?.Invoke();
                     ResetData();
                 }
@@ -228,6 +232,7 @@ namespace Module.Timer
                 if (IsComplete)
                 {
                     onComplete?.Invoke();
+                    onComplete = null;
                 }
             }
 
@@ -236,7 +241,7 @@ namespace Module.Timer
             /// </summary>
             public void Continue()
             {
-                isTiming = true;
+                IsTiming = true;
                 startTime = DateTime.Now;
             }
 
@@ -245,7 +250,7 @@ namespace Module.Timer
             /// </summary>
             public void Pause()
             {
-                isTiming = false;
+                IsTiming = false;
                 runTimeTotal += GetCurrentTimingTime();
             }
 
@@ -258,8 +263,9 @@ namespace Module.Timer
                 {
                     onComplete?.Invoke();
                 }
+                onComplete = null;
                 runTimeTotal = 0;
-                isTiming = false;
+                IsTiming = false;
             }
 
             public ITimer AddUpdateListener(Action onUpdate)
@@ -300,14 +306,23 @@ namespace Module.Timer
         /// <param name="loop"></param>
         public ITimer CreateTimer(string id,float duration, bool loop)
         {
+            ITimer timer = null;
             if (timerDic.ContainsKey(id))
             {
-                Debug.LogError("id:" + id + "已存在！");
-                return null;
+                timer = timerDic[id];
+                if (!timer.IsTiming)
+                {
+                    inactiveTimer.Remove(timer);
+                    timer.ResetData(id, duration, loop);
+                    activeTimer.Add(timer);
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
-            {
-                ITimer timer = null;
+            { 
                 if (inactiveTimer.Count > 0)
                 {
                     timer = inactiveTimer.First();
@@ -321,12 +336,12 @@ namespace Module.Timer
                 else
                 {
                     timer = new Timer(id, duration, loop);
-                    activeTimer.Add(timer);
-                    timer.AddCompleteListener(() => TimerComplete(timer));
+                    activeTimer.Add(timer);                   
                 }
+                timer.AddCompleteListener(() => TimerComplete(timer));
                 timerDic[id] = timer; 
-                return timer;
             }
+            return timer;
         }
 
         /// <summary>

@@ -23,6 +23,7 @@ namespace Game
             {
                 contexts.game.gamePlayer.PlayerAni.Idle();
             }
+            contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop();
         }
     }
 
@@ -38,15 +39,13 @@ namespace Game
 
         protected override bool FilterCondition(InputEntity entity)
         {
-            return  entity.gameInputButton.InputButton == InputButton.FORWARD 
-               ||   entity.gameInputButton.InputButton == InputButton.BACK    
-               ||   entity.gameInputButton.InputButton == InputButton.LEFT    
-               ||   entity.gameInputButton.InputButton == InputButton.RIGHT;
+            return entity.gameInputButton.InputButton == InputButton.FORWARD;
         }
 
         protected override void Execute(List<InputEntity> entities)
         {
-            
+            contexts.game.gamePlayer.PlayerBehaviour.Forward();
+            contexts.game.gamePlayer.PlayerAni.Forward();
         }
     }
 
@@ -128,12 +127,23 @@ namespace Game
 
         protected override bool FilterCondition(InputEntity entity)
         {
-            return entity.gameInputButton.InputButton == InputButton.FORWARD;
-        }
+            return entity.gameInputButton.InputButton == InputButton.FORWARD
+                || entity.gameInputButton.InputButton == InputButton.BACK
+                || entity.gameInputButton.InputButton == InputButton.LEFT
+                || entity.gameInputButton.InputButton == InputButton.RIGHT;
+        }        
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.service.gameServiceTimerService.TimerService.CreateTimer(TimerId.MOVE_TIMER, 1, true).AddCompleteListener();
+            var timerService = contexts.service.gameServiceTimerService.TimerService;
+            var timer = timerService.CreateTimer(TimerId.MOVE_TIMER, 1, true);
+            if (timer != null)
+            { 
+               timer.AddCompleteListener
+                (
+                    () => contexts.service.gameServiceLogService.LogService.Log("11111111")
+                );
+            }
         }
     }
 

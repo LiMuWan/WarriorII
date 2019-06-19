@@ -36,7 +36,7 @@ namespace Game.Service
 
         public void Input(InputButton button,InputState state)
         {
-            this.contexts.input.SetGameInputButton(button, state);
+            this.contexts.input.ReplaceGameInputButton(button, state);
         }
     }
 
@@ -47,9 +47,12 @@ namespace Game.Service
     {
         private IInputService entitasInputService;
         private bool isPress;
-
+        private Contexts contexts;
+        private InputButtonComponent inputButtonComponent;
         public void Init(Contexts contexts)
         {
+            this.contexts = contexts;
+            inputButtonComponent = contexts.input.gameInputButton;
             entitasInputService = contexts.service.gameServiceEntitasInputService.EntitasInputService;
         }
 
@@ -67,45 +70,52 @@ namespace Game.Service
          
         public void Forward()
         {
+            InputDown(KeyCode.W, InputButton.FORWARD);
             InputPress(KeyCode.W, InputButton.FORWARD);
         }
 
         public void Back()
         {
+            InputDown(KeyCode.S, InputButton.BACK);
             InputPress(KeyCode.S, InputButton.BACK);
         }
 
         public void Left()
         {
+            InputDown(KeyCode.A, InputButton.LEFT);
             InputPress(KeyCode.A, InputButton.LEFT);
         }
 
         public void Right()
         {
+            InputDown(KeyCode.D, InputButton.RIGHT);
             InputPress(KeyCode.D, InputButton.RIGHT);
         }
 
         public void AttackO()
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);
+            InputDown(KeyCode.K, InputButton.ATTACK_O);
         }
 
         public void AttackX()
         {
             InputDown(KeyCode.L, InputButton.ATTACK_X);
+            InputDown(KeyCode.L, InputButton.ATTACK_X);
         }
 
         public void Idle()
-        {
-            if(!isPress)
+        { 
+            //这四个键都没有松 ，并且是持续按下的时候
+            if(!isPress && inputButtonComponent.InputButton != InputButton.NONE && inputButtonComponent.InputState != InputState.NONE)
             {
-                InputDown(KeyCode.None, InputButton.NONE);
+                entitasInputService.Input(InputButton.NONE, InputState.NONE);   
             }
         }
 
         public void InputDown(KeyCode code, InputButton button)
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.L))
+            if (UnityEngine.Input.GetKeyDown(code))
             {
                 Input(button, InputState.DOWN);
                 isPress = true;
@@ -113,7 +123,7 @@ namespace Game.Service
         }
         public void InputUp(KeyCode code, InputButton button)
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.L))
+            if (UnityEngine.Input.GetKeyUp(code))
             {
                 Input(button, InputState.UP);
             }
@@ -121,7 +131,7 @@ namespace Game.Service
 
         public void InputPress(KeyCode code,InputButton button)
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.L))
+            if (UnityEngine.Input.GetKey(code))
             {
                 Input(button, InputState.PRESS);
                 isPress = true;
