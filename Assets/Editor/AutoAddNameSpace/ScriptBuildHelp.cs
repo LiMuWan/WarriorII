@@ -101,6 +101,22 @@ namespace CustomTool
             BackToInsertContent();
         }
 
+        public void WriteInterface(string name, params string[] baseName)
+        {
+            StringBuilder temp = new StringBuilder();
+            for (int i = 0; i < baseName.Length; i++)
+            {
+                temp.Append(baseName[i]);
+                if (i != baseName.Length - 1)
+                {
+                    temp.Append(",");
+                }
+            }
+            Write("public interface " + name + ":" + temp + " ", true);
+            WriteCurlyBrackets();
+            BackToInsertContent();
+        }
+
         public void WriteFun(List<string> keyName, string name,params string[] paraName)
         {
             StringBuilder keyTemp = new StringBuilder();

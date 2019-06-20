@@ -19,6 +19,8 @@ namespace Game.Editor
         private static string dataFileName = "EntitasData.asset";
         private static string viewPostfix = "View";
         private static string viewName;
+        private static string servicePostfix = "Service";
+        private static string serviceName;
 
 
         [MenuItem("Tools/GenerateEntatisCode")]
@@ -28,7 +30,7 @@ namespace Game.Editor
             window.minSize = new Vector2(500, 600);
             window.Show();
             Init();
-            Debug.Log(GetViewCode());
+            Debug.Log(GetServiceCode());
 
         }
 
@@ -124,9 +126,36 @@ namespace Game.Editor
             buildHelp.WriteClass(viewName + viewPostfix, "ViewBase");
             List<string> keyName = new List<string>();
             keyName.Add("override");
+            keyName.Add("void");
             buildHelp.WriteFun( keyName,"Init", "Contexts contexts", "IEntity entity");
             buildHelp.BackToInsertContent();
             buildHelp.WriteFuncContent("base.Init(contexts,entity);");
+            buildHelp.ToContentEnd();
+            return buildHelp.ToString();
+        }
+
+        private static string GetServiceCode()
+        {
+            ScriptBuildHelp buildHelp = new ScriptBuildHelp();
+            string className = serviceName + servicePostfix;
+            buildHelp.WriteNameSpace("Game." + servicePostfix);
+            buildHelp.WriteEmptyLine();
+            buildHelp.WriteInterface("I" + className, "InitService");
+            buildHelp.ToContentEnd();
+
+            buildHelp.WriteClass(className, "I" + className);
+            var keyName = new List<string>();
+            keyName.Add("void");
+            buildHelp.WriteFun(keyName, "Init", "Contexts contexts");
+            buildHelp.BackToInsertContent();
+            buildHelp.WriteFuncContent("//contexts.service.SetGameService" + className + "(this);");
+            buildHelp.ToContentEnd();
+
+            var key = new List<string>();
+            key.Add("int");
+            buildHelp.WriteFun(key, "GetPriority");
+            buildHelp.BackToInsertContent();
+            buildHelp.WriteFuncContent("return 0;");
             buildHelp.ToContentEnd();
             return buildHelp.ToString();
         }
