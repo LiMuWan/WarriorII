@@ -43,9 +43,11 @@ namespace CustomTool
             string name = data == null ? "UIFrame" : data.name;
             script.WriteNameSpace(name);
             script.IndentTimes++;
-            script.WriteClass(className);
+            script.WriteClass(className, "MonoBehaviour");
             script.IndentTimes++;
-            script.WriteFun("Start");
+            List<string> keyName = new List<string>();
+            keyName.Add("void");
+            script.WriteFun(keyName,"Start");
 
             return script.ToString();
         }
@@ -77,7 +79,7 @@ namespace CustomTool
 
         private static string GetClassName1(string text)
         {
-            //匹配模式 \s代表空格 
+            //匹配模式 \s 代表空格 
             string patterm = "public class ([A-Za-z0-9_]+)\\s*:\\s*MonoBehaviour";
             var match = Regex.Match(text, patterm);
             if(match.Success)

@@ -8,16 +8,16 @@ using UnityEngine;
 
 namespace Game
 {
-    public class CameraController : ViewService,IGameCameraStateListener
+    public class CameraController : ViewBase,IGameCameraStateListener
     {
         private Dictionary<CameraParent, Transform> parentDic;
         private CameraMove cameraMove;
 
         public override void Init(Contexts contexts,IEntity entity)
         {
+            base.Init(contexts, entity);
             InitParent();
             InitCamera();
-            gameObject.Link(entity, contexts.game);
             ((GameEntity)entity).AddGameCameraStateListener(this);
         }
 

@@ -29,7 +29,7 @@ namespace Game.Service
 
         public IView[] FindAllView()
         {
-           var array = FindAllType<ViewService>();
+           var array = FindAllType<ViewBase>();
            return array;
         }
 
