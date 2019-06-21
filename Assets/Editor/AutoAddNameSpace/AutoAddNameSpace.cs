@@ -47,7 +47,7 @@ namespace CustomTool
             script.IndentTimes++;
             List<string> keyName = new List<string>();
             keyName.Add("void");
-            script.WriteFun(keyName,"Start");
+            script.WriteFun("Start",ScriptBuildHelp.Private, keyName);
 
             return script.ToString();
         }

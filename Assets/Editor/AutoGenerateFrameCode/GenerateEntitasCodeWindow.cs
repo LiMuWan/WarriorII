@@ -3,6 +3,9 @@ using UnityEngine;
 using System.IO;
 using CustomTool;
 using System.Collections.Generic;
+using Entitas.CodeGeneration.Plugins;
+using DesperateDevs.Serialization;
+using System.Linq;
 
 namespace Game.Editor
 {
@@ -21,8 +24,12 @@ namespace Game.Editor
         private static string viewName;
         private static string servicePostfix = "Service";
         private static string serviceName;
-
-
+        private static string systemPosfix = "System";
+        private static string systemName;
+        private static string namespaceName = "Game";
+        private static string[] contextNames;
+        private static Dictionary<string, bool> contextSelectedStateDic;
+        private static string selectedContextName;
         [MenuItem("Tools/GenerateEntatisCode")]
        public static void OpenWindow()
         {
@@ -30,13 +37,30 @@ namespace Game.Editor
             window.minSize = new Vector2(500, 600);
             window.Show();
             Init();
-            Debug.Log(GetServiceCode());
+            Debug.Log(GetSystemCode());
 
         }
 
         private static void Init()
         {
             ReadDataFromLocal();
+            GetContextName();
+            InitContextSelectdState();
+            selectedContextName = contextNames[0];
+        }
+
+        private static void InitContextSelectdState()
+        {
+            contextSelectedStateDic = new Dictionary<string, bool>();
+            ResetContextSelectedState();
+        }
+
+        private static void ResetContextSelectedState()
+        {
+            foreach (string contextName in contextNames)
+            {
+                contextSelectedStateDic[contextName] = false;
+            }
         }
 
         private void OnGUI()
@@ -55,6 +79,27 @@ namespace Game.Editor
             GUILayout.Label("View 层代码生成");
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
             viewPath = EditorGUI.TextField(rect, viewName) ;
+
+            if (contextSelectedStateDic != null)
+            {
+                foreach (KeyValuePair<string, bool> pair in contextSelectedStateDic)
+                {
+                    if (GUILayout.Toggle(pair.Value, pair.Key) && pair.Value == false)
+                    {
+                        selectedContextName = pair.Key;
+                    }
+                }
+                ToggleGroup(selectedContextName);
+            }
+        }
+
+        private static void ToggleGroup(string name)
+        {
+            if (contextSelectedStateDic.ContainsKey(name))
+            {
+                ResetContextSelectedState();
+                contextSelectedStateDic[name] = true;
+            }
         }
 
         /// <summary>
@@ -116,48 +161,97 @@ namespace Game.Editor
             }
         }
 
+        public static void GetContextName()
+        {
+            var provider = new ContextDataProvider();
+            provider.Configure(Preferences.sharedInstance);
+            var data = (ContextData[])provider.GetData();
+            contextNames = data.Select(p => p.GetContextName()).ToArray();
+        }
+
         private static string GetViewCode()
         {
-            ScriptBuildHelp buildHelp = new ScriptBuildHelp();
-            buildHelp.WriteUsing("Entitas");
-            buildHelp.WriteUsing("Entitas.Unity");
-            buildHelp.WriteNameSpace("Game." + viewPostfix);
-            buildHelp.WriteEmptyLine();
-            buildHelp.WriteClass(viewName + viewPostfix, "ViewBase");
+            ScriptBuildHelp build = new ScriptBuildHelp();
+            build.WriteUsing("Entitas");
+            build.WriteUsing("Entitas.Unity");
+            build.WriteNameSpace(namespaceName + "." + viewPostfix);
+            build.WriteEmptyLine();
+            build.WriteClass(viewName + viewPostfix, "ViewBase");
             List<string> keyName = new List<string>();
             keyName.Add("override");
             keyName.Add("void");
-            buildHelp.WriteFun( keyName,"Init", "Contexts contexts", "IEntity entity");
-            buildHelp.BackToInsertContent();
-            buildHelp.WriteFuncContent("base.Init(contexts,entity);");
-            buildHelp.ToContentEnd();
-            return buildHelp.ToString();
+            build.WriteFun("Init",ScriptBuildHelp.Private, keyName,"", "Contexts contexts", "IEntity entity");
+            build.BackToInsertContent();
+            build.WriteLine("base.Init(contexts,entity);",true);
+            build.ToContentEnd();
+            return build.ToString();
         }
 
         private static string GetServiceCode()
         {
-            ScriptBuildHelp buildHelp = new ScriptBuildHelp();
+            ScriptBuildHelp build = new ScriptBuildHelp();
             string className = serviceName + servicePostfix;
-            buildHelp.WriteNameSpace("Game." + servicePostfix);
-            buildHelp.WriteEmptyLine();
-            buildHelp.WriteInterface("I" + className, "InitService");
-            buildHelp.ToContentEnd();
+            build.WriteNameSpace(namespaceName + "." + servicePostfix);
+            build.WriteEmptyLine();
+            build.WriteInterface("I" + className, "InitService");
+            build.ToContentEnd();
 
-            buildHelp.WriteClass(className, "I" + className);
+            build.WriteClass(className, "I" + className);
             var keyName = new List<string>();
             keyName.Add("void");
-            buildHelp.WriteFun(keyName, "Init", "Contexts contexts");
-            buildHelp.BackToInsertContent();
-            buildHelp.WriteFuncContent("//contexts.service.SetGameService" + className + "(this);");
-            buildHelp.ToContentEnd();
+            build.WriteFun("Init",ScriptBuildHelp.Private ,keyName,"", "Contexts contexts");
+            build.BackToInsertContent();
+            build.WriteLine("//contexts.service.SetGameService" + className + "(this);",true);
+            build.ToContentEnd();
 
             var key = new List<string>();
             key.Add("int");
-            buildHelp.WriteFun(key, "GetPriority");
-            buildHelp.BackToInsertContent();
-            buildHelp.WriteFuncContent("return 0;");
-            buildHelp.ToContentEnd();
-            return buildHelp.ToString();
+            build.WriteFun("GetPriority",ScriptBuildHelp.Protected, key);
+            build.BackToInsertContent();
+            build.WriteLine("return 0;",true);
+            build.ToContentEnd();
+            return build.ToString();
+        }
+
+        private static string GetSystemCode()
+        {
+            string className = selectedContextName + systemName + systemPosfix;
+            string entityName = selectedContextName + "Entity";
+            ScriptBuildHelp build = new ScriptBuildHelp();
+            build.WriteUsing("Entitas");
+            build.WriteEmptyLine(); 
+            build.WriteClass(className, "ReactiveSystem<" + entityName +  ">");
+            build.WriteLine("protected Contexts contexts;", true);
+            build.WriteEmptyLine();
+            //构造
+            build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), ": base(contexts.game)", "Contexts contexts");
+            build.BackToInsertContent();
+            build.WriteLine("this.contexts = contexts;");
+            build.ToContentEnd();
+            build.WriteEmptyLine();
+
+            //GetTrigger
+            List<string> triggerKeys = new List<string>();
+            triggerKeys.Add("override");
+            triggerKeys.Add("ICollector<" + entityName + ">");
+            build.WriteFun("GetTrigger",ScriptBuildHelp.Protected, triggerKeys," ", "IContext<"+ entityName + "> context");
+            build.BackToInsertContent();
+            build.WriteLine("return context.CreateCollector(" + selectedContextName + "Matcher.Game" + selectedContextName + systemName + ");",true);
+            build.ToContentEnd();
+            //Filter
+            List<string> filterKeys = new List<string>();
+            filterKeys.Add("override");
+            filterKeys.Add("bool");
+            build.WriteFun("Filter", ScriptBuildHelp.Protected, filterKeys, "", entityName + "entity");
+            build.BackToInsertContent();
+            build.WriteLine(" return entity.hasGame"+ selectedContextName + systemName + ";",true);
+            build.ToContentEnd();
+            //Execute
+            List<string> executeKeys = new List<string>();
+            filterKeys.Add("override");
+            filterKeys.Add("void");
+            build.WriteFun("Execute", ScriptBuildHelp.Protected, executeKeys, "", "List<" + entityName + "> entities");
+            return build.ToString();
         }
     }
 }

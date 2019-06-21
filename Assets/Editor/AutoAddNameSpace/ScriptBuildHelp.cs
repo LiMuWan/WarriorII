@@ -7,6 +7,9 @@ namespace CustomTool
 {
     public class ScriptBuildHelp
     {
+        public static string Public = "public";
+        public static string Private = "private";
+        public static string Protected = "protected";
         private StringBuilder stringBuilder;
 
         private string lineBreak = "\r\n";
@@ -21,10 +24,14 @@ namespace CustomTool
         {
             stringBuilder = new StringBuilder();
             backNum = WriteCurlyBrackets();
+            ResetData();
+        }
+
+        public void ResetData()
+        {
             stringBuilder.Clear();
             currentIndex = 0;
         }
-
 
         private void Write(string context, bool needIndent = false)
         {
@@ -45,7 +52,7 @@ namespace CustomTool
             currentIndex += context.Length;
         }
 
-        private void WriteLine(string context,bool needIndent = false)
+        public void WriteLine(string context,bool needIndent = false)
         {
             Write(context + lineBreak, needIndent);
         }
@@ -116,21 +123,28 @@ namespace CustomTool
             WriteCurlyBrackets();
             BackToInsertContent();
         }
+        //public void WriteFun(List<string> keyName, string publicState,string name, string others = " ", params string[] paraName)
+        //{
+        //    WriteFun(name, publicState, keyName, others, paraName);
+        //}
 
-        public void WriteFun(List<string> keyName, string name,params string[] paraName)
+        public void WriteFun(string name, string publicState, List<string> keyName,  string others = " ",params string[] paraName)
         {
             StringBuilder keyTemp = new StringBuilder();
-            for (int i = 0; i < keyName.Count; i++)
+            if (keyName != null)
             {
-                keyTemp.Append(keyName[i]);
-                if(i != keyName.Count - 1)
+                for (int i = 0; i < keyName.Count; i++)
                 {
-                    keyTemp.Append(" ");
+                    keyTemp.Append(keyName[i]);
+                    if (i != keyName.Count - 1)
+                    {
+                        keyTemp.Append(" ");
+                    }
                 }
             }
 
             StringBuilder temp = new StringBuilder();
-            temp.Append("public " + keyTemp + " " + name + "()");
+            temp.Append(publicState + keyTemp + " " + name + "()");
             if (paraName != null && paraName.Length > 0)
             {
                 foreach (var s in paraName)
@@ -139,6 +153,7 @@ namespace CustomTool
                 }
                 temp.Remove(temp.Length - 2, 1);
             }
+            temp.Append(others);
             Write(temp.ToString(), true);
             WriteCurlyBrackets();
         }
@@ -157,15 +172,6 @@ namespace CustomTool
         public void ToContentEnd()
         {
             currentIndex += backNum;   
-        }
-
-        /// <summary>
-        /// 添加方法内容
-        /// </summary>
-        /// <param name="contentLine"></param>
-        public void WriteFuncContent(string contentLine)
-        {
-            WriteLine(contentLine, true);
         }
 
         public void WriteEmptyLine()
