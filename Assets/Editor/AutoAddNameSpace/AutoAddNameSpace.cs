@@ -11,6 +11,9 @@ namespace CustomTool
     {
         private static void OnWillCreateAsset(string path)
         {
+            if (AddNamespaceWindow.isOn)
+                return;
+
             path = path.Replace(".meta", "");
             if (path.Contains("Sources")) return;
             if (path.EndsWith(".cs"))

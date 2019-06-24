@@ -144,7 +144,7 @@ namespace CustomTool
             }
 
             StringBuilder temp = new StringBuilder();
-            temp.Append(publicState + keyTemp + " " + name + "()");
+            temp.Append(publicState + "  " +  keyTemp + " " + name + "()");
             if (paraName != null && paraName.Length > 0)
             {
                 foreach (var s in paraName)

@@ -6,13 +6,15 @@ using System.Collections.Generic;
 using Entitas.CodeGeneration.Plugins;
 using DesperateDevs.Serialization;
 using System.Linq;
+using Entitas;
+using System.Text;
 
 namespace Game.Editor
 {
     /// <summary>
     /// 生成Entatis框架代码工具
     /// </summary>
-    public class GenerateEntitasCodeWindow : EditorWindow   
+    public class GenerateEntitasCodeWindow : EditorWindow 
     {
 
         private static string viewPath;
@@ -26,10 +28,21 @@ namespace Game.Editor
         private static string serviceName;
         private static string systemPosfix = "System";
         private static string systemName;
-        private static string namespaceName = "Game";
+        private static string namespaceBase = "Game";
         private static string[] contextNames;
         private static Dictionary<string, bool> contextSelectedStateDic;
         private static string selectedContextName;
+        private static string otherSystemName;
+
+        private static string[] systemInterfaceNames =
+        {
+            "IInitializeSystem",
+            "IExecuteSystem",
+            "ICleanupSystem",
+            "ITearDownSystem"
+        };
+
+        private static Dictionary<string, bool> systemSelectedStateDic;
         [MenuItem("Tools/GenerateEntatisCode")]
        public static void OpenWindow()
         {
@@ -37,7 +50,7 @@ namespace Game.Editor
             window.minSize = new Vector2(500, 600);
             window.Show();
             Init();
-            Debug.Log(GetSystemCode());
+            Debug.Log(GetReactiveSystemCode());
 
         }
 
@@ -47,8 +60,11 @@ namespace Game.Editor
             GetContextName();
             InitContextSelectdState();
             selectedContextName = contextNames[0];
+            InitSystemSelectdState();
+            
         }
 
+        #region ContextSelectedState
         private static void InitContextSelectdState()
         {
             contextSelectedStateDic = new Dictionary<string, bool>();
@@ -62,6 +78,23 @@ namespace Game.Editor
                 contextSelectedStateDic[contextName] = false;
             }
         }
+        #endregion
+
+        #region SystemSelectedState
+        private static void InitSystemSelectdState()
+        {
+            systemSelectedStateDic = new Dictionary<string, bool>();
+            ResetSystemSelectedState();
+        }
+
+        private static void ResetSystemSelectedState()
+        {
+            foreach (string systemName in systemInterfaceNames)
+            {
+                systemSelectedStateDic[systemName] = false;
+            }
+        }
+        #endregion
 
         private void OnGUI()
         {
@@ -78,8 +111,10 @@ namespace Game.Editor
             GUILayout.Space(5);
             GUILayout.Label("View 层代码生成");
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
-            viewPath = EditorGUI.TextField(rect, viewName) ;
+            viewName = EditorGUI.TextField(rect, viewName) ;
 
+            GUILayout.Space(5);
+            GUILayout.Label("选择要生成系统的上下文");
             if (contextSelectedStateDic != null)
             {
                 foreach (KeyValuePair<string, bool> pair in contextSelectedStateDic)
@@ -90,6 +125,20 @@ namespace Game.Editor
                     }
                 }
                 ToggleGroup(selectedContextName);
+            }
+
+            GUILayout.Space(5);
+            GUILayout.Label("选择要生成的系统");
+            if (systemSelectedStateDic != null)
+            {
+                foreach (string systemName in systemInterfaceNames)
+                {
+                    systemSelectedStateDic[systemName] = GUILayout.Toggle(systemSelectedStateDic[systemName], systemName);
+                }
+            }
+            if(GUILayout.Button("选择要生成的系统"))
+            {
+                Debug.Log(GetOtherSystemCode());
             }
         }
 
@@ -174,7 +223,7 @@ namespace Game.Editor
             ScriptBuildHelp build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
             build.WriteUsing("Entitas.Unity");
-            build.WriteNameSpace(namespaceName + "." + viewPostfix);
+            build.WriteNameSpace(namespaceBase + "." + viewPostfix);
             build.WriteEmptyLine();
             build.WriteClass(viewName + viewPostfix, "ViewBase");
             List<string> keyName = new List<string>();
@@ -191,7 +240,7 @@ namespace Game.Editor
         {
             ScriptBuildHelp build = new ScriptBuildHelp();
             string className = serviceName + servicePostfix;
-            build.WriteNameSpace(namespaceName + "." + servicePostfix);
+            build.WriteNameSpace(namespaceBase + "." + servicePostfix);
             build.WriteEmptyLine();
             build.WriteInterface("I" + className, "InitService");
             build.ToContentEnd();
@@ -213,7 +262,7 @@ namespace Game.Editor
             return build.ToString();
         }
 
-        private static string GetSystemCode()
+        private static string GetReactiveSystemCode()
         {
             string className = selectedContextName + systemName + systemPosfix;
             string entityName = selectedContextName + "Entity";
@@ -252,6 +301,69 @@ namespace Game.Editor
             filterKeys.Add("void");
             build.WriteFun("Execute", ScriptBuildHelp.Protected, executeKeys, "", "List<" + entityName + "> entities");
             return build.ToString();
+        }
+
+        private static string GetOtherSystemCode()
+        {
+            string className = otherSystemName + systemPosfix;
+            List<string> selectedSystem = GetSelectedSystem();
+            ScriptBuildHelp build = new ScriptBuildHelp();
+            build.WriteUsing("Entitas");
+            build.WriteNameSpace(namespaceBase);
+            build.WriteEmptyLine();
+            build.WriteClass(className, GetSelectedSystem(selectedSystem));
+            build.WriteLine("protected Contexts contexts;", true);
+            build.WriteEmptyLine();
+            //构造
+            build.WriteFun(className,ScriptBuildHelp.Public,new List<string>(), " ","Contexts contexts");
+            build.BackToInsertContent();
+            build.WriteLine("this.contexts = contexts;");
+            build.ToContentEnd();
+            //实现方法
+            List<string> funcName = GetFuncName(selectedSystem);
+            List<string> keyName = new List<string>();
+            keyName.Add("void");
+            foreach (string func in funcName)
+            {
+                build.WriteFun(func, ScriptBuildHelp.Public, keyName);
+            }
+
+            return build.ToString();
+        }
+        private static List<string> GetSelectedSystem()
+        {
+            List<string> temp = new List<string>();
+            foreach (KeyValuePair<string,bool> pair in systemSelectedStateDic)
+            {
+                if(pair.Value)
+                {
+                    temp.Add(pair.Key);
+                }
+            }
+
+            return temp;
+         }
+
+        private static string GetSelectedSystem(List<string> selected)
+        {
+            StringBuilder build = new StringBuilder();
+            foreach (string pair in selected)
+            {
+                    build.Append(pair);
+                    build.Append(" , ");
+            }
+            build.Remove(build.Length - 4, 3);
+            return build.ToString();
+        }
+
+        private static List<string> GetFuncName(List<string> selected)
+        {
+            List<string> temp = new List<string>();
+            foreach (string interfaceName in selected)
+            {
+                temp.Add(interfaceName.Substring(1, interfaceName.Length - 7));
+            }
+            return temp;
         }
     }
 }
