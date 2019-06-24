@@ -8,6 +8,7 @@ using DesperateDevs.Serialization;
 using System.Linq;
 using Entitas;
 using System.Text;
+using System;
 
 namespace Game.Editor
 {
@@ -43,25 +44,30 @@ namespace Game.Editor
         };
 
         private static Dictionary<string, bool> systemSelectedStateDic;
+        private static int lineSpace;
+
+        private static GUIStyle mainTitle = new GUIStyle();
+        private static GUIStyle itemTitle = new GUIStyle();
+
         [MenuItem("Tools/GenerateEntatisCode")]
        public static void OpenWindow()
         {
             var window = GetWindow(typeof(GenerateEntitasCodeWindow));
-            window.minSize = new Vector2(500, 600);
+            window.minSize = new Vector2(600, 800);
             window.Show();
             Init();
-            Debug.Log(GetReactiveSystemCode());
 
         }
 
         private static void Init()
         {
+            lineSpace = 15;
             ReadDataFromLocal();
             GetContextName();
             InitContextSelectdState();
             selectedContextName = contextNames[0];
             InitSystemSelectdState();
-            
+            InitGUIStyle();
         }
 
         #region ContextSelectedState
@@ -96,25 +102,71 @@ namespace Game.Editor
         }
         #endregion
 
+        private static void InitGUIStyle()
+        {
+            mainTitle.alignment = TextAnchor.MiddleCenter;
+            mainTitle.normal.textColor = Color.white;
+            mainTitle.fontSize = 30;
+            mainTitle.fontStyle = FontStyle.Bold;
+
+            itemTitle.normal.textColor = Color.gray;
+            itemTitle.fontSize = 15;
+            itemTitle.fontStyle = FontStyle.Bold;
+        }
+
         private void OnGUI()
         {
-            GUILayout.Label("生成Entitas框架代码工具");
-            GUILayout.Space(5);
-            GUILayout.Label("脚本路径");
-            PathItem("View 层路径",ref viewPath);
+            if(mainTitle != null)
+               GUILayout.Label("生成Entitas框架代码工具",mainTitle);
+
+            Path();
+
+            View();
+
+            Service();
+
+            ReactiveSystem();
+
+            OtherSystem();
+        }
+
+        private void Path()
+        {
+            GUILayout.Space(lineSpace);
+            GUILayout.Label("脚本路径",itemTitle);
+            PathItem("View 层路径", ref viewPath);
             PathItem("Service 层路径", ref servicePath);
             PathItem("System 层路径", ref systemPath);
-            if(GUILayout.Button("保存路径",GUILayout.Width(500)))
-            {
-                SaveDataToLocal();
-            }
-            GUILayout.Space(5);
-            GUILayout.Label("View 层代码生成");
-            Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
-            viewName = EditorGUI.TextField(rect, viewName) ;
+            CreateButton("保存路径", () => { });
+        }
 
-            GUILayout.Space(5);
-            GUILayout.Label("选择要生成系统的上下文");
+        private void View()
+        {
+            GUILayout.Space(lineSpace);
+            InputName("请输入脚本名称", ref viewName);
+            CreateButton("生成脚本",() => 
+            {
+                CreateScript(viewPath, viewName + viewPostfix, GetViewCode());
+            }
+            );
+        }
+
+        private void Service()
+        {
+            GUILayout.Space(lineSpace);
+            InputName("请输入脚本名称", ref serviceName);
+            CreateButton("生成脚本", () => 
+            {
+                CreateScript(servicePath, serviceName + servicePostfix, GetServiceCode());
+            }
+            );
+        }
+
+        private void ReactiveSystem()
+        {
+            GUILayout.Space(lineSpace);
+            GUILayout.Label("选择要生成系统的上下文",itemTitle);
+            GUILayout.BeginHorizontal();
             if (contextSelectedStateDic != null)
             {
                 foreach (KeyValuePair<string, bool> pair in contextSelectedStateDic)
@@ -126,9 +178,20 @@ namespace Game.Editor
                 }
                 ToggleGroup(selectedContextName);
             }
+            GUILayout.EndHorizontal();
+            InputName("请输入脚本名称", ref systemName);
 
-            GUILayout.Space(5);
-            GUILayout.Label("选择要生成的系统");
+            CreateButton("生成脚本", () => 
+            {
+                CreateScript(systemPath, systemName + systemPosfix, GetReactiveSystemCode());
+            }
+            );
+        }
+
+        private void OtherSystem()
+        {
+            GUILayout.Space(lineSpace);
+            GUILayout.Label("选择要生成的系统", itemTitle);
             if (systemSelectedStateDic != null)
             {
                 foreach (string systemName in systemInterfaceNames)
@@ -136,9 +199,26 @@ namespace Game.Editor
                     systemSelectedStateDic[systemName] = GUILayout.Toggle(systemSelectedStateDic[systemName], systemName);
                 }
             }
-            if(GUILayout.Button("选择要生成的系统"))
+            InputName("请输入脚本名称", ref otherSystemName);
+            CreateButton("生成脚本", () => 
             {
-                Debug.Log(GetOtherSystemCode());
+                CreateScript(systemPath, systemName + systemPosfix, GetOtherSystemCode());
+            }
+            );
+        }
+
+        private void InputName(string title,ref string name)
+        {
+            GUILayout.Label(title,itemTitle);
+            Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
+            name = EditorGUI.TextField(rect, name);
+        }
+
+        private static void CreateButton(string btnName,Action callBack)
+        {
+            if (GUILayout.Button(btnName, GUILayout.Width(150)))
+            {
+                callBack?.Invoke();
             }
         }
 
@@ -176,7 +256,7 @@ namespace Game.Editor
             && rect.Contains(Event.current.mousePosition))
             {
                 DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-                if(DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
+                if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
                 {
                     path = DragAndDrop.paths[0];
                 }
@@ -225,12 +305,15 @@ namespace Game.Editor
             build.WriteUsing("Entitas.Unity");
             build.WriteNameSpace(namespaceBase + "." + viewPostfix);
             build.WriteEmptyLine();
+            build.IndentTimes++;
             build.WriteClass(viewName + viewPostfix, "ViewBase");
             List<string> keyName = new List<string>();
             keyName.Add("override");
             keyName.Add("void");
-            build.WriteFun("Init",ScriptBuildHelp.Private, keyName,"", "Contexts contexts", "IEntity entity");
+            build.IndentTimes++;
+            build.WriteFun("Init",ScriptBuildHelp.Public, keyName,"", "Contexts contexts", "IEntity entity");
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine("base.Init(contexts,entity);",true);
             build.ToContentEnd();
             return build.ToString();
@@ -364,6 +447,19 @@ namespace Game.Editor
                 temp.Add(interfaceName.Substring(1, interfaceName.Length - 7));
             }
             return temp;
+        }
+
+        private static void CreateScript(string path,string className,string scriptContent)
+        {
+            if(Directory.Exists(path))
+            {
+                File.WriteAllText(path + "/" +  className + ".cs", scriptContent);
+                AssetDatabase.Refresh();
+            }
+            else
+            {
+                Debug.LogError("目录：" + path + "不存在！");
+            }
         }
     }
 }

@@ -19,11 +19,14 @@ namespace CustomTool
         /// <summary>
         /// 回到大括号中间，需要缩进的值
         /// </summary>
-        private int backNum;
+        private int backNum
+        {
+            get { return (GetIndent() + "}" + lineBreak).Length; }
+        }
+
         public ScriptBuildHelp()
         {
-            stringBuilder = new StringBuilder();
-            backNum = WriteCurlyBrackets();
+            stringBuilder = new StringBuilder();;
             ResetData();
         }
 

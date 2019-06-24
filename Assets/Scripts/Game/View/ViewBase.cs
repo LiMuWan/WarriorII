@@ -3,7 +3,7 @@ using Entitas.Unity;
 using Game.Interface;
 using UnityEngine;
 
-namespace Game.Service
+namespace Game
 {
     /// <summary>
     /// View ²ã»ùÀà 
