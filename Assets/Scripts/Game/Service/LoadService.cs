@@ -1,4 +1,4 @@
-using Entitas;
+ï»¿using Entitas;
 using Game.Interface;
 using Manager;
 using Manager.Parent;
@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Game.Service
 {
     /// <summary>
-    /// ¼ÓÔØ·şÎñ½Ó¿Ú
+    /// åŠ è½½æœåŠ¡æ¥å£
     /// </summary>
     public interface ILoadService:ILoad,IInitService
     {
@@ -59,7 +59,7 @@ namespace Game.Service
 
             if (animator == null)
             {
-                Debug.LogError("playerÉíÉÏÎ´ÕÒµ½Animator×é¼ş£¡£¡£¡");
+                Debug.LogError("playerèº«ä¸Šæœªæ‰¾åˆ°Animatorç»„ä»¶ï¼ï¼ï¼");
             }
             else
             {

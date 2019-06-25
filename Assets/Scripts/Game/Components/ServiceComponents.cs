@@ -1,11 +1,11 @@
-using Entitas;
+ï»¿using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using Game.Service;
 
 namespace Game.Service
 {
     /// <summary>
-    /// ²éÕÒ·şÎñ×é¼ş
+    /// æŸ¥æ‰¾æœåŠ¡ç»„ä»¶
     /// </summary>
     [Service,Unique]
     public class FindObjectServiceComponent:IComponent
@@ -15,7 +15,7 @@ namespace Game.Service
 
 
     /// <summary>
-    /// ÊäÈë·şÎñ×é¼ş
+    /// è¾“å…¥æœåŠ¡ç»„ä»¶
     /// </summary>
     [Service, Unique]
     public class EntitasInputServiceComponent:IComponent
@@ -24,7 +24,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    /// ÈÕÖ¾·şÎñ×é¼ş 
+    /// æ—¥å¿—æœåŠ¡ç»„ä»¶ 
     /// </summary>
     [Service, Unique]
     public class LogServiceComponent:IComponent
@@ -33,7 +33,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    /// ¼ÓÔØ·şÎñ×é¼ş
+    /// åŠ è½½æœåŠ¡ç»„ä»¶
     /// </summary>
     [Service, Unique]
     public class LoadServiceComponent : IComponent
@@ -42,7 +42,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    /// ¼ÆÊ±Æ÷·şÎñ×é¼ş
+    /// è®¡æ—¶å™¨æœåŠ¡ç»„ä»¶
     /// </summary>
     [Service, Unique]
     public class TimerServiceComponent:IComponent

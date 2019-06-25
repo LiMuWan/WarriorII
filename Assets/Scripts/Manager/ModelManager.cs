@@ -1,16 +1,16 @@
-using Game;
+ï»¿using Game;
 using UnityEngine;
 using Util;
 
 namespace Manager
 {
     /// <summary>
-    /// Êı¾İÄ£ĞÍ¹ÜÀíÀà
+    /// æ•°æ®æ¨¡å‹ç®¡ç†ç±»
     /// </summary>
     public class ModelManager : SingletonBase<ModelManager>   
     {
         /// <summary>
-        /// Íæ¼ÒÊı¾İÅäÖÃÀà
+        /// ç©å®¶æ•°æ®é…ç½®ç±»
         /// </summary>
         public PlayerDataModel PlayerData{ get; private set; }
         public void Init()        

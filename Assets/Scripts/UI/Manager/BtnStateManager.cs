@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Util;
 using DG.Tweening;
@@ -84,7 +84,7 @@ namespace Manager
                 }
                 else
                 {
-                    currentParents[parentId].SelectedState = Const.SelectedState.UNSELECTED; //id�ı�֮ǰ������Ϊδѡ��״̬
+                    currentParents[parentId].SelectedState = Const.SelectedState.UNSELECTED; //id改变之前把它设为未选中状态
                     parentId += symbol;
                     return MoveIndex(moveAction,symbol);
                 }
@@ -92,7 +92,7 @@ namespace Manager
             else
             {
                 ResetParentId();
-                currentParents[parentId].SelectedState = Const.SelectedState.SELECTED; //��λ��id��Ϊѡ��״̬ 
+                currentParents[parentId].SelectedState = Const.SelectedState.SELECTED; //复位的id设为选中状态 
                 return true;
             }
         }

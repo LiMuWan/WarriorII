@@ -1,10 +1,10 @@
-using Entitas;
+ï»¿using Entitas;
 using UnityEngine;
 
 namespace Game
 {
     /// <summary>
-    /// ³õÊ¼»¯·şÎñÏµÍ³
+    /// åˆå§‹åŒ–æœåŠ¡ç³»ç»Ÿ
     /// </summary>
     public class InitServiceSystem : IInitializeSystem
     {
@@ -29,7 +29,7 @@ namespace Game
         }
 
         /// <summary>
-        /// ³õÊ¼»¯µ¥Àı×é¼ş
+        /// åˆå§‹åŒ–å•ä¾‹ç»„ä»¶
         /// </summary>
         /// <param name="contexts"></param>
         /// <param name="services"></param>

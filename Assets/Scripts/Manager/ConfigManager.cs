@@ -1,4 +1,4 @@
-using Const;
+ï»¿using Const;
 using System.IO;
 using UnityEngine;
 using Util;
@@ -6,12 +6,12 @@ using Util;
 namespace Manager
 {
     /// <summary>
-    /// ÅäÖÃ¹ÜÀíÆ÷
+    /// é…ç½®ç®¡ç†å™¨
     /// </summary>
     public class ConfigManager : SingletonBase<ConfigManager>   
     {
         /// <summary>
-        /// ¼ÓÔØjsonÅäÖÃÎÄ¼ş
+        /// åŠ è½½jsoné…ç½®æ–‡ä»¶
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>

@@ -1,16 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Game.Interface
 {
     /// <summary>
-    /// Ã¿¸öService¶¼±ØĞëÊµÏÖIInitService
+    /// æ¯ä¸ªServiceéƒ½å¿…é¡»å®ç°IInitService
     /// </summary>
     public interface IInitService 
     {
         void Init(Contexts contexts);
 
         /// <summary>
-        /// »ñÈ¡ÓÅÏÈ¼¶
+        /// è·å–ä¼˜å…ˆçº§
         /// </summary>
         /// <returns></returns>
         int GetPriority();

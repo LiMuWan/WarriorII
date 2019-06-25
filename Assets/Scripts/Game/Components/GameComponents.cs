@@ -1,4 +1,4 @@
-using Const;
+ï»¿using Const;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using Game.Interface;
@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
-    /// Ïà»ú¶¯»­×´Ì¬£¬¸ù¾İ´Ë×´Ì¬µÄ¸Ä±ä²¥·ÅÏà»ú¶¯»­
+    /// ç›¸æœºåŠ¨ç”»çŠ¶æ€ï¼Œæ ¹æ®æ­¤çŠ¶æ€çš„æ”¹å˜æ’­æ”¾ç›¸æœºåŠ¨ç”»
     /// </summary>
     [Game, Event(EventTarget.Self),Unique ]
     public class CameraState : IComponent
@@ -18,7 +18,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ÓÎÏ·×´Ì¬
+    /// æ¸¸æˆçŠ¶æ€
     /// </summary>
     [Game,Unique]
     public class GameStateComponent : IComponent
@@ -27,7 +27,7 @@ namespace Game
     }
 
     /// <summary>
-    /// Íæ¼Ò
+    /// ç©å®¶
     /// </summary>
     [Game,Unique]
     public class PlayerComponent : IComponent
@@ -38,7 +38,7 @@ namespace Game
     }
 
     /// <summary>
-    /// Íæ¼Ò¶¯»­
+    /// ç©å®¶åŠ¨ç”»
     /// </summary>
     [Game]
     public class PlayerAniState : IComponent

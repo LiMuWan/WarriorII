@@ -1,4 +1,4 @@
- using Entitas;
+ï»¿ using Entitas;
 using Entitas.Unity;
 using Game.Service;
 using Manager;
@@ -54,7 +54,7 @@ namespace Game
             var camera = transform.GetComponentInChildren<Camera>();
             if (camera == null)
             {
-                Debug.LogError("ÎÞ·¨²éÕÒµ½Ïà»ú");
+                Debug.LogError("æ— æ³•æŸ¥æ‰¾åˆ°ç›¸æœº");
             }
             else
             {

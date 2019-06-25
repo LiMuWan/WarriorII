@@ -1,16 +1,16 @@
- using UnityEngine;
+ï»¿ using UnityEngine;
 using DG.Tweening;
 
 namespace Game
 {
     /// <summary>
-    /// Ïà»ú»º¶¯¶¯»­
+    /// ç›¸æœºç¼“åŠ¨åŠ¨ç”»
     /// </summary>
     public class CameraMove : MonoBehaviour    
     { 
 
         /// <summary>
-        /// Ïà»ú³õÊ¼»¯
+        /// ç›¸æœºåˆå§‹åŒ–
         /// </summary>
         /// <param name="targetParent"></param>
         public void Init(Transform targetParent)
@@ -21,7 +21,7 @@ namespace Game
         }
 
         /// <summary>
-        /// Ïà»ú»º¶¯¶¯»­
+        /// ç›¸æœºç¼“åŠ¨åŠ¨ç”»
         /// </summary>
         /// <param name="targetParent"></param>
         public void Move(Transform targetParent)
@@ -35,7 +35,7 @@ namespace Game
         }
 
         /// <summary>
-        /// ÉèÖÃ¸¸ÎïÌå
+        /// è®¾ç½®çˆ¶ç‰©ä½“
         /// </summary>
         /// <param name="targetParent"></param>
         public void SetParent(Transform targetParent)

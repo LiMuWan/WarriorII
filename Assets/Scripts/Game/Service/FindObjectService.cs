@@ -1,10 +1,10 @@
-using Game.Interface;
+ï»¿using Game.Interface;
 using UnityEngine;
 
 namespace Game.Service
 {
     /// <summary>
-    /// ²éÕÒ³¡¾°ÄÚÎïÌåµÄ·şÎñ½Ó¿Ú
+    /// æŸ¥æ‰¾åœºæ™¯å†…ç‰©ä½“çš„æœåŠ¡æ¥å£
     /// </summary>
     public interface IFindObjectService:IInitService
     {
@@ -13,7 +13,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    ///  ²éÕÒ³¡¾°ÖĞÎïÌåµÄ·şÎñ
+    ///  æŸ¥æ‰¾åœºæ™¯ä¸­ç‰©ä½“çš„æœåŠ¡
     /// </summary>
     public class FindObjectService : IFindObjectService
     {
@@ -22,7 +22,7 @@ namespace Game.Service
             T[] temp = Object.FindObjectsOfType<T>(); 
             if(temp == null || temp.Length == 0)
             {
-                Debug.LogError("Î´ÕÒµ½ÀàĞÍ £º" + typeof(T).FullName + "¶ÔÏó");
+                Debug.LogError("æœªæ‰¾åˆ°ç±»å‹ ï¼š" + typeof(T).FullName + "å¯¹è±¡");
             }
             return temp;
         }

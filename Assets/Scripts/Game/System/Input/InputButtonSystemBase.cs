@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ namespace Game
             return entity.hasGameInputButton && FilterCondition(entity);
         }
         /// <summary>
-        /// ÊÂ¼şÖ´ĞĞµÄÉ¸Ñ¡Ìõ¼ş
+        /// äº‹ä»¶æ‰§è¡Œçš„ç­›é€‰æ¡ä»¶
         /// </summary>
         /// <returns></returns>
         protected abstract bool FilterCondition(InputEntity entity);

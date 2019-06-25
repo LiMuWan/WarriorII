@@ -1,4 +1,4 @@
-using Entitas;
+ï»¿using Entitas;
 using Game.Service;
 using Manager;
 using Manager.Parent;
@@ -22,7 +22,7 @@ namespace Game
 
             systems.Initialize();
 
-            contexts.game.SetGameGameState(GameState.START);//·¢³öÓÎÏ·¿ªÊ¼ÊÂ¼ş 
+            contexts.game.SetGameGameState(GameState.START);//å‘å‡ºæ¸¸æˆå¼€å§‹äº‹ä»¶ 
         }
 
         private void InitManager()
@@ -44,8 +44,8 @@ namespace Game
 
         private void Update()
         {
-            systems.Execute();//Ã¿Ò»Ö¡Ö´ĞĞ
-            systems.Cleanup();//Ã¿Ò»Ö¡Ö´ĞĞÍêÖ®ºóµ÷ÓÃ
+            systems.Execute();//æ¯ä¸€å¸§æ‰§è¡Œ
+            systems.Cleanup();//æ¯ä¸€å¸§æ‰§è¡Œå®Œä¹‹åè°ƒç”¨
             serviceManager.Execute();
         }
 

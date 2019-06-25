@@ -1,4 +1,4 @@
-using Const;
+ï»¿using Const;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -42,7 +42,7 @@ namespace Manager
 
             Transform hideUI = null;
 
-            if(uiScript.GetUILayer() == UILayer.BASIC_UI) //Èç¹û´ò¿ªÖ÷½çÃæ£¬ĞèÒªÒş²ØÖ®Ç°µÄ½çÃæ
+            if(uiScript.GetUILayer() == UILayer.BASIC_UI) //å¦‚æœæ‰“å¼€ä¸»ç•Œé¢ï¼Œéœ€è¦éšè—ä¹‹å‰çš„ç•Œé¢
             {
                 uiScript.UIState = UIState.SHOW;
                 hideUI = Hide();
@@ -63,7 +63,7 @@ namespace Manager
             if(uiScript.UIState == UIState.NORMAL)
             {
                 Transform ui = uiScript.transform;
-                //¸ù¾İ²ã¼¶ĞÅÏ¢£¬Ìí¼Óµ½¶ÔÓ¦µÄ¸¸ÎïÌåÏÂ
+                //æ ¹æ®å±‚çº§ä¿¡æ¯ï¼Œæ·»åŠ åˆ°å¯¹åº”çš„çˆ¶ç‰©ä½“ä¸‹
                 ui.SetParent(GetLayerObject(uiScript.GetUILayer()));
                 ui.localPosition = Vector3.zero;
                 ui.localScale = Vector3.one;

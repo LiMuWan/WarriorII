@@ -1,4 +1,4 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 namespace Const
 {
@@ -18,7 +18,7 @@ namespace Const
 
         //ani para name
         /// <summary>
-        /// 玩家动画参数
+        /// 鐜╁鍔ㄧ敾鍙傛暟
         /// </summary>
         public const string PLAYER_PARA_NAME = "PlayerAniIndex";
     }

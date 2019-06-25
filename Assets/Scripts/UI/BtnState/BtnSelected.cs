@@ -1,4 +1,4 @@
-using Const;
+ï»¿using Const;
 using DG.Tweening;
 using System;
 using UnityEngine;
@@ -31,7 +31,7 @@ namespace UIFrame
         {
             get
             {
-                return transform.GetSiblingIndex(); //»ñÈ¡ËüÔÚËüµÄĞÖµÜ½ÚµãÖĞÊÇµÚ¼¸¸ö£¬ÆäÊµ¾ÍÊÇÔÚ¸¸ÎïÌåÏÂµÄµÚ¼¸¸ö
+                return transform.GetSiblingIndex(); //è·å–å®ƒåœ¨å®ƒçš„å…„å¼ŸèŠ‚ç‚¹ä¸­æ˜¯ç¬¬å‡ ä¸ªï¼Œå…¶å®å°±æ˜¯åœ¨çˆ¶ç‰©ä½“ä¸‹çš„ç¬¬å‡ ä¸ª
             }
         }
 

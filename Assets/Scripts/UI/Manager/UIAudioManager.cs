@@ -1,4 +1,4 @@
-using System;
+锘縰sing System;
 using System.Collections.Generic;
 using UnityEngine;
 using Util;
@@ -62,7 +62,7 @@ namespace Manager
             if(clip != null)
             {
                 //audioSource.clip = clip;
-                audioSource.PlayOneShot(clip,0.5f); //PlayOnShot可以同时播放好多个声音，它的原译是使用完马上释放，不会占用audiosource
+                audioSource.PlayOneShot(clip,0.5f); //PlayOnShot鍙互鍚屾椂鎾斁濂藉涓０闊筹紝瀹冪殑鍘熻瘧鏄娇鐢ㄥ畬椹笂閲婃斁锛屼笉浼氬崰鐢╝udiosource
             }
         }
 
@@ -74,7 +74,7 @@ namespace Manager
                 audioSource.clip = clip;
                 audioSource.loop = true;
                 audioSource.volume = 0.6f;
-                audioSource.Play(); //Play会去占用audioSource 
+                audioSource.Play(); //Play浼氬幓鍗犵敤audioSource 
             }
         }
     }

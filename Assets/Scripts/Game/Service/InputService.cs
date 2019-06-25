@@ -1,10 +1,10 @@
-using Game.Interface;
+ï»¿using Game.Interface;
 using UnityEngine;
 
 namespace Game.Service
 {
     /// <summary>
-    /// ÊäÈë·şÎñ½Ó¿Ú
+    /// è¾“å…¥æœåŠ¡æ¥å£
     /// </summary>
     public interface IInputService
     {
@@ -12,7 +12,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    /// ÊäÈë·şÎñ 
+    /// è¾“å…¥æœåŠ¡ 
     /// </summary>
     public class EntitasInputService : IInputService, IInitService
     {
@@ -41,7 +41,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    /// ÓëUnity½»»¥µÄÊäÈë·şÎñ
+    /// ä¸Unityäº¤äº’çš„è¾“å…¥æœåŠ¡
     /// </summary>
     public class UnityInputService : IInputService,IInitService,IExecuteService,IPlayerBehaviour
     {
@@ -109,7 +109,7 @@ namespace Game.Service
 
         public void Idle()
         { 
-            //ÕâËÄ¸ö¼ü¶¼Ã»ÓĞËÉ £¬²¢ÇÒÊÇ³ÖĞø°´ÏÂµÄÊ±ºò
+            //è¿™å››ä¸ªé”®éƒ½æ²¡æœ‰æ¾ ï¼Œå¹¶ä¸”æ˜¯æŒç»­æŒ‰ä¸‹çš„æ—¶å€™
             if(!isPress && inputButtonComponent.InputButton != InputButton.NONE && inputButtonComponent.InputState != InputState.NONE)
             {
                 entitasInputService.Input(InputButton.NONE, InputState.NONE);   

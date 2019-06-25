@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
@@ -26,7 +26,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ÓÎÏ·¿ªÊ¼ÏìÓ¦ÊÂ¼ş
+    /// æ¸¸æˆå¼€å§‹å“åº”äº‹ä»¶
     /// </summary>
     public class GameStartSystem : GameStateSystemBase
     {

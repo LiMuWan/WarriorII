@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Game.Interface
 {
     /// <summary>
-    /// »ù´¡ĞĞÎª½Ó¿Ú
+    /// åŸºç¡€è¡Œä¸ºæ¥å£
     /// </summary>
     public interface IBehaviour
     {
@@ -14,24 +14,24 @@ namespace Game.Interface
     }
 
     /// <summary>
-    /// Íæ¼ÒĞĞÎª½Ó¿Ú
+    /// ç©å®¶è¡Œä¸ºæ¥å£
     /// </summary>
     public interface IPlayerBehaviour:IBehaviour
     {
         /// <summary>
-        /// ÊÇ·ñÕıÔÚÅÜ
+        /// æ˜¯å¦æ­£åœ¨è·‘
         /// </summary>
         bool IsRun { get; set;}
         /// <summary>
-        /// ´ı»ú
+        /// å¾…æœº
         /// </summary>
         void Idle();
         /// <summary>
-        /// ¹¥»÷¼ü£¨°´ÏÂK£©
+        /// æ”»å‡»é”®ï¼ˆæŒ‰ä¸‹Kï¼‰
         /// </summary>
         void AttackO();
         /// <summary>
-        /// ¹¥»÷¼ü£¨°´ÏÂL)
+        /// æ”»å‡»é”®ï¼ˆæŒ‰ä¸‹L)
         /// </summary>
         void AttackX();
     }

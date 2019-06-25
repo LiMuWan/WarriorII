@@ -1,12 +1,12 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 namespace Const
 {
    public enum UILayer
    {
-     BASIC_UI,//显示在整个界面的主UI
-     OVERLAY_UI,//子UI,弹窗
-     TOP_UI,// 置顶界面
+     BASIC_UI,//鏄剧ず鍦ㄦ暣涓晫闈㈢殑涓籙I
+     OVERLAY_UI,//瀛怳I,寮圭獥
+     TOP_UI,// 缃《鐣岄潰
    }
 
    public enum UIState
@@ -68,7 +68,7 @@ namespace Const
     }
 
     /// <summary>
-    /// 动画参数对应枚举
+    /// 鍔ㄧ敾鍙傛暟瀵瑰簲鏋氫妇
     /// </summary>
     public enum PlayerAniIndex
     {
@@ -78,7 +78,7 @@ namespace Const
     }
 
     /// <summary>
-    /// 计时器id
+    /// 璁℃椂鍣╥d
     /// </summary>
     public enum TimerId
     {

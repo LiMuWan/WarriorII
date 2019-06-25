@@ -1,4 +1,4 @@
-using Game.Interface;
+﻿using Game.Interface;
 using UnityEngine;
 
 namespace Game.Service

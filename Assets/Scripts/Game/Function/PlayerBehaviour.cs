@@ -1,10 +1,10 @@
-using Game.Interface;
+锘縰sing Game.Interface;
 using UnityEngine;
 
 namespace Game
 {
     /// <summary>
-    /// 玩家基础行为
+    /// 鐜╁鍩虹琛屼负
     /// </summary>
     public class PlayerBehaviour : IPlayerBehaviour
     {

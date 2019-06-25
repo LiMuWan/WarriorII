@@ -1,9 +1,9 @@
-using Const;
+锘縰sing Const;
 using UnityEngine;
 
 namespace UIFrame
 {
-    //显示在整个界面的UI
+    //鏄剧ず鍦ㄦ暣涓晫闈㈢殑UI
     public abstract class BasicUI : UIBase   
     {
         public override UILayer GetUILayer()

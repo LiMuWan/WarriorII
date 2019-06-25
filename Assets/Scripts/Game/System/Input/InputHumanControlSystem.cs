@@ -1,4 +1,4 @@
-using Const;
+锘縰sing Const;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace Game
     }
 
     /// <summary>
-    /// 向前按键响应系统
+    /// 鍚戝墠鎸夐敭鍝嶅簲绯荤粺
     /// </summary>
     public class InputForwardButtonSystem : InputPressButtonSystemBase
     {
@@ -51,7 +51,7 @@ namespace Game
     }
 
     /// <summary>
-    ///向后按键响应系统
+    ///鍚戝悗鎸夐敭鍝嶅簲绯荤粺
     /// </summary>
     public class InputBackButtonSystem : InputPressButtonSystemBase
     {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     /// <summary>
-    ///向左按键响应系统
+    ///鍚戝乏鎸夐敭鍝嶅簲绯荤粺
     /// </summary>
     public class InputLeftButtonSystem : InputPressButtonSystemBase
     {
@@ -95,7 +95,7 @@ namespace Game
     }
 
     /// <summary>
-    ///向右按键响应系统
+    ///鍚戝彸鎸夐敭鍝嶅簲绯荤粺
     /// </summary>
     public class InputRightButtonSystem : InputPressButtonSystemBase
     {
@@ -117,7 +117,7 @@ namespace Game
     }
 
     /// <summary>
-    ///移动按键响应系统
+    ///绉诲姩鎸夐敭鍝嶅簲绯荤粺
     /// </summary>
     public class InputMoveButtonSystem : InputButtonSystemBase
     {
@@ -149,7 +149,7 @@ namespace Game
     }
 
     /// <summary>
-    ///按键J响应系统
+    ///鎸夐敭J鍝嶅簲绯荤粺
     /// </summary>
     public class InputAttackOButtonSystem : InputDownButtonSystemBase
     {
@@ -169,7 +169,7 @@ namespace Game
     }
 
     /// <summary>
-    ///按键K响应系统
+    ///鎸夐敭K鍝嶅簲绯荤粺
     /// </summary>
     public class InputAttackXButtonSystem : InputDownButtonSystemBase
     {

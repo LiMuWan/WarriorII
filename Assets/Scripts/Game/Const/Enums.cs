@@ -1,19 +1,19 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Game
 {
 
     /// <summary>
-    /// Ïà»ú¶¯»­×´Ì¬Ãû³Æ
+    /// ç›¸æœºåŠ¨ç”»çŠ¶æ€åç§°
     /// </summary>
     public enum CameraAniName
     {
         /// <summary>
-        /// Ä¬ÈÏ
+        /// é»˜è®¤
         /// </summary>
         NONE,
         /// <summary>
-        /// Ïà»ú¿ª³¡¶¯»­
+        /// ç›¸æœºå¼€åœºåŠ¨ç”»
         /// </summary>
         START_GAME_ANI
     }
@@ -25,7 +25,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ¹Ø¿¨ID
+    /// å…³å¡ID
     /// </summary>
     public enum LevelID
     {
@@ -34,7 +34,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ¹Ø¿¨²¿·ÖID
+    /// å…³å¡éƒ¨åˆ†ID
     /// </summary>
     public enum LevelPartID
     {
@@ -43,7 +43,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ÊäÈë°´Å¥ 
+    /// è¾“å…¥æŒ‰é’® 
     /// </summary>
     public enum InputButton
     {
@@ -57,7 +57,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ÊäÈë×´Ì¬
+    /// è¾“å…¥çŠ¶æ€
     /// </summary>
     public enum InputState
     {
@@ -68,7 +68,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ÓÎÏ·×´Ì¬
+    /// æ¸¸æˆçŠ¶æ€
     /// </summary>
     public enum GameState
     {

@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Manager.Parent
 {
     /// <summary>
-    /// ³¡¾°ÄÚ¸¸ÎïÌå¹ÜÀíÀà
+    /// åœºæ™¯å†…çˆ¶ç‰©ä½“ç®¡ç†ç±»
     /// </summary>
     public class GameParentManager : MonoBehaviour    
     {
@@ -20,7 +20,7 @@ namespace Manager.Parent
         }
 
         /// <summary>
-        /// Í¨¹ı¸¸ÎïÌåÃû³Æ»ñÈ¡¸¸ÎïÌå¶ÔÏó
+        /// é€šè¿‡çˆ¶ç‰©ä½“åç§°è·å–çˆ¶ç‰©ä½“å¯¹è±¡
         /// </summary>
         /// <param name="parentName"></param>
         /// <returns></returns>
@@ -33,7 +33,7 @@ namespace Manager.Parent
         }
 
         /// <summary>
-        /// Í¨¹ı¸¸ÎïÌåÃû³Æ»ñÈ¡¸¸ÎïÌå¶ÔÏó
+        /// é€šè¿‡çˆ¶ç‰©ä½“åç§°è·å–çˆ¶ç‰©ä½“å¯¹è±¡
         /// </summary>
         /// <param name="parentName"></param>
         /// <returns></returns>

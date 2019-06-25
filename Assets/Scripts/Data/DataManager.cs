@@ -1,4 +1,4 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 using Const;
 using System;
 using Util;
@@ -29,7 +29,7 @@ namespace Manager
         }
 
         /// <summary>
-        /// 管卡数据标记，默认是1
+        /// 鍏冲崱鏁版嵁鏍囪锛岄粯璁ゆ槸1
         /// </summary>
         public LevelID  LevelIndex
         {
@@ -42,7 +42,7 @@ namespace Manager
 
 
         /// <summary>
-        /// 关卡的第几部分的标记，默认是1
+        /// 鍏冲崱鐨勭鍑犻儴鍒嗙殑鏍囪锛岄粯璁ゆ槸1
         /// </summary>
         public LevelPartID LevelPartIndex
         {

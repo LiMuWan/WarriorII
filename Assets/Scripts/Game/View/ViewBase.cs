@@ -1,4 +1,4 @@
-using Entitas;
+ï»¿using Entitas;
 using Entitas.Unity;
 using Game.Interface;
 using UnityEngine;
@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
-    /// View ²ã»ùÀà 
+    /// View å±‚åŸºç±» 
     /// </summary>
     public abstract class ViewBase : MonoBehaviour,IView    
     {
         public virtual void Init(Contexts contexts,IEntity entity)
         {
-            gameObject.Link(entity, contexts.game);//ÎªÊ²Ã´ÖØ¸´´úÂë²»Ğ´ÔÚ»ùÀà£¬ÒòÎª²»ÖªµÀcontextsÊÇÃ»ÓĞ°ì·¨ÖªµÀµÄ
+            gameObject.Link(entity, contexts.game);//ä¸ºä»€ä¹ˆé‡å¤ä»£ç ä¸å†™åœ¨åŸºç±»ï¼Œå› ä¸ºä¸çŸ¥é“contextsæ˜¯æ²¡æœ‰åŠæ³•çŸ¥é“çš„
         }
 
     }

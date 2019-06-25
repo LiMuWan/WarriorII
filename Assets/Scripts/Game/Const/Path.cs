@@ -1,15 +1,15 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Game
 {
     public class Path 
     {
         /// <summary>
-        /// Resources ÏÂÔ¤ÖÆÂ·¾¶
+        /// Resources ä¸‹é¢„åˆ¶è·¯å¾„
         /// </summary>
         private const string PREFAB_PATH = "Prefabs/";
         /// <summary>
-        /// Íæ¼ÒÔ¤ÖÆÂ·¾¶
+        /// çŽ©å®¶é¢„åˆ¶è·¯å¾„
         /// </summary>
         public const string PLAYER_PATH = PREFAB_PATH + "Player";
     }
