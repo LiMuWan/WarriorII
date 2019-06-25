@@ -8,14 +8,19 @@ namespace Game
         /// <summary>
         /// View 层路径
         /// </summary>
-        public string viewPath;
+        public string ViewPath;
         /// <summary>
         /// Service 层路径
         /// </summary>
-        public string servicePath;
+        public string ServicePath;
         /// <summary>
         /// System 层路径
         /// </summary>
-        public string systemPath;
+        public string SystemPath;
+
+        /// <summary>
+        /// ServiceManager路径
+        /// </summary>
+        public string ServiceManagerPath;
     }
 }

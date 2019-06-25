@@ -15,12 +15,13 @@ namespace Game.Editor
     /// <summary>
     /// 生成Entatis框架代码工具
     /// </summary>
-    public class GenerateEntitasCodeWindow : EditorWindow 
+    public class GenerateEntitasCodeWindow : EditorWindow
     {
 
         private static string viewPath;
         private static string servicePath;
         private static string systemPath;
+        private static string serviceManagerPath;
         private static string dataPath = "Assets/Editor/AutoGenerateFrameCode/Data/";
         private static string dataFileName = "EntitasData.asset";
         private static string viewPostfix = "View";
@@ -48,15 +49,22 @@ namespace Game.Editor
 
         private static GUIStyle mainTitle = new GUIStyle();
         private static GUIStyle itemTitle = new GUIStyle();
+        private static EditorWindow window;
 
         [MenuItem("Tools/GenerateEntatisCode")]
-       public static void OpenWindow()
+        public static void OpenWindow()
         {
-            var window = GetWindow(typeof(GenerateEntitasCodeWindow));
+            window = GetWindow(typeof(GenerateEntitasCodeWindow));
             window.minSize = new Vector2(600, 800);
             window.Show();
             Init();
 
+        }
+
+        private static void Close()
+        {
+            AssetDatabase.Refresh();
+            window.Close();
         }
 
         private static void Init()
@@ -114,10 +122,28 @@ namespace Game.Editor
             itemTitle.fontStyle = FontStyle.Bold;
         }
 
+        private void InitServices(string path)
+        {
+            if (File.Exists(path))
+            {
+                string content = File.ReadAllText(path);
+                int index = content.IndexOf("IInitService[] services =");
+                int newIndex = content.IndexOf("new", index);
+                content = content.Insert(newIndex, "new" + " " + serviceName + servicePostfix + "(), \r                   ");
+                File.WriteAllText(path, content, Encoding.UTF8);
+
+                Close();
+            }
+            else
+            {
+                Debug.LogError("ServiceManager 脚本不存在！");
+            }
+        }
+
         private void OnGUI()
         {
-            if(mainTitle != null)
-               GUILayout.Label("生成Entitas框架代码工具",mainTitle);
+            if (mainTitle != null)
+                GUILayout.Label("生成Entitas框架代码工具", mainTitle);
 
             Path();
 
@@ -133,12 +159,14 @@ namespace Game.Editor
         private void Path()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("脚本路径",itemTitle);
+            GUILayout.Label("脚本路径", itemTitle);
             GUILayout.Space(lineSpace);
             PathItem("View 层路径", ref viewPath);
             PathItem("Service 层路径", ref servicePath);
             PathItem("System 层路径", ref systemPath);
-            CreateButton("保存路径", () => 
+            GUILayout.Space(lineSpace);
+            PathItem("ServiceManager路径", ref serviceManagerPath);
+            CreateButton("保存路径", () =>
             {
                 SaveDataToLocal();
             }
@@ -152,10 +180,10 @@ namespace Game.Editor
             GUILayout.Space(lineSpace);
             InputName("请输入脚本名称", ref viewName);
             GUILayout.Space(lineSpace);
-            CreateButton("生成脚本",() => 
-            {
-                CreateScript(viewPath, viewName + viewPostfix, GetViewCode());
-            }
+            CreateButton("生成脚本", () =>
+             {
+                 CreateScript(viewPath, viewName + viewPostfix, GetViewCode());
+             }
             );
         }
 
@@ -166,9 +194,10 @@ namespace Game.Editor
             GUILayout.Space(lineSpace);
             InputName("请输入脚本名称", ref serviceName);
             GUILayout.Space(lineSpace);
-            CreateButton("生成脚本", () => 
+            CreateButton("生成脚本", () =>
             {
                 CreateScript(servicePath, serviceName + servicePostfix, GetServiceCode());
+                InitServices(serviceManagerPath);
             }
             );
         }
@@ -176,7 +205,7 @@ namespace Game.Editor
         private void ReactiveSystem()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("选择要生成系统的上下文",itemTitle);
+            GUILayout.Label("选择要生成系统的上下文", itemTitle);
             GUILayout.Space(lineSpace);
             GUILayout.BeginHorizontal();
             if (contextSelectedStateDic != null)
@@ -194,7 +223,7 @@ namespace Game.Editor
             GUILayout.Space(lineSpace);
             InputName("请输入脚本名称", ref systemName);
             GUILayout.Space(lineSpace);
-            CreateButton("生成脚本", () => 
+            CreateButton("生成脚本", () =>
             {
                 CreateScript(systemPath, systemName + systemPosfix, GetReactiveSystemCode());
             }
@@ -216,25 +245,29 @@ namespace Game.Editor
             GUILayout.Space(lineSpace);
             InputName("请输入脚本名称", ref otherSystemName);
             GUILayout.Space(lineSpace);
-            CreateButton("生成脚本", () => 
+            CreateButton("生成脚本", () =>
             {
                 CreateScript(systemPath, otherSystemName + systemPosfix, GetOtherSystemCode());
             }
             );
         }
 
-        private void InputName(string title,ref string name)
+        private void InputName(string title, ref string name)
         {
-            GUILayout.Label(title,itemTitle);
+            GUILayout.Label(title, itemTitle);
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
             name = EditorGUI.TextField(rect, name);
         }
 
-        private static void CreateButton(string btnName,Action callBack)
+        private static void CreateButton(string btnName, Action callBack)
         {
             if (GUILayout.Button(btnName, GUILayout.Width(150)))
             {
-                callBack?.Invoke();
+                if (!string.IsNullOrEmpty(btnName))
+                {
+                    Close();
+                    callBack?.Invoke();
+                }
             }
         }
 
@@ -252,7 +285,7 @@ namespace Game.Editor
         /// </summary>
         /// <param name="name"></param>
         /// <param name="path"></param>
-        private void PathItem(string name,ref string path)
+        private void PathItem(string name, ref string path)
         {
             GUILayout.Label(name);
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
@@ -265,9 +298,9 @@ namespace Game.Editor
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="path"></param>
-        private void DragToGetPath(Rect rect,ref string path)
+        private void DragToGetPath(Rect rect, ref string path)
         {
-            if((Event.current.type == EventType.DragUpdated
+            if ((Event.current.type == EventType.DragUpdated
             || Event.current.type == EventType.DragExited)
             && rect.Contains(Event.current.mousePosition))
             {
@@ -286,9 +319,10 @@ namespace Game.Editor
         {
             Directory.CreateDirectory(dataPath);
             EntitasData data = new EntitasData();
-            data.viewPath = viewPath;
-            data.servicePath = servicePath;
-            data.systemPath = systemPath;
+            data.ViewPath = viewPath;
+            data.ServicePath = servicePath;
+            data.SystemPath = systemPath;
+            data.ServiceManagerPath = serviceManagerPath;
             AssetDatabase.CreateAsset(data, dataPath + dataFileName);
         }
 
@@ -298,11 +332,12 @@ namespace Game.Editor
         private static void ReadDataFromLocal()
         {
             EntitasData data = AssetDatabase.LoadAssetAtPath<EntitasData>(dataPath + dataFileName);
-            if(data != null)
+            if (data != null)
             {
-                viewPath = data.viewPath;
-                servicePath = data.servicePath;
-                systemPath = data.systemPath;
+                viewPath = data.ViewPath;
+                servicePath = data.ServicePath;
+                systemPath = data.SystemPath;
+                serviceManagerPath = data.ServiceManagerPath;
             }
         }
 
@@ -322,15 +357,17 @@ namespace Game.Editor
             build.WriteNameSpace(namespaceBase + "." + viewPostfix);
 
             build.IndentTimes++;
+            //class
             build.WriteClass(viewName + viewPostfix, "ViewBase");
+            //Init
             List<string> keyName = new List<string>();
             keyName.Add("override");
             keyName.Add("void");
             build.IndentTimes++;
-            build.WriteFun("Init",ScriptBuildHelp.Public, keyName,"", "Contexts contexts", "IEntity entity");
+            build.WriteFun("Init", ScriptBuildHelp.Public, keyName, "", "Contexts contexts", "IEntity entity");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("base.Init(contexts,entity);",true);
+            build.WriteLine("base.Init(contexts,entity);", true);
             build.ToContentEnd();
             return build.ToString();
         }
@@ -348,24 +385,27 @@ namespace Game.Editor
             build.ToContentEnd();
 
             build.WriteEmptyLine();
+            //class
             build.WriteClass(className, "I" + className);
             var keyName = new List<string>();
             keyName.Add("void");
             build.IndentTimes++;
-            build.WriteFun("Init",ScriptBuildHelp.Public ,keyName,"", "Contexts contexts");
+            //Init
+            build.WriteFun("Init", ScriptBuildHelp.Public, keyName, "", "Contexts contexts");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("//contexts.service.SetGameService" + className + "(this);",true);
+            build.WriteLine("//contexts.service.SetGameService" + className + "(this);", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
 
             var key = new List<string>();
             key.Add("int");
-            build.WriteFun("GetPriority",ScriptBuildHelp.Public, key);
+            //GetPriority
+            build.WriteFun("GetPriority", ScriptBuildHelp.Public, key);
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("return 0;",true);
+            build.WriteLine("return 0;", true);
             build.IndentTimes--;
             build.ToContentEnd();
             return build.ToString();
@@ -378,16 +418,17 @@ namespace Game.Editor
             ScriptBuildHelp build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
             build.WriteUsing("System.Collections.Generic");
-            build.WriteEmptyLine(); 
-            build.WriteClass(className, "ReactiveSystem<" + entityName +  ">");
+            build.WriteEmptyLine();
+            //class
+            build.WriteClass(className, "ReactiveSystem<" + entityName + ">");
             build.IndentTimes++;
             build.WriteLine("protected Contexts contexts;", true);
             build.WriteEmptyLine();
             //构造
-            build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(),": base(contexts.game)", "Contexts contexts");
+            build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), ": base(contexts.game)", "Contexts contexts");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("this.contexts = contexts;",true);
+            build.WriteLine("this.contexts = contexts;", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
@@ -396,10 +437,10 @@ namespace Game.Editor
             List<string> triggerKeys = new List<string>();
             triggerKeys.Add("override");
             triggerKeys.Add("ICollector<" + entityName + ">");
-            build.WriteFun("GetTrigger",ScriptBuildHelp.Protected, triggerKeys," ", "IContext<"+ entityName + "> context");
+            build.WriteFun("GetTrigger", ScriptBuildHelp.Protected, triggerKeys, " ", "IContext<" + entityName + "> context");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("return context.CreateCollector(" + selectedContextName + "Matcher.Game" + selectedContextName + systemName + ");",true);
+            build.WriteLine("return context.CreateCollector(" + selectedContextName + "Matcher.Game" + selectedContextName + systemName + ");", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
@@ -407,10 +448,10 @@ namespace Game.Editor
             List<string> filterKeys = new List<string>();
             filterKeys.Add("override");
             filterKeys.Add("bool");
-            build.WriteFun("Filter", ScriptBuildHelp.Protected, filterKeys, "", entityName + " " +"entity");
+            build.WriteFun("Filter", ScriptBuildHelp.Protected, filterKeys, "", entityName + " " + "entity");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine(" return entity.hasGame"+ selectedContextName + systemName + ";",true);
+            build.WriteLine(" return entity.hasGame" + selectedContextName + systemName + ";", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
@@ -430,15 +471,16 @@ namespace Game.Editor
             build.WriteUsing("Entitas");
             build.WriteNameSpace(namespaceBase);
             build.IndentTimes++;
+            //class
             build.WriteClass(className, GetSelectedSystem(selectedSystem));
             build.IndentTimes++;
             build.WriteLine("protected Contexts contexts;", true);
             build.WriteEmptyLine();
             //构造
-            build.WriteFun(className,ScriptBuildHelp.Public,new List<string>(), " ","Contexts contexts");
+            build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), " ", "Contexts contexts");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("this.contexts = contexts;",true);
+            build.WriteLine("this.contexts = contexts;", true);
             build.IndentTimes--;
             build.ToContentEnd();
             //实现方法
@@ -456,20 +498,20 @@ namespace Game.Editor
         private static List<string> GetSelectedSystem()
         {
             List<string> temp = new List<string>();
-            foreach (KeyValuePair<string,bool> pair in systemSelectedStateDic)
+            foreach (KeyValuePair<string, bool> pair in systemSelectedStateDic)
             {
-                if(pair.Value)
+                if (pair.Value)
                 {
                     temp.Add(pair.Key);
                 }
             }
 
             return temp;
-         }
+        }
 
         private static string GetSelectedSystem(List<string> selected)
         {
-            if(selected.Count == 0)
+            if (selected.Count == 0)
             {
                 Debug.Log("未选择继承System接口");
                 return null;
@@ -479,8 +521,8 @@ namespace Game.Editor
             Debug.Log(build.ToString());
             foreach (string pair in selected)
             {
-                    build.Append(pair);
-                    build.Append(" , ");
+                build.Append(pair);
+                build.Append(" , ");
             }
             build.Remove(build.Length - 3, 3);
             return build.ToString();
@@ -496,11 +538,11 @@ namespace Game.Editor
             return temp;
         }
 
-        private static void CreateScript(string path,string className,string scriptContent)
+        private static void CreateScript(string path, string className, string scriptContent)
         {
-            if(Directory.Exists(path))
+            if (Directory.Exists(path))
             {
-                File.WriteAllText(path + "/" +  className + ".cs", scriptContent);
+                File.WriteAllText(path + "/" + className + ".cs", scriptContent);
                 AssetDatabase.Refresh();
             }
             else

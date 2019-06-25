@@ -7,7 +7,7 @@ namespace Game
     public abstract class GameStateSystemBase : ReactiveSystem<GameEntity>  
     {
         protected Contexts contexts;
-        public GameStateSystemBase(Contexts contexts):base(contexts.game)
+        public GameStateSystemBase(Contexts contexts) : base(contexts.game)
         {
             this.contexts = contexts;
         }
@@ -38,7 +38,7 @@ namespace Game
             return entity.gameGameState.GameState == GameState.START;
         }
 
-        protected override void Execute(List<GameEntity> entities)
+        protected override void Execute(List<GameEntity> entities) 
         {
             contexts.service.gameServiceLoadService.LoadService.LoadPlayer();
             contexts.game.ReplaceGameCameraState(CameraAniName.START_GAME_ANI);

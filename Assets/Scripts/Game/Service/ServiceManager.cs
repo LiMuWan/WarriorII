@@ -1,4 +1,4 @@
-using Game.Interface;
+ï»¿using Game.Interface;
 using Game.Service;
 using Manager.Parent;
 using Module.Timer;
@@ -34,13 +34,13 @@ namespace Game
         }
 
         /// <summary>
-        /// ³õÊ¼»¯·şÎñ¶ÔÏóÊı×é·½·¨
+        ///Service åˆå§‹åŒ–
         /// </summary>
         /// <param name="gameParentManager"></param>
         /// <returns></returns>
         private IInitService[] InitServices(GameParentManager gameParentManager)
         {
-            IInitService[] services = new IInitService[]
+            IInitService[] services =
             {
                    new FindObjectService(),
                    new EntitasInputService(),
@@ -53,15 +53,15 @@ namespace Game
         }
 
         /// <summary>
-        /// Ìí¼Ó³õÊ¼»¯·şÎñ¶ÔÏó£¬µÚÒ»¸ö²ÎÊıÎªÓÅÏÈ¼¶£º0¿ªÊ¼
+        /// ä¼˜å…ˆçº§
         /// </summary>
-        /// <param name="priority">ÓÅÏÈ¼¶</param>
-        /// <param name="service">·şÎñ¶ÔÏó</param>
+        /// <param name="priority">ä¼˜å…ˆçº§</param>
+        /// <param name="service">service</param>
         private void AddInitService(int priority,IInitService service)
         {
             if(priority < 0)
             {
-                Debug.LogError("ÓÅÏÈ¼¶´Ó0¿ªÊ¼£¬²»ÄÜÎª¸º£¡");
+                Debug.LogError("ä¼˜å…ˆçº§ä¸èƒ½ä¸ºè´Ÿï¼Œåº”ä»0å¼€å§‹ï¼");
                 return;
             }
             if(!initServices.ContainsKey(priority))

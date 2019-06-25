@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa04a65bdef74b241a4010ddc15f3cf4, type: 3}
   m_Name: EntitasData
   m_EditorClassIdentifier: 
-  viewPath: Assets/Scripts/Game/View
-  servicePath: Assets/Scripts/Game/Service
-  systemPath: Assets/Scripts/Game/System
+  ViewPath: Assets/Scripts/Game/View
+  ServicePath: Assets/Scripts/Game/Service
+  SystemPath: Assets/Scripts/Game/System
+  ServiceManagerPath: Assets/Scripts/Game/Service/ServiceManager.cs
