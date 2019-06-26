@@ -16,3 +16,6 @@ MonoBehaviour:
   ServicePath: Assets/Scripts/Game/Service
   SystemPath: Assets/Scripts/Game/System
   ServiceManagerPath: Assets/Scripts/Game/Service/ServiceManager.cs
+  GameFeaturePath: Assets/Scripts/Game/Feature/GameFeature.cs
+  InputFeaturePath: Assets/Scripts/Game/Feature/InputFeature.cs
+  ViewFeaturePath: Assets/Scripts/Game/Feature/ViewFeature.cs

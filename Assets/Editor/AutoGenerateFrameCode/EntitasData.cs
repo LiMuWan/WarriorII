@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Game
 {
@@ -6,21 +6,34 @@ namespace Game
     public class EntitasData : ScriptableObject
     {
         /// <summary>
-        /// View ²ãÂ·¾¶
+        /// View å±‚è·¯å¾„
         /// </summary>
         public string ViewPath;
         /// <summary>
-        /// Service ²ãÂ·¾¶
+        /// Service å±‚è·¯å¾„
         /// </summary>
         public string ServicePath;
         /// <summary>
-        /// System ²ãÂ·¾¶
+        /// System å±‚è·¯å¾„
         /// </summary>
         public string SystemPath;
 
         /// <summary>
-        /// ServiceManagerÂ·¾¶
+        /// ServiceManagerè·¯å¾„
         /// </summary>
         public string ServiceManagerPath;
+
+        /// <summary>
+        /// GameFeatureè·¯å¾„
+        /// </summary>
+        public string GameFeaturePath;
+        /// <summary>
+        /// InputFeatureè·¯å¾„
+        /// </summary>
+        public string InputFeaturePath;
+        /// <summary>
+        /// ViewFeatureè·¯å¾„
+        /// </summary>
+        public string ViewFeaturePath;
     }
 }

@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using CustomTool;
@@ -6,14 +6,13 @@ using System.Collections.Generic;
 using Entitas.CodeGeneration.Plugins;
 using DesperateDevs.Serialization;
 using System.Linq;
-using Entitas;
 using System.Text;
 using System;
-
+   
 namespace Game.Editor
 {
     /// <summary>
-    /// Éú³ÉEntatis¿ò¼Ü´úÂë¹¤¾ß
+    /// ç”ŸæˆEntatisæ¡†æ¶ä»£ç å·¥å…·
     /// </summary>
     public class GenerateEntitasCodeWindow : EditorWindow
     {
@@ -22,6 +21,9 @@ namespace Game.Editor
         private static string servicePath;
         private static string systemPath;
         private static string serviceManagerPath;
+        private static string gameFeaturePath;
+        private static string inputFeaturePath;
+        private static string viewFeaturePath;
         private static string dataPath = "Assets/Editor/AutoGenerateFrameCode/Data/";
         private static string dataFileName = "EntitasData.asset";
         private static string viewPostfix = "View";
@@ -51,7 +53,7 @@ namespace Game.Editor
         private static GUIStyle itemTitle = new GUIStyle();
         private static EditorWindow window;
 
-        [MenuItem("Tools/GenerateEntatisCode")]
+        [MenuItem("Tools/GenerateEntatisCode %+,")] //å¿«æ·é”® # ä»£è¡¨shiftï¼Œ&ä»£è¡¨alt, % ä»£è¡¨ctrl
         public static void OpenWindow()
         {
             window = GetWindow(typeof(GenerateEntitasCodeWindow));
@@ -136,20 +138,61 @@ namespace Game.Editor
             }
             else
             {
-                Debug.LogError("ServiceManager ½Å±¾²»´æÔÚ£¡");
+                Debug.LogError("ServiceManager è„šæœ¬ä¸å­˜åœ¨ï¼");
             }
+        }
+
+        private static void InitSystem(string contentName,string className,params string[] systemName)
+        {
+            string path = "";
+            switch (contentName)
+            {
+                case "Game":
+                    path = gameFeaturePath;
+                    break;
+                case "Input":
+                    path = inputFeaturePath; 
+                    break;
+            }
+
+            if(string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            foreach (string name in systemName)
+            {
+                SetSystem(path, name, className);
+            }
+            Close();
+        }
+
+        private static void SetSystem(string path,string systemName,string className)
+        {
+            string content = File.ReadAllText(path);
+            int index = content.IndexOf("void " + systemName + "Fun(Contexts contexts)");
+            if(index < 0)
+            {
+                Debug.LogError("æœªæ‰¾åˆ°å¯¹åº”æ–¹æ³•ï¼Œç³»ç»Ÿåï¼š" + systemName);
+                return;
+            }
+            int startIndex = content.IndexOf("{",index);
+            content = content.Insert(startIndex + 1, "\r            Add(new " + className + "(contexts)); ");
+            File.WriteAllText(path, content, Encoding.UTF8);
         }
 
         private void OnGUI()
         {
             if (mainTitle != null)
-                GUILayout.Label("Éú³ÉEntitas¿ò¼Ü´úÂë¹¤¾ß", mainTitle);
+                GUILayout.Label("ç”ŸæˆEntitasæ¡†æ¶ä»£ç å·¥å…·", mainTitle);
 
             Path();
 
             View();
 
             Service();
+
+            SelectedContext();
 
             ReactiveSystem();
 
@@ -159,14 +202,19 @@ namespace Game.Editor
         private void Path()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("½Å±¾Â·¾¶", itemTitle);
+            GUILayout.Label("è„šæœ¬è·¯å¾„", itemTitle);
             GUILayout.Space(lineSpace);
-            PathItem("View ²ãÂ·¾¶", ref viewPath);
-            PathItem("Service ²ãÂ·¾¶", ref servicePath);
-            PathItem("System ²ãÂ·¾¶", ref systemPath);
+            PathItem("View å±‚è·¯å¾„", ref viewPath);
+            PathItem("Service å±‚è·¯å¾„", ref servicePath);
+            PathItem("System å±‚è·¯å¾„", ref systemPath);
+
             GUILayout.Space(lineSpace);
-            PathItem("ServiceManagerÂ·¾¶", ref serviceManagerPath);
-            CreateButton("±£´æÂ·¾¶", () =>
+            PathItem("ServiceManagerè·¯å¾„", ref serviceManagerPath);
+            PathItem("GameFeatureè·¯å¾„", ref gameFeaturePath);
+            PathItem("InputFeatureè·¯å¾„", ref inputFeaturePath);
+            PathItem("ViewFeatureè·¯å¾„", ref viewFeaturePath);
+
+            CreateButton("ä¿å­˜è·¯å¾„", () =>
             {
                 SaveDataToLocal();
             }
@@ -176,11 +224,10 @@ namespace Game.Editor
         private void View()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("View ²ã´úÂëÉú³É", itemTitle);
+            GUILayout.Label("View å±‚ä»£ç ç”Ÿæˆ", itemTitle);
             GUILayout.Space(lineSpace);
-            InputName("ÇëÊäÈë½Å±¾Ãû³Æ", ref viewName);
-            GUILayout.Space(lineSpace);
-            CreateButton("Éú³É½Å±¾", () =>
+            InputName("è¯·è¾“å…¥è„šæœ¬åç§°", ref viewName);
+            CreateButton("ç”Ÿæˆè„šæœ¬", () =>
              {
                  CreateScript(viewPath, viewName + viewPostfix, GetViewCode());
              }
@@ -190,11 +237,10 @@ namespace Game.Editor
         private void Service()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("Service ²ã´úÂëÉú³É", itemTitle);
+            GUILayout.Label("Service å±‚ä»£ç ç”Ÿæˆ", itemTitle);
             GUILayout.Space(lineSpace);
-            InputName("ÇëÊäÈë½Å±¾Ãû³Æ", ref serviceName);
-            GUILayout.Space(lineSpace);
-            CreateButton("Éú³É½Å±¾", () =>
+            InputName("è¯·è¾“å…¥è„šæœ¬åç§°", ref serviceName);
+            CreateButton("ç”Ÿæˆè„šæœ¬", () =>
             {
                 CreateScript(servicePath, serviceName + servicePostfix, GetServiceCode());
                 InitServices(serviceManagerPath);
@@ -205,7 +251,21 @@ namespace Game.Editor
         private void ReactiveSystem()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("Ñ¡ÔñÒªÉú³ÉÏµÍ³µÄÉÏÏÂÎÄ", itemTitle);
+            GUILayout.Label("å“åº”ç³»ç»Ÿéƒ¨åˆ†", itemTitle);
+            GUILayout.Space(lineSpace);
+            InputName("è¯·è¾“å…¥è„šæœ¬åç§°", ref systemName);
+            CreateButton("ç”Ÿæˆè„šæœ¬", () =>
+            {
+                CreateScript(systemPath,selectedContextName + systemName + systemPosfix, GetReactiveSystemCode());
+                InitSystem(selectedContextName, selectedContextName + systemName + systemPosfix, "ReactiveSystem");
+            }
+            );
+        }
+
+        private void SelectedContext( )
+        {
+            GUILayout.Space(lineSpace);
+            GUILayout.Label("é€‰æ‹©ç”Ÿæˆç³»ç»Ÿçš„ä¸Šä¸‹æ–‡", itemTitle);
             GUILayout.Space(lineSpace);
             GUILayout.BeginHorizontal();
             if (contextSelectedStateDic != null)
@@ -220,21 +280,14 @@ namespace Game.Editor
                 ToggleGroup(selectedContextName);
             }
             GUILayout.EndHorizontal();
-            GUILayout.Space(lineSpace);
-            InputName("ÇëÊäÈë½Å±¾Ãû³Æ", ref systemName);
-            GUILayout.Space(lineSpace);
-            CreateButton("Éú³É½Å±¾", () =>
-            {
-                CreateScript(systemPath, systemName + systemPosfix, GetReactiveSystemCode());
-            }
-            );
         }
 
         private void OtherSystem()
         {
             GUILayout.Space(lineSpace);
-            GUILayout.Label("Ñ¡ÔñÒªÉú³ÉµÄÏµÍ³", itemTitle);
+            GUILayout.Label("å…¶ä»–ç³»ç»Ÿéƒ¨åˆ†", itemTitle);
             GUILayout.Space(lineSpace);
+            GUILayout.Label("é€‰æ‹©è¦ç”Ÿæˆçš„ç³»ç»Ÿ");
             if (systemSelectedStateDic != null)
             {
                 foreach (string systemName in systemInterfaceNames)
@@ -243,18 +296,20 @@ namespace Game.Editor
                 }
             }
             GUILayout.Space(lineSpace);
-            InputName("ÇëÊäÈë½Å±¾Ãû³Æ", ref otherSystemName);
-            GUILayout.Space(lineSpace);
-            CreateButton("Éú³É½Å±¾", () =>
+            InputName("è¯·è¾“å…¥è„šæœ¬åç§°", ref otherSystemName);
+            CreateButton("ç”Ÿæˆè„šæœ¬", () =>
             {
-                CreateScript(systemPath, otherSystemName + systemPosfix, GetOtherSystemCode());
+                CreateScript(systemPath, selectedContextName + otherSystemName + systemPosfix, GetOtherSystemCode());
+                List<string> selectedSystem = GetSelectedSystem();
+                List<string> funcName = GetFuncName(selectedSystem);
+                InitSystem(selectedContextName, selectedContextName + otherSystemName + systemPosfix, funcName.ToArray());
             }
             );
         }
 
         private void InputName(string title, ref string name)
         {
-            GUILayout.Label(title, itemTitle);
+            GUILayout.Label(title);
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
             name = EditorGUI.TextField(rect, name);
         }
@@ -281,7 +336,7 @@ namespace Game.Editor
         }
 
         /// <summary>
-        /// Â·¾¶UIÏÔÊ¾¼°ÊäÈë
+        /// è·¯å¾„UIæ˜¾ç¤ºåŠè¾“å…¥
         /// </summary>
         /// <param name="name"></param>
         /// <param name="path"></param>
@@ -294,7 +349,7 @@ namespace Game.Editor
         }
 
         /// <summary>
-        /// ÍÏ¶¯ÎÄ¼ş¼Ğ»ñÈ¡Â·¾¶
+        /// æ‹–åŠ¨æ–‡ä»¶å¤¹è·å–è·¯å¾„
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="path"></param>
@@ -313,7 +368,7 @@ namespace Game.Editor
         }
 
         /// <summary>
-        /// ±£´æÊı¾İµ½±¾µØ
+        /// ä¿å­˜æ•°æ®åˆ°æœ¬åœ°
         /// </summary>
         private static void SaveDataToLocal()
         {
@@ -323,11 +378,14 @@ namespace Game.Editor
             data.ServicePath = servicePath;
             data.SystemPath = systemPath;
             data.ServiceManagerPath = serviceManagerPath;
+            data.GameFeaturePath = gameFeaturePath;
+            data.InputFeaturePath = inputFeaturePath;
+            data.ViewFeaturePath = viewFeaturePath;
             AssetDatabase.CreateAsset(data, dataPath + dataFileName);
         }
 
         /// <summary>
-        /// ¶ÁÈ¡Êı¾İ´Ó±¾µØ
+        /// è¯»å–æ•°æ®ä»æœ¬åœ°
         /// </summary>
         private static void ReadDataFromLocal()
         {
@@ -338,6 +396,9 @@ namespace Game.Editor
                 servicePath = data.ServicePath;
                 systemPath = data.SystemPath;
                 serviceManagerPath = data.ServiceManagerPath;
+                gameFeaturePath = data.GameFeaturePath;
+                inputFeaturePath = data.InputFeaturePath;
+                viewFeaturePath = data.ViewFeaturePath;
             }
         }
 
@@ -424,7 +485,7 @@ namespace Game.Editor
             build.IndentTimes++;
             build.WriteLine("protected Contexts contexts;", true);
             build.WriteEmptyLine();
-            //¹¹Ôì
+            //æ„é€ 
             build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), ": base(contexts.game)", "Contexts contexts");
             build.BackToInsertContent();
             build.IndentTimes++;
@@ -451,7 +512,7 @@ namespace Game.Editor
             build.WriteFun("Filter", ScriptBuildHelp.Protected, filterKeys, "", entityName + " " + "entity");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine(" return entity.hasGame" + selectedContextName + systemName + ";", true);
+            build.WriteLine("return entity.hasGame" + selectedContextName + systemName + ";", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
@@ -465,7 +526,7 @@ namespace Game.Editor
 
         private static string GetOtherSystemCode()
         {
-            string className = otherSystemName + systemPosfix;
+            string className = selectedContextName + otherSystemName + systemPosfix;
             List<string> selectedSystem = GetSelectedSystem();
             ScriptBuildHelp build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
@@ -476,14 +537,14 @@ namespace Game.Editor
             build.IndentTimes++;
             build.WriteLine("protected Contexts contexts;", true);
             build.WriteEmptyLine();
-            //¹¹Ôì
+            //æ„é€ 
             build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), " ", "Contexts contexts");
             build.BackToInsertContent();
             build.IndentTimes++;
             build.WriteLine("this.contexts = contexts;", true);
             build.IndentTimes--;
             build.ToContentEnd();
-            //ÊµÏÖ·½·¨
+            //å®ç°æ–¹æ³•
             List<string> funcName = GetFuncName(selectedSystem);
             List<string> keyName = new List<string>();
             keyName.Add("void");
@@ -513,12 +574,11 @@ namespace Game.Editor
         {
             if (selected.Count == 0)
             {
-                Debug.Log("Î´Ñ¡Ôñ¼Ì³ĞSystem½Ó¿Ú");
+                Debug.Log("æœªé€‰æ‹©ç»§æ‰¿Systemæ¥å£");
                 return null;
             }
 
             StringBuilder build = new StringBuilder();
-            Debug.Log(build.ToString());
             foreach (string pair in selected)
             {
                 build.Append(pair);
@@ -547,7 +607,7 @@ namespace Game.Editor
             }
             else
             {
-                Debug.LogError("Ä¿Â¼£º" + path + "²»´æÔÚ£¡");
+                Debug.LogError("ç›®å½•ï¼š" + path + "ä¸å­˜åœ¨ï¼");
             }
         }
     }

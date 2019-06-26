@@ -2,16 +2,40 @@
 
 namespace Game
 {
-    public class ViewFeature : Feature    
+    public class ViewFeature : Feature 
     {
         public ViewFeature(Contexts contexts) : base("View")
         {
-            Init(contexts);
+            InitializeFun(contexts);
+            ExecuteFun(contexts);
+            CleanupFun(contexts);
+            TearDownFun(contexts);
+            ReactiveSystemFun(contexts);
         }
 
-        private void Init(Contexts contexts )
+        private void InitializeFun(Contexts contexts)
         {
-            Add(new InitViewSystem(contexts)); 
+            Add(new InitViewSystem(contexts));
+        }
+
+        private void ExecuteFun(Contexts contexts)
+        {
+
+        }
+
+        private void CleanupFun(Contexts contexts)
+        {
+
+        }
+
+        private void TearDownFun(Contexts contexts)
+        {
+
+        }
+
+        private void ReactiveSystemFun(Contexts contexts)
+        {
+
         }
     }
 }
