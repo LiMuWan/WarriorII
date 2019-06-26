@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Data
   m_EditorClassIdentifier: 
   name: Game
-  isOn: 0
+  isOn: 1
