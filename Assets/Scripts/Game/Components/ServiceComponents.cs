@@ -49,4 +49,13 @@ namespace Game.Service
     {
         public TimerService TimerService;
     }
+
+    /// <summary>
+    /// SkillCode服务组件
+    /// </summary>
+    [Service,Unique]
+    public class SkillCodeServiceComponent:IComponent
+    {
+        public SkillCodeService SkillCodeService;
+    }
 }
