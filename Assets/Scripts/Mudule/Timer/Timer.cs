@@ -330,9 +330,7 @@ namespace Module.Timer
                 timer = timerDic[id];
                 if (!timer.IsTiming)
                 {
-                    inactiveTimer.Remove(timer);
-                    timer.ResetData(id, duration, loop);
-                    activeTimer.Add(timer);
+                    ResetTimer(timer, id, duration, loop);
                 }
                 else
                 {
@@ -347,9 +345,7 @@ namespace Module.Timer
 
                     timerDic.Remove(timer.ID);
 
-                    inactiveTimer.Remove(timer);
-                    timer.ResetData(id, duration, loop);
-                    activeTimer.Add(timer);
+                    ResetTimer(timer, id, duration, loop);
                 }
                 else
                 {
@@ -375,12 +371,22 @@ namespace Module.Timer
                 ITimer timer = timerDic[id];
                 if (timer.IsTiming)
                 {
-                    timer.ResetData(id, duration, loop);
+                    ResetTimer(timer,id, duration, loop);
                 }
                 return timer;
             }
 
             return null;
+        }
+
+        private void ResetTimer(ITimer timer, string id, float duration, bool loop)
+        {
+            if (inactiveTimer.Contains(timer))
+            {
+                inactiveTimer.Remove(timer);
+                activeTimer.Add(timer);
+            }
+            timer.ResetData(id, duration, loop);
         }
 
         /// <summary>

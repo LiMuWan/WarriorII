@@ -20,10 +20,17 @@ public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity>
 
     protected  override bool Filter(InputEntity entity)    
     {
-        return entity.hasGameInputValidHumanSkill && entity.gameInputValidHumanSkill.IsValid;
+        return entity.hasGameInputValidHumanSkill && 
+            entity.gameInputValidHumanSkill.IsValid; 
     }
 
     protected  override void Execute(List<InputEntity> entities)    
     {
+        //发出信号，当前播放技能，动画，声音，特效
+        foreach (var entity in entities)
+        {
+            contexts.service.gameServiceLogService.LogService.Log(entity.gameInputValidHumanSkill.SkillCode.ToString());
+            entity.ReplaceGameInputValidHumanSkill(false, 0);
+        }
     }
 }

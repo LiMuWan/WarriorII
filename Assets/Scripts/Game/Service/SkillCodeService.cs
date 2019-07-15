@@ -15,6 +15,7 @@ namespace Game.Service
         public  void Init(Contexts contexts)        
         {
             contexts.service.SetGameServiceSkillCodeService(this);
+            skillCodeMudule = new SkillCodeMudule();
         }
 
         public  int GetPriority()         

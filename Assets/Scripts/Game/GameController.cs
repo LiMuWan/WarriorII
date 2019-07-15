@@ -23,13 +23,6 @@ namespace Game
             systems.Initialize();
 
             contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
-
-            SkillCodeMudule skillCode = new SkillCodeMudule();
-            int code = 0;
-            code = skillCode.GetCurrentSkillCode(SkillCodeMudule.SkillButton.ATTACK_O, code);
-            code = skillCode.GetCurrentSkillCode(SkillCodeMudule.SkillButton.ATTACK_O, code);
-            code = skillCode.GetCurrentSkillCode(SkillCodeMudule.SkillButton.ATTACK_O, code);
-            Debug.LogError(code);
         }
 
         private void InitManager()
