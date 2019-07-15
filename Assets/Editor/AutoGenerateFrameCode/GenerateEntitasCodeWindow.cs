@@ -133,7 +133,7 @@ namespace Game.Editor
             InputName("请输入脚本名称", ref ToolData.systemName);
             CreateButton("生成脚本", () =>
             {
-                GenerateCode.CreateScript(ToolData.systemPath, ToolData.selectedContextName + ToolData.systemName + 
+                GenerateCode.CreateScript(ToolData.systemPath + "/" + ToolData.selectedContextName, ToolData.selectedContextName + ToolData.systemName + 
                     ToolData.systemPosfix, CodeTemplate.GetReactiveSystemCode());
                 GenerateCode.InitSystem(ToolData.selectedContextName, ToolData.selectedContextName + ToolData.systemName + 
                     ToolData.systemPosfix, "ReactiveSystem");

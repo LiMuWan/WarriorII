@@ -98,7 +98,7 @@ namespace Game.Editor
             build.WriteLine("protected Contexts contexts;", true);
             build.WriteEmptyLine();
             //构造
-            build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), ": base(contexts.game)", "Contexts contexts");
+            build.WriteFun(className, ScriptBuildHelp.Public, new List<string>(), ": base(contexts."+ ToolData.selectedContextName.ToLower() + ")", "Contexts contexts");
             build.BackToInsertContent();
             build.IndentTimes++;
             build.WriteLine("this.contexts = contexts;", true);
