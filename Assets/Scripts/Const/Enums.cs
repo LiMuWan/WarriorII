@@ -83,5 +83,9 @@ namespace Const
     public enum TimerId
     {
         MOVE_TIMER,
+        /// <summary>
+        /// 判断角色技能是否在有效时间内
+        /// </summary>
+        HUMAN_SKILL_TIMER,
     }
 }

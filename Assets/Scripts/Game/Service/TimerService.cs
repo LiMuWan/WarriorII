@@ -66,12 +66,22 @@ namespace Game.Service
 
         public ITimer CreateTimer(string id, float duration, bool loop)
         {
-            throw new System.NotImplementedException();
+            return  timeManager.CreateTimer(id, duration, loop);
         }
 
         public ITimer GetTimer(string id)
         {
-            throw new System.NotImplementedException();
+            return timeManager.GetTimer(id);
+        }
+
+        public ITimer ResetTimerData(string id, float duration, bool loop)
+        {
+             return timeManager.ResetTimerData(id, duration, loop);
+        }
+
+        public ITimer ResetTimerData(TimerId id, float duration, bool loop)
+        {
+            return  timeManager.ResetTimerData(id, duration, loop);
         }
     }
 }
