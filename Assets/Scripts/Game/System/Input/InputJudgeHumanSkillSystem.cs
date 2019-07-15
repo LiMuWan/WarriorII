@@ -8,7 +8,6 @@ using System.Collections.Generic;
 public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity> 
 {
     protected Contexts contexts;
-    private bool isValid;
 
     public   InputJudgeHumanSkillSystem(Contexts contexts): base(contexts.input)    
     {
@@ -30,21 +29,16 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
     {
         ITimerService timerService = contexts.service.gameServiceTimerService.TimerService;
         var timer = timerService.CreateTimer(Const.TimerId.HUMAN_SKILL_TIMER, 0.2f, false);
-        timer.AddCompleteListener(() => SetValid(false));
+        timer.AddCompleteListener(() => SetValid(true));
         if(timer != null)
         {
             timerService.ResetTimerData(Const.TimerId.HUMAN_SKILL_TIMER, 0.2f, false);
-            timer.AddCompleteListener(() => SetValid(false));
-        }
-
-        if(isValid)
-        {
-
+            timer.AddCompleteListener(() => SetValid(true));
         }
     }
 
     private void SetValid(bool isValid)
     {
-        this.isValid = isValid;
+        contexts.input.ReplaceGameInputValidHumanSkill(isValid, 0);
     }
 }
