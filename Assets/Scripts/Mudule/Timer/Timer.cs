@@ -80,6 +80,22 @@ namespace Module.Timer
         ITimer CreateTimer(TimerId timerId, float duration, bool loop);
 
         /// <summary>
+        /// 重置某个正在播放的Timer数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        ITimer ResetTimerData(string id, float duration, bool loop);
+
+        /// <summary>
+        /// 重置某个正在播放的Timer数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        ITimer ResetTimerData(TimerId id, float duration, bool loop);
+
+        /// <summary>
         /// 根据id获取计时器
         /// </summary>
         /// <param name="id"></param>
@@ -211,6 +227,8 @@ namespace Module.Timer
                 IsTiming = true;
                 startTime = DateTime.Now;
                 runTimeTotal = 0;
+                onUpdate = null;
+                onComplete = null;
             }
 
             private bool JudgeIsComplete()
@@ -342,6 +360,38 @@ namespace Module.Timer
                 timerDic[id] = timer; 
             }
             return timer;
+        }
+
+        /// <summary>
+        ///重置某个已存在的Timer数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        public ITimer ResetTimerData(string id, float duration, bool loop)
+        {
+            if (timerDic.ContainsKey(id))
+            {
+                ITimer timer = timerDic[id];
+                if (timer.IsTiming)
+                {
+                    timer.ResetData(id, duration, loop);
+                }
+                return timer;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///重置某个已存在的Timer数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        public ITimer ResetTimerData(TimerId id, float duration, bool loop)
+        {
+             return ResetTimerData(id.ToString(), duration, loop);
         }
 
         /// <summary>
