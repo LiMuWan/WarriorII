@@ -18,19 +18,9 @@ public class SkillCodeMudule
         }
         else
         {
-            currentCode =(int)(code * Mathf.Pow(10, GetCodeLength(currentCode))) + currentCode;
+            currentCode = currentCode * 10 + code;
         }
         return currentCode;
-    }
-
-    /// <summary>
-    /// 获取当前编码是几位数
-    /// </summary>
-    /// <param name="currentCode"></param>
-    /// <returns></returns>
-    private int GetCodeLength(int currentCode)
-    {
-        return currentCode.ToString().Length;
     }
 
     public enum SkillButton

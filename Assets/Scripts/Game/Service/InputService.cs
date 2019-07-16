@@ -98,13 +98,11 @@ namespace Game.Service
         public void AttackO()
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);
-            InputUp(KeyCode.K, InputButton.ATTACK_O);
         }
 
         public void AttackX()
         {
             InputDown(KeyCode.L, InputButton.ATTACK_X);
-            InputUp(KeyCode.L, InputButton.ATTACK_X);
         }
 
         public void Idle()
