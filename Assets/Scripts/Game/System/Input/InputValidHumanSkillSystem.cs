@@ -29,7 +29,8 @@ public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity>
         //发出信号，当前播放技能，动画，声音，特效
         foreach (var entity in entities)
         {
-            contexts.service.gameServiceLogService.LogService.Log(entity.gameInputValidHumanSkill.SkillCode.ToString());
+            var skillCode = entity.gameInputValidHumanSkill.SkillCode;
+            contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
             entity.ReplaceGameInputValidHumanSkill(false, 0);
         }
     }

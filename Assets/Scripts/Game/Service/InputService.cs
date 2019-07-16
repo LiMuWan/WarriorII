@@ -66,8 +66,7 @@ namespace Game.Service
             Back();
             Left();
             Right();
-            AttackO();
-            AttackX();
+            Attack(0);
             Idle();
         }
          
@@ -95,13 +94,9 @@ namespace Game.Service
             InputPress(KeyCode.D, InputButton.RIGHT);
         }
 
-        public void AttackO()
+        public void Attack(int skillCode)
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);
-        }
-
-        public void AttackX()
-        {
             InputDown(KeyCode.L, InputButton.ATTACK_X);
         }
 

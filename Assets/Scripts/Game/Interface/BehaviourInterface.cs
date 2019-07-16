@@ -22,17 +22,15 @@ namespace Game.Interface
         /// 是否正在跑
         /// </summary>
         bool IsRun { get; set;}
+
         /// <summary>
         /// 待机
         /// </summary>
         void Idle();
-        /// <summary>
-        /// 攻击键（按下K）
-        /// </summary>
-        void AttackO();
+
         /// <summary>
         /// 攻击键（按下L)
         /// </summary>
-        void AttackX();
+        void Attack(int skillCode);
     }
 }

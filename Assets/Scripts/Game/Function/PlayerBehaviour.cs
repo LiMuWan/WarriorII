@@ -42,12 +42,7 @@ namespace Game
             Move(Vector3.right);
             PlayerOrientation(Vector3.up * 90);
         }
-        public void AttackO()
-        {
-           
-        }
-
-        public void AttackX()
+        public void Attack(int skillCode)
         {
            
         }

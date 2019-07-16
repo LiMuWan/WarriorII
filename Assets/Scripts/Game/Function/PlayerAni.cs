@@ -43,12 +43,7 @@ namespace Game
             Move();
         }
 
-        public void AttackO()
-        {
-                 
-        }
-
-        public void AttackX()
+        public void Attack(int skillCode)
         {
            
         }
