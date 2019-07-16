@@ -36,17 +36,16 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>,IInitializeS
         foreach (var entity in entities)
         {
             ITimerService timerService = contexts.service.gameServiceTimerService.TimerService;
-            var timer = timerService.CreateTimer(Const.TimerId.HUMAN_SKILL_TIMER, 0.2f, false);
+            var timer = timerService.CreateTimer(Const.TimerId.HUMAN_SKILL_TIMER, 0.1f, false);
             if (timer == null)
             {
-                timer = timerService.ResetTimerData(Const.TimerId.HUMAN_SKILL_TIMER, 0.2f, false);
+                timer = timerService.ResetTimerData(Const.TimerId.HUMAN_SKILL_TIMER, 0.1f, false);
                 timer.AddCompleteListener(() => SetValid(entity,true));
             }
             else
             {
                 timer.AddCompleteListener(() => SetValid(entity, true));
             }
-
             SetValid(entity, false);
         }
     }

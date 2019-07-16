@@ -98,19 +98,20 @@ namespace Game.Service
         public void AttackO()
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);
-            InputDown(KeyCode.K, InputButton.ATTACK_O);
+            InputUp(KeyCode.K, InputButton.ATTACK_O);
         }
 
         public void AttackX()
         {
             InputDown(KeyCode.L, InputButton.ATTACK_X);
-            InputDown(KeyCode.L, InputButton.ATTACK_X);
+            InputUp(KeyCode.L, InputButton.ATTACK_X);
         }
 
         public void Idle()
         { 
             //这四个键都没有松 ，并且是持续按下的时候
-            if(!isPress && inputButtonComponent.InputButton != InputButton.NONE && inputButtonComponent.InputState != InputState.NONE)
+            if(!isPress && inputButtonComponent.InputButton != InputButton.NONE && inputButtonComponent.InputState !=
+                InputState.NONE)
             {
                 entitasInputService.Input(InputButton.NONE, InputState.NONE);   
             }
