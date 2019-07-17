@@ -52,7 +52,7 @@ namespace Module.Timer
         /// <summary>
         /// 停止计时
         /// </summary>
-        void Stop();
+        void Stop(bool isComplete);
         /// <summary>
         /// 重置数据
         /// </summary>
@@ -275,9 +275,9 @@ namespace Module.Timer
             /// <summary>
             /// 停止计时器
             /// </summary>
-            public void Stop()
+            public void Stop(bool isComplete)
             {
-                if (IsComplete)
+                if (IsComplete && isComplete)
                 {
                     onComplete?.Invoke();
                 }
@@ -497,7 +497,7 @@ namespace Module.Timer
         {
             foreach (ITimer timer in activeTimer)
             {
-                timer.Stop();
+                timer.Stop(false);
             }
         }
     }

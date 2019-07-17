@@ -23,7 +23,7 @@ namespace Game
             {
                 contexts.game.gamePlayer.PlayerAni.Idle();
             }
-            contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop();
+            contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop(false);
             contexts.game.gamePlayer.PlayerAni.IsRun = false;
         }
     }
