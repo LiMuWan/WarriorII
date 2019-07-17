@@ -23,6 +23,9 @@ namespace Game
             systems.Initialize();
 
             contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
+
+            SkillCodeMudule skillCode = new SkillCodeMudule();
+            Debug.Log(skillCode.ConvertStringToInt("OXOX"));
         }
 
         private void InitManager()
