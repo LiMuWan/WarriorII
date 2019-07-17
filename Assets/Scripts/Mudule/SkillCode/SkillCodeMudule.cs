@@ -24,6 +24,13 @@ public class SkillCodeMudule
         return currentCode;
     }
 
+    /// <summary>
+    /// 通过技能名称获得技能编码
+    /// </summary>
+    /// <param name="skillName"></param>
+    /// <param name="prefix"></param>
+    /// <param name="posfix"></param>
+    /// <returns></returns>
     public int GetSkillCode(string skillName,string prefix,string posfix)
     {
         string codeString = "";
@@ -38,8 +45,12 @@ public class SkillCodeMudule
         return ConvertStringToInt(codeString);
     }
 
-    //转换string编码到int
-    public int ConvertStringToInt(string codeString)
+    /// <summary>
+    /// 转换技能名称字符串到int编码
+    /// </summary>
+    /// <param name="codeString"></param>
+    /// <returns></returns>
+    private int ConvertStringToInt(string codeString)
     {
         int[] codes = new int[codeString.Length];
         char[] chars = codeString.ToCharArray();
@@ -64,7 +75,12 @@ public class SkillCodeMudule
         return code;
     }
 
-    public string ConvertIntToString(int skillCode)
+    /// <summary>
+    /// 转换int编码到技能名称字符串
+    /// </summary>
+    /// <param name="skillCode"></param>
+    /// <returns></returns>
+    private string ConvertIntToString(int skillCode)
     {
         string codeString = skillCode.ToString();
         string[] codeStrings = new string[codeString.Length];

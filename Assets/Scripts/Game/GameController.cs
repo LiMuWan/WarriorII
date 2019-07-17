@@ -24,8 +24,6 @@ namespace Game
 
             contexts.game.SetGameGameState(GameState.START);//发出游戏开始事件 
 
-            SkillCodeMudule skillCode = new SkillCodeMudule();
-            Debug.Log(skillCode.ConvertIntToString(1212));
         }
 
         private void InitManager()
