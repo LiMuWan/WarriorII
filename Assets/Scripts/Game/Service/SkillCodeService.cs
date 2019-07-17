@@ -27,11 +27,11 @@ namespace Game.Service
         {
             if (button == InputButton.ATTACK_O )
             {
-               return skillCodeMudule.GetCurrentSkillCode(SkillCodeMudule.SkillButton.ATTACK_O,currentCode);
+               return skillCodeMudule.GetCurrentSkillCode(SkillCodeMudule.SkillButton.O,currentCode);
             }
             else if (button == InputButton.ATTACK_X)
             {
-                return skillCodeMudule.GetCurrentSkillCode(SkillCodeMudule.SkillButton.ATTACK_X, currentCode);
+                return skillCodeMudule.GetCurrentSkillCode(SkillCodeMudule.SkillButton.X, currentCode);
             }
             else
             {
