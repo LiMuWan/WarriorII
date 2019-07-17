@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SkillCodeMudule 
@@ -63,6 +64,26 @@ public class SkillCodeMudule
         return code;
     }
 
+    public string ConvertIntToString(int skillCode)
+    {
+        string codeString = skillCode.ToString();
+        string[] codeStrings = new string[codeString.Length];
+
+        for (int i = 0; i < codeStrings.Length; i++)
+        {
+            if(int.Parse(codeString[i].ToString()) == (int)SkillButton.O)
+            {
+                codeStrings[i] = SkillButton.O.ToString();
+            }
+            else if(int.Parse(codeString[i].ToString()) == (int)SkillButton.X)
+            {
+                codeStrings[i] = SkillButton.X.ToString();
+            }
+        }
+
+       codeString = string.Join("", codeStrings);    
+        return codeString;
+    }
     public enum SkillButton
     {
         O = 1,
