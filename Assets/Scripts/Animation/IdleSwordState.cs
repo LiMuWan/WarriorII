@@ -1,25 +1,26 @@
-﻿using Module.Timer;
+﻿using Game.Service;
+using Module.Timer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class IdleSwordState : StateMachineBehaviour
 {
-    private ITimeManager timeManager;
+    private ITimerService timeService;
     private ITimer timer;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Init();
-        timer = timeManager.CreateTimer("IdleSwordState", 1, false);
+        timer = timeService.CreateTimer("IdleSwordState", 1, false);
         timer.AddCompleteListener(() => { animator.SetBool(Const.ConstValue.IDLE_SWORD_PARA_NAME, false); });
     }
 
     private void Init()
     {
-        if(timeManager == null)
+        if(timeService == null)
         {
-            timeManager = new TimerManager();
+            timeService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService; ;
         }
     }
 
