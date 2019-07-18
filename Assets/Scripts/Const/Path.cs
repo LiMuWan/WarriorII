@@ -11,7 +11,9 @@ namespace Const
         public const string UI_AUDIO_PATH = AUDIO_PATH + "UI/";
         public const string BG_AUDIO_PATH = AUDIO_PATH + "BG/";
         public const string COMICS_PREFAB_PATH = PREFAB_PATH + "Comics/";
-        public const string COMICS_ITEM_PREFAB_PATH = COMICS_PREFAB_PATH + "ComicsItem";
         public const string COMICS_PATH = "Comics/";
+
+        public const string COMICS_ITEM_PREFAB_PATH = COMICS_PREFAB_PATH + "ComicsItem";
+        public const string HUMAN_SKILL_ITEM_UI_PATH = GAME_UI_PATH + "HumanSkillItem";
     }
 }
