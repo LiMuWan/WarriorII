@@ -6,6 +6,7 @@ namespace Const
     {
         private const string PREFAB_PATH = "Prefabs/";
         public const string UI_PATH = PREFAB_PATH + "UI/";
+        public const string GAME_UI_PATH = PREFAB_PATH + "GameUI/";
         public const string AUDIO_PATH = "Audio/";
         public const string UI_AUDIO_PATH = AUDIO_PATH + "UI/";
         public const string BG_AUDIO_PATH = AUDIO_PATH + "BG/";
