@@ -16,12 +16,18 @@ namespace Game.View
             gameEntity.AddGameValidHumanSkillListener(this);
             itemList = new List<HumanSkillItem>();
             codeMudule = new SkillCodeMudule();
+            SetActive(false);
         }
 
         public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
         {
             string skillCode = codeMudule.GetCodeString(SkillCode);
             ShowItem(skillCode);
+        }
+
+        public void SetActive(bool isActive)
+        {
+            gameObject.SetActive(isActive);
         }
 
         /// <summary>
