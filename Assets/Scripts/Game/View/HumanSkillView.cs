@@ -6,13 +6,19 @@ using UnityEngine;
 
 namespace Game.View
 {
-    public class HumanSkillView:ViewBase     
+    public class HumanSkillView:ViewBase,IGameValidHumanSkillListener     
     {
         List<HumanSkillItem> itemList;
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
+            gameEntity.AddGameValidHumanSkillListener(this);
             itemList = new List<HumanSkillItem>();
+        }
+
+        public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
+        {
+            ShowItem(SkillCode.ToString());
         }
 
         /// <summary>
@@ -58,5 +64,6 @@ namespace Game.View
                 }
             }
         }
+    
     }
 }

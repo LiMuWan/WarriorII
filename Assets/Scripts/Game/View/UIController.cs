@@ -15,9 +15,6 @@ namespace Game.View
         public void Init()
         {
             LoadView();
-
-            transform.Find("HumanSkill(Clone)").GetComponent<HumanSkillView>().ShowItem("OOXX");
-            transform.Find("HumanSkill(Clone)").GetComponent<HumanSkillView>().ShowItem("XO");
         }
 
         private void LoadView()

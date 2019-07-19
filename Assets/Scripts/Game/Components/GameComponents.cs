@@ -45,4 +45,16 @@ namespace Game
     {
         public PlayerAniIndex PlayerAniIndex;
     }
+
+    /// <summary>
+    /// 输入人物技能部分
+    /// </summary>
+    [Game, Unique, Event(EventTarget.Self)]
+    public class ValidHumanSkillComponent : IComponent
+    {
+        /// <summary>
+        /// 技能编码
+        /// </summary>
+        public int SkillCode;
+    }
 }

@@ -31,6 +31,7 @@ public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity>
         {
             var skillCode = entity.gameInputValidHumanSkill.SkillCode;
             contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
+            contexts.game.ReplaceGameValidHumanSkill(skillCode);
             entity.ReplaceGameInputValidHumanSkill(false, 0);
         }
     }
