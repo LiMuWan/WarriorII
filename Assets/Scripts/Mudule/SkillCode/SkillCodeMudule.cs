@@ -25,6 +25,16 @@ public class SkillCodeMudule
     }
 
     /// <summary>
+    /// 获取XXOO类型的技能编码
+    /// </summary>
+    /// <param name="skillCode"></param>
+    /// <returns></returns>
+    public string GetCodeString(int skillCode)
+    {
+        return ConvertIntToString(skillCode);
+    }
+
+    /// <summary>
     /// 通过技能名称获得技能编码
     /// </summary>
     /// <param name="skillName"></param>
@@ -46,7 +56,7 @@ public class SkillCodeMudule
     }
 
     /// <summary>
-    /// 转换技能名称字符串到int编码
+    /// 转换string编码到int 从xxoo类型转换成int类型编码
     /// </summary>
     /// <param name="codeString"></param>
     /// <returns></returns>
@@ -76,7 +86,7 @@ public class SkillCodeMudule
     }
 
     /// <summary>
-    /// 转换int编码到技能名称字符串
+    /// 转换int编码转换成string， 转换成xxoo类型的编码
     /// </summary>
     /// <param name="skillCode"></param>
     /// <returns></returns>

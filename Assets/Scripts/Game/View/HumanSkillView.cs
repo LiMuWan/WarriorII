@@ -9,16 +9,19 @@ namespace Game.View
     public class HumanSkillView:ViewBase,IGameValidHumanSkillListener     
     {
         List<HumanSkillItem> itemList;
+        SkillCodeMudule codeMudule;
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
             gameEntity.AddGameValidHumanSkillListener(this);
             itemList = new List<HumanSkillItem>();
+            codeMudule = new SkillCodeMudule();
         }
 
         public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
         {
-            ShowItem(SkillCode.ToString());
+            string skillCode = codeMudule.GetCodeString(SkillCode);
+            ShowItem(skillCode);
         }
 
         /// <summary>

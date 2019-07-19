@@ -50,7 +50,7 @@ namespace Game
     /// 输入人物技能部分
     /// </summary>
     [Game, Unique, Event(EventTarget.Any)]
-    public class ValidHumanSkillComponent : IComponent
+    public class ValidHumanSkillComponent : IComponent 
     {
         /// <summary>
         /// 技能编码
