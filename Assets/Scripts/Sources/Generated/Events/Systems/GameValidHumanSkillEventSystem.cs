@@ -8,9 +8,13 @@
 //------------------------------------------------------------------------------
 public sealed class GameValidHumanSkillEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
+    readonly Entitas.IGroup<GameEntity> _listeners;
+    readonly System.Collections.Generic.List<GameEntity> _entityBuffer;
     readonly System.Collections.Generic.List<IGameValidHumanSkillListener> _listenerBuffer;
 
     public GameValidHumanSkillEventSystem(Contexts contexts) : base(contexts.game) {
+        _listeners = contexts.game.GetGroup(GameMatcher.GameValidHumanSkillListener);
+        _entityBuffer = new System.Collections.Generic.List<GameEntity>();
         _listenerBuffer = new System.Collections.Generic.List<IGameValidHumanSkillListener>();
     }
 
@@ -21,16 +25,18 @@ public sealed class GameValidHumanSkillEventSystem : Entitas.ReactiveSystem<Game
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.hasGameValidHumanSkill && entity.hasGameValidHumanSkillListener;
+        return entity.hasGameValidHumanSkill;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
             var component = e.gameValidHumanSkill;
-            _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.gameValidHumanSkillListener.value);
-            foreach (var listener in _listenerBuffer) {
-                listener.OnGameValidHumanSkill(e, component.SkillCode);
+            foreach (var listenerEntity in _listeners.GetEntities(_entityBuffer)) {
+                _listenerBuffer.Clear();
+                _listenerBuffer.AddRange(listenerEntity.gameValidHumanSkillListener.value);
+                foreach (var listener in _listenerBuffer) {
+                    listener.OnGameValidHumanSkill(e, component.SkillCode);
+                }
             }
         }
     }
