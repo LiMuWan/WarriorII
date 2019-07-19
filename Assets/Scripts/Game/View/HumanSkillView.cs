@@ -19,7 +19,7 @@ namespace Game.View
         /// 生成子项，传入参数为“xo”的技能编码字符串
         /// </summary>
         /// <param name="codeString"></param>
-        public void SHowItem(string codeString)
+        public void ShowItem(string codeString)
         {
             SpawItem(codeString);
             ShowCode(codeString);

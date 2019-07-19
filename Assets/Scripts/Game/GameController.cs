@@ -1,8 +1,7 @@
 ﻿using Entitas;
-using Game.Service;
+using Game.View;
 using Manager;
 using Manager.Parent;
-using Module.Timer;
 using UnityEngine;
 using Util;
 
@@ -33,9 +32,14 @@ namespace Game
 
             var cameraControllerTrans = gameParentManager.GetParentTrans(ParentName.CameraController);
             CameraController cameraController = cameraControllerTrans.gameObject.AddComponent<CameraController>();
+
             var entity = contexts.game.CreateEntity();
             entity.AddGameCameraState(CameraAniName.NONE);
             cameraController.Init(contexts, entity);
+
+            var uiControllerTrans = gameParentManager.GetParentTrans(ParentName.UIController);
+            UIController uiController = uiControllerTrans.gameObject.AddComponent<UIController>();
+            uiController.Init();
 
             ModelManager.Single.Init();
 
