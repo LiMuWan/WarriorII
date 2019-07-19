@@ -40,6 +40,7 @@ namespace Game.View
         {
             var go = LoadManager.Single.LoadAndInstantiate(Const.Path.HUMAN_SKILL_ITEM_UI_PATH, transform);
             var item = go.AddComponent<HumanSkillItem>();
+            item.Init();
             itemList.Add(item);
         }
 
@@ -47,7 +48,7 @@ namespace Game.View
         {
             for (int i = 0; i < itemList.Count; i++)
             {
-                if(i <= codeString.Length)
+                if(i < codeString.Length)
                 {
                     itemList[i].ChangeSprite(codeString[i]);
                 }

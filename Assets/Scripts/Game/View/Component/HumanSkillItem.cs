@@ -8,7 +8,7 @@ namespace Game.View
         private HumanSkillSprite humanSkillSprite;
         private Image image;
 
-        private void Start()
+        public void Init()
         {
             humanSkillSprite = GetComponent<HumanSkillSprite>();
             image = GetComponent<Image>();

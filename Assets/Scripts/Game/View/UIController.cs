@@ -3,35 +3,35 @@ using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Const;
 
 namespace Game.View
 {
     public class UIController : MonoBehaviour
     {
-        private HashSet<string> viewPath;
-
+        private string nameSpace = "Game.View.";
+        private string posfix = "View";
         public void Init()
         {
-            InitPath();
             LoadView();
 
-            transform.Find("HumanSkill").GetComponent<HumanSkillView>().ShowItem("XO");
-        }
-
-        //添加UI部分加载路径
-        private void InitPath()
-        {
-            viewPath = new HashSet<string>();
-            viewPath.Add(Const.Path.HUMAN_SKILL_UI_PATH);
+            transform.Find("HumanSkill(Clone)").GetComponent<HumanSkillView>().ShowItem("OOXX");
+            transform.Find("HumanSkill(Clone)").GetComponent<HumanSkillView>().ShowItem("XO");
         }
 
         private void LoadView()
         {
             GameObject temp = null;
-            foreach (string path in viewPath)
+            Component tempComponent = null;
+            foreach (GameUIName uiName in Enum.GetValues(typeof(GameUIName)))
             {
-                temp = LoadManager.Single.LoadAndInstantiate(path, transform);
-                temp.GetComponent<ViewBase>()?.Init(Contexts.sharedInstance, Contexts.sharedInstance.game.CreateEntity());
+                temp = LoadManager.Single.LoadAndInstantiate(Const.Path.GAME_UI_PATH + uiName, transform);
+                tempComponent = temp.AddComponent(Type.GetType(nameSpace + uiName + posfix));
+                if (tempComponent is Interface.IView)
+                {
+                    (tempComponent as Interface.IView).Init(Contexts.sharedInstance, Contexts.sharedInstance.game.CreateEntity());
+                }
             }
         }
     }

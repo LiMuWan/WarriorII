@@ -15,6 +15,5 @@ namespace Const
 
         public const string COMICS_ITEM_PREFAB_PATH = COMICS_PREFAB_PATH + "ComicsItem";
         public const string HUMAN_SKILL_ITEM_UI_PATH = GAME_UI_PATH + "HumanSkillItem";
-        public const string HUMAN_SKILL_UI_PATH = GAME_UI_PATH + "HumanSkill";
     }
 }

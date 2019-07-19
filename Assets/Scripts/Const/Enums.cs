@@ -68,6 +68,15 @@ namespace Const
     }
 
     /// <summary>
+    /// 游戏UI预制名字
+    /// </summary>
+    public enum GameUIName
+    {
+        HumanSkill
+    }
+
+
+    /// <summary>
     /// 动画参数对应枚举
     /// </summary>
     public enum PlayerAniIndex
