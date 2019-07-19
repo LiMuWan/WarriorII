@@ -10,8 +10,6 @@ namespace Game.View
     {
         private HashSet<string> viewPath;
 
-
-
         public void Init()
         {
             InitPath();

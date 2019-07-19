@@ -1,8 +1,8 @@
-using Entitas;
+ï»¿using Entitas;
 using System.Collections.Generic;
 
 /// <summary>
-/// ÓĞĞ§¼¼ÄÜÏàÓ¦ÏµÍ³  
+/// æœ‰æ•ˆæŠ€èƒ½ç›¸åº”ç³»ç»Ÿ  
 /// </summary>
 public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity> 
 {
@@ -26,7 +26,7 @@ public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity>
 
     protected  override void Execute(List<InputEntity> entities)    
     {
-        //·¢³öĞÅºÅ£¬µ±Ç°²¥·Å¼¼ÄÜ£¬¶¯»­£¬ÉùÒô£¬ÌØĞ§
+        //å‘å‡ºä¿¡å·ï¼Œå½“å‰æ’­æ”¾æŠ€èƒ½ï¼ŒåŠ¨ç”»ï¼Œå£°éŸ³ï¼Œç‰¹æ•ˆ
         foreach (var entity in entities)
         {
             var skillCode = entity.gameInputValidHumanSkill.SkillCode;

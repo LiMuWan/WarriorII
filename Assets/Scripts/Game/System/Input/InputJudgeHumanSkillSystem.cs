@@ -1,10 +1,10 @@
-using Entitas;
+锘縰sing Entitas;
 using Game;
 using Game.Service;
 using System.Collections.Generic;
 
 /// <summary>
-/// 判断技能按钮输入的是否有效
+/// 鍒ゆ柇鎶�鑳芥寜閽緭鍏ョ殑鏄惁鏈夋晥
 /// </summary>
 public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>,IInitializeSystem
 {
