@@ -58,7 +58,7 @@ namespace Module.Timer
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        void ResetData(string id,float duration, bool loop);
+        void ResetData(string timerId, float duration, bool loop);
 
         ITimer AddUpdateListener(Action onUpdate);
         ITimer AddCompleteListener(Action onComplete);
@@ -67,47 +67,39 @@ namespace Module.Timer
     public interface ITimeManager
     {
         /// <summary>
-        /// 创建计时器
+        /// 创建计时器,如果当前指定计时器正在计时，返回null
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
-        ITimer CreateTimer(string id,float duration, bool loop);
+        ITimer CreateTimer(string timerId, float duration, bool loop);
 
         /// <summary>
-        /// 创建计时器
+        /// 重置指定ID的Timer数据
         /// </summary>
-        ITimer CreateTimer(TimerId timerId, float duration, bool loop);
-
-        /// <summary>
-        /// 重置某个正在播放的Timer数据
-        /// </summary>
-        /// <param name="id"></param>
+        /// <param name="timerId"></param>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        ITimer ResetTimerData(string id, float duration, bool loop);
+        ITimer ResetTimerData(string timerId, float duration, bool loop);
 
         /// <summary>
-        /// 重置某个正在播放的Timer数据
+        /// 指定ID的timer为空，创建timer,不为空，重新启动timer
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="timerId"></param>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        ITimer ResetTimerData(TimerId id, float duration, bool loop);
-
-        /// <summary>
-        /// 根据id获取计时器
-        /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
-        ITimer GetTimer(string id);
+        ITimer CreateOrResetTimer(string timerId, float duration, bool loop);
 
+ 
         /// <summary>
         /// 根据id获取计时器
         /// </summary>
         /// <param name="timerId"></param>
         /// <returns></returns>
-        ITimer GetTimer(TimerId timerId);
+        ITimer GetTimer(string timerId);
+
+     
         /// <summary>
         /// 帧函数
         /// </summary>
@@ -198,14 +190,14 @@ namespace Module.Timer
             /// 持续时间单位为秒
             /// </summary>
             /// <param name="duration"></param>
-            public Timer(string id,float duration, bool loop)
+            public Timer(string timerId, float duration, bool loop)
             {
-                InitData(id,duration, loop);
+                InitData(timerId, duration, loop);
             }
 
-            private void InitData(string id,float duration, bool loop)
+            private void InitData(string timerId, float duration, bool loop)
             {
-                this.ID = id;
+                this.ID = timerId;
                 this.duration = duration;
                 Isloop = loop;
                 ResetData();
@@ -216,9 +208,9 @@ namespace Module.Timer
             /// </summary>
             /// <param name="duration"></param>
             /// <param name="loop"></param>
-            public void ResetData(string id,float duration, bool loop)
+            public void ResetData(string timerId, float duration, bool loop)
             {
-                InitData(id,duration, loop);
+                InitData(timerId, duration, loop);
             }
 
             private void ResetData()
@@ -322,15 +314,15 @@ namespace Module.Timer
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        public ITimer CreateTimer(string id,float duration, bool loop)
+        public ITimer CreateTimer(string timerId, float duration, bool loop)
         {
             ITimer timer = null;
-            if (timerDic.ContainsKey(id))
+            if (timerDic.ContainsKey(timerId))
             {
-                timer = timerDic[id];
+                timer = timerDic[timerId];
                 if (!timer.IsTiming)
                 {
-                    ResetTimer(timer, id, duration, loop);
+                    ResetTimer(timer, timerId, duration, loop);
                 }
                 else
                 {
@@ -345,15 +337,15 @@ namespace Module.Timer
 
                     timerDic.Remove(timer.ID);
 
-                    ResetTimer(timer, id, duration, loop);
+                    ResetTimer(timer, timerId, duration, loop);
                 }
                 else
                 {
-                    timer = new Timer(id, duration, loop);
+                    timer = new Timer(timerId, duration, loop);
                     activeTimer.Add(timer);                   
                 }
                 timer.AddCompleteListener(() => TimerComplete(timer));
-                timerDic[id] = timer; 
+                timerDic[timerId] = timer; 
             }
             return timer;
         }
@@ -361,17 +353,17 @@ namespace Module.Timer
         /// <summary>
         ///重置某个已存在的Timer数据
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="timerId"></param>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        public ITimer ResetTimerData(string id, float duration, bool loop)
+        public ITimer ResetTimerData(string timerId, float duration, bool loop)
         {
-            if (timerDic.ContainsKey(id))
+            if (timerDic.ContainsKey(timerId))
             {
-                ITimer timer = timerDic[id];
+                ITimer timer = timerDic[timerId];
                 if (timer.IsTiming)
                 {
-                    ResetTimer(timer,id, duration, loop);
+                    ResetTimer(timer,timerId, duration, loop);
                 }
                 return timer;
             }
@@ -379,25 +371,25 @@ namespace Module.Timer
             return null;
         }
 
-        private void ResetTimer(ITimer timer, string id, float duration, bool loop)
+        private void ResetTimer(ITimer timer, string timerId, float duration, bool loop)
         {
             if (inactiveTimer.Contains(timer))
             {
                 inactiveTimer.Remove(timer);
                 activeTimer.Add(timer);
             }
-            timer.ResetData(id, duration, loop);
+            timer.ResetData(timerId, duration, loop);
         }
 
         /// <summary>
         ///重置某个已存在的Timer数据
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="timerId"></param>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        public ITimer ResetTimerData(TimerId id, float duration, bool loop)
+        public ITimer ResetTimerData(TimerId timerId, float duration, bool loop)
         {
-             return ResetTimerData(id.ToString(), duration, loop);
+             return ResetTimerData(timerId.ToString(), duration, loop);
         }
 
         /// <summary>
@@ -411,13 +403,13 @@ namespace Module.Timer
         /// <summary>
         /// 根据id获取计时器
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="timerId"></param>
         /// <returns></returns>
-        public ITimer GetTimer(string id)
+        public ITimer GetTimer(string timerId)
         {
-            if(timerDic.ContainsKey(id))
+            if(timerDic.ContainsKey(timerId))
             {
-                return timerDic[id];
+                return timerDic[timerId];
             }
             else
             {
@@ -499,6 +491,16 @@ namespace Module.Timer
             {
                 timer.Stop(false);
             }
+        }
+
+        public ITimer CreateOrResetTimer(string timerId, float duration, bool loop)
+        {
+           var timer = CreateTimer(timerId, duration, loop);
+            if(timer == null)
+            {
+                timer = ResetTimerData(timerId, duration, loop);
+            }
+            return timer;
         }
     }
 }
