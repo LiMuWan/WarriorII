@@ -8,15 +8,46 @@ namespace Game.Service
 {
     public interface ITimerService:IInitService,IExecuteService,ITimeManager
     {
- 
+        /// <summary>
+        /// 创建计时器,如果当前指定计时器正在计时，返回null
+        /// </summary>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
+        ITimer CreateTimer(TimerId timerId, float duration, bool loop);
+
+        /// <summary>
+        /// 重置某个正在播放的Timer数据
+        /// </summary>
+        /// <param name="timerId"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        ITimer ResetTimerData(TimerId timerId, float duration, bool loop);
+
+        /// <summary>
+        /// 根据id获取计时器
+        /// </summary>
+        /// <param name="timerId"></param>
+        /// <returns></returns>
+        ITimer GetTimer(TimerId timerId);
+
+        /// <summary>
+        /// 指定ID的timer为空，创建timer,不为空，重新启动timer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
+        ITimer CreateOrResetTimer(TimerId timerId, float duration, bool loop);
+
     }
     public class TimerService :ITimerService
     {
-        private ITimeManager timeManager;
+        private ITimeManager timerManager;
         
         public TimerService(ITimeManager manager)
         {
-            this.timeManager = manager;
+            this.timerManager = manager;
         }
 
         public void Init(Contexts contexts)
@@ -36,52 +67,62 @@ namespace Game.Service
 
         public ITimer CreateTimer(TimerId timerId,float duration,bool loop)
         {
-            return timeManager.CreateTimer(timerId, duration,loop);
+            return timerManager.CreateTimer(timerId.ToString(), duration,loop);
         }
 
         public ITimer GetTimer(TimerId timerid)
         {
-            return timeManager.GetTimer(timerid);
+            return timerManager.GetTimer(timerid.ToString());
         }
 
         public void ContinueAll()
         {
-            timeManager.ContinueAll();
+            timerManager.ContinueAll();
         }
 
         public void PauseAll()
         {
-            timeManager.ContinueAll();
+            timerManager.ContinueAll();
         }
 
         public void StopAll()
         {
-            timeManager.StopAll();
+            timerManager.StopAll();
         }
 
         public void Update()
         {
-            timeManager.Update();
+            timerManager.Update();
         }
 
-        public ITimer CreateTimer(string id, float duration, bool loop)
+        public ITimer CreateTimer(string timerId, float duration, bool loop)
         {
-            return  timeManager.CreateTimer(id, duration, loop);
+            return  timerManager.CreateTimer(timerId, duration, loop);
         }
 
-        public ITimer GetTimer(string id)
+        public ITimer GetTimer(string timerId)
         {
-            return timeManager.GetTimer(id);
+            return timerManager.GetTimer(timerId);
         }
 
-        public ITimer ResetTimerData(string id, float duration, bool loop)
+        public ITimer ResetTimerData(string timerId, float duration, bool loop)
         {
-             return timeManager.ResetTimerData(id, duration, loop);
+             return timerManager.ResetTimerData(timerId, duration, loop);
         }
 
-        public ITimer ResetTimerData(TimerId id, float duration, bool loop)
+        public ITimer ResetTimerData(TimerId timerId, float duration, bool loop)
         {
-            return  timeManager.ResetTimerData(id, duration, loop);
+            return  timerManager.ResetTimerData(timerId.ToString(), duration, loop);
+        }
+
+        public ITimer CreateOrResetTimer(string timerId, float duration, bool loop)
+        {
+            return timerManager.CreateOrResetTimer(timerId, duration, loop);
+        }
+
+        public ITimer CreateOrResetTimer(TimerId timerId, float duration, bool loop)
+        {
+            return timerManager.CreateOrResetTimer(timerId.ToString(), duration, loop);
         }
     }
 }
