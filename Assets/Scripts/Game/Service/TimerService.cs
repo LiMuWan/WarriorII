@@ -38,7 +38,7 @@ namespace Game.Service
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
-        ITimer CreateOrResetTimer(TimerId timerId, float duration, bool loop);
+        ITimer CreateOrRestartTimer(TimerId timerId, float duration, bool loop);
 
     }
     public class TimerService :ITimerService
@@ -115,14 +115,14 @@ namespace Game.Service
             return  timerManager.ResetTimerData(timerId.ToString(), duration, loop);
         }
 
-        public ITimer CreateOrResetTimer(string timerId, float duration, bool loop)
+        public ITimer CreateOrRestartTimer(string timerId, float duration, bool loop)
         {
-            return timerManager.CreateOrResetTimer(timerId, duration, loop);
+            return timerManager.CreateOrRestartTimer(timerId, duration, loop);
         }
 
-        public ITimer CreateOrResetTimer(TimerId timerId, float duration, bool loop)
+        public ITimer CreateOrRestartTimer(TimerId timerId, float duration, bool loop)
         {
-            return timerManager.CreateOrResetTimer(timerId.ToString(), duration, loop);
+            return timerManager.CreateOrRestartTimer(timerId.ToString(), duration, loop);
         }
     }
 }

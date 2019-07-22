@@ -89,7 +89,7 @@ namespace Module.Timer
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
-        ITimer CreateOrResetTimer(string timerId, float duration, bool loop);
+        ITimer CreateOrRestartTimer(string timerId, float duration, bool loop);
 
  
         /// <summary>
@@ -493,7 +493,7 @@ namespace Module.Timer
             }
         }
 
-        public ITimer CreateOrResetTimer(string timerId, float duration, bool loop)
+        public ITimer CreateOrRestartTimer(string timerId, float duration, bool loop)
         {
            var timer = CreateTimer(timerId, duration, loop);
             if(timer == null)

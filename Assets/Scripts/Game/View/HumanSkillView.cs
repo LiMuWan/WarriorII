@@ -56,14 +56,7 @@ namespace Game.View
         {
             InitTimerService();
 
-            if (timer == null)
-            {
-                timer = timerService.CreateTimer(timerId, 1, false);
-            }
-            else
-            {
-                timer = timerService.ResetTimerData(timerId, 1, false);
-            }
+            timer = timerService.CreateOrRestartTimer(timerId, 1, false);
             timer.AddCompleteListener(HideImage);
         }
 
