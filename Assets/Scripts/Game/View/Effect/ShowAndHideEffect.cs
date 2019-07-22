@@ -11,7 +11,7 @@ namespace Game.Effect
         /// </summary>
         /// <param name="go"></param>
         /// <param name="duration"></param>
-        public static void ShowImage(this GameObject go, float duration)
+        public static void ShowAllImageEffect(this GameObject go, float duration)
         {
             foreach (Image image in go.transform.GetComponentsInChildren<Image>())
             {
@@ -25,7 +25,7 @@ namespace Game.Effect
         /// </summary>
         /// <param name="go"></param>
         /// <param name="duration"></param>
-        public static void HideImage(this GameObject go, float duration)
+        public static void HideAllImageEffect(this GameObject go, float duration)
         {
             foreach (Image image in go.transform.GetComponentsInChildren<Image>())
             {

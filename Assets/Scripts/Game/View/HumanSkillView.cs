@@ -3,11 +3,19 @@ using Entitas.Unity;
 using Manager;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Effect;
+using Game.Service;
+using Module.Timer;
 
 namespace Game.View
 {
     public class HumanSkillView:ViewBase,IGameValidHumanSkillListener     
     {
+        private float effectDuration;
+        private TimerService timerService;
+        private ITimer timer;
+        private string timerId;
+
         List<HumanSkillItem> itemList;
         SkillCodeMudule codeMudule;
         public  override void Init(Contexts contexts,IEntity entity)        
@@ -17,12 +25,46 @@ namespace Game.View
             itemList = new List<HumanSkillItem>();
             codeMudule = new SkillCodeMudule();
             SetActive(false);
+            effectDuration = 0.5f;
+            HideImage();
+            timerId = "HumanSkillView";
+        }
+
+        private void InitTimerService()
+        {
+            if (timerService == null)
+            {
+                timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
+            }
         }
 
         public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
         {
             string skillCode = codeMudule.GetCodeString(SkillCode);
             ShowItem(skillCode);
+            gameObject.ShowAllImageEffect(effectDuration);
+
+            StartTimer();
+        }
+
+        private void HideImage()
+        {
+            gameObject.HideAllImageEffect(effectDuration);
+        }
+
+        private void StartTimer()
+        {
+            InitTimerService();
+
+            if (timer == null)
+            {
+                timer = timerService.CreateTimer(timerId, 1, false);
+            }
+            else
+            {
+                timer = timerService.ResetTimerData(timerId, 1, false);
+            }
+            timer.AddCompleteListener(HideImage);
         }
 
         public void SetActive(bool isActive)
