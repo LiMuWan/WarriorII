@@ -22,12 +22,19 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
 
     protected  override bool Filter(InputEntity entity)    
     {
-        return entity.gameInputButton.InputButton == Game.InputButton.ATTACK_X
-            || entity.gameInputButton.InputButton == Game.InputButton.ATTACK_O;
+        return entity.hasGameInputHumanSkillState && entity.gameInputHumanSkillState.IsEnd;
     }
 
     protected  override void Execute(List<InputEntity> entities)    
     {
-      
+        foreach (InputEntity inputEntity in entities)
+        {
+            int code = inputEntity.gameInputHumanSkillState.SkillCode;
+        }
+    }
+
+    private void GetValidData()
+    {
+
     }
 }
