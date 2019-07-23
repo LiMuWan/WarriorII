@@ -1,4 +1,7 @@
 ﻿using Game.Interface;
+using Game.Model;
+using Manager;
+using System.Collections.Generic;
 
 namespace Game.Service
 {
@@ -18,12 +21,27 @@ namespace Game.Service
     {
         public  void Init(Contexts contexts)        
         {
-            //contexts.service.SetGameServiceConfigModelService(this);
+            InitValidHumanSkillModel(contexts);
         }
 
         public  int GetPriority()         
         {
             return 0;
+        }
+
+        private void InitValidHumanSkillModel(Contexts contexts)
+        {
+            List<ValidHumanSkill> skills = new List<ValidHumanSkill>();
+            foreach (HumanSkillModel model in ModelManager.Single.HumanSkillDataModel.Skills)
+            {
+                //配置数据关卡小于角色当前关卡
+                if (model.Level <= (int)DataManager.Single.LevelIndex)
+                {
+                    skills.Add(new ValidHumanSkill(model.Code, model.Level));
+                }
+            }
+
+            contexts.game.SetGameModelHumanSkillConfig(skills);
         }
     }
 }

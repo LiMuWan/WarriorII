@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using Game;
+using Game.Model;
 using Game.Service;
 using System.Collections.Generic;
 
@@ -21,7 +22,7 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
     }
 
     protected  override bool Filter(InputEntity entity)    
-    {
+    { 
         return entity.hasGameInputHumanSkillState && entity.gameInputHumanSkillState.IsEnd;
     }
 
@@ -33,8 +34,8 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
         }
     }
 
-    private void GetValidData()
+    private List<ValidHumanSkill> GetValidData()
     {
-
+        return contexts.game.gameModelHumanSkillConfig.ValidHumanSkills; 
     }
 }
