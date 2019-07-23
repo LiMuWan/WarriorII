@@ -11,7 +11,7 @@ namespace CustomTool
     {
         private static void OnWillCreateAsset(string path)
         {
-            if (!AddNamespaceWindow.isOn)
+            if (!AddNamespaceWindow.GetData().isOn)
                 return;
 
             path = path.Replace(".meta", "");
