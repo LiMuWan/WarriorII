@@ -171,6 +171,8 @@ namespace Module.Timer
                 frameTimes++;
                 if (frameTimes < offsetFrame)
                     return;
+                else frameTimes = 0;
+         
                 if (IsComplete || !IsTiming)
                     return;
                 IsComplete = JudgeIsComplete();
@@ -215,12 +217,17 @@ namespace Module.Timer
 
             private void ResetData()
             {
+                ResetLoopData();
+                onUpdate = null;
+                onComplete = null;
+            }
+
+            private void ResetLoopData()
+            {
                 IsComplete = false;
                 IsTiming = true;
                 startTime = DateTime.Now;
                 runTimeTotal = 0;
-                onUpdate = null;
-                onComplete = null;
             }
 
             private bool JudgeIsComplete()
@@ -233,7 +240,7 @@ namespace Module.Timer
                 if (IsComplete)
                 {
                     onComplete?.Invoke();
-                    ResetData();
+                    ResetLoopData();
                 }
             }
 
@@ -274,6 +281,7 @@ namespace Module.Timer
                     onComplete?.Invoke();
                 }
                 onComplete = null;
+                onUpdate = null;
                 runTimeTotal = 0;
                 IsTiming = false;
             }
@@ -344,9 +352,10 @@ namespace Module.Timer
                     timer = new Timer(timerId, duration, loop);
                     activeTimer.Add(timer);                   
                 }
-                timer.AddCompleteListener(() => TimerComplete(timer));
                 timerDic[timerId] = timer; 
             }
+
+            timer.AddCompleteListener(() => TimerComplete(timer));
             return timer;
         }
 
@@ -499,6 +508,7 @@ namespace Module.Timer
             if(timer == null)
             {
                 timer = ResetTimerData(timerId, duration, loop);
+                timer.AddCompleteListener(() => TimerComplete(timer));
             }
             return timer;
         }

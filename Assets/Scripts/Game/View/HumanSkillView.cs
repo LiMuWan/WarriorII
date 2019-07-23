@@ -15,12 +15,14 @@ namespace Game.View
         private TimerService timerService;
         private ITimer timer;
         private string timerId;
+        private Contexts contexts;
 
         List<HumanSkillItem> itemList;
         SkillCodeMudule codeMudule;
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
+            this.contexts = contexts;
             gameEntity.AddGameValidHumanSkillListener(this);
             itemList = new List<HumanSkillItem>();
             codeMudule = new SkillCodeMudule();
@@ -34,16 +36,16 @@ namespace Game.View
         {
             if (timerService == null)
             {
-                timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
+                timerService = contexts.service.gameServiceTimerService.TimerService;
             }
         }
 
         public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
         {
+            SetActive(true);
+            gameObject.ShowAllImageEffect(effectDuration);
             string skillCode = codeMudule.GetCodeString(SkillCode);
             ShowItem(skillCode);
-            gameObject.ShowAllImageEffect(effectDuration);
-
             StartTimer();
         }
 
