@@ -7,13 +7,11 @@ namespace Game.Model
     /// </summary>
     public class ValidHumanSkill
     {
-        public ValidHumanSkill(string code,int level)
+        public ValidHumanSkill(int code)
         {
             Code = code;
-            Level = level;
         }
 
-        public string Code { get; private set; }
-        public int Level { get; private set; }
+        public int Code { get; private set; }
     }
 }

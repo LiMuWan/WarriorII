@@ -19,6 +19,7 @@ namespace Game.Service
     /// </summary>
     public class ConfigModelService:IConfigModelService     
     {
+
         public  void Init(Contexts contexts)        
         {
             InitValidHumanSkillModel(contexts);
@@ -31,13 +32,17 @@ namespace Game.Service
 
         private void InitValidHumanSkillModel(Contexts contexts)
         {
+            SkillCodeMudule codeMudule = new SkillCodeMudule();
+
             List<ValidHumanSkill> skills = new List<ValidHumanSkill>();
+            int codeTemp = 0;
             foreach (HumanSkillModel model in ModelManager.Single.HumanSkillDataModel.Skills)
             {
                 //配置数据关卡小于角色当前关卡
                 if (model.Level <= (int)DataManager.Single.LevelIndex)
                 {
-                    skills.Add(new ValidHumanSkill(model.Code, model.Level));
+                    codeTemp = codeMudule.GetSkillCode(model.Code, "", "");
+                    skills.Add(new ValidHumanSkill(codeTemp));
                 }
             }
 

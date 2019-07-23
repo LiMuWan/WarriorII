@@ -3,6 +3,7 @@ using Game;
 using Game.Model;
 using Game.Service;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// 判断技能按钮输入的是否有效
@@ -32,6 +33,11 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
         {
             int code = inputEntity.gameInputHumanSkillState.SkillCode;
         }
+    }
+
+    private bool JudgeIsValidSkill(int code)
+    {
+        return GetValidData().Any(p => p.Code == code);
     }
 
     private List<ValidHumanSkill> GetValidData()
