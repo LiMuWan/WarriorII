@@ -15,13 +15,13 @@ public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity>
 
     protected  override ICollector<InputEntity> GetTrigger(IContext<InputEntity> context)     
     {
-        return context.CreateCollector(InputMatcher.GameInputValidHumanSkill);
+        return context.CreateCollector(InputMatcher.GameInputHumanSkillState);
     }
 
     protected  override bool Filter(InputEntity entity)    
     {
-        return entity.hasGameInputValidHumanSkill && 
-            entity.gameInputValidHumanSkill.IsValid; 
+        return entity.hasGameInputHumanSkillState && 
+            entity.gameInputHumanSkillState.IsEnd; 
     }
 
     protected  override void Execute(List<InputEntity> entities)    
@@ -29,10 +29,10 @@ public class InputValidHumanSkillSystem:ReactiveSystem<InputEntity>
         //发出信号，当前播放技能，动画，声音，特效
         foreach (var entity in entities)
         {
-            var skillCode = entity.gameInputValidHumanSkill.SkillCode;
+            var skillCode = entity.gameInputHumanSkillState.SkillCode;
             contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
             contexts.game.ReplaceGameValidHumanSkill(skillCode);
-            entity.ReplaceGameInputValidHumanSkill(false, 0);
+            entity.ReplaceGameInputHumanSkillState(false, 0);
         }
     }
 }

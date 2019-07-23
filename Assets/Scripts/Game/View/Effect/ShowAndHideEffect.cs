@@ -13,7 +13,7 @@ namespace Game.Effect
         /// <param name="duration"></param>
         public static void ShowAllImageEffect(this GameObject go, float duration)
         {
-            foreach (Image image in go.transform.GetComponentsInChildren<Image>())
+            foreach (Image image in go.transform.GetComponentsInChildren<Image>(true))
             {
                 KillImageEffect(image);
                 image.DOFade(1, duration);
@@ -27,7 +27,7 @@ namespace Game.Effect
         /// <param name="duration"></param>
         public static void HideAllImageEffect(this GameObject go, float duration)
         {
-            foreach (Image image in go.transform.GetComponentsInChildren<Image>())
+            foreach (Image image in go.transform.GetComponentsInChildren<Image>(true))
             {
                 KillImageEffect(image);
                 image.DOFade(0, duration);

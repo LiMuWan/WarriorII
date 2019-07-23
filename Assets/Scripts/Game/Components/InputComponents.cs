@@ -16,15 +16,15 @@ namespace Game
 
 
     /// <summary>
-    /// 输入人物技能部分
+    /// 输入人物技能状态
     /// </summary>
-    [Input, Unique,Event(EventTarget.Self)]
-    public class InputValidHumanSkillComponent:IComponent
+    [Input, Unique]
+    public class InputHumanSkillStateComponent:IComponent
     {
         /// <summary>
-        /// 标记连续按键是否有效
+        /// 标记连续按键是否结束
         /// </summary>
-        public bool IsValid;
+        public bool IsEnd;
         /// <summary>
         /// 技能编码
         /// </summary>
