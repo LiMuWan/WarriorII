@@ -1,4 +1,4 @@
-using Game.Interface;
+﻿using Game.Interface;
 
 namespace Game.Service
 {
@@ -11,6 +11,9 @@ namespace Game.Service
     {
     }
 
+    /// <summary>
+    /// 配置数据服务
+    /// </summary>
     public class ConfigModelService:IConfigModelService     
     {
         public  void Init(Contexts contexts)        
