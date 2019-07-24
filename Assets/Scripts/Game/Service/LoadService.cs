@@ -64,6 +64,7 @@ namespace Game.Service
             else
             {
                 playerAni = new PlayerAni(animator);
+                new CustomAniEventManager(animator);
             }
 
             GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
