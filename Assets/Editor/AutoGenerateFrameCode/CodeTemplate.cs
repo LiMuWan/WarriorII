@@ -113,7 +113,7 @@ namespace Game.Editor
             build.WriteFun("GetTrigger", ScriptBuildHelp.Protected, triggerKeys, " ", "IContext<" + entityName + "> context");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("return context.CreateCollector(" + ToolData.selectedContextName + "Matcher.Game" + ToolData.selectedContextName + ToolData.systemName + ");", true);
+            build.WriteLine("return context.CreateCollector(" + ToolData.selectedContextName + "Matcher." + ToolData.selectedContextName + ToolData.systemName + ");", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
@@ -124,7 +124,7 @@ namespace Game.Editor
             build.WriteFun("Filter", ScriptBuildHelp.Protected, filterKeys, "", entityName + " " + "entity");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("return entity.hasGame" + ToolData.selectedContextName + ToolData.systemName + ";", true);
+            build.WriteLine("return entity.has" + ToolData.selectedContextName + ToolData.systemName + ";", true);
             build.IndentTimes--;
             build.ToContentEnd();
             build.WriteEmptyLine();
