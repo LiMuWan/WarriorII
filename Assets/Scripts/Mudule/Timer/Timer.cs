@@ -443,17 +443,25 @@ namespace Module.Timer
         {
             activeEnum = activeTimer.GetEnumerator();
             int count = activeTimer.Count;
-            for (int i = 0; i < count; i++)
+            try
             {
-                if(!activeEnum.MoveNext())
+                for (int i = 0; i < count; i++)
                 {
-                    continue;
-                }
-                else
-                {
-                    activeEnum.Current.Update();
+                    if (!activeEnum.MoveNext())
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        activeEnum.Current.Update();
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+            }
+           
         }
 
         /// <summary>
