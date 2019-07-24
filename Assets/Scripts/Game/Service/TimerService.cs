@@ -124,5 +124,10 @@ namespace Game.Service
         {
             return timerManager.CreateOrRestartTimer(timerId.ToString(), duration, loop);
         }
+
+        public void StopTimer(ITimer timer, bool isComplete)
+        {
+            timerManager.StopTimer(timer, isComplete);
+        }
     }
 }

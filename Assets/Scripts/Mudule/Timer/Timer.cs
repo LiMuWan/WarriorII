@@ -106,6 +106,13 @@ namespace Module.Timer
         void Update();
 
         /// <summary>
+        /// 停止某个计时器
+        /// </summary>
+        /// <param name="timer"></param>
+        /// <param name="isComplete"></param>
+        void StopTimer(ITimer timer, bool isComplete);
+
+        /// <summary>
         /// 继续执行所有计时器
         /// </summary>
         void ContinueAll();
@@ -519,6 +526,14 @@ namespace Module.Timer
                 timer.AddCompleteListener(() => TimerComplete(timer));
             }
             return timer;
+        }
+
+        public void StopTimer(ITimer timer, bool isComplete)
+        {
+            if(timer != null)
+            {
+                timer.Stop(isComplete);
+            }
         }
     }
 }

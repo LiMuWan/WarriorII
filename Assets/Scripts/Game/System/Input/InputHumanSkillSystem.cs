@@ -66,6 +66,12 @@ public class InputHumanSkillStateSystem:ReactiveSystem<InputEntity>, IInitialize
                 .gameServiceSkillCodeService.SkillCodeService
                 .GetCurrentSkillCode(entity.gameInputButton.InputButton, code);
         }
+
+        if(isValid)
+        {
+            ITimerService timerService = contexts.service.gameServiceTimerService.TimerService;
+            timerService.StopTimer(timerService.GetTimer(Const.TimerId.HUMAN_SKILL_TIMER),false);
+        }
         contexts.input.ReplaceGameInputHumanSkillState(isValid, code);
     }
 
