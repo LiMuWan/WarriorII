@@ -57,10 +57,26 @@ public class InputHumanSkillStateSystem:ReactiveSystem<InputEntity>, IInitialize
 
         if (!isValid)
         {
+            isValid = JudgeIsMaxLength(code);
+        }
+
+        if (!isValid)
+        {
             code = contexts.service
                 .gameServiceSkillCodeService.SkillCodeService
                 .GetCurrentSkillCode(entity.gameInputButton.InputButton, code);
         }
         contexts.input.ReplaceGameInputHumanSkillState(isValid, code);
+    }
+
+    /// <summary>
+    /// 对比编码长度，等于最大长度返回true
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
+    private bool JudgeIsMaxLength(int code)
+    {
+        int maxLength = contexts.game.gameModelHumanSkillConfig.LengthMax;
+        return code.ToString().Length == maxLength;
     }
 }

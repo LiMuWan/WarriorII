@@ -32,7 +32,31 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
         foreach (InputEntity inputEntity in entities)
         {
             int code = inputEntity.gameInputHumanSkillState.SkillCode;
+            code = GetValidCode(code);
+            Contexts.sharedInstance.service.gameServiceLogService.LogService.Log(code.ToString());
         }
+    }
+
+    private int GetValidCode(int code)
+    {
+        if(JudgeIsValidSkill(code))
+        {
+            return code;
+        }
+        else
+        {
+            return GetLongValidCode(code);
+        }
+    }
+
+    /// <summary>
+    /// 获取错误编码中最长的有效编码
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
+    private int GetLongValidCode(int code)
+    {
+        return 0;
     }
 
     private bool JudgeIsValidSkill(int code)

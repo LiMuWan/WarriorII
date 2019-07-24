@@ -12,22 +12,22 @@ public partial class GameContext {
     public Game.Model.HumanSkillConfigComponent gameModelHumanSkillConfig { get { return gameModelHumanSkillConfigEntity.gameModelHumanSkillConfig; } }
     public bool hasGameModelHumanSkillConfig { get { return gameModelHumanSkillConfigEntity != null; } }
 
-    public GameEntity SetGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills) {
+    public GameEntity SetGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills, int newLengthMax) {
         if (hasGameModelHumanSkillConfig) {
             throw new Entitas.EntitasException("Could not set GameModelHumanSkillConfig!\n" + this + " already has an entity with Game.Model.HumanSkillConfigComponent!",
                 "You should check if the context already has a gameModelHumanSkillConfigEntity before setting it or use context.ReplaceGameModelHumanSkillConfig().");
         }
         var entity = CreateEntity();
-        entity.AddGameModelHumanSkillConfig(newValidHumanSkills);
+        entity.AddGameModelHumanSkillConfig(newValidHumanSkills, newLengthMax);
         return entity;
     }
 
-    public void ReplaceGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills) {
+    public void ReplaceGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills, int newLengthMax) {
         var entity = gameModelHumanSkillConfigEntity;
         if (entity == null) {
-            entity = SetGameModelHumanSkillConfig(newValidHumanSkills);
+            entity = SetGameModelHumanSkillConfig(newValidHumanSkills, newLengthMax);
         } else {
-            entity.ReplaceGameModelHumanSkillConfig(newValidHumanSkills);
+            entity.ReplaceGameModelHumanSkillConfig(newValidHumanSkills, newLengthMax);
         }
     }
 
@@ -49,17 +49,19 @@ public partial class GameEntity {
     public Game.Model.HumanSkillConfigComponent gameModelHumanSkillConfig { get { return (Game.Model.HumanSkillConfigComponent)GetComponent(GameComponentsLookup.GameModelHumanSkillConfig); } }
     public bool hasGameModelHumanSkillConfig { get { return HasComponent(GameComponentsLookup.GameModelHumanSkillConfig); } }
 
-    public void AddGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills) {
+    public void AddGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills, int newLengthMax) {
         var index = GameComponentsLookup.GameModelHumanSkillConfig;
         var component = (Game.Model.HumanSkillConfigComponent)CreateComponent(index, typeof(Game.Model.HumanSkillConfigComponent));
         component.ValidHumanSkills = newValidHumanSkills;
+        component.LengthMax = newLengthMax;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills) {
+    public void ReplaceGameModelHumanSkillConfig(System.Collections.Generic.List<Game.Model.ValidHumanSkill> newValidHumanSkills, int newLengthMax) {
         var index = GameComponentsLookup.GameModelHumanSkillConfig;
         var component = (Game.Model.HumanSkillConfigComponent)CreateComponent(index, typeof(Game.Model.HumanSkillConfigComponent));
         component.ValidHumanSkills = newValidHumanSkills;
+        component.LengthMax = newLengthMax;
         ReplaceComponent(index, component);
     }
 

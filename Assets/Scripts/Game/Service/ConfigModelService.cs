@@ -32,6 +32,13 @@ namespace Game.Service
 
         private void InitValidHumanSkillModel(Contexts contexts)
         {
+            List<ValidHumanSkill> skills = GetValidHumanSkillList();
+            int maxLength = GetMaxLenthItem(skills);
+            contexts.game.SetGameModelHumanSkillConfig(skills,maxLength);
+        }
+
+        private List<ValidHumanSkill> GetValidHumanSkillList()
+        {
             SkillCodeMudule codeMudule = new SkillCodeMudule();
 
             List<ValidHumanSkill> skills = new List<ValidHumanSkill>();
@@ -45,8 +52,25 @@ namespace Game.Service
                     skills.Add(new ValidHumanSkill(codeTemp));
                 }
             }
+            return skills;
+        }
 
-            contexts.game.SetGameModelHumanSkillConfig(skills);
+        /// <summary>
+        /// 获取到技能编码的最大有效长度
+        /// </summary>
+        /// <param name="skills"></param>
+        /// <returns></returns>
+        private int GetMaxLenthItem(List<ValidHumanSkill> skills)
+        {
+            int length = 0;
+            foreach (ValidHumanSkill skill in skills)
+            {
+                if(skill.Code.ToString().Length > length)
+                {
+                    length = skill.Code.ToString().Length;
+                }
+            }
+            return length;
         }
     }
 }
