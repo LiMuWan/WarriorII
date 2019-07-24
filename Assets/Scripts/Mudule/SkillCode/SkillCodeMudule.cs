@@ -43,7 +43,7 @@ public class SkillCodeMudule
     /// <returns></returns>
     public int GetSkillCode(string skillName,string prefix,string posfix)
     {
-        string codeString = "";
+        string codeString = skillName;
         if(!string.IsNullOrEmpty(prefix))
         {
             codeString = skillName.Remove(0, prefix.Length);

@@ -41,10 +41,10 @@ public class InputHumanSkillStateSystem:ReactiveSystem<InputEntity>, IInitialize
         }
     }
 
-    private void SetValid(InputEntity entity, bool isValid)
+    private void SetValid(InputEntity entity, bool isEnd)
     {
         var skillComponent = contexts.input.gameInputHumanSkillState;
-        ReplaceValidHumanSkill(entity, isValid, skillComponent);
+        ReplaceValidHumanSkill(entity, isEnd, skillComponent);
     }
 
     private void ReplaceValidHumanSkill(InputEntity entity, bool isValid, Game.InputHumanSkillStateComponent skillComponent)

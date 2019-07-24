@@ -19,7 +19,7 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
 
     protected  override ICollector<InputEntity> GetTrigger(IContext<InputEntity> context)     
     {
-        return context.CreateCollector(InputMatcher.GameInputButton);
+        return context.CreateCollector(InputMatcher.GameInputHumanSkillState);
     }
 
     protected  override bool Filter(InputEntity entity)    
@@ -33,7 +33,8 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
         {
             int code = inputEntity.gameInputHumanSkillState.SkillCode;
             code = GetValidCode(code);
-            Contexts.sharedInstance.service.gameServiceLogService.LogService.Log(code.ToString());
+            contexts.service.gameServiceLogService.LogService.Log(code.ToString());
+            inputEntity.ReplaceGameInputHumanSkillState(false, 0);
         }
     }
 
