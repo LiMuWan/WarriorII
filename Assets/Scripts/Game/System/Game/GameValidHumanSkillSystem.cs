@@ -26,7 +26,8 @@ public class GameValidHumanSkillSystem:ReactiveSystem<GameEntity>
         foreach (var entity in entities)
         {
             var skillCode = entity.gameValidHumanSkill.SkillCode;
-            contexts.game.gamePlayer.PlayerAni.Attack(skillCode); 
+            contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
+            contexts.game.gamePlayer.PlayerBehaviour.Attack(skillCode);
         }
     }
 }

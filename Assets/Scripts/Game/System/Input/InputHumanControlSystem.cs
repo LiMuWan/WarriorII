@@ -22,9 +22,11 @@ namespace Game
             if (contexts.game.hasGamePlayer)
             {
                 contexts.game.gamePlayer.PlayerAni.Idle();
+                contexts.game.gamePlayer.PlayerBehaviour.Idle();
+                contexts.game.gamePlayer.PlayerAni.IsRun = false;
             }
-            contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop(false);
-            contexts.game.gamePlayer.PlayerAni.IsRun = false;
+            contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop(true);
+            
         }
     }
 

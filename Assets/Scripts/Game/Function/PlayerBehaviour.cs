@@ -10,6 +10,7 @@ namespace Game
     {
         private Transform playerTrans;
         private PlayerDataModel model;
+        private bool isAttack;
 
         public bool IsRun { get; set; }
 
@@ -17,34 +18,44 @@ namespace Game
         {
             playerTrans = player;
             this.model = model;
+            isAttack = false;
         }
 
         public void Forward()
         {
+            if (isAttack)
+                return;
             Move(Vector3.forward);
             PlayerOrientation(Vector3.zero);
         }
 
         public void Back()
         {
+            if (isAttack)
+                return;
             Move(Vector3.back);
             PlayerOrientation(Vector3.up * 180); 
         }
 
         public void Left()
         {
+            if (isAttack)
+                return;
             Move(Vector3.left);
             PlayerOrientation(Vector3.up * (-90));
         }
 
         public void Right()
         {
+            if (isAttack)
+                return;
             Move(Vector3.right);
             PlayerOrientation(Vector3.up * 90);
         }
+
         public void Attack(int skillCode)
         {
-           
+            isAttack = true;
         }
 
         private void Move(Vector3 direction)
@@ -59,7 +70,7 @@ namespace Game
 
         public void Idle()
         {
-            
+            isAttack = false;
         }
     }
 }
