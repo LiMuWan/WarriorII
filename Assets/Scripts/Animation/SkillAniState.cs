@@ -20,7 +20,7 @@ public class SkillAniState : StateMachineBehaviour
         var clips = animator.GetCurrentAnimatorClipInfo(layerIndex);
         if (clips.Length > 0)
         {
-          int code = skillCode.GetSkillCode(clips[0].clip.name, "attack", "");
+            int code = skillCode.GetSkillCode(clips[0].clip.name, "attack", "");
             if (animator.GetInteger(Const.ConstValue.PLAYER_SKILL_PARA_NAME) == code)
             {
                 animator.SetInteger(Const.ConstValue.PLAYER_SKILL_PARA_NAME, 0);

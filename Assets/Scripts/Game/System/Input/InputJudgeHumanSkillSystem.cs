@@ -33,8 +33,8 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
         {
             int code = inputEntity.gameInputHumanSkillState.SkillCode;
             code = GetValidCode(code);
-            contexts.service.gameServiceLogService.LogService.Log(code.ToString());
             inputEntity.ReplaceGameInputHumanSkillState(false, 0);
+            contexts.game.ReplaceGameValidHumanSkill(code);
         }
     }
 

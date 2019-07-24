@@ -31,6 +31,7 @@ namespace Game
 
         private void ReactiveSystemFun(Contexts contexts)
         {
+            Add(new GameValidHumanSkillSystem(contexts)); 
             Add(new GameStartSystem(contexts));
             Add(new GamePauseSystem(contexts));
             Add(new GameEndSystem(contexts)); 
