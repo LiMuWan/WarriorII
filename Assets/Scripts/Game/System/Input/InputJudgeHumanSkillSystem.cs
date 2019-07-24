@@ -57,7 +57,9 @@ public class InputJudgeHumanSkillSystem:ReactiveSystem<InputEntity>
     /// <returns></returns>
     private int GetLongValidCode(int code)
     {
-        return 0;
+        string codeString = code.ToString();
+        codeString = codeString.Remove(codeString.Length - 1, 1);  
+        return GetValidCode(int.Parse(codeString));
     }
 
     private bool JudgeIsValidSkill(int code)
