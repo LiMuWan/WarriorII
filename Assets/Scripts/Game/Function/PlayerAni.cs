@@ -9,9 +9,11 @@ namespace Game
         public bool IsRun { get; set; }
         private Animator ani;
 
+        public ICustomAniEventManager AniEventManager { get; set; }
+
         public PlayerAni(Animator animator)
         {
-            this.ani = animator;
+            this.ani = animator;   
         }
         public void Play(int aniIndex)
         {

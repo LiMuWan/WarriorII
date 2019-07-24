@@ -5,10 +5,15 @@ using System;
 
 namespace Game
 {
+    public interface ICustomAniEventManager
+    {
+        void AddEventListener(int name, Action OnStateEnterAction, Action OnStateUpdateAction, Action OnStateExitAction);
+    }
+
     /// <summary>
     /// 自定义动画事件管理类
     /// </summary>
-    public class CustomAniEventManager
+    public class CustomAniEventManager:ICustomAniEventManager
     {
         private Dictionary<PlayerAniStateName, AnimatorState> stateDic;
         private Dictionary<PlayerAniStateName, CustomAniEvent> eventDic;
@@ -71,6 +76,21 @@ namespace Game
                     eventDic[pair.Key] = behaviourTemp;
                 }
             }
+        }
+
+        public void AddEventListener(PlayerAniStateName name,Action OnStateEnterAction, Action OnStateUpdateAction, Action OnStateExitAction)
+        {
+            if(eventDic.ContainsKey(name))
+            {
+                eventDic[name].OnStateEnterAction = OnStateEnterAction;
+                eventDic[name].OnStateUpdateAction = OnStateUpdateAction;
+                eventDic[name].OnStateExitAction = OnStateExitAction;
+            }
+        }
+
+        public void AddEventListener(int name, Action OnStateEnterAction, Action OnStateUpdateAction, Action OnStateExitAction)
+        {
+            AddEventListener((PlayerAniStateName)name, OnStateEnterAction, OnStateUpdateAction, OnStateExitAction);
         }
     }
 

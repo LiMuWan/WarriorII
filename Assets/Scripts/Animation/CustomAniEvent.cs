@@ -6,26 +6,26 @@ using UnityEngine;
 /// </summary>
 public class CustomAniEvent : StateMachineBehaviour
 {
-    public Action<Animator,AnimatorStateInfo> OnStateEnterAction { get; set; }
-    public Action<Animator,AnimatorStateInfo> OnStateUpdateAction { get; set; }
-    public Action<Animator,AnimatorStateInfo> OnStateExitAction { get; set; }
+    public Action OnStateEnterAction { get; set; }
+    public Action OnStateUpdateAction { get; set; }
+    public Action OnStateExitAction { get; set; }
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        OnStateEnterAction?.Invoke(animator,stateInfo);
+        OnStateEnterAction?.Invoke();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        OnStateUpdateAction?.Invoke(animator, stateInfo);
+        OnStateUpdateAction?.Invoke();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        OnStateExitAction(animator, stateInfo);
+        OnStateExitAction();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
