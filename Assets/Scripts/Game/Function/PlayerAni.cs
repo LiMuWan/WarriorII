@@ -11,9 +11,10 @@ namespace Game
 
         public ICustomAniEventManager AniEventManager { get; set; }
 
-        public PlayerAni(Animator animator)
+        public PlayerAni(Animator animator,ICustomAniEventManager aniEventManager)
         {
-            this.ani = animator;   
+            this.ani = animator;
+            AniEventManager = aniEventManager;
         }
         public void Play(int aniIndex)
         {

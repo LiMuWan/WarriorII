@@ -87,6 +87,17 @@ namespace Const
     }
 
     /// <summary>
+    /// 人物行为对应枚举
+    /// </summary>
+    public enum PlayerBehaviourIndex
+    {
+        IDLE,
+        RUN,
+        WALK,
+        ATTACK
+    }
+
+    /// <summary>
     /// 计时器id
     /// </summary>
     public enum TimerId

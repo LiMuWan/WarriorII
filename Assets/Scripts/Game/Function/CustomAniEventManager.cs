@@ -7,7 +7,7 @@ namespace Game
 {
     public interface ICustomAniEventManager
     {
-        void AddEventListener(int name, Action OnStateEnterAction, Action OnStateUpdateAction, Action OnStateExitAction);
+        void AddEventListener(Action<string> OnStateEnterAction, Action<string> OnStateUpdateAction, Action<string> OnStateExitAction);
     }
 
     /// <summary>
@@ -24,7 +24,8 @@ namespace Game
             eventDic = new Dictionary<PlayerAniStateName, CustomAniEvent>();
 
             InitAnimatorStateData(animator);
-            
+            AddCustomAniEventScripts();
+            InitCustomAniEventScripts();
         }
 
         private void InitAnimatorStateData(Animator animator)
@@ -47,6 +48,14 @@ namespace Game
                 {
                     Debug.LogError("can not find Enum(PlayerAniStateName) name is " + state.state.name);
                 }
+            }
+        }
+
+        private void InitCustomAniEventScripts()
+        {
+            foreach (KeyValuePair<PlayerAniStateName,CustomAniEvent> pair in eventDic)
+            {
+                pair.Value.Init(pair.Key);
             }
         }
 
@@ -78,19 +87,14 @@ namespace Game
             }
         }
 
-        public void AddEventListener(PlayerAniStateName name,Action OnStateEnterAction, Action OnStateUpdateAction, Action OnStateExitAction)
+        public void AddEventListener(Action<string> OnStateEnterAction, Action<string> OnStateUpdateAction, Action<string> OnStateExitAction)
         {
-            if(eventDic.ContainsKey(name))
+            foreach (KeyValuePair<PlayerAniStateName,CustomAniEvent> pair in eventDic)
             {
-                eventDic[name].OnStateEnterAction = OnStateEnterAction;
-                eventDic[name].OnStateUpdateAction = OnStateUpdateAction;
-                eventDic[name].OnStateExitAction = OnStateExitAction;
+                pair.Value.OnStateEnterAction = OnStateEnterAction;
+                pair.Value.OnStateUpdateAction = OnStateUpdateAction;
+                pair.Value.OnStateExitAction = OnStateExitAction;
             }
-        }
-
-        public void AddEventListener(int name, Action OnStateEnterAction, Action OnStateUpdateAction, Action OnStateExitAction)
-        {
-            AddEventListener((PlayerAniStateName)name, OnStateEnterAction, OnStateUpdateAction, OnStateExitAction);
         }
     }
 
