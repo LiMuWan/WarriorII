@@ -98,6 +98,16 @@ namespace Const
     }
 
     /// <summary>
+    /// 状态机行为状态
+    /// </summary>
+    public enum BehaviourState
+    {
+        ENTER,
+        UPDATE,
+        EXIT
+    }
+
+    /// <summary>
     /// 计时器id
     /// </summary>
     public enum TimerId

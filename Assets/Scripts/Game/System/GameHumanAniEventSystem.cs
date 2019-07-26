@@ -1,5 +1,7 @@
 using Const;
 using Entitas;
+using System;
+
 namespace Game
 {
     public class GameHumanAniEventSystem:IInitializeSystem     
@@ -19,21 +21,34 @@ namespace Game
 
         private void Enter(string name)
         {
-            string key = PlayerAniIndex.IDLE.ToString().ToLower();
-            if(key.Contains(name))
-            {
-
-            }
+            ReplaceGameHumanBehaviourState(name, BehaviourState.ENTER);
         }
 
         private void Update(string name)
         {
-
+            ReplaceGameHumanBehaviourState(name, BehaviourState.UPDATE);
         }
 
         private void Exit(string name)
         {
+            ReplaceGameHumanBehaviourState(name, BehaviourState.EXIT);
+        }
 
+        private void ReplaceGameHumanBehaviourState(string name, BehaviourState behaviourState)
+        {
+            foreach (PlayerBehaviourIndex playerBehaviour in Enum.GetValues(typeof(PlayerBehaviourIndex)))
+            {
+                ReplaceGameHumanBehaviourState(name, playerBehaviour,behaviourState);
+            }
+        }
+
+        private void ReplaceGameHumanBehaviourState(string name, PlayerBehaviourIndex behaviour,BehaviourState behaviourState)
+        {
+            string key = behaviour.ToString().ToLower();
+            if (key.Contains(name))
+            {
+                contexts.game.ReplaceGameHumanBehaviourState(behaviour, behaviourState);
+            }
         }
     }
 }

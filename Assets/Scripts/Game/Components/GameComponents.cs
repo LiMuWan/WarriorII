@@ -2,9 +2,6 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using Game.Interface;
-using Game.Service;
-using Module.Timer;
-using UnityEngine;
 
 namespace Game
 {
@@ -56,5 +53,22 @@ namespace Game
         /// 技能编码
         /// </summary>
         public int SkillCode;
+    }
+
+    /// <summary>
+    /// 玩家行为状态部分
+    /// </summary>
+    [Game,Unique]
+    public class HumanBehaviourStateComponent : IComponent
+    {
+        /// <summary>
+        /// 玩家行为状态
+        /// </summary>
+        public PlayerBehaviourIndex PlayerBehaviourIndex;
+
+        /// <summary>
+        /// 状态机状态
+        /// </summary>
+        public BehaviourState BehaviourState;
     }
 }
