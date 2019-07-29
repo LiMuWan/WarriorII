@@ -40,7 +40,6 @@ namespace Game
 
         protected override void Execute(List<GameEntity> entities) 
         {
-            contexts.service.gameServiceLoadService.LoadService.LoadPlayer();
             contexts.game.ReplaceGameCameraState(CameraAniName.START_GAME_ANI);
         }
     }

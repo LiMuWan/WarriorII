@@ -28,22 +28,22 @@ namespace Game
 
         public void TurnForward()
         {
-            Move();
+          
         }
 
         public void TurnBack()
         {
-            Move();
+          
         }
 
         public void TurnLeft()
         {
-            Move();
+           
         }
 
         public void TurnRight()
         {
-            Move();
+    
         }
 
         public void Attack(int skillCode)

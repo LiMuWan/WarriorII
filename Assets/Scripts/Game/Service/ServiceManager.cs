@@ -42,7 +42,8 @@ namespace Game
         {
             IInitService[] services =
             {
-                   new ConfigModelService(),                    new SkillCodeService(), 
+                   new ConfigModelService(), 
+                   new SkillCodeService(), 
                    new FindObjectService(),
                    new EntitasInputService(),
                    new LogService(),
