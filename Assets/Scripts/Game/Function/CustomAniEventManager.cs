@@ -17,14 +17,15 @@ namespace Game
     {
         private Dictionary<PlayerAniStateName, AnimatorState> stateDic;
         private Dictionary<PlayerAniStateName, CustomAniEvent> eventDic;
+        private Animator animator;
 
         public CustomAniEventManager(Animator animator)
         {
+            this.animator = animator;
             stateDic = new Dictionary<PlayerAniStateName, AnimatorState>();
             eventDic = new Dictionary<PlayerAniStateName, CustomAniEvent>();
 
             InitAnimatorStateData(animator);
-            AddCustomAniEventScripts();
             InitCustomAniEventScripts();
         }
 
@@ -59,41 +60,13 @@ namespace Game
             }
         }
 
-        /// <summary>
-        /// 添加自定义事件脚本
-        /// </summary>
-        private void AddCustomAniEventScripts()
-        {
-            CustomAniEvent behaviourTemp = null;
-            foreach (KeyValuePair<PlayerAniStateName,AnimatorState> pair in stateDic)
-            {
-                foreach (StateMachineBehaviour behaviour in pair.Value.behaviours)
-                {
-                    if(behaviour is CustomAniEvent)
-                    {
-                        behaviourTemp = behaviour as CustomAniEvent;
-                        break;
-                    }
-                }
-
-                if (behaviourTemp == null)
-                {
-                    eventDic[pair.Key] = pair.Value.AddStateMachineBehaviour<CustomAniEvent>();
-                }
-                else
-                {
-                    eventDic[pair.Key] = behaviourTemp;
-                }
-            }
-        }
-
         public void AddEventListener(Action<string> OnStateEnterAction, Action<string> OnStateUpdateAction, Action<string> OnStateExitAction)
         {
-            foreach (KeyValuePair<PlayerAniStateName,CustomAniEvent> pair in eventDic)
+            foreach (CustomAniEvent eventAni in animator.GetBehaviours<CustomAniEvent>())
             {
-                pair.Value.OnStateEnterAction = OnStateEnterAction;
-                pair.Value.OnStateUpdateAction = OnStateUpdateAction;
-                pair.Value.OnStateExitAction = OnStateExitAction;
+                eventAni.OnStateEnterAction += OnStateEnterAction;
+                eventAni.OnStateUpdateAction += OnStateUpdateAction;
+                eventAni.OnStateExitAction += OnStateExitAction;
             }
         }
     }

@@ -1,6 +1,7 @@
 using Const;
 using Entitas;
 using System;
+using System.Threading.Tasks;
 
 namespace Game
 {
@@ -13,8 +14,9 @@ namespace Game
             this.contexts = contexts;
         }
 
-        public  void Initialize()         
+        public async void Initialize()         
         {
+            await Task.Delay(800);
             ICustomAniEventManager manager = contexts.game.gamePlayer.PlayerAni.AniEventManager;
             manager.AddEventListener(Enter,Update,Exit);
         }
