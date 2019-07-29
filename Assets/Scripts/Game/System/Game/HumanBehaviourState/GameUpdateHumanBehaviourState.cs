@@ -11,14 +11,9 @@ namespace Game
 
         }
 
-        protected override bool FilterCondition(GameEntity entity)
-        {
-            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
-        }
-
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
+            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.UPDATE;
         }
 
         protected override void Execute(List<GameEntity> entities)
@@ -32,22 +27,18 @@ namespace Game
 
         public GameHumanWalkUpdateStateSystem(Contexts contexts) : base(contexts)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Move();
-        }
-
-        protected override bool FilterCondition(GameEntity entity)
-        {
-            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
+            
         }
 
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
+            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.WALK ||
+                entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.RUN;
         }
 
         protected override void Execute(List<GameEntity> entities)
         {
-
+            contexts.game.gamePlayer.PlayerBehaviour.Move();
         }
     }
 
@@ -59,14 +50,9 @@ namespace Game
 
         }
 
-        protected override bool FilterCondition(GameEntity entity)
-        {
-            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
-        }
-
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
+            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.UPDATE;
         }
 
         protected override void Execute(List<GameEntity> entities)

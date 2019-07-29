@@ -11,11 +11,6 @@ namespace Game
             
         }
 
-        protected override bool FilterCondition(GameEntity entity)
-        {
-            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
-        }
-
         protected override bool StateCondition(GameEntity entity)
         {
             return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
@@ -35,11 +30,6 @@ namespace Game
 
         }
 
-        protected override bool FilterCondition(GameEntity entity)
-        {
-            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
-        }
-
         protected override bool StateCondition(GameEntity entity)
         {
             return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
@@ -57,11 +47,6 @@ namespace Game
         public GameHumanAttackEnterStateSystem(Contexts contexts) : base(contexts)
         {
 
-        }
-
-        protected override bool FilterCondition(GameEntity entity)
-        {
-            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
         }
 
         protected override bool StateCondition(GameEntity entity)

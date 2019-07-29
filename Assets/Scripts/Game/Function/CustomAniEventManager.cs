@@ -26,6 +26,7 @@ namespace Game
             eventDic = new Dictionary<PlayerAniStateName, CustomAniEvent>();
 
             InitAnimatorStateData(animator);
+            AddCustomAniEventScripts();
             InitCustomAniEventScripts();
         }
 
@@ -36,7 +37,6 @@ namespace Game
 
             foreach (ChildAnimatorState state in aniMachine.states)
             {
-
                 foreach (PlayerAniStateName stateName in Enum.GetValues(typeof(PlayerAniStateName)))
                 {
                     if (state.state.name == stateName.ToString())
@@ -48,6 +48,32 @@ namespace Game
                 if (!stateDic.ContainsValue(state.state))
                 {
                     Debug.LogError("can not find Enum(PlayerAniStateName) name is " + state.state.name);
+                }
+            }
+        }
+
+        private void AddCustomAniEventScripts()
+        {
+            CustomAniEvent behaviourTemp;
+            foreach (KeyValuePair<PlayerAniStateName,AnimatorState> pair in stateDic)
+            {
+                behaviourTemp = null;
+                foreach (StateMachineBehaviour behaviour in pair.Value.behaviours)
+                {
+                    if(behaviour is CustomAniEvent)
+                    {
+                        behaviourTemp = behaviour as CustomAniEvent;
+                        break;
+                    }
+                }
+
+                if(behaviourTemp == null)
+                {
+                    eventDic[pair.Key] = pair.Value.AddStateMachineBehaviour<CustomAniEvent>();
+                }
+                else
+                {
+                    eventDic[pair.Key] = behaviourTemp;
                 }
             }
         }
@@ -64,9 +90,9 @@ namespace Game
         {
             foreach (CustomAniEvent eventAni in animator.GetBehaviours<CustomAniEvent>())
             {
-                eventAni.OnStateEnterAction += OnStateEnterAction;
-                eventAni.OnStateUpdateAction += OnStateUpdateAction;
-                eventAni.OnStateExitAction += OnStateExitAction;
+                eventAni.OnStateEnterAction = OnStateEnterAction;
+                eventAni.OnStateUpdateAction = OnStateUpdateAction;
+                eventAni.OnStateExitAction = OnStateExitAction;
             }
         }
     }

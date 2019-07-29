@@ -8,32 +8,31 @@ using UnityEngine;
 public class CustomAniEvent : StateMachineBehaviour
 {
 
-    public PlayerAniStateName Name { get; private set; }
     public Action<string> OnStateEnterAction { get; set; }
     public Action<string> OnStateUpdateAction { get; set; }
     public Action<string> OnStateExitAction { get; set; }
 
-    public void Init(PlayerAniStateName name)
+    public void Init(PlayerAniStateName stateName)
     {
-        Name = name;
+        name = stateName.ToString();
     }
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        OnStateEnterAction?.Invoke(Name.ToString());
+        OnStateEnterAction?.Invoke(name.ToString());
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        OnStateUpdateAction?.Invoke(Name.ToString());
+        OnStateUpdateAction?.Invoke(name.ToString());
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        OnStateExitAction(Name.ToString());
+        OnStateExitAction(name.ToString());
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

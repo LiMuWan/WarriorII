@@ -42,11 +42,14 @@ namespace Game
 
         private void BehaviourSystem(Contexts contexts)
         {
+            //Enter
             Add(new GameHumanIdleEnterStateSystem(contexts));
             Add(new GameHumanWalkEnterStateSystem(contexts));
             Add(new GameHumanAttackEnterStateSystem(contexts));
 
-            Add(new GameHumanIdleUpdateStateSystem(contexts)); 
+            //Update
+            Add(new GameHumanIdleUpdateStateSystem(contexts));
+            Add(new GameHumanWalkUpdateStateSystem(contexts));
         }
     }
 }

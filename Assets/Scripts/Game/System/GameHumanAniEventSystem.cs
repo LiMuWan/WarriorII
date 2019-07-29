@@ -14,9 +14,8 @@ namespace Game
             this.contexts = contexts;
         }
 
-        public async void Initialize()         
+        public  void Initialize()
         {
-            await Task.Delay(800);
             ICustomAniEventManager manager = contexts.game.gamePlayer.PlayerAni.AniEventManager;
             manager.AddEventListener(Enter,Update,Exit);
         }
@@ -47,7 +46,7 @@ namespace Game
         private void ReplaceGameHumanBehaviourState(string name, PlayerBehaviourIndex behaviour,BehaviourState behaviourState)
         {
             string key = behaviour.ToString().ToLower();
-            if (key.Contains(name))
+            if (name.Contains(key))
             {
                 contexts.game.ReplaceGameHumanBehaviourState(behaviour, behaviourState);
             }
