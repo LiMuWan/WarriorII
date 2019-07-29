@@ -7,10 +7,27 @@ namespace Game.Interface
     /// </summary>
     public interface IBehaviour
     {
-        void Forward();
-        void Back();
-        void Left();
-        void Right();
+        /// <summary>
+        /// 向前转向
+        /// </summary>
+        void TurnForward();
+        /// <summary>
+        /// 向后转向
+        /// </summary>
+        void TurnBack();
+        /// <summary>
+        /// 向左转向
+        /// </summary>
+        void TurnLeft();
+        /// <summary>
+        /// 向右转向
+        /// </summary>
+        void TurnRight();
+
+        /// <summary>
+        /// 移动
+        /// </summary>
+        void Move();
     }
 
     /// <summary>

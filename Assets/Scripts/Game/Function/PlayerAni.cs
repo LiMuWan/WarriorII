@@ -26,22 +26,22 @@ namespace Game
             Play((int)index);
         }       
 
-        public void Forward()
+        public void TurnForward()
         {
             Move();
         }
 
-        public void Back()
+        public void TurnBack()
         {
             Move();
         }
 
-        public void Left()
+        public void TurnLeft()
         {
             Move();
         }
 
-        public void Right()
+        public void TurnRight()
         {
             Move();
         }
@@ -52,7 +52,7 @@ namespace Game
             ani.SetBool(ConstValue.IDLE_SWORD_PARA_NAME, true);
         }
 
-        private void Move()
+        public void Move()
         {
             if (IsRun)
             {

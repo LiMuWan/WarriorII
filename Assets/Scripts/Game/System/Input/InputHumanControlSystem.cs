@@ -47,8 +47,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Forward();
-            contexts.game.gamePlayer.PlayerAni.Forward();
+            contexts.game.gamePlayer.PlayerBehaviour.TurnForward();
+            contexts.game.gamePlayer.PlayerAni.Move();
         }
     }
 
@@ -69,8 +69,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Back();
-            contexts.game.gamePlayer.PlayerAni.Back();
+            contexts.game.gamePlayer.PlayerBehaviour.TurnBack();
+            contexts.game.gamePlayer.PlayerAni.Move();
         }
     }
 
@@ -91,8 +91,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Left();
-            contexts.game.gamePlayer.PlayerAni.Left();
+            contexts.game.gamePlayer.PlayerBehaviour.TurnLeft();
+            contexts.game.gamePlayer.PlayerAni.Move();
         }
     }
 
@@ -113,8 +113,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            contexts.game.gamePlayer.PlayerBehaviour.Right();
-            contexts.game.gamePlayer.PlayerAni.Right();
+            contexts.game.gamePlayer.PlayerBehaviour.TurnRight();
+            contexts.game.gamePlayer.PlayerAni.Move();
         }
     }
 

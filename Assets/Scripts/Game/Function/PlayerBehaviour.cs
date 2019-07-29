@@ -21,35 +21,31 @@ namespace Game
             isAttack = false;
         }
 
-        public void Forward()
+        public void TurnForward()
         {
             if (isAttack)
                 return;
-            Move(Vector3.forward);
             PlayerOrientation(Vector3.zero);
         }
 
-        public void Back()
+        public void TurnBack()
         {
             if (isAttack)
                 return;
-            Move(Vector3.back);
             PlayerOrientation(Vector3.up * 180); 
         }
 
-        public void Left()
+        public void TurnLeft()
         {
             if (isAttack)
                 return;
-            Move(Vector3.left);
             PlayerOrientation(Vector3.up * (-90));
         }
 
-        public void Right()
+        public void TurnRight()
         {
             if (isAttack)
                 return;
-            Move(Vector3.right);
             PlayerOrientation(Vector3.up * 90);
         }
 
@@ -58,9 +54,9 @@ namespace Game
             isAttack = true;
         }
 
-        private void Move(Vector3 direction)
+        public void Move()
         {
-            playerTrans.Translate(Time.deltaTime * model.Speed * direction, Space.World);
+            playerTrans.Translate(Time.deltaTime * model.Speed * Vector3.forward, Space.Self);
         }
 
         private void PlayerOrientation(Vector3 direction)

@@ -36,7 +36,16 @@ namespace Game
             Add(new GameStartSystem(contexts));
             Add(new GamePauseSystem(contexts));
             Add(new GameEndSystem(contexts));
+            BehaviourSystem(contexts);
+        }
+
+        private void BehaviourSystem(Contexts contexts)
+        {
             Add(new GameHumanIdleEnterStateSystem(contexts));
+            Add(new GameHumanWalkEnterStateSystem(contexts));
+            Add(new GameHumanAttackEnterStateSystem(contexts));
+
+            Add(new GameHumanIdleUpdateStateSystem(contexts)); 
         }
     }
 }

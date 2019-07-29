@@ -62,33 +62,33 @@ namespace Game.Service
         public void Execute()
         {
             isPress = false;
-            Forward();
-            Back();
-            Left();
-            Right();
+            TurnForward();
+            TurnBack();
+            TurnLeft();
+            TurnRight();
             Attack(0);
             Idle();
         }
          
-        public void Forward()
+        public void TurnForward()
         {
             InputDown(KeyCode.W, InputButton.FORWARD);
             InputPress(KeyCode.W, InputButton.FORWARD);
         }
 
-        public void Back()
+        public void TurnBack()
         {
             InputDown(KeyCode.S, InputButton.BACK);
             InputPress(KeyCode.S, InputButton.BACK);
         }
 
-        public void Left()
+        public void TurnLeft()
         {
             InputDown(KeyCode.A, InputButton.LEFT);
             InputPress(KeyCode.A, InputButton.LEFT);
         }
 
-        public void Right()
+        public void TurnRight()
         {
             InputDown(KeyCode.D, InputButton.RIGHT);
             InputPress(KeyCode.D, InputButton.RIGHT);
@@ -143,6 +143,11 @@ namespace Game.Service
         public int GetPriority()
         {
             return 1;
+        }
+
+        public void Move()
+        {
+            
         }
     }
 
