@@ -12,5 +12,9 @@ namespace Game
         /// 玩家预制路径
         /// </summary>
         public const string PLAYER_PATH = PREFAB_PATH + "Player";
+        /// <summary>
+        /// 刀光预制路径
+        /// </summary>
+        public const string TRAILCOMBO_PATH = PREFAB_PATH + "trails_combo01";
     }
 }

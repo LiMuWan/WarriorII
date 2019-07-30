@@ -1,17 +1,22 @@
 using System.Collections.Generic;
+using Entitas;
 using UnityEngine;
 
-namespace Game
+namespace Game.View
 {
-    public class TrailComboManager:MonoBehaviour     
+    public class TrailComboManager:ViewBase,IGameValidHumanSkillListener     
     {
         private string prefixName = "trail_";
         private Dictionary<int, Transform> trailsDic;
 
-        public void Init()
+        public override void Init(Contexts contexts, IEntity entity)
         {
+            base.Init(contexts, entity);
+            GameEntity gameEntity = entity as GameEntity;
+            gameEntity.AddGameValidHumanSkillListener(this);
             trailsDic = new Dictionary<int, Transform>();
             InitTrailsDic();
+            HideAllTrails();
         }
 
         private void InitTrailsDic()
@@ -46,5 +51,9 @@ namespace Game
             trans.gameObject.SetActive(isActive);
         }
 
+        public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
+        {
+            ShowTrails(SkillCode);
+        }
     }
 }

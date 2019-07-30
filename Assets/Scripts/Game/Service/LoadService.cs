@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using Game.Interface;
+using Game.View;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
@@ -51,12 +52,12 @@ namespace Game.Service
         public void LoadPlayer()
         {
             var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
-            Animator animator = player.GetComponent<Animator>();
 
             IView playerView = player.AddComponent<PlayerView>();
             IPlayerBehaviour playerBehaviour = new PlayerBehaviour(player.transform, ModelManager.Single.PlayerData);
             IPlayerAni playerAni = null;
 
+            Animator animator = player.GetComponent<Animator>();
             if (animator == null)
             {
                 Debug.LogError("player身上未找到Animator组件！！！");
@@ -70,6 +71,17 @@ namespace Game.Service
             entity.AddGamePlayer(playerView, playerBehaviour, playerAni);
             entity.AddGamePlayerAniState(Const.PlayerAniIndex.IDLE);
             playerView.Init(Contexts.sharedInstance, entity);
+
+            //加载刀光特效管理View
+            LoadTrail(player.transform);
+        }
+
+        public void LoadTrail(Transform player)
+        {
+            var trail = LoadAndInstantiate(Path.TRAILCOMBO_PATH, player);
+            GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
+            var manager = trail.AddComponent<TrailComboManager>();
+            manager.Init(Contexts.sharedInstance, entity);
         }
     }
 }
