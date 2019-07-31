@@ -39,7 +39,10 @@ namespace Game.Interface
         /// 是否正在跑
         /// </summary>
         bool IsRun { get; set;}
-
+        /// <summary>
+        /// 是否在攻击
+        /// </summary>
+        bool IsAttack { get; }
         /// <summary>
         /// 待机
         /// </summary>
