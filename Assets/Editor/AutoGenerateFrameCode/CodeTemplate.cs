@@ -147,6 +147,7 @@ namespace Game.Editor
             ScriptBuildHelp build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
             build.WriteNameSpace(ToolData.namespaceBase);
+            build.WriteEmptyLine();
             build.IndentTimes++;
             //class
             build.WriteClass(className, GetSelectedSystem(selectedSystem));
