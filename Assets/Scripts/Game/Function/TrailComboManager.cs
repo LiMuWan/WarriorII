@@ -49,7 +49,7 @@ namespace Game.View
 
         private void HideTrails(int code)
         {
-            SetActive(trailsDic[code], true);
+            SetActive(trailsDic[code], false);
         }
 
         private void SetActive(Transform trans,bool isActive)

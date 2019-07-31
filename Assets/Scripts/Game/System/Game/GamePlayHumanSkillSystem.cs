@@ -29,8 +29,15 @@ public class GamePlayHumanSkillSystem:ReactiveSystem<GameEntity>
         foreach (var entity in entities)
         {
             var skillCode = entity.gamePlayHumanSkill.SkillCode;
-            contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
-            contexts.game.gamePlayer.PlayerBehaviour.Attack(skillCode);
+            if (skillCode > 0)
+            {
+                contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
+                contexts.game.gamePlayer.PlayerBehaviour.Attack(skillCode);
+            }
+            else
+            {
+                contexts.game.gamePlayer.PlayerAni.Attack(0);
+            }
         }
     }
 }

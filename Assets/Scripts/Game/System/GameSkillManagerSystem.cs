@@ -32,7 +32,11 @@ namespace Game
         {
             if (currentPlayingCode == SkillCode)
             {
-                PlaySkill();
+                bool isPlayFailed = !PlaySkill();
+                if (isPlayFailed)
+                {
+                    contexts.game.ReplaceGamePlayHumanSkill(0);
+                }
             }
         }
 
@@ -40,7 +44,7 @@ namespace Game
         {
             AddCode(SkillCode);
             if (!contexts.game.gamePlayer.PlayerBehaviour.IsAttack)
-            {
+            { 
                 PlaySkill();
             }
         }
@@ -53,13 +57,14 @@ namespace Game
             }
         }
 
-        private void PlaySkill()
+        private bool PlaySkill()
         {
             if (codeCache.Count <= 0)
-                return;
+                return false;
             int code = codeCache.Dequeue();
             currentPlayingCode = code;
             contexts.game.ReplaceGamePlayHumanSkill(currentPlayingCode);
+            return true;
         }
     }
 }
