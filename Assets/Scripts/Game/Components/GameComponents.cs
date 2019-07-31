@@ -44,7 +44,7 @@ namespace Game
     }
 
     /// <summary>
-    /// 输入人物技能部分
+    /// 输入人物技能组件
     /// </summary>
     [Game, Unique, Event(EventTarget.Any)]
     public class ValidHumanSkillComponent : IComponent 
@@ -56,7 +56,7 @@ namespace Game
     }
 
     /// <summary>
-    /// 玩家行为状态部分
+    /// 玩家行为状态组件
     /// </summary>
     [Game,Unique]
     public class HumanBehaviourStateComponent : IComponent
@@ -70,5 +70,29 @@ namespace Game
         /// 状态机状态
         /// </summary>
         public BehaviourState BehaviourState;
+    }
+
+    /// <summary>
+    /// 人物技能开始组件
+    /// </summary>
+    [Game, Unique, Event(EventTarget.Any)]
+    public class StartHumanSkillComponent : IComponent
+    {
+        /// <summary>
+        /// 技能编码
+        /// </summary>
+        public int SkillCode;
+    }
+
+    /// <summary>
+    /// 人物技能结束组件
+    /// </summary>
+    [Game, Unique, Event(EventTarget.Any)]
+    public class EndHumanSkillComponent : IComponent
+    {
+        /// <summary>
+        /// 技能编码
+        /// </summary>
+        public int SkillCode;
     }
 }

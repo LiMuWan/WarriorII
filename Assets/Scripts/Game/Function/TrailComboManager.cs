@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.View
 {
-    public class TrailComboManager:ViewBase,IGameValidHumanSkillListener     
+    public class TrailComboManager:ViewBase,IGameStartHumanSkillListener,IGameEndHumanSkillListener     
     {
         private string prefixName = "trail_";
         private Dictionary<int, Transform> trailsDic;
@@ -13,7 +13,8 @@ namespace Game.View
         {
             base.Init(contexts, entity);
             GameEntity gameEntity = entity as GameEntity;
-            gameEntity.AddGameValidHumanSkillListener(this);
+            gameEntity.AddGameStartHumanSkillListener(this);
+            gameEntity.AddGameEndHumanSkillListener(this);
             trailsDic = new Dictionary<int, Transform>();
             InitTrailsDic();
             HideAllTrails();
@@ -41,7 +42,12 @@ namespace Game.View
             }
         }
 
-        public void ShowTrails(int code)
+        private void ShowTrails(int code)
+        {
+            SetActive(trailsDic[code], true);
+        }
+
+        private void HideTrails(int code)
         {
             SetActive(trailsDic[code], true);
         }
@@ -51,9 +57,14 @@ namespace Game.View
             trans.gameObject.SetActive(isActive);
         }
 
-        public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
+        public void OnGameStartHumanSkill(GameEntity entity, int SkillCode)
         {
             ShowTrails(SkillCode);
+        }
+
+        public void OnGameEndHumanSkill(GameEntity entity, int SkillCode)
+        {
+            HideTrails(SkillCode);
         }
     }
 }
