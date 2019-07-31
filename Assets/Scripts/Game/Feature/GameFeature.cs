@@ -15,6 +15,7 @@ namespace Game
 
         private void InitializeFun(Contexts contexts)
         {
+            Add(new GameSkillManagerSystem(contexts)); 
             Add(new GameInitGameSystem(contexts));  
             Add(new GameHumanAniEventSystem(contexts)); 
         }
