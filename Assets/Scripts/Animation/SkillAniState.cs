@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillAniState : StateMachineBehaviour
 {
-    SkillCodeMudule skillCode = null;
+    private SkillCodeMudule skillCode = null;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

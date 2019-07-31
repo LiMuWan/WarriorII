@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 using System;
@@ -11,7 +11,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ×Ô¶¨Òå¶¯»­ÊÂ¼ş¹ÜÀíÀà
+    /// è‡ªå®šä¹‰åŠ¨ç”»äº‹ä»¶ç®¡ç†ç±»
     /// </summary>
     public class CustomAniEventManager:ICustomAniEventManager
     {
@@ -25,6 +25,7 @@ namespace Game
             stateDic = new Dictionary<PlayerAniStateName, AnimatorState>();
             eventDic = new Dictionary<PlayerAniStateName, CustomAniEvent>();
 
+            new InitSkillAni(animator);
             InitAnimatorStateData(animator);
             AddCustomAniEventScripts();
             InitCustomAniEventScripts();
@@ -97,8 +98,44 @@ namespace Game
         }
     }
 
+    public class InitSkillAni
+    {
+        public InitSkillAni(Animator animator)
+        {
+            SetStateName(animator);
+        }
+
+        private void SetStateName(Animator animator)
+        {
+            var aniController = animator.runtimeAnimatorController as AnimatorController;
+            AnimatorStateMachine stateMachine = aniController.layers[0].stateMachine;
+
+            SkillCodeMudule skillCode = new SkillCodeMudule();
+            SkillAniState tempBehaviour = null;
+
+            foreach (ChildAnimatorState animatorState in stateMachine.stateMachines[0].stateMachine.states) 
+            {
+                foreach (StateMachineBehaviour behaviour in animatorState.state.behaviours)
+                {
+                    tempBehaviour = null;
+                    if(behaviour is SkillAniState)
+                    {
+                        tempBehaviour = (SkillAniState)behaviour;
+                        break;
+                    }
+                }
+
+                if(tempBehaviour != null)
+                {
+                   int code = skillCode.GetSkillCode(animatorState.state.name, "attack", "");
+                   tempBehaviour.name = code.ToString();
+                }
+            }
+        }
+    }
+
     /// <summary>
-    /// ¶¯»­×´Ì¬Ãû³Æ¶ÔÓ¦Ã¶¾Ù
+    /// åŠ¨ç”»çŠ¶æ€åç§°å¯¹åº”æšä¸¾
     /// </summary>
     public enum PlayerAniStateName
     {
