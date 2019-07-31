@@ -15,14 +15,16 @@ public static class GameComponentsLookup {
     public const int GameModelHumanSkillConfig = 4;
     public const int GamePlayerAniState = 5;
     public const int GamePlayer = 6;
-    public const int GameStartHumanSkill = 7;
-    public const int GameValidHumanSkill = 8;
-    public const int GameCameraStateListener = 9;
-    public const int GameEndHumanSkillListener = 10;
-    public const int GameStartHumanSkillListener = 11;
-    public const int GameValidHumanSkillListener = 12;
+    public const int GamePlayHumanSkill = 7;
+    public const int GameStartHumanSkill = 8;
+    public const int GameValidHumanSkill = 9;
+    public const int GameCameraStateListener = 10;
+    public const int GameEndHumanSkillListener = 11;
+    public const int GamePlayHumanSkillListener = 12;
+    public const int GameStartHumanSkillListener = 13;
+    public const int GameValidHumanSkillListener = 14;
 
-    public const int TotalComponents = 13;
+    public const int TotalComponents = 15;
 
     public static readonly string[] componentNames = {
         "GameCameraState",
@@ -32,10 +34,12 @@ public static class GameComponentsLookup {
         "GameModelHumanSkillConfig",
         "GamePlayerAniState",
         "GamePlayer",
+        "GamePlayHumanSkill",
         "GameStartHumanSkill",
         "GameValidHumanSkill",
         "GameCameraStateListener",
         "GameEndHumanSkillListener",
+        "GamePlayHumanSkillListener",
         "GameStartHumanSkillListener",
         "GameValidHumanSkillListener"
     };
@@ -48,10 +52,12 @@ public static class GameComponentsLookup {
         typeof(Game.Model.HumanSkillConfigComponent),
         typeof(Game.PlayerAniState),
         typeof(Game.PlayerComponent),
+        typeof(Game.PlayHumanSkillComponent),
         typeof(Game.StartHumanSkillComponent),
         typeof(Game.ValidHumanSkillComponent),
         typeof(GameCameraStateListenerComponent),
         typeof(GameEndHumanSkillListenerComponent),
+        typeof(GamePlayHumanSkillListenerComponent),
         typeof(GameStartHumanSkillListenerComponent),
         typeof(GameValidHumanSkillListenerComponent)
     };

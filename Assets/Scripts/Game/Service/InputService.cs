@@ -52,6 +52,8 @@ namespace Game.Service
 
         public bool IsRun { get; set; }
 
+        public bool IsAttack { get; private set; }
+
         public void Init(Contexts contexts)
         {
             this.contexts = contexts;

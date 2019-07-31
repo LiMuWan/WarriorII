@@ -6,7 +6,7 @@ namespace Game
     /// <summary>
     /// 人物技能管理类
     /// </summary>
-    public class GameSkillManagerSystem:IInitializeSystem,IGameValidHumanSkillListener,IGameEndHumanSkillListener     
+    public class GameSkillManagerSystem : IInitializeSystem, IGameValidHumanSkillListener, IGameEndHumanSkillListener
     {
         protected Contexts contexts;
         private Queue<int> codeCache;
@@ -14,23 +14,23 @@ namespace Game
         private int cacheLengthMax;
         private int currentPlayingCode;
 
-        public  GameSkillManagerSystem(Contexts contexts)         
+        public GameSkillManagerSystem(Contexts contexts)
         {
             this.contexts = contexts;
             codeCache = new Queue<int>();
             cacheLengthMax = 2;
         }
 
-        public  void Initialize()         
+        public void Initialize()
         {
-           var entity = contexts.game.CreateEntity();
-           entity.AddGameValidHumanSkillListener(this);
-           entity.AddGameEndHumanSkillListener(this);
+            var entity = contexts.game.CreateEntity();
+            entity.AddGameValidHumanSkillListener(this);
+            entity.AddGameEndHumanSkillListener(this);
         }
 
         public void OnGameEndHumanSkill(GameEntity entity, int SkillCode)
         {
-            if(currentPlayingCode == SkillCode)
+            if (currentPlayingCode == SkillCode)
             {
                 PlaySkill();
             }
@@ -55,11 +55,11 @@ namespace Game
 
         private void PlaySkill()
         {
-            if (codeCache.Count < 0)
+            if (codeCache.Count <= 0)
                 return;
             int code = codeCache.Dequeue();
             currentPlayingCode = code;
-            //发出执行信号
+            contexts.game.ReplaceGamePlayHumanSkill(currentPlayingCode);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Game
 
         public ICustomAniEventManager AniEventManager { get; set; }
 
+        public bool IsAttack { get; private set; }
+
         public PlayerAni(Animator animator,ICustomAniEventManager aniEventManager)
         {
             this.ani = animator;

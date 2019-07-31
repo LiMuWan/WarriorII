@@ -9,7 +9,7 @@ using Module.Timer;
 
 namespace Game.View
 {
-    public class HumanSkillView:ViewBase,IGameValidHumanSkillListener     
+    public class HumanSkillView:ViewBase,IGamePlayHumanSkillListener     
     {
         private float effectDuration;
         private TimerService timerService;
@@ -23,7 +23,7 @@ namespace Game.View
         {
             base.Init(contexts,entity);
             this.contexts = contexts;
-            gameEntity.AddGameValidHumanSkillListener(this);
+            gameEntity.AddGamePlayHumanSkillListener(this);
             itemList = new List<HumanSkillItem>();
             codeMudule = new SkillCodeMudule();
             SetActive(false);
@@ -38,15 +38,6 @@ namespace Game.View
             {
                 timerService = contexts.service.gameServiceTimerService.TimerService;
             }
-        }
-
-        public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
-        {
-            SetActive(true);
-            gameObject.ShowAllImageEffect(effectDuration);
-            string skillCode = codeMudule.GetCodeString(SkillCode);
-            ShowItem(skillCode);
-            StartTimer();
         }
 
         private void HideImage()
@@ -110,6 +101,14 @@ namespace Game.View
                 }
             }
         }
-    
+
+        public void OnGamePlayHumanSkill(GameEntity entity, int SkillCode)
+        {
+            SetActive(true);
+            gameObject.ShowAllImageEffect(effectDuration);
+            string skillCode = codeMudule.GetCodeString(SkillCode);
+            ShowItem(skillCode);
+            StartTimer();
+        }
     }
 }

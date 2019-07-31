@@ -33,7 +33,7 @@ public class SkillAniState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Contexts.sharedInstance.game.ReplaceGameEndHumanSkill(int.Parse(name));
+        Contexts.sharedInstance.game.ReplaceGameEndHumanSkill(code);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
