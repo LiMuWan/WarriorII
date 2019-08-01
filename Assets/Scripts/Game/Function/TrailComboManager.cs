@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Entitas;
+using Game.Effect;
 using UnityEngine;
 
 namespace Game.View
@@ -7,7 +8,7 @@ namespace Game.View
     public class TrailComboManager:ViewBase,IGameStartHumanSkillListener,IGameEndHumanSkillListener     
     {
         private string prefixName = "trail_";
-        private Dictionary<int, Transform> trailsDic;
+        private Dictionary<int, TrailsEffect> trailsDic;
 
         public override void Init(Contexts contexts, IEntity entity)
         {
@@ -15,7 +16,7 @@ namespace Game.View
             GameEntity gameEntity = entity as GameEntity;
             gameEntity.AddGameStartHumanSkillListener(this);
             gameEntity.AddGameEndHumanSkillListener(this);
-            trailsDic = new Dictionary<int, Transform>();
+            trailsDic = new Dictionary<int, TrailsEffect>();
             InitTrailsDic();
             HideAllTrails();
         }
@@ -24,7 +25,8 @@ namespace Game.View
         {
             foreach (Transform tran in transform)
             {
-                trailsDic[GetSkillCode(tran.name)] = tran;
+                trailsDic[GetSkillCode(tran.name)] = tran.gameObject.AddComponent<TrailsEffect>();
+                trailsDic[GetSkillCode(tran.name)].Init();
             }
         }
 
@@ -36,25 +38,32 @@ namespace Game.View
 
         private void HideAllTrails()
         {
-            foreach (KeyValuePair<int,Transform> pair in trailsDic)
+            foreach (KeyValuePair<int,TrailsEffect> pair in trailsDic)
             {
-                SetActive(pair.Value, false);
+                ShowOrHideTrails(pair.Value, false);
             }
         }
 
-        private void ShowTrails(int code)
+        private void ShowOrHideTrails(TrailsEffect effect,bool isActive)
         {
-            SetActive(trailsDic[code], true);
+            if(isActive)
+            {
+                effect.Show();
+            }
+            else
+            {
+                effect.Hide();
+            }
         }
 
         private void HideTrails(int code)
         {
-            SetActive(trailsDic[code], false);
+            ShowOrHideTrails(trailsDic[code], false);
         }
 
-        private void SetActive(Transform trans,bool isActive)
+        private void ShowTrails(int code)
         {
-            trans.gameObject.SetActive(isActive);
+            ShowOrHideTrails(trailsDic[code], true);
         }
 
         public void OnGameStartHumanSkill(GameEntity entity, int SkillCode)

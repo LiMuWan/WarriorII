@@ -8,7 +8,7 @@ namespace Game.Effect
         private float duration;
         private Material material;
 
-        void Start()
+        public void Init()
         {
             duration = 0.3f;
             material = transform.GetComponent<MeshRenderer>().material;
