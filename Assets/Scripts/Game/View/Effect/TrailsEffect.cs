@@ -7,6 +7,8 @@ namespace Game.Effect
     public class TrailsEffect : MonoBehaviour
     {
         private Material material;
+        private Material dustMaterial;
+        private Color dustDefaultColor;
         private float clipLength;
         private Sequence sequence;
         private string colorName = "_TintColor";
@@ -22,6 +24,11 @@ namespace Game.Effect
         private void InitDust()
         {
             dustAnimation = transform.GetComponentInChildren<Animation>();
+            if (dustAnimation != null)
+            {
+                dustMaterial = transform.GetChild(0).GetComponentInChildren<MeshRenderer>().material; 
+                dustDefaultColor = dustMaterial.GetColor(colorName);
+            }
         }
 
         public void Show()
@@ -57,17 +64,16 @@ namespace Game.Effect
             {
                 return;
             }
+            dustMaterial.SetColor(colorName, dustDefaultColor);
             SetDustActive(true);
             dustAnimation.Play();
-            StopAllCoroutines();
-            StartCoroutine(WaitDustEnd());
+            WaitDustEnd();
         }
 
-        private IEnumerator WaitDustEnd()
+        private void WaitDustEnd()
         {
-            float clipLength = dustAnimation.clip.length;
-            yield return new WaitForSeconds(clipLength);
-            SetDustActive(false);
+            float length = dustAnimation.clip.length;
+            dustMaterial.DOFade(0, colorName, length);
         }
 
         private void SetDustActive(bool isActive)
