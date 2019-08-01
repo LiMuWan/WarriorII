@@ -18,12 +18,12 @@ namespace Game.Effect
 
         public void Show()
         {
-            Effect(1);
+            Effect(1,0.2f);
         }
 
         public void Hide()
         {
-            Effect(0);
+            Effect(0,0);
         }
 
         public void HideNow()
@@ -33,9 +33,9 @@ namespace Game.Effect
             material.SetColor(colorName, color);
         }
 
-        private void Effect(float endValue)
+        private void Effect(float endValue,float delay)
         {
-            material.DOFade(endValue, "_TintColor", duration);
+            material.DOFade(endValue, "_TintColor", duration).SetDelay(delay);
         }
     }
 }
