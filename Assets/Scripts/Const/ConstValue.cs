@@ -33,5 +33,7 @@ namespace Const
         /// 是否是在攻击状态的Idle标志
         /// </summary>
         public const string IDLE_SWORD_PARA_NAME = "IsIdleSword";
+
+        public const string SKILL_ANI_PREFIX = "attack";
     }
 }

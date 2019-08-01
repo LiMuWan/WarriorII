@@ -73,15 +73,15 @@ namespace Game.Service
             playerView.Init(Contexts.sharedInstance, entity);
 
             //加载刀光特效管理View
-            LoadTrail(player.transform);
+            LoadTrail(player.transform,animator);
         }
 
-        public void LoadTrail(Transform player)
+        public void LoadTrail(Transform player,Animator animator)
         {
             var trail = LoadAndInstantiate(Path.TRAILCOMBO_PATH, player);
             GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
             var manager = trail.AddComponent<TrailComboManager>();
-            manager.Init(Contexts.sharedInstance, entity);
+            manager.Init(Contexts.sharedInstance, entity,animator);
         }
     }
 }

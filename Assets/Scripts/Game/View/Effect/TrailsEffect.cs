@@ -5,25 +5,32 @@ namespace Game.Effect
 {
     public class TrailsEffect : MonoBehaviour
     {
-        private float duration;
         private Material material;
-        private string colorName;
+        private float clipLength;
+        private Sequence sequence;
+        private string colorName = "_TintColor";
 
-        public void Init()
+        public void Init(float clipLength)
         {
-            duration = 0.3f;
-            colorName = "_TintColor";
+            this.clipLength = clipLength;
             material = transform.GetComponent<MeshRenderer>().material;
         }
 
         public void Show()
         {
-            Effect(1,0.2f);
-        }
-
-        public void Hide()
-        {
-            Effect(0,0);
+            float duration = 0.2f;
+            float intervalTime = 0.2f;
+            string colorName = "_TintColor";
+            float showTime = clipLength - intervalTime - duration * 2 - 0.2f;
+            if (sequence != null)
+            {
+                sequence.Kill();
+            }
+            sequence = DOTween.Sequence();
+            sequence.AppendInterval(intervalTime);
+            sequence.Append(material.DOFade(1, colorName, duration));
+            sequence.AppendInterval(showTime);
+            sequence.Append(material.DOFade(0, colorName, duration));
         }
 
         public void HideNow()
@@ -31,11 +38,6 @@ namespace Game.Effect
             var color = material.GetColor(colorName);
             color.a = 0;
             material.SetColor(colorName, color);
-        }
-
-        private void Effect(float endValue,float delay)
-        {
-            material.DOFade(endValue, "_TintColor", duration).SetDelay(delay);
         }
     }
 }
