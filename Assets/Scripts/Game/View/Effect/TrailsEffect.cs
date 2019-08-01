@@ -24,11 +24,11 @@ namespace Game.Effect
         private void InitDust()
         {
             dustAnimation = transform.GetComponentInChildren<Animation>();
-            if (dustAnimation != null)
-            {
-                dustMaterial = transform.GetChild(0).GetComponentInChildren<MeshRenderer>().material; 
-                dustDefaultColor = dustMaterial.GetColor(colorName);
-            }
+            //if (dustAnimation != null)
+            //{
+            //    dustMaterial = transform.GetChild(0).GetComponentInChildren<MeshRenderer>().material; 
+            //    dustDefaultColor = dustMaterial.GetColor(colorName);
+            //}
         }
 
         public void Show()
@@ -64,16 +64,18 @@ namespace Game.Effect
             {
                 return;
             }
-            dustMaterial.SetColor(colorName, dustDefaultColor);
+            //dustMaterial.SetColor(colorName, dustDefaultColor);
             SetDustActive(true);
             dustAnimation.Play();
-            WaitDustEnd();
+            StopAllCoroutines();
+            StartCoroutine(WaitDustEnd());
         }
 
-        private void WaitDustEnd()
+        private IEnumerator WaitDustEnd()
         {
             float length = dustAnimation.clip.length;
-            dustMaterial.DOFade(0, colorName, length);
+            yield return new WaitForSeconds(length);
+            SetDustActive(false);
         }
 
         private void SetDustActive(bool isActive)
