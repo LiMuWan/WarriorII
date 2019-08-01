@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Game.Effect
@@ -37,17 +39,10 @@ namespace Game.Effect
             float intervalTime = 0.2f;
             string colorName = "_TintColor";
             float showTime = clipLength - intervalTime - duration * 2 - 0.2f;
-            if (sequence != null)
-            {
-                sequence.Kill();
-            }
-            sequence = DOTween.Sequence();
-            sequence.AppendInterval(intervalTime);
-            sequence.Append(material.DOFade(1, colorName, duration));
-            sequence.AppendInterval(showTime);
-            sequence.Append(material.DOFade(0, colorName, duration));
 
+            Light(intervalTime, duration, showTime);
             ShowDust();
+            Shake(intervalTime + showTime * 0.5f);
         }
 
         public void HideNow()
@@ -85,6 +80,25 @@ namespace Game.Effect
                 return;
             }
             dustAnimation.gameObject.SetActive(isActive);
+        }
+
+        private void Light(float intervalTime, float duration, float showTime)
+        {
+            if (sequence != null)
+            {
+                sequence.Kill();
+            }
+            sequence = DOTween.Sequence();
+            sequence.AppendInterval(intervalTime);
+            sequence.Append(material.DOFade(1, colorName, duration));
+            sequence.AppendInterval(showTime);
+            sequence.Append(material.DOFade(0, colorName, duration));
+        }
+
+        private async void Shake(float delay)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            Contexts.sharedInstance.game.ReplaceGameCameraState(CameraAniName.SHAKE);
         }
     }
 }

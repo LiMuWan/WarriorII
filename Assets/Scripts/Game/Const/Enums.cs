@@ -15,7 +15,11 @@ namespace Game
         /// <summary>
         /// 相机开场动画
         /// </summary>
-        START_GAME_ANI
+        START_GAME_ANI,
+        /// <summary>
+        /// 相机抖动动画
+        /// </summary>
+        SHAKE,
     }
 
     public enum CameraParent

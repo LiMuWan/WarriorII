@@ -1,18 +1,16 @@
-﻿ using Entitas;
-using Entitas.Unity;
-using Game.Service;
+﻿using Entitas;
 using Manager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 namespace Game
 {
     public class CameraController : ViewBase,IGameCameraStateListener
     {
         private Dictionary<CameraParent, Transform> parentDic;
         private CameraMove cameraMove;
-
+        private Camera camera;
         public override void Init(Contexts contexts,IEntity entity)
         {
             base.Init(contexts, entity);
@@ -30,6 +28,9 @@ namespace Game
                     parent = GetCameraParent(CameraParent.IN_GAME);
                     if(parent != null)
                        cameraMove.Move(parent);
+                    break;
+                case CameraAniName.SHAKE:
+                    Shake();
                     break;
             }
         }
@@ -51,7 +52,7 @@ namespace Game
 
         private void InitCamera()
         {
-            var camera = transform.GetComponentInChildren<Camera>();
+            camera = transform.GetComponentInChildren<Camera>();
             if (camera == null)
             {
                 Debug.LogError("无法查找到相机");
@@ -81,6 +82,11 @@ namespace Game
             Transform parentTrans = null;
             parentDic.TryGetValue(parent, out parentTrans);
             return parentTrans;
+        }
+
+        private void Shake()
+        {
+            camera.DOShakePosition(0.5f, 0.2f, 20);
         }
     }
 }
