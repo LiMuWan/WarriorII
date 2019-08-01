@@ -9,11 +9,18 @@ namespace Game.Effect
         private float clipLength;
         private Sequence sequence;
         private string colorName = "_TintColor";
+        private Animation dustAnimation;
 
         public void Init(float clipLength)
         {
             this.clipLength = clipLength;
             material = transform.GetComponent<MeshRenderer>().material;
+            InitDust();
+        }
+
+        private void InitDust()
+        {
+            dustAnimation = transform.GetComponentInChildren<Animation>();
         }
 
         public void Show()
@@ -31,6 +38,8 @@ namespace Game.Effect
             sequence.Append(material.DOFade(1, colorName, duration));
             sequence.AppendInterval(showTime);
             sequence.Append(material.DOFade(0, colorName, duration));
+
+            ShowDust();
         }
 
         public void HideNow()
@@ -38,6 +47,26 @@ namespace Game.Effect
             var color = material.GetColor(colorName);
             color.a = 0;
             material.SetColor(colorName, color);
+            SetDustActive(false);
+        }
+
+        private void ShowDust()
+        {
+            if(dustAnimation == null)
+            {
+                return;
+            }
+            SetDustActive(true);
+            dustAnimation.Play();
+        }
+
+        private void SetDustActive(bool isActive)
+        {
+            if(dustAnimation == null)
+            {
+                return;
+            }
+            dustAnimation.gameObject.SetActive(isActive);
         }
     }
 }
