@@ -40,7 +40,7 @@ namespace Game.View
         {
             foreach (KeyValuePair<int,TrailsEffect> pair in trailsDic)
             {
-                ShowOrHideTrails(pair.Value, false);
+                pair.Value.HideNow();
             }
         }
 
