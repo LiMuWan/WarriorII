@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Effect
@@ -58,6 +59,15 @@ namespace Game.Effect
             }
             SetDustActive(true);
             dustAnimation.Play();
+            StopAllCoroutines();
+            StartCoroutine(WaitDustEnd());
+        }
+
+        private IEnumerator WaitDustEnd()
+        {
+            float clipLength = dustAnimation.clip.length;
+            yield return new WaitForSeconds(clipLength);
+            SetDustActive(false);
         }
 
         private void SetDustActive(bool isActive)
