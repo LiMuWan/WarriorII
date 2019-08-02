@@ -1,5 +1,6 @@
 using Const;
 using Game.Interface;
+using Manager;
 using UnityEngine;
 
 namespace Game
@@ -29,7 +30,7 @@ namespace Game
 
         private AudioClip GetAudioClip(string name)
         {
-            return null;
+            return LoadAudioManager.Single.PlayerAudio(name);
         }
 
         public void Idle()

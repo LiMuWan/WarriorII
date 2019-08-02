@@ -32,6 +32,7 @@ namespace Game
         public IView PlayerView;
         public IPlayerBehaviour PlayerBehaviour;
         public IPlayerAni PlayerAni;
+        public IPlayerAudio PlayerAudio;
     }
 
     /// <summary>

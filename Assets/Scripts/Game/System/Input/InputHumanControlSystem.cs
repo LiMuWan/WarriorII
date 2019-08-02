@@ -49,6 +49,7 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnForward();
             contexts.game.gamePlayer.PlayerAni.Move();
+            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -71,6 +72,7 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnBack();
             contexts.game.gamePlayer.PlayerAni.Move();
+            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -93,6 +95,7 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnLeft();
             contexts.game.gamePlayer.PlayerAni.Move();
+            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -115,6 +118,7 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnRight();
             contexts.game.gamePlayer.PlayerAni.Move();
+            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 

@@ -18,7 +18,8 @@ namespace Game
 
         protected override void Execute(List<GameEntity> entities)
         {
-
+            contexts.game.gamePlayer.PlayerBehaviour.Idle();
+            contexts.game.gamePlayer.PlayerAudio.Idle();
         }
     }
 
@@ -56,7 +57,7 @@ namespace Game
 
         protected override void Execute(List<GameEntity> entities)
         {
-
+            
         }
     }
 }

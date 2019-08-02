@@ -6,7 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public interface IGameValidHumanSkillListener
-{
+public interface IGameValidHumanSkillListener {
     void OnGameValidHumanSkill(GameEntity entity, int SkillCode);
 }
