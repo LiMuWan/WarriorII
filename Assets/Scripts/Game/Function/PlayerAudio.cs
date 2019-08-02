@@ -1,3 +1,4 @@
+using Const;
 using Game.Interface;
 using UnityEngine;
 
@@ -9,14 +10,26 @@ namespace Game
 
         public bool IsAttack { get; private set; }
 
+        private AudioSource audioSource;
+
         public PlayerAudio(AudioSource audioSource)
         {
-
+            this.audioSource = audioSource;
         }
 
         public void Play(string name)
         {
-            
+            audioSource.PlayOneShot(GetAudioClip(name));
+        }
+
+        public void Play(AudioName audioName)
+        {
+            Play(audioName.ToString());
+        }
+
+        private AudioClip GetAudioClip(string name)
+        {
+            return null;
         }
 
         public void Idle()
@@ -46,12 +59,12 @@ namespace Game
 
         public void Move()
         {
-            
+            Play(AudioName.step);
         }
 
         public void Attack(int skillCode)
         {
-            
+            Play(AudioName.attack);
         }
     }
 }
