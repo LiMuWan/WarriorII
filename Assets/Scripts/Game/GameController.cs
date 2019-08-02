@@ -45,6 +45,8 @@ namespace Game
 
             serviceManager = new ServiceManager(gameParentManager);
             serviceManager.Init(contexts);
+
+            LoadAudioManager.Single.Init();
         }
 
         private void Update()
