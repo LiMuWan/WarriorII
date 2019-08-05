@@ -30,12 +30,15 @@ public class GamePlayHumanSkillSystem:ReactiveSystem<GameEntity>
         {
             var skillCode = entity.gamePlayHumanSkill.SkillCode;
 
+            //skillCode为0时代表重置状态
+            //skillCode大于0时，才是真正的执行编码
             contexts.game.gamePlayer.PlayerAni.Attack(skillCode);
-            contexts.game.gamePlayer.PlayerAudio.Attack(skillCode);
+            
 
             if (skillCode > 0)
             {
                 contexts.game.gamePlayer.PlayerBehaviour.Attack(skillCode);
+                contexts.game.gamePlayer.PlayerAudio.Attack(skillCode);
             }
           
         }
