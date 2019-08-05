@@ -9,7 +9,16 @@ namespace Game
 {
     public class PlayerAudio : IPlayerAudio
     {
-        public bool IsRun { get; set; }
+        private int times;
+        private bool isRun;
+        public bool IsRun {
+            get{ return isRun; }
+            set
+            {
+                times = 0;
+                isRun = value;
+            }
+        }
 
         public bool IsAttack { get; private set; }
 
@@ -20,14 +29,14 @@ namespace Game
             this.audioSource = audioSource;
         }
 
-        public void Play(string name)
+        public void Play(string name,float volume)
         {
-            audioSource.PlayOneShot(GetAudioClip(name));
+            audioSource.PlayOneShot(GetAudioClip(name),volume);
         }
 
         public void Play(AudioName audioName)
         {
-            Play(audioName.ToString());
+            Play(audioName.ToString(),0.4f);
         }
 
         private AudioClip GetAudioClip(string name)
@@ -62,7 +71,27 @@ namespace Game
 
         public void Move()
         {
-            Play(AudioName.step);
+            if (times == 0)
+            {
+                Play(AudioName.step);
+            }
+            times++;
+            if (times >= GetFrames())
+            {
+                times = 0;
+            }
+        }
+
+        private int GetFrames()
+        {
+            if(IsRun)
+            {
+                return Const.ConstValue.RUN_STEP_TIME;
+            }
+            else
+            {
+                return Const.ConstValue.WALK_STEP_TIME;
+            }
         }
 
         public async void Attack(int skillCode)

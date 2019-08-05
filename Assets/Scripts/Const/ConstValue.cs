@@ -43,5 +43,15 @@ namespace Const
         /// 技能起手时间
         /// </summary>
         public const float SKILL_START_TIME = 0.25f;
+
+        /// <summary>
+        /// 走一步帧数
+        /// </summary>
+        public const int WALK_STEP_TIME = 20;
+
+        /// <summary>
+        /// 跑一步帧数
+        /// </summary>
+        public const int RUN_STEP_TIME = 12;
     }
 }

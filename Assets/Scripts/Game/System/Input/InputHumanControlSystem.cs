@@ -24,6 +24,7 @@ namespace Game
                 contexts.game.gamePlayer.PlayerAni.Idle();
                 contexts.game.gamePlayer.PlayerBehaviour.Idle();
                 contexts.game.gamePlayer.PlayerAni.IsRun = false;
+                contexts.game.gamePlayer.PlayerAudio.IsRun = false;
             }
             contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop(true);
             
@@ -49,7 +50,6 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnForward();
             contexts.game.gamePlayer.PlayerAni.Move();
-            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -72,7 +72,6 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnBack();
             contexts.game.gamePlayer.PlayerAni.Move();
-            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -95,7 +94,6 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnLeft();
             contexts.game.gamePlayer.PlayerAni.Move();
-            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -118,7 +116,6 @@ namespace Game
         {
             contexts.game.gamePlayer.PlayerBehaviour.TurnRight();
             contexts.game.gamePlayer.PlayerAni.Move();
-            contexts.game.gamePlayer.PlayerAudio.Move();
         }
     }
 
@@ -148,7 +145,11 @@ namespace Game
             {
                 timer.AddCompleteListener
                  (
-                     () => contexts.game.gamePlayer.PlayerAni.IsRun = true
+                     () => 
+                     {
+                         contexts.game.gamePlayer.PlayerAni.IsRun = true;
+                         contexts.game.gamePlayer.PlayerAudio.IsRun = true;
+                     }
                  ) ;
             }
         }
