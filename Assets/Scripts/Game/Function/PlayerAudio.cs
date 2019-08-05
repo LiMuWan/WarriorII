@@ -1,6 +1,8 @@
 using Const;
 using Game.Interface;
 using Manager;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Game
@@ -63,8 +65,9 @@ namespace Game
             Play(AudioName.step);
         }
 
-        public void Attack(int skillCode)
+        public async void Attack(int skillCode)
         {
+            await Task.Delay(TimeSpan.FromSeconds(Const.ConstValue.SKILL_START_TIME));
             Play(AudioName.attack);
         }
     }

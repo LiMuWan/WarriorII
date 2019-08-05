@@ -34,6 +34,14 @@ namespace Const
         /// </summary>
         public const string IDLE_SWORD_PARA_NAME = "IsIdleSword";
 
+        /// <summary>
+        /// 技能动画名称前缀
+        /// </summary>
         public const string SKILL_ANI_PREFIX = "attack";
+
+        /// <summary>
+        /// 技能起手时间
+        /// </summary>
+        public const float SKILL_START_TIME = 0.25f;
     }
 }
