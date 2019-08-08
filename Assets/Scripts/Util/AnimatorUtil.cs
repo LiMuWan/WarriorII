@@ -10,7 +10,7 @@ namespace Util
     public static class AnimatorUtil
     {
         /// <summary>
-        /// 获取当前层级的所有状态
+        /// 获取当前层级的所有状态，不包括状态机
         /// </summary>
         /// <param name="ani"></param>
         /// <param name="layer"></param>
@@ -18,7 +18,7 @@ namespace Util
         public static AnimatorState[] GetAnimatorState(this Animator ani,int layer)
         {
             var machine = ani.GetAnimatorStateMachine(layer);
-            return machine.states.Select(u => u.state).ToArray();
+            return machine.GetAnimatorState();
         }
 
         /// <summary>
@@ -31,6 +31,17 @@ namespace Util
         {
             AnimatorController aniController = ani.runtimeAnimatorController as AnimatorController;
             return aniController.layers[layer].stateMachine;
+        }
+
+        /// <summary>
+        /// 获取当前Animator对应层级的状态机
+        /// </summary>
+        /// <param name="ani"></param>
+        /// <param name="layer"></param>
+        /// <returns></returns>
+        public static AnimatorStateMachine GetAnimatorStateMachine(this AnimatorController aniCtrl, int layer)
+        {
+            return aniCtrl.layers[layer].stateMachine;
         }
 
         /// <summary>
@@ -64,6 +75,17 @@ namespace Util
         }
 
         /// <summary>
+        /// 获取状态机的所有状态
+        /// </summary>
+        /// <param name="ani"></param>
+        /// <param name="layer"></param>
+        /// <returns></returns>
+        public static AnimatorState[] GetAnimatorState(this AnimatorStateMachine machine)
+        {
+            return machine.states.Select(u => u.state).ToArray();
+        }
+
+        /// <summary>
         /// 移除当前层所有的过渡状态
         /// </summary>
         /// <param name="ani"></param>
@@ -87,6 +109,21 @@ namespace Util
             {
                 state.RemoveTransition(transition);
             }
+        }
+
+        /// <summary>
+        /// 通过目标状态的名称哈希值获取到过渡状态
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="targetNameHash"></param>
+        public static AnimatorStateTransition GetTransition(this AnimatorState state,int targetNameHash)
+        {
+            var transition = state.transitions.FirstOrDefault(u => u.destinationState.nameHash == targetNameHash);
+            if(transition == null)
+            {
+                Debug.LogError("无法找到NameHash为" + targetNameHash + "的状态");
+            }
+            return transition;
         }
     }
 }
