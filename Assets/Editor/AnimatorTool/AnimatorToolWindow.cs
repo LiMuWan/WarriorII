@@ -98,49 +98,11 @@ namespace CustomTool
         //获取动画资源方式是有坑的  
         private void CreateNewController()
         {
-            List<AnimationClip> clips = GetAnimationClip();
-            if (clips != null && clips.Count > 0)
-            {
-                generater.Create(aniControllerPath,newAniName, clips,subAnimatorMachineItems);
-            }
-            else
+            bool success = generater.Create(aniControllerPath, newAniName, animationObjects, subAnimatorMachineItems);
+            if ( !success )
             {
                 Debug.LogError("获取动画片段失败，无法创建AnimationController");
             }
-        }
-
-        /// <summary>
-        /// 获取动画片段文件
-        /// </summary>
-        /// <returns></returns>
-        private List<AnimationClip> GetAnimationClip()
-        {
-            if (animationObjects.Count == 0)
-                return null;
-
-            List<AnimationClip> clips = new List<AnimationClip>();
-
-            foreach (GameObject gameObject in animationObjects)
-            {
-                string path = AssetDatabase.GetAssetPath(gameObject);
-                var assets = AssetDatabase.LoadAllAssetsAtPath(path);
-                foreach (UnityEngine.Object asset in assets)
-                {
-                    if(asset is AnimationClip)
-                    {
-                        AnimationClip clip = asset as AnimationClip;
-                        if(!clip.name.Contains("Take"))
-                        {
-                            clips.Add(clip);
-                        }
-                        else
-                        {
-                            Debug.Log(asset.name);
-                        }
-                    }
-                }
-            }
-            return clips;
         }
 
         private static void Init()
