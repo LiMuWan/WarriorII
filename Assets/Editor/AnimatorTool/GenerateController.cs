@@ -38,7 +38,7 @@ namespace CustomTool
                 if(tempMachine != null)
                 {
                     tempClips = GetAnimationClip(subAnimatorMachineItem.AnimationObjects);
-                    AddAnimationClips(machine, tempClips);
+                    AddAnimationClips(tempMachine, tempClips);
                 }
                 times++;
             }
@@ -47,7 +47,7 @@ namespace CustomTool
         private AnimatorStateMachine AddSubAnimatorMachine(AnimatorStateMachine machine, SubAnimatorMachineItem subAnimatorMachineItem,int times)
         {
             return machine.AddStateMachine(subAnimatorMachineItem.SubMachineName, 
-                new Vector3(300 * (times / 5), -(100 * (times % 5) + 300), 0));
+                new Vector3(300 * (times / 5), -(100 * (times % 5) + 100), 0));
         }
 
         private void AddAnimationClips(AnimatorStateMachine machine,List<AnimationClip> clips)

@@ -73,7 +73,6 @@ namespace CustomTool
             InputName("新建AnimatorController名称", ref newAniName);
             UpdateSerializedObject();
             CreateButton("创建", CreateNewController);
-            
         }
 
         private void UpdateSerializedObject()
@@ -92,7 +91,7 @@ namespace CustomTool
 
         private void GetAnimationObject()
         {
-            EditorGUILayout.PropertyField(animations, true);
+            EditorGUILayout.PropertyField(animations,new GUIContent("默认层级动画片段数组"), true);
         }
 
         //获取动画资源方式是有坑的  
