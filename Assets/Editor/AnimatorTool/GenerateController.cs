@@ -7,11 +7,27 @@ namespace CustomTool
 {
     public class GenerateController
     {
-        public void Create(string path, string name,List<AnimationClip> clips)
+        public void Create(string path, string name,List<AnimationClip> clips,List<SubAnimatorMachineItem> subAnimatorMachineItems)
         {
             AnimatorController ctrl = AnimatorController.CreateAnimatorControllerAtPath(path + "/" + name + ".controller");
             AnimatorStateMachine machine = ctrl.GetAnimatorStateMachine(0);
+            AddDefaultLayerClips(machine, clips);
+            AddSubAnimatorMachines(machine, subAnimatorMachineItems);
+        }
+
+        private void AddDefaultLayerClips(AnimatorStateMachine machine, List<AnimationClip> clips)
+        {
             AddAnimationClips(machine, clips);
+        }
+
+        private void AddSubAnimatorMachines(AnimatorStateMachine machine, List<SubAnimatorMachineItem> subAnimatorMachineItems)
+        {
+
+        }
+
+        private void AddSubAnimatorMachine(AnimatorStateMachine machine, SubAnimatorMachineItem subAnimatorMachineItem,int times)
+        {
+            machine.AddStateMachine(subAnimatorMachineItem.SubMachineName, new Vector3(300 * (times / 5), -(100 * (times % 5) + 300), 0));
         }
 
         private void AddAnimationClips(AnimatorStateMachine machine,List<AnimationClip> clips)

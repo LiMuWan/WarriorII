@@ -101,7 +101,7 @@ namespace CustomTool
             List<AnimationClip> clips = GetAnimationClip();
             if (clips != null && clips.Count > 0)
             {
-                generater.Create(aniControllerPath,newAniName, clips);
+                generater.Create(aniControllerPath,newAniName, clips,subAnimatorMachineItems);
             }
             else
             {
