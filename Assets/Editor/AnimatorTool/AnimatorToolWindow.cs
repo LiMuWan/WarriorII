@@ -10,7 +10,7 @@ namespace CustomTool
 {
     public class AnimatorToolWindow:EditorWindow     
     {
-        private static EditorWindow window;
+        private static AnimatorToolWindow window;
 
         private static string animatorPath;
         private static string cachePath = "Assets/Editor/AnimatorTool/Cache/";
@@ -18,9 +18,9 @@ namespace CustomTool
         private static string aniControllerPath;
         private static string newAniName;
         [SerializeField]
-        private List<GameObject> animationObjects = new List<GameObject>();
+        public List<GameObject> animationObjects = new List<GameObject>();
         [SerializeField]
-        private List<SubAnimatorMachineItem> subAnimatorMachineItems = new List<SubAnimatorMachineItem>();
+        public List<SubAnimatorMachineItem> subAnimatorMachineItems = new List<SubAnimatorMachineItem>();
         private static SerializedObject serializedObject;
         private static SerializedProperty animations;
         private static SerializedProperty subAnimatorMachines;
@@ -28,9 +28,11 @@ namespace CustomTool
         private static GenerateController generater;
         private CustomReorderableList customReorderableList;
 
+        private bool isAddDefaultAnis;
+
         public static void OpenWindow()
         {
-            window = GetWindow(typeof(AnimatorToolWindow));
+            window = (AnimatorToolWindow)GetWindow(typeof(AnimatorToolWindow));
             window.minSize = new Vector2(500, 800);
             window.Show();
             Init();
@@ -50,18 +52,17 @@ namespace CustomTool
         }
 
         //在工程视图界面下显示
-        [MenuItem("Assets/AnimatorTool")]
+        [MenuItem("Assets/AnimatorTool/Add")]
         public static void ShowWindowInProject()
         {
-            OpenWindow();
+            AutoAddAniObjects();
         }
 
         //在工程视图界面下的检测函数
-        [MenuItem("Assets/AnimatorTool",true)]
+        [MenuItem("Assets/AnimatorTool/Add",true)]
         public static bool ShowWindowInProjectValidate()
         {
-            return Selection.activeObject.GetType() == typeof(AnimatorController)
-                || Selection.activeObject.GetType() == typeof(GameObject);
+            return Selection.activeObject.GetType() == typeof(GameObject);
         }
 
         private void OnGUI()
@@ -73,6 +74,40 @@ namespace CustomTool
             InputName("新建AnimatorController名称", ref newAniName);
             UpdateSerializedObject();
             CreateButton("创建", CreateNewController);
+            AddAniToogle();
+        }
+
+        private static void AutoAddAniObjects()
+        {
+            AddAniObjects(window.animationObjects, Selection.gameObjects.ToList());
+            foreach (SubAnimatorMachineItem item in window.subAnimatorMachineItems)
+            {
+                if (item.IsAutoAdd)
+                {
+                    AddAniObjects(item.AnimationObjects, Selection.gameObjects.ToList());
+                }
+            }
+        }
+
+        private static void AddAniObjects(List<GameObject> data,List<GameObject> selection)
+        {
+            foreach (GameObject gameObject in selection)
+            {
+                if(!data.Contains(gameObject))
+                {
+                    data.Add(gameObject);
+                }
+            }
+        }
+
+        private void AddAniToogle()
+        {
+            isAddDefaultAnis = GUILayout.Toggle(isAddDefaultAnis, new GUIContent("默认状态机"));
+
+            foreach (SubAnimatorMachineItem item in subAnimatorMachineItems)
+            {
+                item.IsAutoAdd = GUILayout.Toggle(item.IsAutoAdd, new GUIContent(item.SubMachineName));
+            }
         }
 
         private void UpdateSerializedObject()
@@ -106,8 +141,7 @@ namespace CustomTool
 
         private static void Init()
         {
-            ReadDataFromLocal();
-            
+            ReadDataFromLocal(); 
         }
 
         private void InitAnimationList()
@@ -187,7 +221,7 @@ namespace CustomTool
             {
                 if (!string.IsNullOrEmpty(btnName))
                 {
-                    Close();
+                    CloseWindow();
                     callBack?.Invoke();
                 }
             }
@@ -205,10 +239,9 @@ namespace CustomTool
             name = EditorGUI.TextField(rect, name);
         }
 
-        public static void Close()
+        public static void CloseWindow()
         {
             AssetDatabase.Refresh();
-            window.Close();
         }
     }
 }
