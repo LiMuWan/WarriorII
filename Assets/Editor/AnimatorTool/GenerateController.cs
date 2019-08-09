@@ -16,10 +16,13 @@ namespace CustomTool
 
         private void AddAnimationClips(AnimatorStateMachine machine,List<AnimationClip> clips)
         {
+            int times = 0;
+            AnimatorState tempState;
             foreach (AnimationClip clip in clips)
             {
-                machine.AddState(clip.name);
-                
+                tempState = machine.AddState(clip.name,new Vector3(300 * (times / 5),100 * (times % 5) + 300,0));
+                tempState.motion = clip; 
+                times++;
             }
         }
     }

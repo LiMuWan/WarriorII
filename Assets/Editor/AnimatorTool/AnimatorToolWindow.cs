@@ -19,11 +19,14 @@ namespace CustomTool
         private static string newAniName;
         [SerializeField]
         private List<GameObject> animationObjects = new List<GameObject>();
-
+        [SerializeField]
+        private List<SubAnimatorMachineItem> subAnimatorMachineItems = new List<SubAnimatorMachineItem>();
         private static SerializedObject serializedObject;
         private static SerializedProperty animations;
+        private static SerializedProperty subAnimatorMachines;
 
         private static GenerateController generater;
+        private CustomReorderableList customReorderableList;
 
         public static void OpenWindow()
         {
@@ -68,22 +71,28 @@ namespace CustomTool
             CreateButton("保存", SaveDataToLocal);
             GUILayout.Space(10);
             InputName("新建AnimatorController名称", ref newAniName);
-            GetAnimationObject();
+            UpdateSerializedObject();
             CreateButton("创建", CreateNewController);
             
         }
 
-        private void GetAnimationObject()
+        private void UpdateSerializedObject()
         {
             serializedObject.Update();
+            //检查修改
             EditorGUI.BeginChangeCheck();
-
-            EditorGUILayout.PropertyField(animations, true);
-
-            if(EditorGUI.EndChangeCheck())
+            GetAnimationObject();
+            customReorderableList.OnGUI();
+            //结束修改
+            if (EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
             }
+        }
+
+        private void GetAnimationObject()
+        {
+            EditorGUILayout.PropertyField(animations, true);
         }
 
         //获取动画资源方式是有坑的  
@@ -137,7 +146,7 @@ namespace CustomTool
         private static void Init()
         {
             ReadDataFromLocal();
-            generater = new GenerateController();
+            
         }
 
         private void InitAnimationList()
@@ -147,8 +156,11 @@ namespace CustomTool
 
         private void OnEnable()
         {
+            generater = new GenerateController();
             serializedObject = new SerializedObject(this);
             animations = serializedObject.FindProperty("animationObjects");
+            subAnimatorMachines = serializedObject.FindProperty("subAnimatorMachineItems");
+            customReorderableList = new CustomReorderableList(serializedObject, subAnimatorMachines);
             InitAnimationList();
         }
 
