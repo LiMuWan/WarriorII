@@ -5,8 +5,22 @@ using Util;
 
 namespace CustomTool
 {
-    public class AnimatorHelpManager:MonoBehaviour     
+    public class AnimatorHelpManager
     {
+        private static AnimatorHelpManager instance;
+
+        public static AnimatorHelpManager Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = new AnimatorHelpManager();
+                }
+                return instance;
+            }
+        }
+
         public void Add()
         {
             AnimatorController aniCtrl = Selection.activeObject as AnimatorController;
