@@ -15,10 +15,22 @@ namespace Util
         /// <param name="ani"></param>
         /// <param name="layer"></param>
         /// <returns></returns>
-        public static AnimatorState[] GetAnimatorState(this Animator ani,int layer)
+        public static AnimatorState[] GetAnimatorStates(this Animator ani,int layer)
         {
             var machine = ani.GetAnimatorStateMachine(layer);
-            return machine.GetAnimatorState();
+            return machine.GetAnimatorStates();
+        }
+
+        /// <summary>
+        /// 获取当前AnimatorController的所有状态，不包括状态机
+        /// </summary>
+        /// <param name="ani"></param>
+        /// <param name="layer"></param>
+        /// <returns></returns>
+        public static AnimatorState[] GetAnimatorStates(this AnimatorController aniCtrl, int layer)
+        {
+            var machine = aniCtrl.GetAnimatorStateMachine(layer);
+            return machine.GetAnimatorStates();
         }
 
         /// <summary>
@@ -50,11 +62,24 @@ namespace Util
         /// <param name="ani"></param>
         /// <param name="baseLayer"></param>
         /// <returns></returns>
-        public static AnimatorStateMachine[] GetSubStateMachine(this Animator ani,int baseLayer)
+        public static AnimatorStateMachine[] GetSubStateMachines(this Animator ani,int baseLayer)
         {
             var baseMachine = ani.GetAnimatorStateMachine(baseLayer);
             return baseMachine.stateMachines.Select(u => u.stateMachine).ToArray();
         }
+
+        /// <summary>
+        /// 获取子状态机的数组
+        /// </summary>
+        /// <param name="ani"></param>
+        /// <param name="baseLayer"></param>
+        /// <returns></returns>
+        public static AnimatorStateMachine[] GetSubStateMachines(this AnimatorController aniCtrl, int baseLayer)
+        {
+            var baseMachine = aniCtrl.GetAnimatorStateMachine(baseLayer);
+            return baseMachine.stateMachines.Select(u => u.stateMachine).ToArray();
+        }
+
 
         /// <summary>
         /// 通过子状态机名称获取子状态机
@@ -65,7 +90,7 @@ namespace Util
         /// <returns></returns>
         public static AnimatorStateMachine GetSubStateMachine(this Animator ani,int baseLayer,string stateMachineName)
         {
-            var machines = ani.GetSubStateMachine(baseLayer);
+            var machines = ani.GetSubStateMachines(baseLayer);
             AnimatorStateMachine machine = machines.FirstOrDefault(u => u.name == stateMachineName);
             if(machine == null)
             {
@@ -80,7 +105,7 @@ namespace Util
         /// <param name="ani"></param>
         /// <param name="layer"></param>
         /// <returns></returns>
-        public static AnimatorState[] GetAnimatorState(this AnimatorStateMachine machine)
+        public static AnimatorState[] GetAnimatorStates(this AnimatorStateMachine machine)
         {
             return machine.states.Select(u => u.state).ToArray();
         }
@@ -92,7 +117,7 @@ namespace Util
         /// <param name="layer"></param>
         public static void RemoveAllTrasition(this Animator ani,int layer)
         {
-            var states = ani.GetAnimatorState(layer);
+            var states = ani.GetAnimatorStates(layer);
             foreach (AnimatorState state in states)
             {
                 state.RemoveStateAllTrasition();
