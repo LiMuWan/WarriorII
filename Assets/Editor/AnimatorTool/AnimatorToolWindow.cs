@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -44,36 +44,43 @@ namespace CustomTool
             OpenWindow();
         }
 
-        //ÔÚ¼ìÊÓÃæ°åÓÒ¼ü²Ëµ¥,priority > 50 ²»ÏÔÊ¾
+        //åœ¨æ£€è§†é¢æ¿å³é”®èœå•,priority > 50 ä¸æ˜¾ç¤º
         [MenuItem("GameObject/AnimatorTool",priority = 0)]
         public static void ShowWindowInHierachy()
         {
             OpenWindow();
         }
 
-        //ÔÚ¹¤³ÌÊÓÍ¼½çÃæÏÂÏÔÊ¾
+        //åœ¨å·¥ç¨‹è§†å›¾ç•Œé¢ä¸‹æ˜¾ç¤º
         [MenuItem("Assets/AnimatorTool/Add")]
         public static void ShowWindowInProject()
         {
             AutoAddAniObjects();
         }
 
-        //ÔÚ¹¤³ÌÊÓÍ¼½çÃæÏÂµÄ¼ì²âº¯Êı
-        [MenuItem("Assets/AnimatorTool/Add",true)]
-        public static bool ShowWindowInProjectValidate()
+        //åœ¨å·¥ç¨‹è§†å›¾ç•Œé¢ä¸‹æ˜¾ç¤º
+        [MenuItem("Assets/AnimatorTool/AddAnimatorHelp")]
+        public static void AddAnimatorHelpInProject()
         {
-            return Selection.activeObject.GetType() == typeof(GameObject);
+            
+        }
+
+        //åœ¨å·¥ç¨‹è§†å›¾ç•Œé¢ä¸‹çš„æ£€æµ‹å‡½æ•°
+        [MenuItem("Assets/AnimatorTool/AddAnimatorHelp", true)]
+        public static bool AddAnimatorHelpInProjectValidate()
+        {
+            return Selection.activeObject.GetType() == typeof(AnimatorController);
         }
 
         private void OnGUI()
         {
             GUILayout.Space(10);
-            PathItem("AnimatorController´æ·ÅÂ·¾¶", ref aniControllerPath);
-            CreateButton("±£´æ", SaveDataToLocal);
+            PathItem("AnimatorControllerå­˜æ”¾è·¯å¾„", ref aniControllerPath);
+            CreateButton("ä¿å­˜", SaveDataToLocal);
             GUILayout.Space(10);
-            InputName("ĞÂ½¨AnimatorControllerÃû³Æ", ref newAniName);
+            InputName("æ–°å»ºAnimatorControlleråç§°", ref newAniName);
             UpdateSerializedObject();
-            CreateButton("´´½¨", CreateNewController);
+            CreateButton("åˆ›å»º", CreateNewController);
             AddAniToogle();
         }
 
@@ -102,7 +109,7 @@ namespace CustomTool
 
         private void AddAniToogle()
         {
-            isAddDefaultAnis = GUILayout.Toggle(isAddDefaultAnis, new GUIContent("Ä¬ÈÏ×´Ì¬»ú"));
+            isAddDefaultAnis = GUILayout.Toggle(isAddDefaultAnis, new GUIContent("é»˜è®¤çŠ¶æ€æœº"));
 
             foreach (SubAnimatorMachineItem item in subAnimatorMachineItems)
             {
@@ -113,11 +120,11 @@ namespace CustomTool
         private void UpdateSerializedObject()
         {
             serializedObject.Update();
-            //¼ì²éĞŞ¸Ä
+            //æ£€æŸ¥ä¿®æ”¹
             EditorGUI.BeginChangeCheck();
             GetAnimationObject();
             customReorderableList.OnGUI();
-            //½áÊøĞŞ¸Ä
+            //ç»“æŸä¿®æ”¹
             if (EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
@@ -126,16 +133,16 @@ namespace CustomTool
 
         private void GetAnimationObject()
         {
-            EditorGUILayout.PropertyField(animations,new GUIContent("Ä¬ÈÏ²ã¼¶¶¯»­Æ¬¶ÎÊı×é"), true);
+            EditorGUILayout.PropertyField(animations,new GUIContent("é»˜è®¤å±‚çº§åŠ¨ç”»ç‰‡æ®µæ•°ç»„"), true);
         }
 
-        //»ñÈ¡¶¯»­×ÊÔ´·½Ê½ÊÇÓĞ¿ÓµÄ  
+        //è·å–åŠ¨ç”»èµ„æºæ–¹å¼æ˜¯æœ‰å‘çš„  
         private void CreateNewController()
         {
             bool success = generater.Create(aniControllerPath, newAniName, animationObjects, subAnimatorMachineItems);
             if ( !success )
             {
-                Debug.LogError("»ñÈ¡¶¯»­Æ¬¶ÎÊ§°Ü£¬ÎŞ·¨´´½¨AnimationController");
+                Debug.LogError("è·å–åŠ¨ç”»ç‰‡æ®µå¤±è´¥ï¼Œæ— æ³•åˆ›å»ºAnimationController");
             }
         }
 
@@ -160,7 +167,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// ±£´æÊı¾İµ½±¾µØ
+        /// ä¿å­˜æ•°æ®åˆ°æœ¬åœ°
         /// </summary>
         private static void SaveDataToLocal()
         {
@@ -171,7 +178,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// ´Ó±¾µØ¶ÁÈ¡Êı¾İ
+        /// ä»æœ¬åœ°è¯»å–æ•°æ®
         /// </summary>
         private static void ReadDataFromLocal()
         {
@@ -183,7 +190,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// Â·¾¶UIÏÔÊ¾¼°ÊäÈë
+        /// è·¯å¾„UIæ˜¾ç¤ºåŠè¾“å…¥
         /// </summary>
         /// <param name="name"></param>
         /// <param name="path"></param>
@@ -196,7 +203,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// ÍÏ¶¯ÎÄ¼ş¼Ğ»ñÈ¡Â·¾¶
+        /// æ‹–åŠ¨æ–‡ä»¶å¤¹è·å–è·¯å¾„
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="path"></param>
@@ -214,7 +221,7 @@ namespace CustomTool
             }
         }
 
-        //Éú³Ébutton
+        //ç”Ÿæˆbutton
         private static void CreateButton(string btnName, Action callBack)
         {
             if (GUILayout.Button(btnName, GUILayout.Width(150)))
@@ -228,7 +235,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// ÊäÈëÒªÉú³É½Å±¾µÄÖ÷Ãû³Æ
+        /// è¾“å…¥è¦ç”Ÿæˆè„šæœ¬çš„ä¸»åç§°
         /// </summary>
         /// <param name="title"></param>
         /// <param name="name"></param>
