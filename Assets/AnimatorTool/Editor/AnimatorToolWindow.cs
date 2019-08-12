@@ -27,6 +27,7 @@ namespace CustomTool
 
         private static GenerateController generater;
         private CustomReorderableList customReorderableList;
+        private static List<AnimatorController> helpControllers;
 
         private bool isAddDefaultAnis;
 
@@ -62,7 +63,11 @@ namespace CustomTool
         [MenuItem("Assets/AnimatorTool/AddAnimatorHelp")]
         public static void AddAnimatorHelpInProject()
         {
-            AnimatorHelpManager.Instance.Add();
+            AnimatorController aniCtrl = AnimatorHelpManager.Instance.Add();
+            if(aniCtrl != null && !helpControllers.Contains(aniCtrl))
+            {
+                helpControllers.Add(aniCtrl);
+            }
         }
 
         //在工程视图界面下的检测函数
@@ -174,6 +179,7 @@ namespace CustomTool
             Directory.CreateDirectory(cachePath);
             AnimatorToolData data = new AnimatorToolData();
             data.AnimatorControllerPath = aniControllerPath;
+            data.HelpControllers = helpControllers;
             AssetDatabase.CreateAsset(data, cachePath + cacheName);
         }
 
@@ -186,6 +192,7 @@ namespace CustomTool
            if(data != null)
             {
                 aniControllerPath = data.AnimatorControllerPath;
+                helpControllers = data.HelpControllers;
             }
         }
 
