@@ -13,7 +13,7 @@ namespace CustomTool
         private static AnimatorToolWindow window;
 
         private static string animatorPath;
-        private static string cachePath = "Assets/Editor/AnimatorTool/Cache/";
+        private static string cachePath = "Assets/AnimatorTool/Editor/Cache/";
         private static string cacheName = "AnimatorToolCache.asset";
         private static string aniControllerPath;
         private static string newAniName;
@@ -27,7 +27,17 @@ namespace CustomTool
 
         private static GenerateController generater;
         private CustomReorderableList customReorderableList;
-        private static List<AnimatorController> helpControllers;
+
+        public static List<AnimatorController> HelpControllers
+        {
+            get
+            {
+                ReadDataFromLocal();
+                return helpControllers;
+            }
+        }
+
+        private static List<AnimatorController> helpControllers = new List<AnimatorController>();
 
         private bool isAddDefaultAnis;
 
@@ -67,6 +77,7 @@ namespace CustomTool
             if(aniCtrl != null && !helpControllers.Contains(aniCtrl))
             {
                 helpControllers.Add(aniCtrl);
+                SaveDataToLocal();
             }
         }
 

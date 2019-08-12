@@ -8,8 +8,13 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 11500000, guid: 9ae701d283a1cb744a9c4d760f964e1b, type: 3}
   m_Name: AnimatorToolCache
   m_EditorClassIdentifier: 
   AnimatorControllerPath: Assets/Animation
+  HelpControllers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 9100000, guid: 103320a81b9353b4693e31030c8f317a, type: 2}
