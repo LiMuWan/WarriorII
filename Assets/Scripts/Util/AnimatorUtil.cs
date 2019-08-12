@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -149,6 +150,52 @@ namespace Util
                 Debug.LogError("无法找到NameHash为" + targetNameHash + "的状态");
             }
             return transition;
+        }
+
+        /// <summary>
+        /// 获取当前状态机的所有状态
+        /// </summary>
+        /// <param name="ani"></param>
+        public static void GetAllAnimatorStates(this Animator ani)
+        {
+            AnimatorController aniCtrl = ani.runtimeAnimatorController as AnimatorController;
+            aniCtrl.GetAllAnimatorStates();
+        }
+
+        /// <summary>
+        /// 获取当前状态机的所有状态
+        /// </summary>
+        /// <param name="ani"></param>
+        public static List<AnimatorState> GetAllAnimatorStates(this AnimatorController aniCtrl)
+        {
+            List<AnimatorState> states = new List<AnimatorState>();
+            for (int i = 0; i < aniCtrl.layers.Length; i++)
+            {
+               states.AddRange(AddInLayer(aniCtrl, i));
+            }
+            return states;
+        }
+
+        private static List<AnimatorState> AddInLayer(AnimatorController aniCtrl, int layer)
+        {
+            List<AnimatorState> states = new List<AnimatorState>();
+            List<AnimatorState> statesInLayer = aniCtrl.GetAnimatorStates(layer).ToList();
+            List<AnimatorState> statesInSubMachine = AddInSubAnimatorMachine(aniCtrl, layer);
+            states.AddRange(statesInLayer);
+            states.AddRange(statesInSubMachine);
+            return states;
+        }
+
+        private static List<AnimatorState> AddInSubAnimatorMachine(AnimatorController aniCtrl, int layer)
+        {
+            List<AnimatorState> animatorStates = new List<AnimatorState>();
+            AnimatorStateMachine[] machines = aniCtrl.GetSubStateMachines(layer);
+            foreach (AnimatorStateMachine machine in machines)
+            {
+                AnimatorState[] states = machine.GetAnimatorStates();
+                animatorStates.AddRange(states);
+            }
+            return animatorStates;
         }
     }
 }
