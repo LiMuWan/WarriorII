@@ -13,24 +13,27 @@ namespace CustomTool
     [CustomEditor(typeof(AnimatorHelp),true)]
     public class ModifyAnimatorController:Editor     
     {
-        private AnimatorController controller;
-        private AnimatorState animatorState;
-        private Dictionary<int, Tuple<AnimatorStateTransition, bool>> transitionsDic;
+        private AnimatorHelp help;
 
         public void OnEnable()
         {
             InitData();
-            InitTransitionsDic();
+            help.InitTransitionsDic();
         }
 
         public override void OnInspectorGUI()
         {
             base.DrawDefaultInspector();
 
-            foreach (KeyValuePair<int,Tuple<AnimatorStateTransition,bool>> pair in transitionsDic)
+            foreach (AnimatorStateTransition transition in help.transitions)
             {
-               bool selected = GUILayout.Toggle(pair.Value.Item2,"To" + pair.Value.Item1.destinationState.name);
-                transitionsDic[pair.Key] = new Tuple<AnimatorStateTransition, bool>(pair.Value.Item1, selected);
+                bool selected = GUILayout.Toggle(help.transitionsDic[transition], "To  " + transition.destinationState.name);
+                help.transitionsDic[transition] = selected;
+            }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(help);
             }
         }
 
@@ -38,7 +41,7 @@ namespace CustomTool
         {
             try
             {
-                var help = target as AnimatorHelp;
+                help = target as AnimatorHelp;
                 if (string.IsNullOrEmpty(help.name))
                 {
                     Debug.LogError("Help的脚本名称为空");
@@ -48,15 +51,15 @@ namespace CustomTool
                     string[] data = help.name.Split('#');
                     string aniCtrlName = data[0];
                     int nameHash = int.Parse(data[1]);
-                    controller = AnimatorToolWindow.HelpControllers.FirstOrDefault(u => u != null && u.name == aniCtrlName);
-                    if (controller == null)
+                    help.controller = AnimatorToolWindow.HelpControllers.FirstOrDefault(u => u != null && u.name == aniCtrlName);
+                    if (help.controller == null)
                     {
                         Debug.LogError("未找到对应状态机 名称为 ：" + aniCtrlName);
                     }
                     else
                     {
-                        var states = controller.GetAllAnimatorStates();
-                        animatorState = states.FirstOrDefault(u => u.nameHash == nameHash);
+                        var states = help.controller.GetAllAnimatorStates();
+                        help.animatorState = states.FirstOrDefault(u => u.nameHash == nameHash);
                     }
                 }
             }
@@ -67,13 +70,6 @@ namespace CustomTool
             }
         }
 
-        private void InitTransitionsDic()
-        {
-            transitionsDic = new Dictionary<int, Tuple<AnimatorStateTransition, bool>>();
-            foreach (AnimatorStateTransition transition in animatorState.transitions)
-            {
-                transitionsDic[transition.GetHashCode()] = new Tuple<AnimatorStateTransition, bool>(transition, false);
-            }
-        }
+      
     }
 }
