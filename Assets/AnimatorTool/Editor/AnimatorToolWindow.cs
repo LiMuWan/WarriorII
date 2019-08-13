@@ -189,8 +189,17 @@ namespace CustomTool
         {
             Directory.CreateDirectory(cachePath);
             AnimatorToolData data = new AnimatorToolData();
-            data.AnimatorControllerPath = aniControllerPath;
-            data.HelpControllers = helpControllers;
+            if (!string.IsNullOrEmpty(aniControllerPath))
+            {
+                data.AnimatorControllerPath = aniControllerPath;
+            }
+
+            if (helpControllers.Contains(null))
+            {
+                helpControllers.RemoveAll(u => u == null);
+                data.HelpControllers = helpControllers;
+            }
+
             AssetDatabase.CreateAsset(data, cachePath + cacheName);
         }
 
