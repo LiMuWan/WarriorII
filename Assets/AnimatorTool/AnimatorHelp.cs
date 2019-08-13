@@ -6,20 +6,21 @@ namespace CustomTool
 {
     public class AnimatorHelp:StateMachineBehaviour     
     {
-        public AnimatorController controller;
-        public AnimatorState animatorState;
-        public Dictionary<AnimatorStateTransition, bool> transitionsDic;
-        public List<AnimatorStateTransition> transitions;
+        public AnimatorController Controller { get; set; }
+        public AnimatorState AnimatorState { get; set; }
+        public Dictionary<AnimatorStateTransition, bool> TransitionsDic { get; set; }
+        public List<AnimatorStateTransition> TransitionsList { get; set; }
+        public bool IsSelectAllTransition { get; set; }
 
         public void InitTransitionsDic()
         {
-            if (transitionsDic != null) return;
-            transitions = new List<AnimatorStateTransition>();
-            transitionsDic = new Dictionary<AnimatorStateTransition, bool>();
-            foreach (AnimatorStateTransition transition in animatorState.transitions)
+            if (TransitionsDic != null) return;
+            TransitionsList = new List<AnimatorStateTransition>();
+            TransitionsDic = new Dictionary<AnimatorStateTransition, bool>();
+            foreach (AnimatorStateTransition transition in AnimatorState.transitions)
             {
-                transitions.Add(transition);
-                transitionsDic[transition] = false;
+                TransitionsList.Add(transition);
+                TransitionsDic[transition] = false;
             }
         }
     }
