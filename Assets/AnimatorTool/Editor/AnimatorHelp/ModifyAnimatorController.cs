@@ -24,11 +24,15 @@ namespace CustomTool
         public override void OnInspectorGUI()
         {
             base.DrawDefaultInspector();
-            GUILayout.Label("批量修改过渡状态");
 
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+
+            GUILayout.SelectionGrid(0, new string[] { "批量修改过渡状态" }, 1);
+            GUILayout.Label("批量修改过渡状态");
             SelectAllTransition();
             TransitionToggle();
 
+            EditorGUILayout.EndVertical();
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(help);
