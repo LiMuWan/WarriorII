@@ -69,6 +69,13 @@ namespace CustomTool
             AutoAddAniObjects();
         }
 
+        //在工程视图界面下的检测函数
+        [MenuItem("Assets/AnimatorTool/Add", true)]
+        public static bool ShowWindowInProjectValidate()
+        {
+            return Selection.activeObject.GetType() == typeof(GameObject);
+        }
+
         //在工程视图界面下显示
         [MenuItem("Assets/AnimatorTool/AddAnimatorHelp")]
         public static void AddAnimatorHelpInProject()
@@ -125,6 +132,10 @@ namespace CustomTool
 
         private void AddAniToogle()
         {
+            GUILayout.Space(10);
+            GUILayout.Label("选择右键快速导入动画片段的状态机");
+            GUILayout.Space(5);
+
             isAddDefaultAnis = GUILayout.Toggle(isAddDefaultAnis, new GUIContent("默认状态机"));
 
             foreach (SubAnimatorMachineItem item in subAnimatorMachineItems)
