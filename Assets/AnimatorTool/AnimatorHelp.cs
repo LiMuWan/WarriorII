@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -15,7 +15,7 @@ namespace CustomTool
 
         [MultiSelectEnum]
         public ParaEnum SelectDataToChange;
-        public CustomTransitionPra TransitionPara;
+        public CustomTransitionPara TransitionPara;
 
         public void InitTransitionsDic()
         {
@@ -28,17 +28,27 @@ namespace CustomTool
                 TransitionsDic[transition] = false;
             }
         }
+
+        /// <summary>
+        /// 位运算处理枚举
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
+        public bool GetSelectedData(ParaEnum para)
+        {
+            return (SelectDataToChange & para) == para;
+        }
     }
 
+    [Flags]//这个特性可以进行位运算，
     public enum ParaEnum
     {
-        All,
-        SelectAllTransition,
-        HasExitTime,
-        ExitTime,
-        FixedDuration,
-        TransitionOffset,
-        InterruptionSource
+        HasExitTime = 1,
+        ExitTime = 2,
+        FixedDuration = 4,
+        TransitionDuration = 8,
+        TransitionOffset = 16,
+        InterruptionSource = 32
     }
 
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
@@ -51,7 +61,7 @@ namespace CustomTool
     }
 
     [System.Serializable]
-    public class CustomTransitionPra
+    public class CustomTransitionPara
     {
         public bool HasExitTime;
         public float ExitTime;
