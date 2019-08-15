@@ -35,9 +35,28 @@ namespace CustomTool
              }
             );
 
+            if(GUILayout.Button("确认修改"))
+            {
+                if (EditorUtility.DisplayDialog("确认修改", "是否确认修改当前选中过渡状态数据", "是", "否"))
+                {
+                    ChangeTransitionData();
+                }
+            }
+
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(help);
+            }
+        }
+
+        private void ChangeTransitionData()
+        {
+            foreach (KeyValuePair<AnimatorStateTransition,bool> pair in help.TransitionsDic)
+            {
+                if(pair.Value)
+                {
+                   
+                }
             }
         }
 
