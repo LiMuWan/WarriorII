@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -12,6 +13,10 @@ namespace CustomTool
         public List<AnimatorStateTransition> TransitionsList { get; set; }
         public bool IsSelectAllTransition { get; set; }
 
+        [MultiSelectEnum]
+        public ParaEnum SelectDataToChange;
+        public CustomTransitionPra TransitionPara;
+
         public void InitTransitionsDic()
         {
             if (TransitionsDic != null) return;
@@ -23,5 +28,36 @@ namespace CustomTool
                 TransitionsDic[transition] = false;
             }
         }
+    }
+
+    public enum ParaEnum
+    {
+        All,
+        SelectAllTransition,
+        HasExitTime,
+        ExitTime,
+        FixedDuration,
+        TransitionOffset,
+        InterruptionSource
+    }
+
+    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
+    public class MultiSelectEnumAttribute : PropertyAttribute
+    {
+        public MultiSelectEnumAttribute()
+        {
+
+        }
+    }
+
+    [System.Serializable]
+    public class CustomTransitionPra
+    {
+        public bool HasExitTime;
+        public float ExitTime;
+        public bool FixedDuration;
+        public float TransitionDuration;
+        public float TransitionOffset;
+        public TransitionInterruptionSource InterruptionSource;
     }
 }

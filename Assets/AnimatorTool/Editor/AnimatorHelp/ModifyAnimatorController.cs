@@ -23,16 +23,18 @@ namespace CustomTool
 
         public override void OnInspectorGUI()
         {
-            base.DrawDefaultInspector();
+            AddSkin("请选择要修改的过渡状态", () =>
+             {
+                 SelectAllTransition();
+                 TransitionToggle();
+             });
 
-            EditorGUILayout.BeginVertical(GUI.skin.box);
+            AddSkin("修改参数", () =>
+             {
+                 base.DrawDefaultInspector();
+             }
+            );
 
-            GUILayout.SelectionGrid(0, new string[] { "批量修改过渡状态" }, 1);
-            GUILayout.Label("批量修改过渡状态");
-            SelectAllTransition();
-            TransitionToggle();
-
-            EditorGUILayout.EndVertical();
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(help);
@@ -70,6 +72,18 @@ namespace CustomTool
                 Debug.LogError("类型转换出错");
                 throw;
             }
+        }
+
+        private void AddSkin(string title,Action action)
+        {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+
+            GUILayout.SelectionGrid(0, new string[] { title }, 1);
+            action?.Invoke();
+
+            EditorGUILayout.EndVertical();
+
+            GUILayout.Space(10);
         }
 
         private void SelectAllTransition()
