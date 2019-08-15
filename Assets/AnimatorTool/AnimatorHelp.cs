@@ -43,12 +43,12 @@ namespace CustomTool
     [Flags]//这个特性可以进行位运算，
     public enum ParaEnum
     {
-        HasExitTime = 1,
-        ExitTime = 2,
-        FixedDuration = 4,
-        TransitionDuration = 8,
-        TransitionOffset = 16,
-        InterruptionSource = 32
+        hasExitTime = 1,
+        exitTime = 2,
+        hasFixedDuration = 4,
+        duration = 8,
+        offset = 16,
+        interruptionSource = 32
     }
 
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
@@ -63,11 +63,11 @@ namespace CustomTool
     [System.Serializable]
     public class CustomTransitionPara
     {
-        public bool HasExitTime;
-        public float ExitTime;
-        public bool FixedDuration;
-        public float TransitionDuration;
-        public float TransitionOffset;
-        public TransitionInterruptionSource InterruptionSource;
+        public bool hasExitTime;
+        public float exitTime;
+        public bool hasFixedDuration;
+        public float duration;
+        public float offset;
+        public TransitionInterruptionSource interruptionSource;
     }
 }

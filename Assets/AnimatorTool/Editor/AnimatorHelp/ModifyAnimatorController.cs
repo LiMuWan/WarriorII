@@ -55,9 +55,15 @@ namespace CustomTool
             {
                 if(pair.Value)
                 {
-                   
+                    foreach (ParaEnum value in Enum.GetValues(typeof(ParaEnum)))
+                    {
+                        var to = pair.Key.GetType().GetProperty(value.ToString());
+                        var from = help.TransitionPara.GetType().GetField(value.ToString());
+                        to.SetValue(pair.Key, from.GetValue(help.TransitionPara));
+                    }
                 }
             }
+            EditorUtility.DisplayDialog("", "修改完成", "是");
         }
 
         private void InitData()
