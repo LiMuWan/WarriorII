@@ -23,13 +23,13 @@ namespace CustomTool
 
         public override void OnInspectorGUI()
         {
-            AddSkin("请选择要修改的过渡状态", () =>
+            AddFun(true,"请选择要修改的过渡状态", () =>
              {
                  SelectAllTransition();
                  TransitionToggle();
              });
 
-            AddSkin("修改参数", () =>
+            AddFun(GetTransitionState(),"修改参数", () =>
              {
                  base.DrawDefaultInspector();
              }
@@ -99,8 +99,11 @@ namespace CustomTool
             }
         }
 
-        private void AddSkin(string title,Action action)
+        private void AddFun(bool isShow, string title,Action action)
         {
+            if (!isShow)
+                return;
+
             EditorGUILayout.BeginVertical(GUI.skin.box);
 
             GUILayout.SelectionGrid(0, new string[] { title }, 1);
@@ -113,14 +116,40 @@ namespace CustomTool
 
         private void SelectAllTransition()
         {
+            bool lastToggleState = help.IsSelectAllTransition;
             help.IsSelectAllTransition = GUILayout.Toggle(help.IsSelectAllTransition,"全选");
             if (help.IsSelectAllTransition)
             {
-                foreach (AnimatorStateTransition transition in help.TransitionsList)
+                SetTransitionToggleState(true);
+            }
+            else
+            {
+                if (help.IsSelectAllTransition != lastToggleState)
                 {
-                    help.TransitionsDic[transition] = true;
+                    SetTransitionToggleState(false);
                 }
             }
+        }
+
+        private void SetTransitionToggleState(bool isSelect)
+        {
+            foreach (AnimatorStateTransition transition in help.TransitionsList)
+            {
+                help.TransitionsDic[transition] = isSelect;
+            }
+        }
+
+        private bool GetTransitionState()
+        {
+            foreach (AnimatorStateTransition transition in help.TransitionsList)
+            {
+               if(help.TransitionsDic[transition])
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void TransitionToggle()
