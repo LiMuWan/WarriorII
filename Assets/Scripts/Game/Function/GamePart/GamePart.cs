@@ -1,14 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
     public class GamePart:MonoBehaviour     
     {
-        private LevelGamePartID gamePartId;
-
+        private LevelGamePartID levelGamePartId;
+        
         public void Init(LevelGamePartID id)
         {
-            gamePartId = id;
+            levelGamePartId = id;
         }
 
         private void InitPart()
@@ -19,7 +19,7 @@ namespace Game
             {
                 index++;
                 tempPart = trans.gameObject.AddComponent<Part>();
-                tempPart.Init((LevelPartID)index);
+                tempPart.Init(levelGamePartId, (LevelPartID)index);
             }
         }
     }

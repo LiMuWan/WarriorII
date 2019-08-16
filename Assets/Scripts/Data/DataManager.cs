@@ -56,12 +56,12 @@ namespace Manager
         /// <summary>
         /// 关卡小区域部分的标记，默认是1
         /// </summary>
-        public LevelGamePartID LevelPartIndex
+        public LevelPartID LevelPartIndex
         {
             set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value); }
             get
             {
-                return (LevelGamePartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, (int)LevelGamePartID.ONE);
+                return (LevelPartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, (int)LevelPartID.ONE);
             }
         }
 
@@ -73,7 +73,8 @@ namespace Manager
         public void ResetData()
         {
             LevelIndex = LevelID.ONE;
-            LevelPartIndex = LevelGamePartID.ONE;
+            LevelGamePartIndex = LevelGamePartID.ONE;
+            LevelPartIndex = LevelPartID.ONE;
         }
 
         public string GetSceneName()
