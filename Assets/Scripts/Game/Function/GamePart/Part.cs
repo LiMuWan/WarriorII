@@ -1,7 +1,7 @@
 ﻿using Manager;
 using UnityEngine;
 
-namespace Game
+namespace Game.GamePart
 {
     public class Part:MonoBehaviour     
     {
@@ -12,6 +12,7 @@ namespace Game
         {
             this.levelGamePartID = levelGamePartID;
             this.levelPartId = levelPartId;
+            transform.Find(Const.ConstValue.LEVEL_PART_WALL);
         }
 
         /// <summary>

@@ -16,6 +16,8 @@ namespace Const
         public const string COMICS_SCENE = "Comics";
         public const string LEVEL_SCENE = "Level";
 
+        public const string LEVEL_PART_WALL = "Wall";
+
         //ani para name
         /// <summary>
         /// 玩家动画参数
