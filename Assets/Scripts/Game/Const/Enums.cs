@@ -38,12 +38,24 @@ namespace Game
     }
 
     /// <summary>
-    /// 关卡部分ID
+    /// 关卡大区域ID
+    /// </summary>
+    public enum LevelGamePartID
+    {
+        ONE = 1,
+        TWO = 2,
+        THREE = 3,
+        FOUR = 4,
+        FIVE = 5
+    }
+
+    /// <summary>
+    /// 关卡小区域ID
     /// </summary>
     public enum LevelPartID
     {
         ONE = 1,
-        TWO
+        TWO = 2,
     }
 
     /// <summary>

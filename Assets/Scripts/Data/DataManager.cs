@@ -42,14 +42,26 @@ namespace Manager
 
 
         /// <summary>
-        /// 关卡的第几部分的标记，默认是1
+        /// 关卡大区域部分的标记，默认是1
         /// </summary>
-        public LevelPartID LevelPartIndex
+        public LevelGamePartID LevelGamePartIndex
+        {
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_GAME_PART_INDEX, (int)value); }
+            get
+            {
+                return (LevelGamePartID)PlayerPrefs.GetInt(ConstValue.LEVEL_GAME_PART_INDEX, (int)LevelGamePartID.ONE);
+            }
+        }
+
+        /// <summary>
+        /// 关卡小区域部分的标记，默认是1
+        /// </summary>
+        public LevelGamePartID LevelPartIndex
         {
             set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value); }
             get
             {
-                return (LevelPartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, (int)LevelPartID.ONE);
+                return (LevelGamePartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, (int)LevelGamePartID.ONE);
             }
         }
 
@@ -61,7 +73,7 @@ namespace Manager
         public void ResetData()
         {
             LevelIndex = LevelID.ONE;
-            LevelPartIndex = LevelPartID.ONE;
+            LevelPartIndex = LevelGamePartID.ONE;
         }
 
         public string GetSceneName()

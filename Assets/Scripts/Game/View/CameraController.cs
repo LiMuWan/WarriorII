@@ -65,7 +65,7 @@ namespace Game
             if (cameraMove == null) return;
 
             Transform parent = null;
-            if (DataManager.Single.LevelPartIndex == LevelPartID.ONE)
+            if (DataManager.Single.LevelPartIndex == LevelGamePartID.ONE)
             {
                 parent = GetCameraParent(CameraParent.START);
             }
