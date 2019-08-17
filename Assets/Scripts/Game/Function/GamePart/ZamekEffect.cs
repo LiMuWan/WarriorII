@@ -7,24 +7,22 @@ namespace Game.GamePart
     {
         private Vector3 defaultScale;
         private float duration;
-        private float punchDuration;
 
         public void Init()
         {
             defaultScale = transform.localScale;
-            duration = 0.7f;
-            punchDuration = 0.3f;
+            duration = 1.5f;
         }
 
         public void OpenZamekState(bool isOpen)
         {
             if(isOpen)
             {
-                ShowZamek();
+                HideZamek();
             }
             else
             {
-                HideZamek();
+                ShowZamek();
             }
         }
 
@@ -33,8 +31,7 @@ namespace Game.GamePart
             transform.DOKill();
             transform.localScale = Vector3.zero;
             
-            transform.DOScale(defaultScale,duration);
-            transform.DOPunchScale(Vector3.one, punchDuration);
+            transform.DOScale(defaultScale,duration).SetEase(Ease.InElastic);
         }
 
         private void HideZamek()
@@ -43,7 +40,6 @@ namespace Game.GamePart
             transform.localScale = defaultScale;
 
             transform.DOScale(Vector3.zero, duration);
-            transform.DOPunchScale(Vector3.one, punchDuration);
         }
     }
 }
