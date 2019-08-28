@@ -9,9 +9,10 @@ namespace Game.GamePart
         public void Init(LevelGamePartID id)
         {
             levelGamePartId = id;
+            InitPart();
         }
 
-        private void InitPart()
+        public void InitPart()
         {
             Part tempPart = null;
             int index = 0;
