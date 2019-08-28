@@ -20,12 +20,17 @@ namespace Game
         /// 相机抖动动画
         /// </summary>
         SHAKE,
+        /// <summary>
+        /// 跟随玩家
+        /// </summary>
+        FOLLOW_PLAYER
     }
 
     public enum CameraParent
     {
         START,
-        IN_GAME
+        IN_GAME,
+        FOLLOW_PLAYER
     }
 
     /// <summary>
