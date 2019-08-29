@@ -53,6 +53,7 @@ namespace Game.Service
         {
             var player = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH, parentManager.GetParentTrans(ParentName.PlayerRoot));
 
+            player.AddComponent<IgnoreForce>();
             IView playerView = player.AddComponent<PlayerView>();
             IPlayerBehaviour playerBehaviour = new PlayerBehaviour(player.transform, ModelManager.Single.PlayerData);
             IPlayerAni playerAni = null;
