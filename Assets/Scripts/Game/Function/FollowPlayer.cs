@@ -17,7 +17,7 @@ namespace Game
         private void Start()
         {
            defaultEul = transform.eulerAngles;
-           rotateValue = 2;
+           rotateValue = 1;
            rotateDuration = 0.8f;
            isMoving = false;
            lastPos = transform.position;

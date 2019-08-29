@@ -1,4 +1,5 @@
-﻿using Game.Interface;
+﻿using DG.Tweening;
+using Game.Interface;
 using UnityEngine;
 
 namespace Game
@@ -73,7 +74,15 @@ namespace Game
 
         private void PlayerOrientation(Vector3 direction)
         {
-            playerTrans.eulerAngles = direction;
+            float rotateYValue = Mathf.Abs((playerTrans.eulerAngles - direction).y);
+            if (rotateYValue == 90)
+            {
+                playerTrans.DORotate(direction, 0.3f);
+            }
+            else
+            {
+                playerTrans.eulerAngles = direction;
+            }
         }
 
         public void Idle()
