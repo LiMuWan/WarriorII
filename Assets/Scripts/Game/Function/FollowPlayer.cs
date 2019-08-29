@@ -12,11 +12,13 @@ namespace Game
         private bool isMoving;
         private float rotateValue;
         private Vector3 defaultEul;
+        private float rotateDuration;
 
         private void Start()
         {
            defaultEul = transform.eulerAngles;
-           rotateValue = 5;
+           rotateValue = 2;
+           rotateDuration = 0.8f;
            isMoving = false;
            lastPos = transform.position;
            player = GameObject.FindGameObjectWithTag(Const.TagAndLayer.PLAYER).transform;
@@ -26,19 +28,19 @@ namespace Game
 
         private void Update()
         {
-            if(transform.position == lastPos && isMoving)
+            if(Vector3.Distance(transform.position,lastPos) < 0.01f && isMoving)
             {
                 //移动结束
                 isMoving = false;
-                transform.DORotate(defaultEul, 0.5f);
+                transform.DORotate(defaultEul, rotateDuration);
             }
-            else if(transform.position != lastPos && !isMoving)
+            else if(Vector3.Distance(transform.position, lastPos) >= 0.01f && !isMoving)
             {
                 //移动开始
                 isMoving = true;
                 int directionX = GetXDirection();
                 int directionZ = GetZDirection();
-                transform.DORotate(defaultEul + new Vector3(rotateValue * directionZ, 0 , rotateValue * directionX), 0.5f);
+                transform.DORotate(defaultEul + new Vector3(rotateValue * directionZ, 0 , rotateValue * directionX), rotateDuration);
             }
             else
             {
@@ -52,7 +54,7 @@ namespace Game
         {
             if (transform.position.x == lastPos.x)
                 return 0;
-            return transform.position.x > lastPos.x ? 1 : -1;
+            return transform.position.x > lastPos.x ? -1 : 1;
         }
 
         private int GetZDirection()
