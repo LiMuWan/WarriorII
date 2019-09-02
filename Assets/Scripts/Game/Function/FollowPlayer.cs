@@ -21,7 +21,7 @@ namespace Game
            rotateDuration = 0.8f;
            isMoving = false;
            lastPos = transform.position;
-           player = GameObject.FindGameObjectWithTag(Const.TagAndLayer.PLAYER).transform;
+           player = GameObject.FindGameObjectWithTag(Const.TagAndLayer.PLAYER_TAG).transform;
            playerRoot = player.parent;
            offset = transform.position - playerRoot.position;
         }

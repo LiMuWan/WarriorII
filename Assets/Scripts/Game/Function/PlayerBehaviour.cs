@@ -15,6 +15,7 @@ namespace Game
         private Vector3 faceDirection;
         private bool isFaceDirectionChange;
         public bool IsRun { get; set; }
+        public bool IsColliderWall { get; set; }
 
         public PlayerBehaviour(Transform player,PlayerDataModel model)
         {

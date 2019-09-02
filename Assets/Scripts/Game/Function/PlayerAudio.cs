@@ -22,6 +22,8 @@ namespace Game
 
         public bool IsAttack { get; private set; }
 
+        public bool IsColliderWall { get; set; }
+
         private AudioSource audioSource;
 
         public PlayerAudio(AudioSource audioSource)

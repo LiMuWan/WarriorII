@@ -54,6 +54,8 @@ namespace Game.Service
 
         public bool IsAttack { get; private set; }
 
+        public bool IsColliderWall { get; set; }
+
         public void Init(Contexts contexts)
         {
             this.contexts = contexts;

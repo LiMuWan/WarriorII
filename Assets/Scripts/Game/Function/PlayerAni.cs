@@ -13,6 +13,8 @@ namespace Game
 
         public bool IsAttack { get; private set; }
 
+        public bool IsColliderWall { get; set; }
+
         public PlayerAni(Animator animator,ICustomAniEventManager aniEventManager)
         {
             this.ani = animator;
