@@ -130,4 +130,24 @@ namespace Const
         kotoul,
         step,
     }
+
+    public enum EnemyId
+    {
+        /// <summary>
+        /// 弓箭手
+        /// </summary>
+        EnemyBowman,
+        /// <summary>
+        /// 近战小怪
+        /// </summary>
+        EnemyPeasant,
+        /// <summary>
+        /// 近战精英怪
+        /// </summary>
+        EnemySwordsman,
+        /// <summary>
+        /// Boss
+        /// </summary>
+        EnemyMiniBoss
+    }
 }

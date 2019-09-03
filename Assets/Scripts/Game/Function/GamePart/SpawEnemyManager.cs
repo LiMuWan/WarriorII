@@ -52,7 +52,7 @@ namespace Game.GamePart
 
         private int GetSpawNum()
         {
-            return ModelManager.Single.SpawEnemyModel.SpawLimitNum - activeEnemies.Count;
+            return ModelManager.Single.EnemyModel.SpawLimitNum - activeEnemies.Count;
         }
     }
 }

@@ -12,7 +12,17 @@ namespace Game.Service
     /// </summary>
     public interface ILoadService:ILoad,IInitService
     {
+        /// <summary>
+        /// 加载玩家预制
+        /// </summary>
         void LoadPlayer();
+
+        /// <summary>
+        /// 加载敌人预制
+        /// </summary>
+        /// <param name="enemyName"></param>
+        /// <param name="parent"></param>
+        void LoadEnmey(string enemyName, Transform parent);
     }
 
     public class LoadService : ILoadService
@@ -86,6 +96,11 @@ namespace Game.Service
             GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
             var manager = trail.AddComponent<TrailComboManager>();
             manager.Init(Contexts.sharedInstance, entity,animator);
+        }
+
+        public void LoadEnmey(string enemyName,Transform parent)
+        {
+            var enemy = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH + enemyName, parentManager.GetParentTrans(ParentName.PlayerRoot));
         }
     }
 }

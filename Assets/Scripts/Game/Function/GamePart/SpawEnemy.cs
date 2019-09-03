@@ -14,7 +14,7 @@ namespace Game
 
         public void Spaw()
         {
-
+            Contexts.sharedInstance.service.gameServiceLoadService.LoadService.LoadEnmey();
         }
     }
 }

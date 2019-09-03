@@ -16,5 +16,7 @@ namespace Game
         /// 刀光预制路径
         /// </summary>
         public const string TRAILCOMBO_PATH = PREFAB_PATH + "trails_combo01";
+
+        public const string ENEMY_PATH = "Enemies/";
     }
 }
