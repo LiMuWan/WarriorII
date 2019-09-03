@@ -5,26 +5,25 @@ namespace Game.GamePart
 {
     public class Part:MonoBehaviour     
     {
-        private LevelGamePartID levelGamePartID;
-        private LevelPartID levelPartId;
-
         public void Init(LevelGamePartID levelGamePartID,LevelPartID levelPartId)
         {
-            this.levelGamePartID = levelGamePartID;
-            this.levelPartId = levelPartId;
             Transform wall = transform.Find(Const.ConstValue.LEVEL_PART_WALL);
+
             ZamekEffect[] zamekEffects = InitZamek(wall);
-            bool isOpen = JudgeOpenState();
-            SetOpenState(true,zamekEffects);
+            bool isOpen = JudgeOpenState(levelGamePartID, levelPartId);
+            SetOpenState(isOpen, zamekEffects);
+
             WallCollider[] wallColliders = InitWallCollider(wall);
-            SetWallState(true, wallColliders);
+            SetWallState(isOpen, wallColliders);
+
+            InitStartPartTrigger();
         }
 
         /// <summary>
         /// 判断该关卡是否处于开放状态
         /// </summary>
         /// <returns></returns>
-        public bool JudgeOpenState()
+        public bool JudgeOpenState(LevelGamePartID levelGamePartID, LevelPartID levelPartId)
         {
             return levelGamePartID <= DataManager.Single.LevelGamePartIndex
                 && levelPartId <= DataManager.Single.LevelPartIndex;
@@ -70,6 +69,11 @@ namespace Game.GamePart
             {
                 wall.SetWallState(isOpen);
             }
+        }
+
+        private void InitStartPartTrigger()
+        {
+            gameObject.AddComponent<StartPartTrigger>();
         }
     }
 }
