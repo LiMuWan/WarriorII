@@ -71,7 +71,7 @@ namespace Game.GamePart
 
         private void InitStartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId)
         {
-            StartPartTrigger trigger = gameObject.AddComponent<StartPartTrigger>();
+            StartPartTrigger trigger = transform.parent.gameObject.AddComponent<StartPartTrigger>();
             trigger.Init(() => { StartPartTrigger(wallColliders, zamekEffects, levelGamePartID, levelPartId); });
         }
 

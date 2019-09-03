@@ -19,10 +19,16 @@ namespace Manager
         /// </summary>
         public HumanSkillDataModel HumanSkillDataModel { get; private set; }
 
+        /// <summary>
+        /// 敌人生成配置类
+        /// </summary>
+        public SpawEnemyModel SpawEnemyModel { get; private set; }
+
         public void Init()        
         {
             PlayerData = ConfigManager.Single.LoadJson<PlayerDataModel>(Const.ConfigPath.PLAYER_CONFIG);
             HumanSkillDataModel = ConfigManager.Single.LoadJson<HumanSkillDataModel>(Const.ConfigPath.HUMAN_SKILL_CONFIG);
+            SpawEnemyModel = ConfigManager.Single.LoadJson<SpawEnemyModel>(Const.ConfigPath.SPAW_ENEMY_CONFIG);
         }
     }
 }
