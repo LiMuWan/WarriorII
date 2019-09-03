@@ -16,6 +16,7 @@ namespace Game.GamePart
             inactiveEnemies = new HashSet<SpawEnemy>();
 
             InitEnemy();
+            Spaw();
         }
 
         private void InitEnemy()
@@ -24,14 +25,29 @@ namespace Game.GamePart
             foreach (Transform trans in transform)
             {
                 enemyTemp = trans.GetOrAddComponent<SpawEnemy>();
-                enemyTemp.Init();
+                enemyTemp.Init(RemoveEnemyCallBack);
                 inactiveEnemies.Add(enemyTemp);
             }
         }
 
+        private void RemoveEnemyCallBack(SpawEnemy enemy)
+        {
+            activeEnemies.Remove(enemy);
+            Spaw();
+        }
+
         private void Spaw()
         {
+            int count = GetSpawNum();
+            SpawEnemy enemyTemp = null;
 
+            for (int i = 0; i < count; i++)
+            {
+                enemyTemp = inactiveEnemies.GetEnumerator().Current;
+                activeEnemies.Add(enemyTemp);
+                inactiveEnemies.Remove(enemyTemp);
+                enemyTemp.Spaw();
+            }
         }
 
         private int GetSpawNum()
