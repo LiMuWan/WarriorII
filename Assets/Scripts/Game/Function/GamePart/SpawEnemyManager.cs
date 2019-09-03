@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
+using Util;
 
 namespace Game.GamePart
 {
     public class SpawEnemyManager:MonoBehaviour     
     {
-        private  void Start()         
+        public  void Init()         
         {
+            SpawEnemy enemyTemp = null;
+            foreach (Transform trans in transform)
+            {
+               enemyTemp = trans.GetOrAddComponent<SpawEnemy>();
+               enemyTemp.Init();
+            }
         }
     }
 }
