@@ -2,7 +2,7 @@ using System;
 using Const;
 using UnityEngine;
 
-namespace Game
+namespace Game.GamePart
 {
     public class StartPartTrigger:MonoBehaviour     
     {

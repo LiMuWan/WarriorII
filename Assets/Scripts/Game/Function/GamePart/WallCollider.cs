@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.GamePart
 {
     public class WallCollider:MonoBehaviour     
     {

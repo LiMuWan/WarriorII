@@ -17,6 +17,7 @@ namespace Const
         public const string LEVEL_SCENE = "Level";
 
         public const string LEVEL_PART_WALL = "Wall";
+        public const string LEVEL_PART_SPAW_POINT = "SpawnPoint";
 
         //ani para name
         /// <summary>
