@@ -11,13 +11,13 @@ namespace Game
     {
         private Transform playerTrans;
         private PlayerDataModel model;
-        public bool IsAttack { get; private set;}
+        public bool IsAttack { get; private set; }
         private Vector3 faceDirection;
         private bool isFaceDirectionChange;
         public bool IsRun { get; set; }
         public bool IsColliderWall { get; set; }
 
-        public PlayerBehaviour(Transform player,PlayerDataModel model)
+        public PlayerBehaviour(Transform player, PlayerDataModel model)
         {
             playerTrans = player;
             this.model = model;
@@ -30,32 +30,28 @@ namespace Game
         {
             if (IsAttack)
                 return;
-            faceDirection = Vector3.zero;
-            isFaceDirectionChange = true;
+            SetDirectionData(Vector3.zero);
         }
 
         public void TurnBack()
         {
             if (IsAttack)
                 return;
-            faceDirection = Vector3.up * 180;
-            isFaceDirectionChange = true;
+            SetDirectionData(Vector3.up * 180);
         }
 
         public void TurnLeft()
         {
             if (IsAttack)
                 return;
-            faceDirection = Vector3.up * (-90);
-            isFaceDirectionChange = true;
+            SetDirectionData(Vector3.up * (-90));
         }
 
         public void TurnRight()
         {
             if (IsAttack)
                 return;
-            faceDirection = Vector3.up * 90;
-            isFaceDirectionChange = true;
+            SetDirectionData(Vector3.up * 90);
         }
 
         public void Attack(int skillCode)
@@ -63,14 +59,42 @@ namespace Game
             IsAttack = true;
         }
 
+        private void SetDirectionData(Vector3 direction)
+        {
+            if(faceDirection != direction)
+            {
+                faceDirection = direction;
+                isFaceDirectionChange = true;
+            }
+        }
+
         public void Move()
+        {
+            if(isFaceDirectionChange)
+            {
+                IsColliderWall = false;
+            }
+
+            RotateFace();
+
+            PlayerMove();
+        }
+
+        private void PlayerMove()
+        {
+            if (IsColliderWall)
+                return;
+
+            playerTrans.Translate(Time.deltaTime * model.Speed * Vector3.forward, Space.Self);
+        }
+
+        private void RotateFace()
         {
             if (isFaceDirectionChange)
             {
                 isFaceDirectionChange = false;
                 PlayerOrientation(faceDirection);
             }
-            playerTrans.Translate(Time.deltaTime * model.Speed * Vector3.forward, Space.Self);
         }
 
         private void PlayerOrientation(Vector3 direction)
