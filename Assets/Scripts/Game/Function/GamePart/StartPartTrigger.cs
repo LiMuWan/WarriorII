@@ -15,9 +15,10 @@ namespace Game
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag(TagAndLayer.PLAYER_TAG))
+            if(other.CompareTag(TagAndLayer.PLAYER_TAG) && startCallBack != null)
             {
-                startCallBack?.Invoke();
+                startCallBack.Invoke();
+                startCallBack = null;
             }
         }
     }

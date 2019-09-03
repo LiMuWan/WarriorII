@@ -16,7 +16,7 @@ namespace Game.GamePart
             WallCollider[] wallColliders = InitWallCollider(wall);
             SetWallState(isOpen, wallColliders);
 
-            InitStartPartTrigger();
+            InitStartPartTrigger(wallColliders,zamekEffects,levelGamePartID,levelPartId);
         }
 
         /// <summary>
@@ -71,9 +71,18 @@ namespace Game.GamePart
             }
         }
 
-        private void InitStartPartTrigger()
+        private void InitStartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId)
         {
-            gameObject.AddComponent<StartPartTrigger>();
+            StartPartTrigger trigger = gameObject.AddComponent<StartPartTrigger>();
+            trigger.Init(() => { StartPartTrigger(wallColliders, zamekEffects, levelGamePartID, levelPartId); });
+        }
+
+        private void StartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId)
+        {
+            SetOpenState(false, zamekEffects);
+            SetWallState(false, wallColliders);
+            DataManager.Single.LevelGamePartIndex = levelGamePartID;
+            DataManager.Single.LevelPartIndex = levelPartId;
         }
     }
 }
