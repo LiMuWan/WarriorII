@@ -9,8 +9,8 @@ namespace Game
     /// </summary>
     public class PlayerBehaviour : IPlayerBehaviour
     {
-        private Transform playerTrans;
-        private PlayerDataModel model;
+        private readonly Transform playerTrans;
+        private readonly PlayerDataModel model;
         public bool IsAttack { get; private set; }
         private Vector3 faceDirection;
         private bool isFaceDirectionChange;

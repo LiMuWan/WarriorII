@@ -13,7 +13,7 @@ namespace Game
 
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
+            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
         }
 
         protected override void Execute(List<GameEntity> entities)
@@ -33,7 +33,7 @@ namespace Game
 
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
+            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.WALK;
         }
 
         protected override void Execute(List<GameEntity> entities)
@@ -52,7 +52,7 @@ namespace Game
 
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.ENTER;
+            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.ATTACK;
         }
 
         protected override void Execute(List<GameEntity> entities)

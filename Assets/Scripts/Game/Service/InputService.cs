@@ -70,32 +70,32 @@ namespace Game.Service
             TurnBack();
             TurnLeft();
             TurnRight();
-            Attack(0);
             Idle();
+            Attack(0);
         }
          
         public void TurnForward()
         {
-            InputDown(KeyCode.W, InputButton.FORWARD);
-            InputPress(KeyCode.W, InputButton.FORWARD);
+            if(!InputDown(KeyCode.W, InputButton.FORWARD))
+                InputPress(KeyCode.W, InputButton.FORWARD);
         }
 
         public void TurnBack()
         {
-            InputDown(KeyCode.S, InputButton.BACK);
-            InputPress(KeyCode.S, InputButton.BACK);
+            if(!InputDown(KeyCode.S, InputButton.BACK))
+                InputPress(KeyCode.S, InputButton.BACK);
         }
 
         public void TurnLeft()
         {
-            InputDown(KeyCode.A, InputButton.LEFT);
-            InputPress(KeyCode.A, InputButton.LEFT);
+           if(!InputDown(KeyCode.A, InputButton.LEFT))
+                InputPress(KeyCode.A, InputButton.LEFT);
         }
 
         public void TurnRight()
         {
-            InputDown(KeyCode.D, InputButton.RIGHT);
-            InputPress(KeyCode.D, InputButton.RIGHT);
+            if(!InputDown(KeyCode.D, InputButton.RIGHT))
+                InputPress(KeyCode.D, InputButton.RIGHT);
         }
 
         public void Attack(int skillCode)
@@ -105,7 +105,7 @@ namespace Game.Service
         }
 
         public void Idle()
-        { 
+        {
             //这四个键都没有松 ，并且是持续按下的时候
             if(!isPress && inputButtonComponent.InputButton != InputButton.NONE && inputButtonComponent.InputState !=
                 InputState.NONE)
@@ -114,28 +114,43 @@ namespace Game.Service
             }
         }
 
-        public void InputDown(KeyCode code, InputButton button)
+        public bool InputDown(KeyCode code, InputButton button)
         {
             if (UnityEngine.Input.GetKeyDown(code))
             {
                 Input(button, InputState.DOWN);
                 isPress = true;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-        public void InputUp(KeyCode code, InputButton button)
+        public bool InputUp(KeyCode code, InputButton button)
         {
             if (UnityEngine.Input.GetKeyUp(code))
             {
                 Input(button, InputState.UP);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public void InputPress(KeyCode code,InputButton button)
+        public bool InputPress(KeyCode code,InputButton button)
         {
             if (UnityEngine.Input.GetKey(code))
             {
                 Input(button, InputState.PRESS);
                 isPress = true;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

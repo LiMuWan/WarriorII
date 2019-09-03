@@ -13,7 +13,7 @@ namespace Game
 
         protected override bool StateCondition(GameEntity entity)
         {
-            return entity.gameHumanBehaviourState.BehaviourState == Const.BehaviourState.UPDATE;
+            return entity.gameHumanBehaviourState.PlayerBehaviourIndex == Const.PlayerBehaviourIndex.IDLE;
         }
 
         protected override void Execute(List<GameEntity> entities)

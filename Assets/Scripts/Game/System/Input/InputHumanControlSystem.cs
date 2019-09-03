@@ -18,7 +18,7 @@ namespace Game
         }
 
         protected override void Execute(List<InputEntity> entities)
-        {
+        { 
             if (contexts.game.hasGamePlayer)
             {
                 contexts.game.gamePlayer.PlayerAni.Idle();
@@ -26,8 +26,8 @@ namespace Game
                 contexts.game.gamePlayer.PlayerAni.IsRun = false;
                 contexts.game.gamePlayer.PlayerAudio.IsRun = false;
             }
+
             contexts.service.gameServiceTimerService.TimerService.GetTimer(TimerId.MOVE_TIMER)?.Stop(true);
-            
         }
     }
 

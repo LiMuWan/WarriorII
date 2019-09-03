@@ -20,6 +20,7 @@ namespace Game
             this.ani = animator;
             AniEventManager = aniEventManager;
         }
+
         public void Play(int aniIndex)
         {
             ani.SetInteger(ConstValue.PLAYER_PARA_NAME,aniIndex);
