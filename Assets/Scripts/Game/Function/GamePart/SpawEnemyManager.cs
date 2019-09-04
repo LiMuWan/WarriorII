@@ -41,9 +41,12 @@ namespace Game.GamePart
             int count = GetSpawNum();
             SpawEnemy enemyTemp = null;
 
+            HashSet<SpawEnemy>.Enumerator temp = inactiveEnemies.GetEnumerator();
+
             for (int i = 0; i < count; i++)
             {
-                enemyTemp = inactiveEnemies.GetEnumerator().Current;
+                temp.MoveNext();
+                enemyTemp = temp.Current;
                 activeEnemies.Add(enemyTemp);
                 inactiveEnemies.Remove(enemyTemp);
                 enemyTemp.Spaw();
