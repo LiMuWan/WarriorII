@@ -33,7 +33,11 @@ namespace Manager
         /// </summary>
         public LevelID  LevelIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, (int)value); }
+            set
+            {
+                if (value <= 0) return;
+                PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX, (int)value);
+            }
             get
             {
                return (LevelID)PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX,(int)LevelID.ONE);
@@ -46,7 +50,11 @@ namespace Manager
         /// </summary>
         public LevelGamePartID LevelGamePartIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_GAME_PART_INDEX, (int)value); }
+            set
+            {
+                if (value <= 0) return;
+                PlayerPrefs.SetInt(ConstValue.LEVEL_GAME_PART_INDEX, (int)value);
+            }
             get
             {
                 return (LevelGamePartID)PlayerPrefs.GetInt(ConstValue.LEVEL_GAME_PART_INDEX, (int)LevelGamePartID.ONE);
@@ -58,7 +66,11 @@ namespace Manager
         /// </summary>
         public LevelPartID LevelPartIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value); }
+            set
+            {
+                if (value <= 0) return;
+                PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value);
+            }
             get
             {
                 return (LevelPartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, (int)LevelPartID.ONE);

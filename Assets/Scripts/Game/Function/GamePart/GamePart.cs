@@ -1,18 +1,17 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 
 namespace Game.GamePart
 {
     public class GamePart:MonoBehaviour     
     {
-        private LevelGamePartID levelGamePartId;
         
-        public void Init(LevelGamePartID id)
+        public void Init(LevelGamePartID levelGamePartId)
         {
-            levelGamePartId = id;
-            InitPart();
+            InitPart(levelGamePartId);
         }
 
-        public void InitPart()
+        public void InitPart(LevelGamePartID levelGamePartId)
         {
             Part tempPart = null;
             int index = 0;

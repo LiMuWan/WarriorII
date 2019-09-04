@@ -1,11 +1,13 @@
-﻿using Manager;
+﻿using System;
+using Manager;
 using UnityEngine;
 
 namespace Game.GamePart
 {
     public class PartWall:MonoBehaviour     
     {
-        public void Init(LevelGamePartID levelGamePartID, LevelPartID levelPartId)
+
+        public void Init(LevelGamePartID levelGamePartID, LevelPartID levelPartId, Action spawnEnemy)
         {
             ZamekEffect[] zamekEffects = InitZamek(transform);
             bool isOpen = JudgeOpenState(levelGamePartID, levelPartId);
@@ -14,7 +16,7 @@ namespace Game.GamePart
             WallCollider[] wallColliders = InitWallCollider(transform);
             SetWallState(isOpen, wallColliders);
 
-            InitStartPartTrigger(wallColliders, zamekEffects, levelGamePartID, levelPartId);
+            InitStartPartTrigger(wallColliders, zamekEffects, levelGamePartID, levelPartId,spawnEnemy);
         }
 
         /// <summary>
@@ -69,18 +71,20 @@ namespace Game.GamePart
             }
         }
 
-        private void InitStartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId)
+        private void InitStartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId, Action spawnEnemy)
         {
             StartPartTrigger trigger = transform.parent.gameObject.AddComponent<StartPartTrigger>();
-            trigger.Init(() => { StartPartTrigger(wallColliders, zamekEffects, levelGamePartID, levelPartId); });
+            trigger.Init(() => { StartPartTrigger(wallColliders, zamekEffects, levelGamePartID, levelPartId,spawnEnemy); });
         }
 
-        private void StartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId)
+        private void StartPartTrigger(WallCollider[] wallColliders, ZamekEffect[] zamekEffects, LevelGamePartID levelGamePartID, LevelPartID levelPartId, Action spawnEnemy)
         {
             SetOpenState(false, zamekEffects);
             SetWallState(false, wallColliders);
             DataManager.Single.LevelGamePartIndex = levelGamePartID;
             DataManager.Single.LevelPartIndex = levelPartId;
+
+            spawnEnemy?.Invoke();
         }
     }
 }

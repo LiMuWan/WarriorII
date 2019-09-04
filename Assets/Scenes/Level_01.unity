@@ -13943,7 +13943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_Name
-      value: point11
+      value: point_4
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_IsActive
@@ -14173,7 +14173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_Name
-      value: point10
+      value: point_1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_LocalRotation.x
@@ -14236,7 +14236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_Name
-      value: point02
+      value: point_3
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_IsActive
@@ -14299,7 +14299,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_Name
-      value: point01
+      value: point_2
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c7b66ae58d02f45c1845a387100cff49, type: 3}
       propertyPath: m_IsActive

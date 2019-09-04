@@ -10,9 +10,12 @@ namespace Game
     public class SpawEnemy:MonoBehaviour     
     {
         private Action<SpawEnemy> removeCallBack;
+        private int id;
 
-        public void Init(Action<SpawEnemy> removeCallBack)         
+
+        public void Init(int id, Action<SpawEnemy> removeCallBack)         
         {
+            this.id = id;
             this.removeCallBack = removeCallBack;
         }
 
@@ -32,6 +35,12 @@ namespace Game
         private string GetEnemyName(List<PointModel> points)
         {
             var model = points.FirstOrDefault(u => u.PointId == GetPointId());
+            if(model == null)
+            {
+                Debug.LogError("在配置文件中，未找到对应敌方数据");
+                return EnemyId.EnemyPeasant.ToString();
+            }
+
             return ((EnemyId)model.EnemyId).ToString();
         }
 
@@ -40,13 +49,7 @@ namespace Game
             int gamePart = (int)DataManager.Single.LevelGamePartIndex;
             int part = (int)DataManager.Single.LevelPartIndex;
 
-            return gamePart + "_" + part + "_" + GetCurrentPointId();
-        }
-
-        private string GetCurrentPointId()
-        {
-            var data = transform.name.Split('_');
-            return data[1];
+            return gamePart + "_" + part + "_" + id;
         }
     }
 }

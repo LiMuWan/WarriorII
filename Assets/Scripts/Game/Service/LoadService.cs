@@ -100,7 +100,7 @@ namespace Game.Service
 
         public void LoadEnmey(string enemyName,Transform parent)
         {
-            var enemy = LoadManager.Single.LoadAndInstantiate(Path.PLAYER_PATH + enemyName, parentManager.GetParentTrans(ParentName.PlayerRoot));
+            var enemy = LoadManager.Single.LoadAndInstantiate(Path.ENEMY_PATH + enemyName, parent);
         }
     }
 }

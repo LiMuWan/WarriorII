@@ -4,19 +4,19 @@
       "PointList": [
         {
           "PointId": "1_1_1",
-          "EnemyId": 0
+          "EnemyId": 1
         },
         {
           "PointId": "1_1_2",
-          "EnemyId": 0
+          "EnemyId": 2
         },
         {
           "PointId": "1_1_3",
-          "EnemyId": 0
+          "EnemyId": 3
         },
         {
           "PointId": "1_1_4",
-          "EnemyId": 0
+          "EnemyId": 4
         }
       ]
     }

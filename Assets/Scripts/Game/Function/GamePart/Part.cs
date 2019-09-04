@@ -7,9 +7,10 @@ namespace Game.GamePart
     {
         public void Init(LevelGamePartID levelGamePartID, LevelPartID levelPartId)
         {
-            AddScript<PartWall>(Const.ConstValue.LEVEL_PART_WALL)?.Init(levelGamePartID,levelPartId);
+            SpawEnemyManager spawEnemyManager = AddScript<SpawEnemyManager>(Const.ConstValue.LEVEL_PART_SPAW_POINT);
+            spawEnemyManager?.Init();
 
-            AddScript<SpawEnemyManager>(Const.ConstValue.LEVEL_PART_SPAW_POINT)?.Init();
+            AddScript<PartWall>(Const.ConstValue.LEVEL_PART_WALL)?.Init(levelGamePartID,levelPartId,spawEnemyManager.Spaw);  
         }
 
         private T AddScript<T>(string name) where T : MonoBehaviour
