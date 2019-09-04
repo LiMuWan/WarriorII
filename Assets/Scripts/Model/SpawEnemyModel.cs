@@ -4,19 +4,19 @@ using UnityEngine;
 
 namespace Game
 {
-    [Serializable]
+    [SerializeField]
     public class SpawEnemyModel
     {
         public List<LevelModel> Levels;
     }
 
-    [Serializable]
+    [SerializeField]
     public class LevelModel
     {
         public List<PointModel> PointList;
     }
 
-    [Serializable]
+    [SerializeField]
     public class PointModel
     {
         public string PointId;

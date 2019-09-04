@@ -22,6 +22,10 @@ namespace Manager
             {
                 json = File.ReadAllText(path);
             }
+            else
+            {
+                Debug.LogError("无法找到名为：" + path + "的路径");
+            }
             return JsonUtility.FromJson<T>(json);
         }
     }
