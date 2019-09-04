@@ -7,11 +7,17 @@ namespace Game
     [Serializable]
     public class SpawEnemyModel
     {
-        public List<LevelModel> Level_1;
+        public List<LevelModel> Levels;
     }
 
     [Serializable]
     public class LevelModel
+    {
+        public List<PointModel> PointList;
+    }
+
+    [Serializable]
+    public class PointModel
     {
         public string PointId;
         public int EnemyId;

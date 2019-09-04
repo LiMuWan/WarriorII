@@ -1,21 +1,25 @@
 {
   //¹Ø¿¨-GamePartId-PartId-SpawnPointId
-  "Level_1": [
+  "Levels": [
     {
-      "PointId": "1-1-1",
-      "EnemyId": 0
-    },
-    {
-      "PointId": "1-1-2",
-      "EnemyId": 0
-    },
-    {
-      "PointId": "1-1-3",
-      "EnemyId": 0
-    },
-    {
-      "PointId": "1-1-4",
-      "EnemyId": 0
+      "PointList": [
+        {
+          "PointId": "1_1_1",
+          "EnemyId": 0
+        },
+        {
+          "PointId": "1_1_2",
+          "EnemyId": 0
+        },
+        {
+          "PointId": "1_1_3",
+          "EnemyId": 0
+        },
+        {
+          "PointId": "1_1_4",
+          "EnemyId": 0
+        }
+      ]
     }
   ]
 }
