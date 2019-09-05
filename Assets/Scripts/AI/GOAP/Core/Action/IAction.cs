@@ -13,7 +13,7 @@ namespace GOAP
         /// <summary>
         /// 是否满足先决条件
         /// </summary>
-        bool VerifyPreconditons { get; }
+        bool VerifyPreconditons();
     }
 
     public abstract class ActionBase<TAction>:IAction<TAction>
@@ -30,7 +30,20 @@ namespace GOAP
 
         public IState Effects { get; private set; }
 
-        public bool VerifyPreconditons { get; private set; }
+        private IAgent agent;
+
+        public ActionBase(IAgent agent)
+        {
+            Preconditions = 
+        }
+
+        protected abstract IState InitPreconditions();
+        protected abstract IState InitEffects();
+
+        public bool VerifyPreconditons()
+        {
+            return agent.AgentState.ContainState(Preconditions);
+        }
     }
 
     
