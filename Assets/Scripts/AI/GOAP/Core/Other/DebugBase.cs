@@ -1,4 +1,3 @@
-using UnityEngine;
 
 namespace GOAP
 {
@@ -11,5 +10,23 @@ namespace GOAP
         public abstract void LogWarning(string msg);
 
         public abstract void LogError(string msg);
+    }
+
+    public class DebugMsg
+    {
+        public static void Log(string msg)
+        {
+            DebugBase.Instance.Log(msg);
+        }
+
+        public static void LogWarning(string msg)
+        {
+            DebugBase.Instance.LogWarning(msg);
+        }
+
+        public static void LogError(string msg)
+        {
+            DebugBase.Instance.LogError(msg);
+        }
     }
 }

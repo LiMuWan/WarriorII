@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GOAP
 {
     public interface IState     
     {
-        void SetState(string key, bool value);
+        void Set(string key, bool value);
 
-        bool GetValue(string key);
+        void Set(IState otherState);
+
+        bool Get(string key);
+
+        ICollection<string> GetKeys();
 
         void AddStateChangeListener(Action onChange);
     }
@@ -24,7 +27,7 @@ namespace GOAP
             dataTable = new Dictionary<string, bool>();
         }
 
-        public void SetState(string key, bool value)
+        public void Set(string key, bool value)
         {
             if(dataTable.ContainsKey(key) && dataTable[key] != value)
             {
@@ -36,11 +39,20 @@ namespace GOAP
             }
         }
 
-        public bool GetValue(string key)
+        public void Set(IState otherState)
+        {
+            foreach (string key in otherState.GetKeys())
+            {
+                Set(key, Get(key));
+            }
+        }
+
+        public bool Get(string key)
         {
             if(!dataTable.ContainsKey(key))
             {
                 //报错
+                DebugMsg.LogError("当前状态不包含此键值:" + key);
                 return false;
             }
             else
@@ -49,15 +61,21 @@ namespace GOAP
             }
         }
 
+        public ICollection<string> GetKeys()
+        {
+            return dataTable.Keys;
+        }
+
         public void ChangeValue(string key, bool value)
         {
             dataTable[key] = value;
             onChange?.Invoke();
-        }
+        }  
 
         public void AddStateChangeListener(Action onChange)
         {
             this.onChange = onChange;
         }
+
     }
 }
