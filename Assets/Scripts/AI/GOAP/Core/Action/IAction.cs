@@ -4,7 +4,7 @@ namespace GOAP
 {
     public interface IAction<TAction>
     {
-        TAction Lable { get; }
+        TAction Label { get; }
         int Cost { get; }
         int Priority { get; }
         bool CanInterruptiblePlan { get; }
@@ -18,7 +18,7 @@ namespace GOAP
 
     public abstract class ActionBase<TAction>:IAction<TAction>
     {
-        public abstract TAction Lable { get; }
+        public abstract TAction Label { get; }
 
         public int Cost { get; }
 
