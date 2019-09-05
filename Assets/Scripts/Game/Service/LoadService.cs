@@ -101,6 +101,7 @@ namespace Game.Service
         public void LoadEnmey(string enemyName,Transform parent)
         {
             var enemy = LoadManager.Single.LoadAndInstantiate(Path.ENEMY_PATH + enemyName, parent);
+            enemy.transform.localPosition = Vector3.zero;
         }
     }
 }
