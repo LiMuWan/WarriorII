@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace GOAP
 {
@@ -12,6 +13,12 @@ namespace GOAP
         bool Get(string key);
 
         ICollection<string> GetKeys();
+
+        bool ContainsKey(string key);
+
+        bool ConstainState(IState otherState);
+
+        void Clear();
 
         void AddStateChangeListener(Action onChange);
     }
@@ -66,16 +73,53 @@ namespace GOAP
             return dataTable.Keys;
         }
 
+        public bool ContainsKey(string key)
+        {
+            return dataTable.ContainsKey(key);
+        }
+
+        public bool ConstainState(IState otherState)
+        {
+            foreach (string key in otherState.GetKeys())
+            {
+                if(!ContainsKey(key) || dataTable[key] != otherState.Get(key))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void Clear()
+        {
+            dataTable.Clear();
+        }
+
         public void ChangeValue(string key, bool value)
         {
             dataTable[key] = value;
             onChange?.Invoke();
-        }  
+        }
 
         public void AddStateChangeListener(Action onChange)
         {
             this.onChange = onChange;
         }
 
+        public override string ToString()
+        {
+            StringBuilder temp = new StringBuilder();
+            foreach (KeyValuePair<string,bool> pair in dataTable)
+            {
+                temp.Append("key :");
+                temp.Append(pair.Key);
+                temp.Append("    Value:");
+                temp.Append(pair.Value);
+                temp.Append("\r\n");
+            }
+
+            return temp.ToString();
+        }
     }
 }
