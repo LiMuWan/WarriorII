@@ -16,7 +16,7 @@ namespace GOAP
 
         bool ContainsKey(string key);
 
-        bool ConstainState(IState otherState);
+        bool ContainState(IState otherState);
 
         void Clear();
 
@@ -78,7 +78,7 @@ namespace GOAP
             return dataTable.ContainsKey(key);
         }
 
-        public bool ConstainState(IState otherState)
+        public bool ContainState(IState otherState)
         {
             foreach (string key in otherState.GetKeys())
             {
@@ -121,5 +121,26 @@ namespace GOAP
 
             return temp.ToString();
         }
+    }
+
+    public class State<TKey> : State
+    {
+        public State() : base() { }
+
+        public void Set(TKey key,bool value)
+        {
+            base.Set(key.ToString(),value);
+        }
+
+        public bool Get(TKey key)
+        {
+            return base.Get(key.ToString());
+        }
+        
+        public bool ContainsKey(TKey key)
+        {
+            return base.ContainsKey(key.ToString());
+        }
+
     }
 }
