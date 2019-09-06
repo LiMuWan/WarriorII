@@ -1,4 +1,4 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 namespace GOAP
 {
@@ -11,7 +11,7 @@ namespace GOAP
         IState Preconditions { get; }
         IState Effects { get; }
         /// <summary>
-        /// 是否满足先决条件
+        /// 鏄惁婊¤冻鍏堝喅鏉′欢
         /// </summary>
         bool VerifyPreconditons();
     }

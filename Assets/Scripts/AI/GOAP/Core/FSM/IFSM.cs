@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+锘縰sing System.Collections.Generic;
 using UnityEngine;
 
 namespace GOAP
@@ -44,7 +44,7 @@ namespace GOAP
         {
             if(!_stateDic.ContainsKey(newState))
             {
-                DebugMsg.LogError("状态机内不包含此状态对象：" + newState);
+                DebugMsg.LogError("鐘舵�佹満鍐呬笉鍖呭惈姝ょ姸鎬佸璞★細" + newState);
                 return;
             }
 

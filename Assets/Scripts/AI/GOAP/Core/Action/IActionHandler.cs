@@ -1,4 +1,4 @@
-using System;
+锘縰sing System;
 using UnityEngine;
 
 namespace GOAP
@@ -25,7 +25,7 @@ namespace GOAP
         public ActionHandlerBase(IAgent agent,IAction<TAction> action)
         {
             if (action == null)
-                DebugMsg.LogError("动作不能为空");
+                DebugMsg.LogError("鍔ㄤ綔涓嶈兘涓虹┖");
             Action = action;
             IsComplete = false;
             CanPerformAction = false;

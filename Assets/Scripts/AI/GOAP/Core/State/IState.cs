@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -60,8 +60,8 @@ namespace GOAP
         {
             if(!_dataTable.ContainsKey(key))
             {
-                //±¨´í
-                DebugMsg.LogError("µ±Ç°×´Ì¬²»°üº¬´Ë¼üÖµ:" + key);
+                //æŠ¥é”™
+                DebugMsg.LogError("å½“å‰çŠ¶æ€ä¸åŒ…å«æ­¤é”®å€¼:" + key);
                 return false;
             }
             else
