@@ -43,6 +43,7 @@ namespace GOAP
             _onFinishAction?.Invoke();
 
             SetAgentState(Action.Effects);
+            SetAgentState(Action.Preconditions.InversionValue());
         }
 
         private void SetAgentState(IState state)

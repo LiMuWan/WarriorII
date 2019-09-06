@@ -21,26 +21,28 @@ namespace GOAP
         void Clear();
 
         void AddStateChangeListener(Action onChange);
+
+        IState InversionValue();
     }
 
     public class State:IState
     {
-        private Dictionary<string, bool> dataTable;
+        private Dictionary<string, bool> _dataTable;
 
         private Action _onChange;
 
         public State()
         {
-            dataTable = new Dictionary<string, bool>();
+            _dataTable = new Dictionary<string, bool>();
         }
 
         public void Set(string key, bool value)
         {
-            if(dataTable.ContainsKey(key) && dataTable[key] != value)
+            if(_dataTable.ContainsKey(key) && _dataTable[key] != value)
             {
                 ChangeValue(key, value);
             }
-            else if(!dataTable.ContainsKey(key))
+            else if(!_dataTable.ContainsKey(key))
             {
                 ChangeValue(key, value);
             }
@@ -56,7 +58,7 @@ namespace GOAP
 
         public bool Get(string key)
         {
-            if(!dataTable.ContainsKey(key))
+            if(!_dataTable.ContainsKey(key))
             {
                 //报错
                 DebugMsg.LogError("当前状态不包含此键值:" + key);
@@ -64,25 +66,25 @@ namespace GOAP
             }
             else
             {
-                return dataTable[key];
+                return _dataTable[key];
             }
         }
 
         public ICollection<string> GetKeys()
         {
-            return dataTable.Keys;
+            return _dataTable.Keys;
         }
 
         public bool ContainsKey(string key)
         {
-            return dataTable.ContainsKey(key);
+            return _dataTable.ContainsKey(key);
         }
 
         public bool ContainState(IState otherState)
         {
             foreach (string key in otherState.GetKeys())
             {
-                if(!ContainsKey(key) || dataTable[key] != otherState.Get(key))
+                if(!ContainsKey(key) || _dataTable[key] != otherState.Get(key))
                 {
                     return false;
                 }
@@ -91,14 +93,24 @@ namespace GOAP
             return true;
         }
 
+        public IState InversionValue()
+        {
+            IState state = new State();
+            foreach (KeyValuePair<string,bool> pair in _dataTable)
+            {
+                state.Set(pair.Key, !pair.Value);
+            }
+            return state;
+        }
+
         public void Clear()
         {
-            dataTable.Clear();
+            _dataTable.Clear();
         }
 
         public void ChangeValue(string key, bool value)
         {
-            dataTable[key] = value;
+            _dataTable[key] = value;
             _onChange?.Invoke();
         }
 
@@ -110,7 +122,7 @@ namespace GOAP
         public override string ToString()
         {
             StringBuilder temp = new StringBuilder();
-            foreach (KeyValuePair<string,bool> pair in dataTable)
+            foreach (KeyValuePair<string,bool> pair in _dataTable)
             {
                 temp.Append("key :");
                 temp.Append(pair.Key);
