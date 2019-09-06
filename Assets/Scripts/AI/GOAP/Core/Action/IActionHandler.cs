@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public interface IActionHandler<TAction>
+    public interface IActionHandler<TAction> : IFSMState<TAction>
     {
         IAction<TAction> Action { get; }
         TAction Label { get; }
@@ -49,6 +49,21 @@ namespace GOAP
         private void SetAgentState(IState state)
         {
             _agent.AgentState.Set(state);
+        }
+
+        public void Enter()
+        {
+            IsComplete = false;
+        }
+
+        public void Excute()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Exit()
+        {
+            throw new NotImplementedException();
         }
     }
 }
