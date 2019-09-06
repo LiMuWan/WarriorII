@@ -30,11 +30,12 @@ namespace GOAP
 
         public IState Effects { get; private set; }
 
-        private IAgent agent;
+        private IAgent _agent;
 
         public ActionBase(IAgent agent)
         {
-            Preconditions = 
+            Preconditions = InitPreconditions();
+            Effects = InitEffects();
         }
 
         protected abstract IState InitPreconditions();
@@ -42,7 +43,7 @@ namespace GOAP
 
         public bool VerifyPreconditons()
         {
-            return agent.AgentState.ContainState(Preconditions);
+            return _agent.AgentState.ContainState(Preconditions);
         }
     }
 

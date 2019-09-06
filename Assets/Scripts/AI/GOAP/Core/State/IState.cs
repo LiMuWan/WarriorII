@@ -27,7 +27,7 @@ namespace GOAP
     {
         private Dictionary<string, bool> dataTable;
 
-        private Action onChange;
+        private Action _onChange;
 
         public State()
         {
@@ -99,12 +99,12 @@ namespace GOAP
         public void ChangeValue(string key, bool value)
         {
             dataTable[key] = value;
-            onChange?.Invoke();
+            _onChange?.Invoke();
         }
 
         public void AddStateChangeListener(Action onChange)
         {
-            this.onChange = onChange;
+            this._onChange = onChange;
         }
 
         public override string ToString()
