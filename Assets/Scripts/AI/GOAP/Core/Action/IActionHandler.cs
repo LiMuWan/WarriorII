@@ -51,17 +51,17 @@ namespace GOAP
             _agent.AgentState.Set(state);
         }
 
-        public void Enter()
+        public virtual void Enter()
         {
             IsComplete = false;
         }
 
-        public void Excute()
+        public virtual void Excute()
         {
             throw new NotImplementedException();
         }
 
-        public void Exit()
+        public virtual void Exit()
         {
             throw new NotImplementedException();
         }
