@@ -2,28 +2,35 @@
 
 namespace GOAP
 {
-    public interface IAgent
+    public interface IAgent<TAction,TGoal>
     {
         
         IState AgentState { get; }
+
+        IMap<TAction,TGoal> Map { get; }
 
         void UpdateData();
 
         void FrameFun();
     }
 
-    public abstract class AgentBase:IAgent
+    public abstract class AgentBase<TAction, TGoal> : IAgent<TAction, TGoal>
     {
         public IState AgentState { get; private set; }
+
+        public IMap<TAction, TGoal> Map { get; private set; }
 
         public AgentBase()
         {
             DebugBase.Instance = InitDebugBase();
             AgentState = new State();
+            Map = InitMap();
             AgentState.AddStateChangeListener(UpdateData);
         }
 
         protected abstract DebugBase InitDebugBase();
+
+        protected abstract IMap<TAction, TGoal> InitMap();
 
         public void UpdateData()
         {

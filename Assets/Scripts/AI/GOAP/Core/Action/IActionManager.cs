@@ -15,20 +15,22 @@ namespace GOAP
         void AddActionCompleteListener(Action complete);
     }
 
-    public abstract class ActionManagerBase<TAction> : IActionManager<TAction>
+    public abstract class ActionManagerBase<TAction,TGoal> : IActionManager<TAction>
     {
         private Dictionary<TAction, IActionHandler<TAction>> _handlerDic;
         private IFSM<TAction> _fsm;
+        private IAgent<TAction, TGoal> _agent;
 
-        public ActionManagerBase()
+        public ActionManagerBase(IAgent<TAction,TGoal> agent)
         {
             _handlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
             _fsm = new FSM<TAction>();
+            _agent = agent;
         }
 
         public void AddHandler(TAction label)
         {
-            //_handlerDic.Add(label,)
+            _handlerDic.Add(label, _agent.Map.GetActionHandler(label));
         }
 
         public void RemoveHandler(TAction label)

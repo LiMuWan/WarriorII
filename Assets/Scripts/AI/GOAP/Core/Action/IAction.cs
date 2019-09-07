@@ -16,7 +16,7 @@ namespace GOAP
         bool VerifyPreconditons();
     }
 
-    public abstract class ActionBase<TAction>:IAction<TAction>
+    public abstract class ActionBase<TAction,TGoal>:IAction<TAction>
     {
         public abstract TAction Label { get; }
 
@@ -30,9 +30,9 @@ namespace GOAP
 
         public IState Effects { get; private set; }
 
-        private IAgent _agent;
+        private IAgent<TAction, TGoal> _agent;
 
-        public ActionBase(IAgent agent)
+        public ActionBase(IAgent<TAction, TGoal> agent)
         {
             Preconditions = InitPreconditions();
             Effects = InitEffects();

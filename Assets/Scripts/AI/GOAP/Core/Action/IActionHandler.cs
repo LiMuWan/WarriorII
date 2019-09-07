@@ -13,16 +13,16 @@ namespace GOAP
         void AddFinishCallBack(Action onFinishAction);
     }
 
-    public abstract class ActionHandlerBase<TAction> : IActionHandler<TAction>
+    public abstract class ActionHandlerBase<TAction,TGoal> : IActionHandler<TAction>
     {
         public  IAction<TAction> Action { get; private set; }
         public TAction Label { get { return Action.Label; } }
         public  bool IsComplete { get; private set; }
         public  bool CanPerformAction { get; private set; }
         private Action _onFinishAction;
-        private IAgent _agent;
+        private IAgent<TAction,TGoal> _agent;
 
-        public ActionHandlerBase(IAgent agent,IAction<TAction> action)
+        public ActionHandlerBase(IAgent<TAction, TGoal> agent,IAction<TAction> action)
         {
             if (action == null)
                 DebugMsg.LogError("动作不能为空");

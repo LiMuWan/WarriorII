@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public interface IMap<TAction>
+    public interface IMap<TAction,TGoal>
     {
         IActionHandler<TAction> GetActionHandler(TAction actionLabel);
     }
 
-    public abstract class MapBase<TAction> : IMap<TAction>
+    public abstract class MapBase<TAction,TGoal> : IMap<TAction, TGoal>
     {
         private Dictionary<TAction, IActionHandler<TAction>> _actionHandlerDic;
 
