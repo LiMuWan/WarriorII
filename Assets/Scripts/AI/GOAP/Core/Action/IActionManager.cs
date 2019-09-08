@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GOAP
 {
@@ -22,16 +23,21 @@ namespace GOAP
         private IFSM<TAction> _fsm;
         private IAgent<TAction, TGoal> _agent;
         private Action _onActionComplete;
+        private List<IActionHandler<TAction>> _InterruptibleHandlers;
 
-        bool IActionManager<TAction>.IsPerformAction { get; set; }
+        public  bool  IsPerformAction { get; set; }
 
         public ActionManagerBase(IAgent<TAction,TGoal> agent)
         {
+            IsPerformAction = false;
+            _onActionComplete = null;
             _handlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
+            _InterruptibleHandlers = new List<IActionHandler<TAction>>();
             _fsm = new FSM<TAction>();
             _agent = agent;
             InitActionHandler();
             InitFSM();
+            InitInterruptibleHandlers();
         }
 
         protected abstract void InitActionHandler();
@@ -42,6 +48,18 @@ namespace GOAP
             {
                 _fsm.AddState(handler.Key, handler.Value);
             }
+        }
+
+        private void InitInterruptibleHandlers()
+        {
+            foreach (KeyValuePair<TAction, IActionHandler<TAction>> handler in _handlerDic)
+            {
+                if(handler.Value.Action.CanInterruptiblePlan)
+                {
+                    _InterruptibleHandlers.Add(handler.Value);
+                }
+            }
+            _InterruptibleHandlers = _InterruptibleHandlers.OrderByDescending(u => u.Action.Priority).ToList();
         }
 
         public void AddHandler(TAction label)
@@ -84,7 +102,13 @@ namespace GOAP
 
         public void UpdateData()
         {
-            
+            foreach (var handler in _InterruptibleHandlers)
+            {
+                if(handler.CanPerformAction)
+                {
+                    //todo:打断计划
+                }
+            }
         }
 
         public void FrameFun()
@@ -96,41 +120,6 @@ namespace GOAP
         public void AddActionCompleteListener(Action complete)
         {
             _onActionComplete = complete;
-        }
-
-        void IActionManager<TAction>.AddHandler(TAction label)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IActionManager<TAction>.RemoveHandler(TAction label)
-        {
-            throw new NotImplementedException();
-        }
-
-        IActionHandler<TAction> IActionManager<TAction>.GetHandler(TAction label)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IActionManager<TAction>.UpdateData()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IActionManager<TAction>.FrameFun()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IActionManager<TAction>.ChangeCurrentAction(TAction label)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IActionManager<TAction>.AddActionCompleteListener(Action complete)
-        {
-            throw new NotImplementedException();
         }
     }
 }
