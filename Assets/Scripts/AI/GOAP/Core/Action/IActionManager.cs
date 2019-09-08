@@ -6,6 +6,7 @@ namespace GOAP
 {
     public interface IActionManager <TAction>
     {
+        bool IsPerformAction { get; set; }
         void AddHandler(TAction label);
         void RemoveHandler(TAction label);
         IActionHandler<TAction> GetHandler(TAction label);
@@ -22,15 +23,26 @@ namespace GOAP
         private IAgent<TAction, TGoal> _agent;
         private Action _onActionComplete;
 
+        bool IActionManager<TAction>.IsPerformAction { get; set; }
+
         public ActionManagerBase(IAgent<TAction,TGoal> agent)
         {
             _handlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
             _fsm = new FSM<TAction>();
             _agent = agent;
             InitActionHandler();
+            InitFSM();
         }
 
         protected abstract void InitActionHandler();
+
+        private void InitFSM()
+        {
+            foreach (var handler in _handlerDic)
+            {
+                _fsm.AddState(handler.Key, handler.Value);
+            }
+        }
 
         public void AddHandler(TAction label)
         {
@@ -67,7 +79,7 @@ namespace GOAP
 
         public void ChangeCurrentAction(TAction label)
         {
-            throw new NotImplementedException();
+            _fsm.ChangeState(label);
         }
 
         public void UpdateData()
@@ -84,6 +96,41 @@ namespace GOAP
         public void AddActionCompleteListener(Action complete)
         {
             _onActionComplete = complete;
+        }
+
+        void IActionManager<TAction>.AddHandler(TAction label)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IActionManager<TAction>.RemoveHandler(TAction label)
+        {
+            throw new NotImplementedException();
+        }
+
+        IActionHandler<TAction> IActionManager<TAction>.GetHandler(TAction label)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IActionManager<TAction>.UpdateData()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IActionManager<TAction>.FrameFun()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IActionManager<TAction>.ChangeCurrentAction(TAction label)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IActionManager<TAction>.AddActionCompleteListener(Action complete)
+        {
+            throw new NotImplementedException();
         }
     }
 }
