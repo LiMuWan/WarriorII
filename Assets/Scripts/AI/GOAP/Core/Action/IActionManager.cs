@@ -20,27 +20,49 @@ namespace GOAP
         private Dictionary<TAction, IActionHandler<TAction>> _handlerDic;
         private IFSM<TAction> _fsm;
         private IAgent<TAction, TGoal> _agent;
+        private Action _onActionComplete;
 
         public ActionManagerBase(IAgent<TAction,TGoal> agent)
         {
             _handlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
             _fsm = new FSM<TAction>();
             _agent = agent;
+            InitActionHandler();
         }
+
+        protected abstract void InitActionHandler();
 
         public void AddHandler(TAction label)
         {
-            _handlerDic.Add(label, _agent.Map.GetActionHandler(label));
+            var handler = _agent.Map.GetActionHandler(label);
+            if(handler != null)
+            {
+                _handlerDic.Add(label,handler);
+                handler.AddFinishCallBack(() => _onActionComplete());
+            }
+            else
+            {
+                DebugMsg.LogError("映射文件中未找到对应Handler，标签为： " + label);
+            }
+            
         }
 
         public void RemoveHandler(TAction label)
         {
-            throw new NotImplementedException();
+            _handlerDic.Remove(label);
         }
 
         public IActionHandler<TAction> GetHandler(TAction label)
         {
-            throw new NotImplementedException();
+            if(_handlerDic.ContainsKey(label))
+            {
+                return _handlerDic[label];
+            }
+            else
+            {
+                DebugMsg.LogError("缓存中未找到对应handler,标签为 ： " + label);
+                return null;
+            }
         }
 
         public void ChangeCurrentAction(TAction label)
@@ -50,18 +72,18 @@ namespace GOAP
 
         public void UpdateData()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void FrameFun()
         {
-            throw new NotImplementedException();
+            _fsm.FrameFun();
         }
 
 
         public void AddActionCompleteListener(Action complete)
         {
-            throw new NotImplementedException();
+            _onActionComplete = complete;
         }
     }
 }
