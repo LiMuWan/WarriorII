@@ -95,7 +95,24 @@ namespace GOAP
 
         public void UpdateData()
         {
-            throw new System.NotImplementedException();
+            UpdateGoals();
+            UpdateCurrentGoal();
+        }
+
+        private void UpdateGoals()
+        {
+            foreach (var goal in _goalsDic)
+            {
+                goal.Value.UpdateData();
+            }
+        }
+
+        private void UpdateCurrentGoal()
+        {
+            Current = FindGoal();
+
+            if (Current == null)
+                DebugMsg.LogError("当前目标为空");
         }
     }
 }
