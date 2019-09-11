@@ -3,6 +3,8 @@
 namespace GOAP
 {
     public interface IAgent<TAction,TGoal>
+        where TAction : struct
+        where TGoal : struct
     {
         
         IState AgentState { get; }
@@ -15,6 +17,8 @@ namespace GOAP
     }
 
     public abstract class AgentBase<TAction, TGoal> : IAgent<TAction, TGoal>
+         where TAction : struct
+         where TGoal : struct
     {
         public IState AgentState { get; private set; }
 
