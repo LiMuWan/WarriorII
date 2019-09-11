@@ -27,7 +27,15 @@ namespace GOAP
             TreeNode<TAction> currentNode = Plan(goal);
             if(currentNode == null)
             {
+                TAction label = _agent.ActionManager.GetDefaultActionLable();
+                plan.Enqueue(_agent.ActionManager.GetHandler(label));
+                DebugMsg.LogError("当前节点为空，设置当前动作为默认动作");
+                return plan;
+            }
 
+            while (currentNode.ID != TreeNode<TAction>.DEFAULT_ID)
+            {
+               
             }
         }
 

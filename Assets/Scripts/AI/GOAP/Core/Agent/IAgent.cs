@@ -4,10 +4,13 @@ namespace GOAP
 {
     public interface IAgent<TAction,TGoal>
     {
-        
         IState AgentState { get; }
 
         IMap<TAction,TGoal> Map { get; }
+
+        IActionManager<TAction> ActionManager { get; }
+
+        IGoalManager<TGoal> GoalManager { get; }
 
         void UpdateData();
 

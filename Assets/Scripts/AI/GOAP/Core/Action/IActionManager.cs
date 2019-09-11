@@ -8,6 +8,7 @@ namespace GOAP
     public interface IActionManager <TAction>
     {
         bool IsPerformAction { get; set; }
+        TAction GetDefaultActionLable();
         void AddHandler(TAction label);
         void RemoveHandler(TAction label);
         IActionHandler<TAction> GetHandler(TAction label);
@@ -41,6 +42,8 @@ namespace GOAP
         }
 
         protected abstract void InitActionHandler();
+
+        protected abstract TAction GetDefaultActionLable();
 
         private void InitFSM()
         {
@@ -115,7 +118,6 @@ namespace GOAP
         {
             _fsm.FrameFun();
         }
-
 
         public void AddActionCompleteListener(Action complete)
         {
