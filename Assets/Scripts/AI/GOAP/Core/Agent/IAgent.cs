@@ -22,17 +22,27 @@ namespace GOAP
 
         public IMap<TAction, TGoal> Map { get; private set; }
 
+        public IActionManager<TAction> ActionManager { get; private set; }
+
+        public IGoalManager<TGoal> GoalManager { get; private set; }
+
         public AgentBase()
         {
             DebugBase.Instance = InitDebugBase();
             AgentState = new State();
             Map = InitMap();
+            ActionManager = InitActionManager();
+            GoalManager = InitGoalManager();
             AgentState.AddStateChangeListener(UpdateData);
         }
 
         protected abstract DebugBase InitDebugBase();
 
         protected abstract IMap<TAction, TGoal> InitMap();
+
+        protected abstract IActionManager<TAction> InitActionManager();
+
+        protected abstract IGoalManager<TGoal> InitGoalManager();
 
         public void UpdateData()
         {
