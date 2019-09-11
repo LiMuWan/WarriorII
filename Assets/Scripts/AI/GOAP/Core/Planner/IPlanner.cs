@@ -45,7 +45,17 @@ namespace GOAP
         private TreeNode<TAction> Plan(IGoal<TGoal> goal)
         {
             Tree<TAction> tree = new Tree<TAction>();
-            TreeNode<TAction> topNode = tree.CreateTopNode();
+            TreeNode<TAction> topNode = CreateTopNode(tree,goal);
+
+            while (! IsEnd())
+            {
+
+            }
+        }
+
+        private bool IsEnd()
+        {
+
         }
 
         private TreeNode<TAction> CreateTopNode(Tree<TAction> tree,IGoal<TGoal> goal)
@@ -54,7 +64,13 @@ namespace GOAP
             topNode.GoalState.Set(goal.GetEffects());
             //goal当中存在 current当中不存在 获取这样的键值
             //通过键值 在agentState当中获取数据
+            var keys = topNode.CurrentState.GetNotExistKeys(topNode.GoalState);
+            foreach (var key in keys)
+            {
+                topNode.CurrentState.Set(key, _agent.AgentState.Get(key));
+            }
 
+            return topNode;
         }
     }
 }

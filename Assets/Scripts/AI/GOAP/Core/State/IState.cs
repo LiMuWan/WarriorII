@@ -14,6 +14,8 @@ namespace GOAP
 
         ICollection<string> GetKeys();
 
+        ICollection<string> GetNotExistKeys(IState otherState);
+
         bool ContainsKey(string key);
 
         bool ContainState(IState otherState);
@@ -132,6 +134,20 @@ namespace GOAP
             }
 
             return temp.ToString();
+        }
+
+        public ICollection<string> GetNotExistKeys(IState otherState)
+        {
+            List<string> keys = new List<string>();
+            foreach (var key in otherState.GetKeys())
+            {
+                if(!_dataTable.ContainsKey(key))
+                {
+                    keys.Add(key);
+                }
+            }
+
+            return keys;
         }
     }
 
