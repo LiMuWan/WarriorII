@@ -4,11 +4,24 @@ namespace GOAP
 {
     public class Tree<TAction>    
     {
-        
+        public TreeNode<TAction> CreateTopNode()
+        {
+            TreeNode<TAction>.Reset();
+            return new TreeNode<TAction>(null);
+        }
+
+        public TreeNode<TAction> CreateNormalNode(IActionHandler<TAction> actionHandler)
+        {
+            if (actionHandler == null)
+                DebugMsg.LogError("动作不能为空！");
+            return new TreeNode<TAction>(actionHandler);
+        }
     }
 
     public class TreeNode<TAction>
     {
+        public const int DEFAULT_ID = 0;
+
         public  static int _id ;
 
         public int ID { get; private set; }
@@ -33,9 +46,9 @@ namespace GOAP
             GoalState = GoalState.CreateState();
         }
 
-        public void Reset()
+        public static void Reset()
         {
-            _id = 0;
+            _id = DEFAULT_ID;
         }
     }
 }
