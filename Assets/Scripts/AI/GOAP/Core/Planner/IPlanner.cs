@@ -35,13 +35,17 @@ namespace GOAP
 
             while (currentNode.ID != TreeNode<TAction>.DEFAULT_ID)
             {
-               
+                plan.Enqueue(currentNode.ActionHandler);
+                currentNode = currentNode.ParentNode;
             }
+
+            DebugMsg.Log("计划完成"); 
         }
 
         private TreeNode<TAction> Plan(IGoal<TGoal> goal)
         {
-
+            Tree<TAction> tree = new Tree<TAction>();
+            TreeNode<TAction> topNode = tree.CreateTopNode();
         }
     }
 }
