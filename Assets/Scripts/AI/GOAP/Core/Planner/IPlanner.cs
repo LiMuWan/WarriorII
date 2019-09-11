@@ -47,5 +47,14 @@ namespace GOAP
             Tree<TAction> tree = new Tree<TAction>();
             TreeNode<TAction> topNode = tree.CreateTopNode();
         }
+
+        private TreeNode<TAction> CreateTopNode(Tree<TAction> tree,IGoal<TGoal> goal)
+        {
+            TreeNode<TAction> topNode = tree.CreateTopNode();
+            topNode.GoalState.Set(goal.GetEffects());
+            //goal当中存在 current当中不存在 获取这样的键值
+            //通过键值 在agentState当中获取数据
+
+        }
     }
 }
