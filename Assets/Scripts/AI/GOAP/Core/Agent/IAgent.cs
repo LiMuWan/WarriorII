@@ -3,8 +3,6 @@
 namespace GOAP
 {
     public interface IAgent<TAction,TGoal>
-        where TAction : struct
-        where TGoal : struct
     {
         
         IState AgentState { get; }
