@@ -43,7 +43,7 @@ namespace GOAP
 
         protected abstract void InitActionHandler();
 
-        protected abstract TAction GetDefaultActionLable();
+        public abstract TAction GetDefaultActionLable();
 
         private void InitFSM()
         {

@@ -46,16 +46,30 @@ namespace GOAP
         {
             Tree<TAction> tree = new Tree<TAction>();
             TreeNode<TAction> topNode = CreateTopNode(tree,goal);
-
-            while (! IsEnd())
+            TreeNode<TAction> currentNode = topNode;
+            while (! IsEnd(currentNode))
             {
 
             }
         }
 
-        private bool IsEnd()
+        private bool IsEnd(TreeNode<TAction> currentNode)
         {
+            if (currentNode == null)
+                return true;
 
+            if (GetStateDifferentNum(currentNode) == 0)
+            {
+                DebugMsg.Log("查找动作部分结束");
+                return true;
+            }
+
+            return false;
+        }
+
+        private int GetStateDifferentNum(TreeNode<TAction> currentNode)
+        {
+           
         }
 
         private TreeNode<TAction> CreateTopNode(Tree<TAction> tree,IGoal<TGoal> goal)
