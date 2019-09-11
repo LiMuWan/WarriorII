@@ -29,8 +29,8 @@ namespace GOAP
             ActionHandler = actionHandler;
             Cost = 0;
             ParentNode = null;
-            CurrentState = new State();
-            GoalState = new State();
+            CurrentState = CurrentState.CreateState() ;
+            GoalState = GoalState.CreateState();
         }
 
         public void Reset()

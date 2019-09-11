@@ -153,6 +153,13 @@ namespace GOAP
         {
             return base.ContainsKey(key.ToString());
         }
+    }
 
+    public static class IStateExtend
+    {
+        public static IState CreateState(this IState state)
+        {
+            return new State();
+        }
     }
 }
