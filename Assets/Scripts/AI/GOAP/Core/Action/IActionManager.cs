@@ -7,6 +7,7 @@ namespace GOAP
 {
     public interface IActionManager <TAction>
     {
+        Dictionary<string, HashSet<IActionHandler<TAction>>> EffectsAndActionMap { get; }
         bool IsPerformAction { get; set; }
         TAction GetDefaultActionLable();
         void AddHandler(TAction label);
@@ -28,6 +29,8 @@ namespace GOAP
 
         public  bool  IsPerformAction { get; set; }
 
+        public Dictionary<string, HashSet<IActionHandler<TAction>>> EffectsAndActionMap { get; private set; }
+
         public ActionManagerBase(IAgent<TAction,TGoal> agent)
         {
             IsPerformAction = false;
@@ -39,6 +42,7 @@ namespace GOAP
             InitActionHandler();
             InitFSM();
             InitInterruptibleHandlers();
+            InitEffectsAndActionMap();
         }
 
         protected abstract void InitActionHandler();
@@ -50,6 +54,24 @@ namespace GOAP
             foreach (var handler in _handlerDic)
             {
                 _fsm.AddState(handler.Key, handler.Value);
+            }
+        }
+
+        private void InitEffectsAndActionMap()
+        {
+            EffectsAndActionMap = new Dictionary<string, HashSet<IActionHandler<TAction>>>();
+
+            foreach (KeyValuePair<TAction,IActionHandler<TAction>> pair in _handlerDic)
+            {
+                IState state = pair.Value.Action.Effects;
+
+                if (state == null)
+                    continue;
+
+                foreach (string key in state.GetKeys())
+                {
+
+                }
             }
         }
 

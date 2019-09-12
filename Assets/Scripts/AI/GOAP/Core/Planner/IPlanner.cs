@@ -53,6 +53,23 @@ namespace GOAP
             }
         }
 
+        private List<IActionHandler<TAction>> GetSubHandlers(TreeNode<TAction> node)
+        {
+            List<IActionHandler<TAction>> handlers = new List<IActionHandler<TAction>>();
+
+            if (node == null)
+                return handlers;
+            //获取到状态差异的所有键值
+            var keys = node.CurrentState.GetValueDifference(node.GoalState);
+            //对比所有的动作
+            //找到能实现当前键值的动作
+            //也就action的effects中包含此键值
+            foreach (string key in keys)
+            {
+
+            }
+        }
+
         private bool IsEnd(TreeNode<TAction> currentNode)
         {
             if (currentNode == null)
