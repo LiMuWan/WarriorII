@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GOAP
@@ -47,10 +48,20 @@ namespace GOAP
             Tree<TAction> tree = new Tree<TAction>();
             TreeNode<TAction> topNode = CreateTopNode(tree,goal);
             TreeNode<TAction> currentNode = topNode;
+            TreeNode<TAction> subNode = null;
             while (! IsEnd(currentNode))
             {
-
+                List<IActionHandler<TAction>> handlers = GetSubHandlers(currentNode);
+                foreach (IActionHandler<TAction> handler in handlers)
+                {
+                    subNode = tree.CreateNormalNode(handler);
+                }
             }
+        }
+
+        private void SetSubNodeState(TreeNode<TAction> node)
+        {
+
         }
 
         private List<IActionHandler<TAction>> GetSubHandlers(TreeNode<TAction> node)
@@ -70,13 +81,23 @@ namespace GOAP
             {
                 if(map.ContainsKey(key))
                 {
-
+                    foreach (IActionHandler<TAction> handler in map[key])
+                    {
+                        if(!handlers.Contains(handler))
+                        {
+                            handlers.Add(handler);
+                        }
+                    }
                 }
                 else
                 {
                     DebugMsg.LogError("当前没有动作能够从当前状态切换到目标状态，无法实现的键值为： " + key);
                 }
             }
+
+            handlers.OrderByDescending(u => u.Action.Priority).ToList();
+
+            return handlers;
         }
 
         private bool IsEnd(TreeNode<TAction> currentNode)
