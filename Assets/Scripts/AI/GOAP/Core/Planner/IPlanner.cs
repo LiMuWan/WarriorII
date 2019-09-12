@@ -69,7 +69,7 @@ namespace GOAP
 
         private int GetStateDifferentNum(TreeNode<TAction> currentNode)
         {
-           
+            return currentNode.CurrentState.GetValueDifference(currentNode.GoalState).Count;
         }
 
         private TreeNode<TAction> CreateTopNode(Tree<TAction> tree,IGoal<TGoal> goal)

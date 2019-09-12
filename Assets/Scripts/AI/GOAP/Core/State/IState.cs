@@ -16,6 +16,8 @@ namespace GOAP
 
         ICollection<string> GetNotExistKeys(IState otherState);
 
+        ICollection<string> GetValueDifference(IState otherState);
+
         bool ContainsKey(string key);
 
         bool ContainState(IState otherState);
@@ -77,6 +79,34 @@ namespace GOAP
             return _dataTable.Keys;
         }
 
+        public ICollection<string> GetNotExistKeys(IState otherState)
+        {
+            List<string> keys = new List<string>();
+            foreach (var key in otherState.GetKeys())
+            {
+                if (!_dataTable.ContainsKey(key))
+                {
+                    keys.Add(key);
+                }
+            }
+
+            return keys;
+        }
+
+        public ICollection<string> GetValueDifference(IState otherState)
+        {
+            List<string> keys = new List<string>();
+            foreach (var key in otherState.GetKeys())
+            {
+                if(!_dataTable.ContainsKey(key) || otherState.Get(key) != _dataTable[key])
+                {
+                    keys.Add(key);
+                }
+            }
+
+            return keys;
+        }
+
         public bool ContainsKey(string key)
         {
             return _dataTable.ContainsKey(key);
@@ -134,20 +164,6 @@ namespace GOAP
             }
 
             return temp.ToString();
-        }
-
-        public ICollection<string> GetNotExistKeys(IState otherState)
-        {
-            List<string> keys = new List<string>();
-            foreach (var key in otherState.GetKeys())
-            {
-                if(!_dataTable.ContainsKey(key))
-                {
-                    keys.Add(key);
-                }
-            }
-
-            return keys;
         }
     }
 
