@@ -61,12 +61,21 @@ namespace GOAP
                 return handlers;
             //获取到状态差异的所有键值
             var keys = node.CurrentState.GetValueDifference(node.GoalState);
+            var map = _agent.ActionManager.EffectsAndActionMap;
+
             //对比所有的动作
             //找到能实现当前键值的动作
             //也就action的effects中包含此键值
             foreach (string key in keys)
             {
+                if(map.ContainsKey(key))
+                {
 
+                }
+                else
+                {
+                    DebugMsg.LogError("当前没有动作能够从当前状态切换到目标状态，无法实现的键值为： " + key);
+                }
             }
         }
 
