@@ -12,13 +12,15 @@ namespace GOAP
 
         bool Get(string key);
 
-        void Copy(IState otherState);
+        void CopyState(IState otherState);
 
         ICollection<string> GetKeys();
 
         ICollection<string> GetNotExistKeys(IState otherState);
 
         ICollection<string> GetValueDifference(IState otherState);
+
+        IState GetSameData(IState otherState);
 
         bool ContainsKey(string key);
 
@@ -76,6 +78,12 @@ namespace GOAP
             }
         }
 
+        public void CopyState(IState otherState)
+        {
+            Clear();
+            Set(otherState);
+        }
+
         public ICollection<string> GetKeys()
         {
             return _dataTable.Keys;
@@ -107,6 +115,20 @@ namespace GOAP
             }
 
             return keys;
+        }
+
+        public IState GetSameData(IState otherState)
+        {
+            IState temp = this.CreateState();
+            foreach (KeyValuePair<string,bool> pair in _dataTable)
+            {
+                if(otherState.ContainsKey(pair.Key))
+                {
+                    temp.Set(pair.Key, pair.Value);
+                }
+            }
+
+            return temp;
         }
 
         public bool ContainsKey(string key)
@@ -168,11 +190,6 @@ namespace GOAP
             return temp.ToString();
         }
 
-        public void Copy(IState otherState)
-        {
-            Clear();
-            Set(otherState);
-        }
     }
 
     public class State<TKey> : State

@@ -64,6 +64,7 @@ namespace GOAP
             if(subNode.ID > TreeNode<TAction>.DEFAULT_ID)
             {
                 currentNode.Copy(subNode);
+                IState state = currentNode.GoalState.GetSameData(subNode.ActionHandler.Action.Effects);
             }
             else
             {
