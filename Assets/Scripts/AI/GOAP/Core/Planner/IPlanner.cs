@@ -55,6 +55,7 @@ namespace GOAP
                 foreach (IActionHandler<TAction> handler in handlers)
                 {
                     subNode = tree.CreateNormalNode(handler);
+                    SetSubNodeState(currentNode, subNode);
                 }
             }
         }
@@ -63,8 +64,12 @@ namespace GOAP
         {
             if(subNode.ID > TreeNode<TAction>.DEFAULT_ID)
             {
-                currentNode.Copy(subNode);
-                IState state = currentNode.GoalState.GetSameData(subNode.ActionHandler.Action.Effects);
+                IAction<TAction> subAction = subNode.ActionHandler.Action;
+                currentNode.CopyState(subNode);
+                IState data = currentNode.GoalState.GetSameData(subAction.Effects);
+                subNode.CurrentState.Set(data);
+                subNode.GoalState.Set(subAction.Preconditions);
+                SetNodeCurrentState(subNode);
             }
             else
             {
@@ -131,15 +136,20 @@ namespace GOAP
         {
             TreeNode<TAction> topNode = tree.CreateTopNode();
             topNode.GoalState.Set(goal.GetEffects());
-            //goal当中存在 current当中不存在 获取这样的键值
-            //通过键值 在agentState当中获取数据
-            var keys = topNode.CurrentState.GetNotExistKeys(topNode.GoalState);
-            foreach (var key in keys)
-            {
-                topNode.CurrentState.Set(key, _agent.AgentState.Get(key));
-            }
+            SetNodeCurrentState(topNode);
 
             return topNode;
+        }
+
+        private void SetNodeCurrentState(TreeNode<TAction> node)
+        {
+            //goal当中存在 current当中不存在 获取这样的键值
+            //通过键值 在agentState当中获取数据
+            var keys = node.CurrentState.GetNotExistKeys(node.GoalState);
+            foreach (var key in keys)
+            {
+                node.CurrentState.Set(key, _agent.AgentState.Get(key));
+            }
         }
     }
 }
