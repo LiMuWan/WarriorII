@@ -12,6 +12,8 @@ namespace GOAP
 
         bool Get(string key);
 
+        void Copy(IState otherState);
+
         ICollection<string> GetKeys();
 
         ICollection<string> GetNotExistKeys(IState otherState);
@@ -164,6 +166,12 @@ namespace GOAP
             }
 
             return temp.ToString();
+        }
+
+        public void Copy(IState otherState)
+        {
+            Clear();
+            Set(otherState);
         }
     }
 

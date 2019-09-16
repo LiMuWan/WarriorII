@@ -46,6 +46,12 @@ namespace GOAP
             GoalState = GoalState.CreateState();
         }
 
+        public void Copy(TreeNode<TAction> otherNode)
+        {
+            otherNode.CurrentState.Copy(otherNode.CurrentState);
+            otherNode.GoalState.Copy(otherNode.GoalState);
+        }
+
         public static void Reset()
         {
             _id = DEFAULT_ID;

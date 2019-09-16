@@ -59,9 +59,16 @@ namespace GOAP
             }
         }
 
-        private void SetSubNodeState(TreeNode<TAction> node)
+        private void SetSubNodeState(TreeNode<TAction> currentNode, TreeNode<TAction> subNode)
         {
-
+            if(subNode.ID > TreeNode<TAction>.DEFAULT_ID)
+            {
+                currentNode.Copy(subNode);
+            }
+            else
+            {
+                DebugMsg.LogError("此部分逻辑，节点不能为头节点!!!");
+            }
         }
 
         private List<IActionHandler<TAction>> GetSubHandlers(TreeNode<TAction> node)
