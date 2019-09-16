@@ -56,8 +56,24 @@ namespace GOAP
                 {
                     subNode = tree.CreateNormalNode(handler);
                     SetSubNodeState(currentNode, subNode);
+                    subNode.Cost = GetCost(subNode);  
                 }
             }
+        }
+
+        private int GetCost(TreeNode<TAction> node)
+        {
+            int actionCost = 0;
+            if (node.ActionHandler != null)
+            {
+                actionCost = node.ActionHandler.Action.Cost;
+            }
+            else
+            {
+                DebugMsg.LogError("节点的ActionHandler不能为空");
+            }
+
+            return node.Cost + GetStateDifferentNum(node) + actionCost;
         }
 
         private void SetSubNodeState(TreeNode<TAction> currentNode, TreeNode<TAction> subNode)
