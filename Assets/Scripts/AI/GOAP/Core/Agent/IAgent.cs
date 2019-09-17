@@ -12,6 +12,8 @@ namespace GOAP
 
         IGoalManager<TGoal> GoalManager { get; }
 
+        IPerform Perform { get; }
+
         void UpdateData();
 
         void FrameFun();
@@ -29,6 +31,8 @@ namespace GOAP
 
         public IGoalManager<TGoal> GoalManager { get; private set; }
 
+        public IPerform Perform { get; private set; }
+
         public AgentBase()
         {
             DebugBase.Instance = InitDebugBase();
@@ -37,6 +41,7 @@ namespace GOAP
             ActionManager = InitActionManager();
             GoalManager = InitGoalManager();
             AgentState.AddStateChangeListener(UpdateData);
+            Perform = new Performer<TAction,TGoal>(this);
         }
 
         protected abstract DebugBase InitDebugBase();

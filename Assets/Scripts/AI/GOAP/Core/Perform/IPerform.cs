@@ -48,18 +48,25 @@ namespace GOAP
             if(WhetherToReplan())
             {
                 DebugMsg.Log("制定计划");
-                BuildAndStartPlan();
+                BuildAndStartPlan(); 
             }
         }
 
         private bool WhetherToReplan()
         {
-
+            return _plannerHandler.IsComplete;
         }
 
         private void BuildAndStartPlan()
         {
+            var plan = _planner.BuildPlan(_goalManager.Current);
 
+            if(plan != null && plan.Count > 0)
+            {
+                _plannerHandler.Init(_actionManager, plan);
+                _plannerHandler.StartPlan();
+                _actionManager.IsPerformAction = true;
+            }
         }
     }
 }

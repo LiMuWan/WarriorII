@@ -130,8 +130,9 @@ namespace GOAP
             foreach (var handler in _InterruptibleHandlers)
             {
                 if(handler.CanPerformAction)
-                {
-                    //todo:打断计划
+                { 
+                    _agent.Perform.Interruptible();
+                    break;
                 }
             }
         }
