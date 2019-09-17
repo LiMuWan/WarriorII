@@ -40,7 +40,8 @@ namespace GOAP
                 currentNode = currentNode.ParentNode;
             }
 
-            DebugMsg.Log("计划完成"); 
+            DebugMsg.Log("计划完成");
+            return plan;
         }
 
         private TreeNode<TAction> Plan(IGoal<TGoal> goal)
@@ -51,6 +52,7 @@ namespace GOAP
             TreeNode<TAction> currentNode = topNode;
             TreeNode<TAction> cheapstNode = null;
             TreeNode<TAction> subNode = null;
+
             while (! IsEnd(currentNode))
             {
                 List<IActionHandler<TAction>> handlers = GetSubHandlers(currentNode);
@@ -62,10 +64,11 @@ namespace GOAP
                     subNode.ParentNode = currentNode;
                     cheapstNode = GetCheapestAction(subNode, cheapstNode);
                 }
+                currentNode = cheapstNode;
+                cheapstNode = null;
             }
 
-            currentNode = cheapstNode;
-            cheapstNode = null;
+            return currentNode;
         }
 
         private TreeNode<TAction> GetCheapestAction(TreeNode<TAction> nodeOne,TreeNode<TAction> nodeTwo)
