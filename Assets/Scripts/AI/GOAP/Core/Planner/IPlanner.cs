@@ -47,7 +47,9 @@ namespace GOAP
         {
             Tree<TAction> tree = new Tree<TAction>();
             TreeNode<TAction> topNode = CreateTopNode(tree,goal);
+
             TreeNode<TAction> currentNode = topNode;
+            TreeNode<TAction> cheapstNode = null;
             TreeNode<TAction> subNode = null;
             while (! IsEnd(currentNode))
             {
@@ -56,7 +58,41 @@ namespace GOAP
                 {
                     subNode = tree.CreateNormalNode(handler);
                     SetSubNodeState(currentNode, subNode);
-                    subNode.Cost = GetCost(subNode);  
+                    subNode.Cost = GetCost(subNode);
+                    subNode.ParentNode = currentNode;
+                    cheapstNode = GetCheapestAction(subNode, cheapstNode);
+                }
+            }
+
+            currentNode = cheapstNode;
+            cheapstNode = null;
+        }
+
+        private TreeNode<TAction> GetCheapestAction(TreeNode<TAction> nodeOne,TreeNode<TAction> nodeTwo)
+        {
+            if (nodeOne == null || nodeOne.ActionHandler == null)
+                return nodeTwo;
+
+            if (nodeTwo == null || nodeTwo.ActionHandler == null)
+                return nodeOne;
+
+            if(nodeOne.Cost > nodeTwo.Cost)
+            {
+                return nodeTwo;
+            }
+            else if(nodeOne.Cost < nodeTwo.Cost)
+            {
+                return nodeTwo;
+            }
+            else
+            {
+                if(nodeOne.ActionHandler.Action.Priority > nodeTwo.ActionHandler.Action.Priority)
+                {
+                    return nodeOne;
+                }
+                else
+                {
+                    return nodeTwo;
                 }
             }
         }
