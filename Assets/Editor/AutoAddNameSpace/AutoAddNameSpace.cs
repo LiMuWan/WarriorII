@@ -27,7 +27,7 @@ namespace CustomTool
                     return;
                 }
                 var newText = GetNewScriptContext(name);
-                File.WriteAllText(path, newText);
+                File.WriteAllText(path, newText,System.Text.Encoding.UTF8);
             }
             AssetDatabase.Refresh();
         }
