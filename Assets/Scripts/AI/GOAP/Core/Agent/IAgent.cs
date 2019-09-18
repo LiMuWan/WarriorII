@@ -38,7 +38,7 @@ namespace GOAP
         public AgentBase()
         {
             DebugBase.Instance = InitDebugBase();
-            AgentState = new State();
+            AgentState = InitState();
             Map = InitMap();
             ActionManager = InitActionManager();
             GoalManager = InitGoalManager();
@@ -57,14 +57,25 @@ namespace GOAP
 
         protected abstract ITriggerManager InitTriggerManager();
 
+        protected abstract IState InitState();
+
         public void UpdateData()
         {
+            if (ActionManager != null)
+                ActionManager.UpdateData();
+            if (GoalManager != null)
+                GoalManager.UpdateData();
 
+            Perform.UpdateData();
         }
 
         public void FrameFun()
         {
+            if (_triggerManager != null)
+                _triggerManager.FrameFun();
 
+            if (ActionManager != null)
+                ActionManager.FrameFun();
         }
     }
 }
