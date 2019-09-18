@@ -61,16 +61,19 @@ namespace GOAP
         {
             EffectsAndActionMap = new Dictionary<string, HashSet<IActionHandler<TAction>>>();
 
-            foreach (KeyValuePair<TAction,IActionHandler<TAction>> pair in _handlerDic)
+            foreach (KeyValuePair<TAction,IActionHandler<TAction>> handler in _handlerDic)
             {
-                IState state = pair.Value.Action.Effects;
+                IState state = handler.Value.Action.Effects;
 
                 if (state == null)
                     continue;
 
                 foreach (string key in state.GetKeys())
                 {
+                    if (EffectsAndActionMap.ContainsKey(key) || EffectsAndActionMap[key] == null)
+                        EffectsAndActionMap[key] = new HashSet<IActionHandler<TAction>>();
 
+                    EffectsAndActionMap[key].Add(handler.Value);
                 }
             }
         }
