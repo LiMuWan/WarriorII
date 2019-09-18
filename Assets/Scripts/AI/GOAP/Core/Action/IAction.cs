@@ -20,11 +20,11 @@ namespace GOAP
     {
         public abstract TAction Label { get; }
 
-        public int Cost { get; }
+        public abstract int Cost { get; }
 
-        public int Priority { get; }
+        public abstract int Priority { get; }
 
-        public bool CanInterruptiblePlan { get; }
+        public abstract bool CanInterruptiblePlan { get; }
 
         public IState Preconditions { get; private set; }
 

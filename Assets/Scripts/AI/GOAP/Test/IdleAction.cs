@@ -13,7 +13,7 @@ namespace GOAPTest
 
         public override bool CanInterruptiblePlan { get { return false; } }
 
-        public IdleAction(IAgent<ActionEnum,GoalEnum> agent):base(agent)
+        public IdleAction(IAgent<ActionEnum,GoalEnum> agent) : base(agent)
         {
 
         }
@@ -25,7 +25,13 @@ namespace GOAPTest
 
         protected override IState InitPreconditions()
         {
-            throw new System.NotImplementedException();
+            State<KeyNameEnum> state = new State<KeyNameEnum>();
+            state.Set(KeyNameEnum.IDLE, false);
+            state.Set(KeyNameEnum.ATTACK, false);
+            state.Set(KeyNameEnum.MOVE, false);
+
+            return state;
+
         }
     }
 }
