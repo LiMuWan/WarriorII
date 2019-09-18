@@ -1,5 +1,4 @@
 ﻿using GOAP;
-using UnityEngine;
 
 namespace GOAPTest
 {
@@ -13,7 +12,7 @@ namespace GOAPTest
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("进入待机状态");
+            DebugMsg.Log("进入待机状态");
         }
     }
 }
