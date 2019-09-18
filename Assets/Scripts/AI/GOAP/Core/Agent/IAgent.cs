@@ -33,6 +33,8 @@ namespace GOAP
 
         public IPerform Perform { get; private set; }
 
+        private ITriggerManager _triggerManager;
+
         public AgentBase()
         {
             DebugBase.Instance = InitDebugBase();
@@ -42,6 +44,7 @@ namespace GOAP
             GoalManager = InitGoalManager();
             AgentState.AddStateChangeListener(UpdateData);
             Perform = new Performer<TAction,TGoal>(this);
+            _triggerManager = InitTriggerManager();
         }
 
         protected abstract DebugBase InitDebugBase();
@@ -51,6 +54,8 @@ namespace GOAP
         protected abstract IActionManager<TAction> InitActionManager();
 
         protected abstract IGoalManager<TGoal> InitGoalManager();
+
+        protected abstract ITriggerManager InitTriggerManager();
 
         public void UpdateData()
         {
