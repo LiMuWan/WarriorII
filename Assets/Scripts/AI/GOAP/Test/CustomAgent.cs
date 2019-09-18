@@ -14,7 +14,7 @@ namespace GOAPTest
 
         protected override DebugBase InitDebugBase()
         {
-            throw new System.NotImplementedException();
+            return new CustomDebug();
         }
 
         protected override IGoalManager<GoalEnum> InitGoalManager()
