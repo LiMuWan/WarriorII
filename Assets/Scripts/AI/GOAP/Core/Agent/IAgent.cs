@@ -45,6 +45,11 @@ namespace GOAP
             AgentState.AddStateChangeListener(UpdateData);
             Perform = new Performer<TAction,TGoal>(this);
             _triggerManager = InitTriggerManager();
+
+            JudgeEception(Map, "Map");
+            JudgeEception(ActionManager, "ActionManager");
+            JudgeEception(GoalManager, "GoalManager");
+            JudgeEception(_triggerManager, "_triggerManager");
         }
 
         protected abstract DebugBase InitDebugBase();
@@ -58,6 +63,12 @@ namespace GOAP
         protected abstract ITriggerManager InitTriggerManager();
 
         protected abstract IState InitState();
+
+        private void JudgeEception(object obj,string name)
+        {
+            if (obj == null)
+                DebugMsg.LogError("代理中" + name + "兑现为空，请在代理子类中初始化该对象");
+        }
 
         public void UpdateData()
         {
