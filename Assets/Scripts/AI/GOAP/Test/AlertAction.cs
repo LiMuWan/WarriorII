@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace GOAPTest
 {
-    public class IdleAction : ActionBase<ActionEnum, GoalEnum>
+    public class AlertAction : ActionBase<ActionEnum, GoalEnum>
     {
-        public override ActionEnum Label { get { return ActionEnum.IDLE; } }
+        public override ActionEnum Label { get { return ActionEnum.ALERT; } }
 
         public override int Cost { get { return 1; } }
 
@@ -13,25 +13,23 @@ namespace GOAPTest
 
         public override bool CanInterruptiblePlan { get { return false; } }
 
-        public IdleAction(IAgent<ActionEnum,GoalEnum> agent) : base(agent)
+        public AlertAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 
         }
 
         protected override IState InitEffects()
         {
-            return null;
+            State<KeyNameEnum> state = new State<KeyNameEnum>();
+            state.Set(KeyNameEnum.MOVE, true);
+            return state;
         }
 
         protected override IState InitPreconditions()
         {
             State<KeyNameEnum> state = new State<KeyNameEnum>();
-            state.Set(KeyNameEnum.IDLE, false);
-            state.Set(KeyNameEnum.ATTACK, false);
-            state.Set(KeyNameEnum.MOVE, false);
-
+            state.Set(KeyNameEnum.FIND_ENEMY, false);
             return state;
-
         }
     }
 }
