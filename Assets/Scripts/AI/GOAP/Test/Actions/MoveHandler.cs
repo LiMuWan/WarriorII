@@ -31,6 +31,11 @@ namespace GOAPTest
                 Vector3 dirToEnemy = (_enemy.position - _self.position).normalized;
                 _controller.SimpleMove(dirToEnemy * _speed);
             }
+            else
+            {
+                OnComplete();
+                DebugMsg.Log("完成移动状态");
+            }
         }
     }
 }
