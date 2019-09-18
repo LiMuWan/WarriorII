@@ -14,7 +14,8 @@ namespace GOAPTest
 
         protected override void InitGameData()
         {
-            throw new System.NotImplementedException();
+            SetGameData(DataName.SELF_TRANS, ObjectInScene.Instance.Enemy);
+            SetGameData(DataName.ENEMY_TRANS, ObjectInScene.Instance.Player);
         }
 
         protected override void InitGoalMap()

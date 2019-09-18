@@ -32,4 +32,10 @@ namespace GOAPTest
         NEAR_ENEMY,
         KILLED_ENEMY
     }
+
+    public enum DataName
+    {
+        SELF_TRANS,
+        ENEMY_TRANS
+    }
 }

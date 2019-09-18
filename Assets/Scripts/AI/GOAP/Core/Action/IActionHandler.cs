@@ -20,7 +20,7 @@ namespace GOAP
         public  bool IsComplete { get; private set; }
         public  bool CanPerformAction { get; private set; }
         private Action _onFinishAction;
-        private IAgent<TAction,TGoal> _agent;
+        protected IAgent<TAction,TGoal> _agent;
 
         public ActionHandlerBase(IAgent<TAction, TGoal> agent,IAction<TAction> action)
         {
