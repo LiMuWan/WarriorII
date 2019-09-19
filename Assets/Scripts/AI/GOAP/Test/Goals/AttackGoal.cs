@@ -4,12 +4,12 @@ namespace GOAPTest
 {
     public class AttackGoal : GoalBase<ActionEnum, GoalEnum>
     {
+        public override GoalEnum Lable { get { return GoalEnum.ATTACK; } }
+
         public AttackGoal(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 
         }
-
-        public override GoalEnum Lable { get { return GoalEnum.ATTACK; } }
 
         public override float GetPriority()
         {

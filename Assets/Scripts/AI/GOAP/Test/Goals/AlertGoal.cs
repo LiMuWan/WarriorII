@@ -5,11 +5,12 @@ namespace GOAPTest
 {
     public class AlertGoal : GoalBase<ActionEnum,GoalEnum>
     {
+        public override GoalEnum Lable { get { return GoalEnum.ALERT; } }
+
         public AlertGoal(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
-        }
 
-        public override GoalEnum Lable { get { return GoalEnum.ALERT; } }
+        }
 
         public override float GetPriority()
         {

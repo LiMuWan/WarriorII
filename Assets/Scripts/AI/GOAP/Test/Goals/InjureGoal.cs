@@ -3,30 +3,31 @@ using UnityEngine;
 
 namespace GOAPTest
 {
-    public class AttackIdleGoal : GoalBase<ActionEnum, GoalEnum>
+    public class InjureGoal : GoalBase<ActionEnum, GoalEnum>
     {
-        public override GoalEnum Lable { get { return GoalEnum.ATTACK_IDLE; } }
+        public override GoalEnum Lable { get { return GoalEnum.INJURE; } }
 
-        public AttackIdleGoal(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
+
+        public InjureGoal(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 
         }
 
         public override float GetPriority()
         {
-            return 20;
+            return 100;
         }
 
         protected override IState InitEffects()
         {
             State<KeyNameEnum> state = new State<KeyNameEnum>();
-            state.Set(KeyNameEnum.MOVE, true);
+            state.Set(KeyNameEnum.INJURE, false);
             return state;
         }
 
         protected override bool ActiveCondition()
         {
-            return GetAgentState(KeyNameEnum.ATTACK_IDLE) == true;
+            return GetAgentState(KeyNameEnum.INJURE) == true;
         }
     }
 }
