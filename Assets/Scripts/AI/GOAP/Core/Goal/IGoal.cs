@@ -20,21 +20,36 @@ namespace GOAP
         void UpdateData();
     }
 
-    public abstract class GoalBase<TGoal> : IGoal<TGoal>
+    public abstract class GoalBase<TAction,TGoal> : IGoal<TGoal>
     {
-        public abstract TGoal Lable { get; set; }
+        public abstract TGoal Lable { get; }
 
         private Action<IGoal<TGoal>> _onActivate;
 
         private Action<IGoal<TGoal>> _onInactivate;
 
+        private IState _effects;
+
+        protected IAgent<TAction, TGoal> _agent;
+
+        public GoalBase(IAgent<TAction,TGoal> agent)
+        {
+            _agent = agent;
+            _effects = InitEffects();
+        }
+
         public abstract float GetPriority();
 
         public abstract IState GetEffects();
 
+        public abstract IState InitEffects();
+
         public abstract bool ActiveCondition();
 
-        public abstract bool IsGoalComplete();
+        public virtual bool IsGoalComplete()
+        {
+            return _agent.AgentState.ContainState(_effects);
+        }
 
         public void UpdateData()
         {
@@ -55,7 +70,7 @@ namespace GOAP
 
         public void AddGoalInactivateListener(Action<IGoal<TGoal>> onInactivate)
         {
-            _onInactivate = _onInactivate;
+            _onInactivate = onInactivate;
         }
     }
 }
