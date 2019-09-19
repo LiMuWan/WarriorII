@@ -17,15 +17,18 @@ namespace GOAPTest
             AddAction(new MoveHandler(_agent, new MoveAction(_agent)));
         }
 
+        protected override void InitGoalMap()
+        {
+            AddGoal(new AlertGoal(_agent));
+            AddGoal(new AttackGoal(_agent));
+            AddGoal(new AttackIdleGoal(_agent));
+            AddGoal(new InjureGoal(_agent));
+        }
+
         protected override void InitGameData()
         {
             SetGameData(DataName.SELF_TRANS, ObjectInScene.Instance.Enemy);
             SetGameData(DataName.ENEMY_TRANS, ObjectInScene.Instance.Player);
-        }
-
-        protected override void InitGoalMap()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
