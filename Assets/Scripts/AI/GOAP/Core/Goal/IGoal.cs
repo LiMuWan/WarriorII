@@ -30,7 +30,7 @@ namespace GOAP
 
         private IState _effects;
 
-        protected IAgent<TAction, TGoal> _agent;
+        private IAgent<TAction, TGoal> _agent;
 
         public GoalBase(IAgent<TAction,TGoal> agent)
         {
@@ -40,15 +40,23 @@ namespace GOAP
 
         public abstract float GetPriority();
 
-        public abstract IState GetEffects();
+        public IState GetEffects()
+        {
+            return _effects;
+        }
 
-        public abstract IState InitEffects();
+        protected abstract IState InitEffects();
 
-        public abstract bool ActiveCondition();
+        protected abstract bool ActiveCondition();
 
         public virtual bool IsGoalComplete()
         {
             return _agent.AgentState.ContainState(_effects);
+        }
+
+        public bool GetAgentState<TKey>(TKey key)
+        {
+            return _agent.AgentState.ContainsKey(key.ToString());
         }
 
         public void UpdateData()

@@ -16,21 +16,17 @@ namespace GOAPTest
             return 1;
         }
 
-        public override IState GetEffects()
+        protected override IState InitEffects()
         {
             State<KeyNameEnum> state = new State<KeyNameEnum>();
             state.Set(KeyNameEnum.MOVE, true);
             return state;
         }
 
-        public override bool ActiveCondition()
+        protected override bool ActiveCondition()
         {
-           
-        }
-
-        public override IState InitEffects()
-        {
-            
+            return  GetAgentState(KeyNameEnum.MOVE)       == false
+                 && GetAgentState(KeyNameEnum.FIND_ENEMY) == true;
         }
     }
 }
