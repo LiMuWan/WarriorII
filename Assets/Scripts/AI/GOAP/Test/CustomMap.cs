@@ -5,11 +5,16 @@ namespace GOAPTest
 {
     public class CustomMap : MapBase<ActionEnum, GoalEnum>
     {
-        public CustomMap() : base() { }
+        public CustomMap(IAgent<ActionEnum, GoalEnum> agent) : base(agent) { }
 
         protected override void InitActionMap()
         {
-            throw new System.NotImplementedException();
+            AddAction(new IdleHandler(_agent, new IdleAction(_agent)));
+            AddAction(new AttackIdleHandler(_agent, new AttackIdleAction(_agent)));
+            AddAction(new AttackHandler(_agent, new AttackAction(_agent)));
+            AddAction(new AlertHandler(_agent, new AlertAction(_agent)));
+            AddAction(new InjureHandler(_agent, new InjureAction(_agent)));
+            AddAction(new MoveHandler(_agent, new MoveAction(_agent)));
         }
 
         protected override void InitGameData()

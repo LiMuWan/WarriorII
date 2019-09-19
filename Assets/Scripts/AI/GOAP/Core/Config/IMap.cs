@@ -19,12 +19,15 @@ namespace GOAP
         private Dictionary<TAction, IActionHandler<TAction>> _actionHandlerDic;
         private Dictionary<TGoal, IGoal<TGoal>> _goalDic;
         private Dictionary<string, object> _gameDataDic;
+        protected IAgent<TAction, TGoal> _agent;
 
-        public MapBase()
+        public MapBase(IAgent<TAction, TGoal> agent)
         {
             _actionHandlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
             _goalDic = new Dictionary<TGoal, IGoal<TGoal>>();
             _gameDataDic = new Dictionary<string, object>();
+            _agent = agent;
+
             InitActionMap();
             InitGoalMap();
             InitGameData();

@@ -25,7 +25,7 @@ namespace GOAPTest
 
         protected override IMap<ActionEnum, GoalEnum> InitMap()
         {
-            throw new System.NotImplementedException();
+            return new CustomMap(this);
         }
 
         protected override IState InitState()
