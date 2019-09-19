@@ -18,8 +18,8 @@ namespace GOAPTest
 
         protected override IState InitEffects()
         {
-            State<GoalEnum> state = new State<GoalEnum>();
-            state.Set(GoalEnum.ATTACK_IDLE, true);
+            State<KeyNameEnum> state = new State<KeyNameEnum>();
+            state.Set(KeyNameEnum.ATTACK_IDLE, true);
             return state;
         }
 
