@@ -51,6 +51,11 @@ namespace GOAP
             _agent.AgentState.Set(state);
         }
 
+        public void SetAgentState<TKey>(TKey key,bool value)
+        {
+            _agent.AgentState.Set(key.ToString(), value);
+        }
+
         public virtual void Enter()
         {
             IsComplete = false;
@@ -58,12 +63,12 @@ namespace GOAP
 
         public virtual void Excute()
         {
-            throw new NotImplementedException();
+            
         }
 
         public virtual void Exit()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -70,7 +70,7 @@ namespace GOAP
 
                 foreach (string key in state.GetKeys())
                 {
-                    if (EffectsAndActionMap.ContainsKey(key) || EffectsAndActionMap[key] == null)
+                    if (!EffectsAndActionMap.ContainsKey(key) || EffectsAndActionMap[key] == null)
                         EffectsAndActionMap[key] = new HashSet<IActionHandler<TAction>>();
 
                     EffectsAndActionMap[key].Add(handler.Value);
