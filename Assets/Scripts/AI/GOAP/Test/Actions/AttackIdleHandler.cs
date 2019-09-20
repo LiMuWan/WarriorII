@@ -17,6 +17,7 @@ namespace GOAPTest
             base.Enter();
             DebugMsg.Log("进入战斗待机状态");
             _time = 0;
+            SetAgentState(KeyNameEnum.NEAR_ENEMY, false);
         }
 
         public override void Excute()
