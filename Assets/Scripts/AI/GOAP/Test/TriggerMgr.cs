@@ -12,7 +12,7 @@ namespace GOAPTest
 
         protected override void InitTriggers()
         {
-            
+            AddTrigger(new EyeTrigger(_agent));
         }
     }
 }
