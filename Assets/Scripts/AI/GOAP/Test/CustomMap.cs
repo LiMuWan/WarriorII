@@ -9,20 +9,20 @@ namespace GOAPTest
 
         protected override void InitActionMap()
         {
-            AddAction(new IdleHandler(_agent, new IdleAction(_agent)));
-            AddAction(new AttackIdleHandler(_agent, new AttackIdleAction(_agent)));
-            AddAction(new AttackHandler(_agent, new AttackAction(_agent)));
-            AddAction(new AlertHandler(_agent, new AlertAction(_agent)));
-            AddAction(new InjureHandler(_agent, new InjureAction(_agent)));
-            AddAction(new MoveHandler(_agent, new MoveAction(_agent)));
+            AddAction<IdleHandler , IdleAction>();
+            AddAction<AttackIdleHandler , AttackIdleAction>();
+            AddAction<AttackHandler , AttackAction>();
+            AddAction<AlertHandler , AlertAction>();
+            AddAction<InjureHandler , InjureAction>();
+            AddAction<MoveHandler , MoveAction>();
         }
 
         protected override void InitGoalMap()
         {
-            AddGoal(new AlertGoal(_agent));
-            AddGoal(new AttackGoal(_agent));
-            AddGoal(new AttackIdleGoal(_agent));
-            AddGoal(new InjureGoal(_agent));
+            AddGoal<AlertGoal>();
+            AddGoal<AttackGoal>();
+            AddGoal<AttackIdleGoal>();
+            AddGoal<InjureGoal>();
         }
 
         protected override void InitGameData()
