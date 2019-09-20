@@ -20,6 +20,12 @@ namespace GOAP
             }
         }
 
+        public ObjectPool()
+        {
+            _activeDic = new Dictionary<Type, List<object>>();
+            _inactiveDic = new Dictionary<Type, List<object>>();
+        }
+
         public T Spaw<T> (params object[] args) where T : class
         {
             Type type = typeof(T);
