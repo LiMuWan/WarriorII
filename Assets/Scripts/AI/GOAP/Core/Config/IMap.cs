@@ -20,6 +20,7 @@ namespace GOAP
         private Dictionary<TGoal, IGoal<TGoal>> _goalDic;
         private Dictionary<string, object> _gameDataDic;
         protected IAgent<TAction, TGoal> _agent;
+        private ObjectPool _pool;
 
         public MapBase(IAgent<TAction, TGoal> agent)
         {
@@ -27,7 +28,7 @@ namespace GOAP
             _goalDic = new Dictionary<TGoal, IGoal<TGoal>>();
             _gameDataDic = new Dictionary<string, object>();
             _agent = agent;
-
+            _pool = ObjectPool.Instance;
             InitActionMap();
             InitGoalMap();
             InitGameData();
@@ -61,8 +62,13 @@ namespace GOAP
 
         protected abstract void InitGameData();
 
-        protected void AddAction(IActionHandler<TAction> handler)
+        protected void AddAction<THandler,UAction>() 
+            where THandler : class , IActionHandler<TAction>
+            where UAction : class  , IAction<TAction>
         {
+            UAction action = _pool.Spaw<UAction>(_agent);
+            THandler handler = _pool.Spaw<THandler>(_agent,action);
+         
             if(!_actionHandlerDic.ContainsKey(handler.Label))
             {
                 _actionHandlerDic.Add(handler.Label, handler);
@@ -73,8 +79,11 @@ namespace GOAP
             }
         }
 
-        protected void AddGoal(IGoal<TGoal> goal)
+        protected void AddGoal<UGoal>()
+            where UGoal : class , IGoal<TGoal>
         {
+            UGoal goal = _pool.Spaw<UGoal>(_agent);
+
             if(!_goalDic.ContainsKey(goal.Lable))
             {
                 _goalDic.Add(goal.Lable,goal);
