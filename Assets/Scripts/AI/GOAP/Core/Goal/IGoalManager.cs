@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ namespace GOAP
         void UpdateData(); 
     }
 
-    public abstract class GoalManager<TAction,TGoal> : IGoalManager<TGoal>
+    public abstract class GoalManagerBase<TAction,TGoal> : IGoalManager<TGoal>
     {
         public IGoal<TGoal> Current { get; private set; }
 
@@ -28,7 +28,7 @@ namespace GOAP
  
         private IAgent<TAction, TGoal> _agent;
 
-        public GoalManager(IAgent<TAction, TGoal> agent)
+        public GoalManagerBase(IAgent<TAction, TGoal> agent)
         {
             _agent = agent;
             _goalsDic = new Dictionary<TGoal, IGoal<TGoal>>();
@@ -76,7 +76,7 @@ namespace GOAP
                 return _goalsDic[label];
             }
 
-            DebugMsg.LogError("µ±Ç°´úÀíÎ´³õÊ¼»¯´ËÄ¿±ê£¬±êÇ©Îª £º" + label);
+            DebugMsg.LogError("å½“å‰ä»£ç†æœªåˆå§‹åŒ–æ­¤ç›®æ ‡ï¼Œæ ‡ç­¾ä¸º ï¼š" + label);
             return null;
         }
 
@@ -112,7 +112,7 @@ namespace GOAP
             Current = FindGoal();
 
             if (Current == null)
-                DebugMsg.LogError("µ±Ç°Ä¿±êÎª¿Õ");
+                DebugMsg.LogError("å½“å‰ç›®æ ‡ä¸ºç©º");
         }
     }
 }
