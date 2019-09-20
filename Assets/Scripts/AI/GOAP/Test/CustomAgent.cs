@@ -10,7 +10,7 @@ namespace GOAPTest
 
         protected override IActionManager<ActionEnum> InitActionManager()
         {
-            throw new System.NotImplementedException();
+            return new CurrentActMgr(this);
         }
 
         protected override DebugBase InitDebugBase()
@@ -20,7 +20,7 @@ namespace GOAPTest
 
         protected override IGoalManager<GoalEnum> InitGoalManager()
         {
-            throw new System.NotImplementedException();
+            return new CustomGoalMgr(this);
         }
 
         protected override IMap<ActionEnum, GoalEnum> InitMap()
@@ -43,7 +43,7 @@ namespace GOAPTest
 
         protected override ITriggerManager InitTriggerManager()
         {
-            throw new System.NotImplementedException();
+            return new TriggerMgr(this);
         }
     }
 }
