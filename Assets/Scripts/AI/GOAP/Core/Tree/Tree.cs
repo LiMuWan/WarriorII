@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace GOAP
 {
@@ -13,7 +13,7 @@ namespace GOAP
         public TreeNode<TAction> CreateNormalNode(IActionHandler<TAction> actionHandler)
         {
             if (actionHandler == null)
-                DebugMsg.LogError("¶¯×÷²»ÄÜÎª¿Õ£¡");
+                DebugMsg.LogError("åŠ¨ä½œä¸èƒ½ä¸ºç©ºï¼");
             return new TreeNode<TAction>(actionHandler);
         }
     }
