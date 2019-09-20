@@ -123,7 +123,15 @@ namespace GOAP
                 currentNode.CopyState(subNode);
                 IState data = currentNode.GoalState.GetSameData(subAction.Effects);
                 subNode.CurrentState.Set(data);
-                subNode.GoalState.Set(subAction.Preconditions);
+
+                foreach (var key in subAction.Preconditions.GetKeys())
+                {
+                    if(!subNode.GoalState.ContainsKey(key))
+                    {
+                        subNode.GoalState.Set(subAction.Preconditions);
+                    }
+                }
+               
                 SetNodeCurrentState(subNode);
             }
             else
