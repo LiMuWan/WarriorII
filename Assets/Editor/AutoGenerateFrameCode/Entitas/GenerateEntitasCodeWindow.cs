@@ -27,7 +27,6 @@ namespace Game.Editor
             window.minSize = new Vector2(600, 800);
             window.Show();
             Init();
-
         }
 
         public static void Close()
