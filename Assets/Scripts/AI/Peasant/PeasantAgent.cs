@@ -32,22 +32,22 @@ namespace Game.AI
 
         protected override IActionManager<ActionEnum> InitActionManager()
         {
-            throw new System.NotImplementedException();
+            return new PeasantActMgr(this);
         }
 
         protected override IGoalManager<GoalEnum> InitGoalManager()
         {
-            throw new System.NotImplementedException();
+            return new PeasantGoalMgr(this);
         }
 
         protected override IMaps<ActionEnum, GoalEnum> InitMaps()
         {
-            throw new System.NotImplementedException();
+            return new PeasantMap(this,_onInitGameData);
         }
 
         protected override ITriggerManager InitTriggerManager()
         {
-            throw new System.NotImplementedException();
+            return new PeasantTriggerMgr(this);
         }
     }
 }

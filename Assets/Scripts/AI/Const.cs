@@ -20,6 +20,16 @@ namespace Game.AI
         public const float SAFE_DISTANCE = 5;
 
         /// <summary>
+        /// 发现目标距离
+        /// </summary>
+        public const float FIND_ENEMY_DISTANCE = 20;
+
+        /// <summary>
+        /// 自身视线范围
+        /// </summary>
+        public const float SIGHT_LINE_RANGE = 60;
+
+        /// <summary>
         /// 移动速度
         /// </summary>
         public const float MOVE_VELOCITY = 1.5f;

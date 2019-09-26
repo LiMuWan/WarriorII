@@ -7,6 +7,7 @@ namespace Game.AI
     /// </summary>
     public enum ActionEnum
     {
+        ALERT,
         IDLE,
         IDLE_SWORD,
         ATTACK,
