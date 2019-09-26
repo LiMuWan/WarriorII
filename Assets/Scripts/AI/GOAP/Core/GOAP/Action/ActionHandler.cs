@@ -16,6 +16,8 @@ namespace BlueGOAP
             get { return Action.Label; }
         }
 
+        protected bool IsNeedResetPreconditions { get; set; }
+
         public ActionExcuteState ExcuteState { get; private set; }
 
         protected IAgent<TAction, TGoal> _agent;
@@ -33,6 +35,7 @@ namespace BlueGOAP
             Action = action;
             ExcuteState = ActionExcuteState.INIT;
             _onFinishAction = null;
+            IsNeedResetPreconditions = true;
         }
 
         private void SetAgentData(IState state)
@@ -60,10 +63,14 @@ namespace BlueGOAP
 
             if (_onFinishAction != null)
                 _onFinishAction();
+
+            if (IsNeedResetPreconditions)
+                SetAgentData(Action.Preconditions.InversionValue());
         }
 
         public virtual bool CanPerformAction()
         {
+            DebugMsg.Log("Action:" + Action.Label);
             return Action.VerifyPreconditions();
         }
 

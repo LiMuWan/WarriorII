@@ -12,6 +12,7 @@ namespace Game.AI
 
         public IdleSwordHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
+            IsNeedResetPreconditions = false;
             _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
         }
 

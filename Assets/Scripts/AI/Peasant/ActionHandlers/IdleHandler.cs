@@ -7,7 +7,7 @@ namespace Game.AI
     {
         public IdleHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-
+            IsNeedResetPreconditions = false;
         }
 
         public override void Enter()
