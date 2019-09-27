@@ -50,7 +50,7 @@ namespace Game.Service
            return LoadManager.Single.Load<T>(path, name);
         }
 
-        public T[] LoadAll<T>(string path) where T : Object
+        public T[] LoadAll<T>(string path) where T : UnityEngine.Object
         {
             return LoadManager.Single.LoadAll<T>(path);
         }
