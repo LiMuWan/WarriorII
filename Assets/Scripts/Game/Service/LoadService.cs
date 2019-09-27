@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using Game.Interface;
 using Game.View;
 using Manager;
@@ -102,6 +103,21 @@ namespace Game.Service
         {
             var enemy = LoadManager.Single.LoadAndInstantiate(Path.ENEMY_PATH + enemyName, parent);
             enemy.transform.localPosition = Vector3.zero;
+            string scriptName = Consts.VIEW_NAMESPACE + "." + enemyName + Consts.VIEW_POSTFIX;
+            Type viewType = Type.GetType(scriptName);
+            IView view = null;
+            if (viewType != null)
+            {
+               view = enemy.AddComponent(viewType) as IView;
+            }
+            else
+            {
+                Debug.LogError("未找到类,名称为 : " + scriptName);
+                return;
+            }
+
+            GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
+            view.Init(Contexts.sharedInstance, entity);
         }
     }
 }
