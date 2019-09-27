@@ -66,6 +66,10 @@ namespace Game.AI
         /// <summary>
         /// 生命值
         /// </summary>
-        LIFE
+        LIFE,
+        /// <summary>
+        /// 此单位的基础配置文件
+        /// </summary>
+        CONFIG
     }
 }
