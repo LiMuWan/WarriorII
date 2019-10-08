@@ -21,7 +21,6 @@ namespace Game.AI
         protected override IState InitPreconditions()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.ALERT, false);
             state.Set(StateKeyEnum.FIND_ENEMY, false);
             state.Set(StateKeyEnum.CAN_ATTACK, false);
             return state;

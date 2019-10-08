@@ -7,7 +7,7 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.MoveBackward; } }
 
-        public override int Cost { get { return 1; } }
+        public override int Cost { get { return 5; } }
 
         public override int Priority { get { return 8; } }
 

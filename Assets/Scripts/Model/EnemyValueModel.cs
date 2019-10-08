@@ -45,6 +45,10 @@ namespace Game
             PrefabName = data.PrefabName;
             Life = data.Life;
             Attack = data.Attack;
+            AttackRange = data.AttackRange;
+            SafeDistance = data.SafeDistance;
+            FindDistance = data.FindDistance;
+            MoveSpeed = data.MoveSpeed;
         }
     }
 

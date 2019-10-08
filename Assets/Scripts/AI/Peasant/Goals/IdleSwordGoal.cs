@@ -22,7 +22,7 @@ namespace Game.AI
             State<StateKeyEnum> state = new State<StateKeyEnum>();
             state.Set(StateKeyEnum.FIND_ENEMY, true);
             state.Set(StateKeyEnum.CAN_ATTACK, false);
-            state.Set(StateKeyEnum.CAN_MOVE_FORWARD, false);
+            state.Set(StateKeyEnum.IS_SAFE_DISTANCE, false);
             return state;
         }
 
@@ -30,6 +30,7 @@ namespace Game.AI
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
             state.Set(StateKeyEnum.CAN_MOVE_FORWARD, true);
+            state.Set(StateKeyEnum.IS_SAFE_DISTANCE, true);
             return state;
         }
     }

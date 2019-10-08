@@ -18,8 +18,11 @@ namespace Game.AI
         protected override void InitActionHandlers()
         {
             AddActionHandler(ActionEnum.IDLE);
-            AddActionHandler(ActionEnum.ATTACK);
+            AddActionHandler(ActionEnum.IDLE_SWORD);
             AddActionHandler(ActionEnum.MOVE);
+            AddActionHandler(ActionEnum.MoveBackward);
+            AddActionHandler(ActionEnum.ATTACK);
+            AddActionHandler(ActionEnum.DEAD);
         }
 
         protected override void InitActionStateHandlers()

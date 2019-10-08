@@ -33,7 +33,6 @@ namespace Game.AI
     /// </summary>
     public enum StateKeyEnum
     {
-        ALERT,
         /// <summary>
         /// 是否发现目标
         /// </summary>
