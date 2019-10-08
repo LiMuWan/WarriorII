@@ -6,6 +6,7 @@ namespace Game.AI
     {
         private Transform _self, _enemy;
         private CharacterController _controller;
+        private EnemyData _data;
 
         public MoveHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -19,19 +20,20 @@ namespace Game.AI
             _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
             _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
             _controller = _self.GetComponent<CharacterController>();
+            _data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
         }
 
         public override void Execute()
         {
             base.Execute();
-            if(Vector3.Distance(_self.position,_enemy.position) <= Const.NEAR_ENEMY_DISTANCE)
+            if(Vector3.Distance(_self.position,_enemy.position) <= _data.AttackRange)
             {
                 OnComplete(); 
             }
             else
             {
                 Vector3 direction = (_enemy.position - _self.position).normalized;
-                _controller.SimpleMove(direction * Const.MOVE_VELOCITY);
+                _controller.SimpleMove(direction * _data.MoveSpeed);
             }
         }
     }

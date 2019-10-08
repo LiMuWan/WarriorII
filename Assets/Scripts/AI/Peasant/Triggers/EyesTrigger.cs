@@ -17,8 +17,11 @@ namespace Game.AI
 
                 if(_enemy == null ||  _self == null)
                     return false;
+
+                EnemyData data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+
                 //比对发现目标的距离
-                if(Vector3.Distance(_self.position,_enemy.position) < Const.FIND_ENEMY_DISTANCE)
+                if(Vector3.Distance(_self.position,_enemy.position) < data.FindDistance)
                 {
                     //查看是否再视线角度内
                     Vector3 dirToEnemy = (_enemy.position - _self.position).normalized;

@@ -7,7 +7,7 @@ namespace Game.AI
     {
         private Transform _self,_enemy;
         private CharacterController _controller;
-
+        private EnemyData _data;
         public MoveBackwardHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
 
@@ -19,20 +19,21 @@ namespace Game.AI
             DebugMsg.Log("进入后退状态");
             _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
             _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
+            _data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
             _controller = _self.GetComponent<CharacterController>();
         }
 
         public override void Execute()
         {
             base.Execute();
-            if(Vector3.Distance(_self.position,_enemy.position) >= Const.SAFE_DISTANCE)
+            if(Vector3.Distance(_self.position,_enemy.position) >= _data.SafeDistance)
             {
                 OnComplete();
             }
             else
             {
                 Vector3 direction = (_self.position - _enemy.position).normalized;
-                _controller.SimpleMove(direction * Const.MOVE_VELOCITY);
+                _controller.SimpleMove(direction * _data.MoveSpeed);
             }
         }
     }
