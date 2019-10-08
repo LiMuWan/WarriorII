@@ -44,12 +44,15 @@ namespace Manager
             HumanSkillDataModel = ConfigManager.Single.LoadJson<HumanSkillDataModel>(Const.ConfigPath.HUMAN_SKILL_CONFIG);
             EnemyModel = ConfigManager.Single.LoadJson<EnemyModel>(Const.ConfigPath.ENEMY_CONFIG);
             SpawEnemyModel = ConfigManager.Single.LoadJson<SpawEnemyModel>(Const.ConfigPath.SPAW_ENEMY_CONFIG);
+            InitDataModel();
         }
 
         private void InitDataModel()
         {
-            EnemyValueModel model = ConfigManager.Single.LoadJson<EnemyValueModel>(Const.ConfigPath.ENEMY_VALUE_CONFIG);
+            EnemyDataModel = new EnemyDataModel();
             EnemyDataModel.DataDic = new Dictionary<EnemyId, EnemyData>();
+
+            EnemyValueModel model = ConfigManager.Single.LoadJson<EnemyValueModel>(Const.ConfigPath.ENEMY_VALUE_CONFIG);
             EnemyData data = null;
             
             foreach (EnemyId enemyId in Enum.GetValues(typeof(EnemyId)))
@@ -57,11 +60,11 @@ namespace Manager
                 data = model.EnemyList.FirstOrDefault(u => u.PrefabName == enemyId.ToString());
                 if(data == null)
                 {
-                    DebugMsgBase.Instance.Log("无法找到匹配项，名称为 : " + enemyId);
+                    Debug.Log("无法找到匹配项，名称为 : " + enemyId);
                 }
                 else
                 {
-                    EnemyDataModel.DataDic[enemyId] = data;
+                    EnemyDataModel.DataDic.Add(enemyId,data);
                 }
             }
         }
