@@ -18,6 +18,13 @@ namespace Game
         public string PrefabName;
         public int Life;
         public int Attack;
+
+        public void Copy(EnemyData data)
+        {
+            PrefabName = data.PrefabName;
+            Life = data.Life;
+            Attack = data.Attack;
+        }
     }
 
     /// <summary>

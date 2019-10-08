@@ -57,7 +57,7 @@ namespace Manager
                 data = model.EnemyList.FirstOrDefault(u => u.PrefabName == enemyId.ToString());
                 if(data == null)
                 {
-                    DebugMsgBase.Instance.LogError("无法找到匹配项，名称为 : " + enemyId);
+                    DebugMsgBase.Instance.Log("无法找到匹配项，名称为 : " + enemyId);
                 }
                 else
                 {
