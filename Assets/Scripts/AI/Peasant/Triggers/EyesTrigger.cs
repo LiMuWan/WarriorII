@@ -9,6 +9,12 @@ namespace Game.AI
         public override bool IsTrigger {
             get
             {
+                if(_self == null || _enemy == null)
+                {
+                    _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
+                    _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
+                }
+
                 if(_enemy == null ||  _self == null)
                     return false;
                 //比对发现目标的距离
@@ -32,8 +38,7 @@ namespace Game.AI
 
         public EyesTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
-            _self = agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
-            _enemy = agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
+            
         }
 
         protected override IState InitEffects()
