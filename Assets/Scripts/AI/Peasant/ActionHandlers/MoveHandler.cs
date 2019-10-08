@@ -5,7 +5,7 @@ namespace Game.AI
     public class MoveHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
         private Transform _self, _enemy;
-        private Rigidbody _rigidbody;
+        private CharacterController _controller;
 
         public MoveHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -18,7 +18,7 @@ namespace Game.AI
             DebugMsg.Log("进入移动状态");
             _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
             _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
-            _rigidbody = _self.GetComponent<Rigidbody>();
+            _controller = _self.GetComponent<CharacterController>();
         }
 
         public override void Execute()
@@ -31,7 +31,7 @@ namespace Game.AI
             else
             {
                 Vector3 direction = (_enemy.position - _self.position).normalized;
-                _rigidbody.velocity = direction * Const.MOVE_VELOCITY;
+                _controller.SimpleMove(direction * Const.MOVE_VELOCITY);
             }
         }
     }

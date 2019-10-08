@@ -6,7 +6,7 @@ namespace Game.AI
     public class MoveBackwardHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
         private Transform _self,_enemy;
-        private Rigidbody _rigidbody;
+        private CharacterController _controller;
 
         public MoveBackwardHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -19,7 +19,7 @@ namespace Game.AI
             DebugMsg.Log("进入后退状态");
             _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
             _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
-            _rigidbody = _self.GetComponent<Rigidbody>();
+            _controller = _self.GetComponent<CharacterController>();
         }
 
         public override void Execute()
@@ -32,7 +32,7 @@ namespace Game.AI
             else
             {
                 Vector3 direction = (_self.position - _enemy.position).normalized;
-                _rigidbody.velocity = direction * Const.MOVE_VELOCITY;
+                _controller.SimpleMove(direction * Const.MOVE_VELOCITY);
             }
         }
     }
