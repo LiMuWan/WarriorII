@@ -3,6 +3,7 @@ using BlueGOAP;
 using Entitas;
 using Entitas.Unity;
 using Game.AI;
+using Manager;
 
 namespace Game.View
 {
@@ -14,6 +15,8 @@ namespace Game.View
         {
             base.Init(contexts,entity);
             _ai = new PeasantAgent((agent, map) => { OnInitGameData(agent,map); });
+            EnemyData data = ModelManager.Single.EnemyDataModel.DataDic[Const.EnemyId.EnemyPeasant];
+            _ai.Maps.SetGameData(GameDataKeyEnum.CONFIG, data);
         }
 
         private void FixedUpdate()
