@@ -1,6 +1,11 @@
-﻿using Game;
+﻿using System;
+using System.Linq;
+using BlueGOAP;
+using Const;
+using Game;
 using UnityEngine;
 using Util;
+using System.Collections.Generic;
 
 namespace Manager
 {
@@ -29,12 +34,36 @@ namespace Manager
         /// </summary>
         public SpawEnemyModel SpawEnemyModel { get; private set; }
 
+        public EnemyValueModel EnemyValueModel { get; private set; }
+
+        public EnemyDataModel EnemyDataModel { get; private set; }
+
         public void Init()        
         {
             PlayerData = ConfigManager.Single.LoadJson<PlayerDataModel>(Const.ConfigPath.PLAYER_CONFIG);
             HumanSkillDataModel = ConfigManager.Single.LoadJson<HumanSkillDataModel>(Const.ConfigPath.HUMAN_SKILL_CONFIG);
             EnemyModel = ConfigManager.Single.LoadJson<EnemyModel>(Const.ConfigPath.ENEMY_CONFIG);
             SpawEnemyModel = ConfigManager.Single.LoadJson<SpawEnemyModel>(Const.ConfigPath.SPAW_ENEMY_CONFIG);
+        }
+
+        private void InitDataModel()
+        {
+            EnemyValueModel model = ConfigManager.Single.LoadJson<EnemyValueModel>(Const.ConfigPath.ENEMY_VALUE_CONFIG);
+            EnemyDataModel.DataDic = new Dictionary<EnemyId, EnemyData>();
+            EnemyData data = null;
+            
+            foreach (EnemyId enemyId in Enum.GetValues(typeof(EnemyId)))
+            {
+                data = model.EnemyList.FirstOrDefault(u => u.PrefabName == enemyId.ToString());
+                if(data == null)
+                {
+                    DebugMsgBase.Instance.LogError("无法找到匹配项，名称为 : " + enemyId);
+                }
+                else
+                {
+                    EnemyDataModel.DataDic[enemyId] = data;
+                }
+            }
         }
     }
 }

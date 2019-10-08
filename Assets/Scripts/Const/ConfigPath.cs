@@ -11,5 +11,7 @@ namespace Const
         public static readonly string ENEMY_CONFIG = Application.streamingAssetsPath + "/Enemy.json";
 
         public static readonly string SPAW_ENEMY_CONFIG = Application.streamingAssetsPath + "/SpawEnemy.json";
+
+        public static readonly string ENEMY_VALUE_CONFIG = Application.streamingAssetsPath + "/EnemyValue.json";
     }
 }
