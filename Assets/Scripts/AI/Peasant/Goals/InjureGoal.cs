@@ -20,14 +20,14 @@ namespace Game.AI
         protected override IState InitActiveCondition()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.INJURE, true);
+            state.Set(StateKeyEnum.IS_INJURE, true);
             return state;
         }
 
         protected override IState InitEffects()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.INJURE, false);
+            state.Set(StateKeyEnum.IS_INJURE, false);
             return state;
         }
     }

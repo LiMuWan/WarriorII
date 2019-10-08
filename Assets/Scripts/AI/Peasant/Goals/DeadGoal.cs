@@ -20,7 +20,7 @@ namespace Game.AI
         protected override IState InitActiveCondition()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.DEAD, true);
+            state.Set(StateKeyEnum.IS_DEAD, true);
             return state;
         }
 

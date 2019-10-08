@@ -21,15 +21,15 @@ namespace Game.AI
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
             state.Set(StateKeyEnum.ALERT, true);
-            state.Set(StateKeyEnum.ATTACK, false);
-            state.Set(StateKeyEnum.MOVE, false);
+            state.Set(StateKeyEnum.CAN_ATTACK, false);
+            state.Set(StateKeyEnum.CAN_MOVE_FORWARD, false);
             return state;
         }
 
         protected override IState InitEffects()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.MOVE, true);
+            state.Set(StateKeyEnum.CAN_MOVE_FORWARD, true);
             return state;
         }
     }

@@ -22,7 +22,7 @@ namespace Game.AI
 
             if(data.Life < 0)
             {
-                SetAgentState(StateKeyEnum.DEAD, true);
+                SetAgentState(StateKeyEnum.IS_DEAD, true);
             }
 
             //todo:动画执行完毕，执行OnComplete
