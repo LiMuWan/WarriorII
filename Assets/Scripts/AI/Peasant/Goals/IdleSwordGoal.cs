@@ -20,7 +20,7 @@ namespace Game.AI
         protected override IState InitActiveCondition()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.ALERT, true);
+            state.Set(StateKeyEnum.FIND_ENEMY, true);
             state.Set(StateKeyEnum.CAN_ATTACK, false);
             state.Set(StateKeyEnum.CAN_MOVE_FORWARD, false);
             return state;
