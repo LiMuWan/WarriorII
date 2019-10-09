@@ -10,7 +10,8 @@ namespace Game.AI.ViewEffect
         private IFSM<T> _mutilFsm;
         private Dictionary<T, IFsmState<T>> _viewDic;
         private Dictionary<T, IFsmState<T>> _mutilActionViews;
-        private AIModelMgrBase<T> _modelMgr;
+        public AIModelMgrBase<T> ModelMgr { get; private set; }
+        public EffectMgr EffectMgr { get; private set; }
 
         public AIViewEffectMgrBase()
         {
@@ -20,7 +21,8 @@ namespace Game.AI.ViewEffect
             _mutilActionViews = new Dictionary<T, IFsmState<T>>();
             InitViews();
             InitMulViews();
-            _modelMgr = InitModelMgr();
+            ModelMgr = InitModelMgr();
+            EffectMgr = new EffectMgr();
         }
 
         protected abstract void InitViews();
