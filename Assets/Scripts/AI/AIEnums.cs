@@ -85,4 +85,9 @@ namespace Game.AI
         /// </summary>
         CONFIG
     }
+
+    public enum AIEffectKeyEnum
+    {
+
+    }
 }

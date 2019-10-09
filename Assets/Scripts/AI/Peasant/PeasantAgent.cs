@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using BlueGOAP;
 using System;
+using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
@@ -48,6 +49,14 @@ namespace Game.AI
         protected override ITriggerManager InitTriggerManager()
         {
             return new PeasantTriggerMgr(this);
+        }
+
+        private void InitViewMgr()
+        {
+            AIViewEffectMgr<ActionEnum> viewMgr = new AIViewEffectMgr<ActionEnum>();
+
+            PeasantActMgr actMgr = ActionManager as PeasantActMgr;
+            actMgr.AddExecuteNewStateListener(viewMgr.ExecuteState);
         }
     }
 }
