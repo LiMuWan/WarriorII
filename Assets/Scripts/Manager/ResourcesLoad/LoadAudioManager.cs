@@ -39,5 +39,18 @@ namespace Manager
                 return null;
             }
         }
+
+        public AudioClip EnemyAudio(string name)
+        {
+            if (playerAudioDic.ContainsKey(name))
+            {
+                return playerAudioDic[name];
+            }
+            else
+            {
+                Debug.LogErrorFormat("Enemy音效中未发现名为{0}的AudioClip", name);
+                return null;
+            }
+        }
     }
 }

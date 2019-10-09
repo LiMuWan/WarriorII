@@ -8,11 +8,13 @@ namespace Game.AI.ViewEffect
         public ActionExcuteState ExcuteState { get; private set; }
         public abstract T Label { get; }
 
-        protected AIViewEffectMgrBase<T> _mgr;
+        protected IModel _iModel;
+        protected EffectMgr _effectMgr;
 
         public ViewBase(AIViewEffectMgrBase<T> mgr)
         {
-            _mgr = mgr;
+            _iModel = mgr.ModelMgr.GetModel(Label);
+            _effectMgr = mgr.EffectMgr;
         }
 
         public virtual void Enter()
