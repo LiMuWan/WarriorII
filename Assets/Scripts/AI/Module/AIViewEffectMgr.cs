@@ -12,6 +12,7 @@ namespace Game.AI.ViewEffect
         private Dictionary<T, IFsmState<T>> _mutilActionViews;
         public AIModelMgrBase<T> ModelMgr { get; private set; }
         public EffectMgr EffectMgr { get; private set; }
+        public AudioMgr AudioMgr { get; private set; }
 
         public AIViewEffectMgrBase()
         {
@@ -23,6 +24,7 @@ namespace Game.AI.ViewEffect
             InitMulViews();
             ModelMgr = InitModelMgr();
             EffectMgr = new EffectMgr();
+            AudioMgr = new AudioMgr();
         }
 
         protected abstract void InitViews();
