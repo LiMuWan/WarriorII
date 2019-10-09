@@ -4,17 +4,49 @@ using UnityEngine;
 
 namespace Game.AI.ViewEffect
 {
-    public class AIViewEffectMgr<T>   
+    public abstract class AIViewEffectMgrBase<T>   
     {
         private IFSM<T> _fsm;
         private IFSM<T> _mutilFsm;
-        private Dictionary<T, IActionHandler<T>> _viewDic;
-        private Dictionary<T, IActionHandler<T>> _mutilActionViews;
+        private Dictionary<T, IFsmState<T>> _viewDic;
+        private Dictionary<T, IFsmState<T>> _mutilActionViews;
 
-        public AIViewEffectMgr()
+        public AIViewEffectMgrBase()
         {
             _fsm = new ActionFSM<T>();
             _mutilFsm = new ActionStateFSM<T>();
+            _viewDic = new Dictionary<T, IFsmState<T>>();
+            _mutilActionViews = new Dictionary<T, IFsmState<T>>();
+            InitViews();
+            InitMulViews();
+        }
+
+        protected abstract void InitViews();
+
+        protected abstract void InitMulViews();
+
+        protected void AddView(T key,IFsmState<T> state)
+        {
+            if(_viewDic.ContainsKey(key))
+            {
+                DebugMsg.LogError("_viewDic已经包含当前键值 : " + key);
+            }
+            else
+            {
+                _viewDic.Add(key, state);
+            }
+        }
+
+        protected void AddMutilView(T key,IFsmState<T> state)
+        {
+            if (_mutilActionViews.ContainsKey(key))
+            {
+                DebugMsg.LogError("_mutilActionViews已经包含当前键值 : " + key);
+            }
+            else
+            {
+                _mutilActionViews.Add(key, state);
+            }
         }
 
         public void ExecuteState(T key)
@@ -32,5 +64,24 @@ namespace Game.AI.ViewEffect
                 DebugMsg.LogError("动作" + key + "不在当前动作缓存中");
             }
         }
+    }
+
+    public class AIViewEffectMgr : AIViewEffectMgrBase<ActionEnum>
+    {
+        public AIViewEffectMgr() : base()
+        {
+            
+        }
+
+        protected override void InitViews()
+        {
+            AddView(ActionEnum.ATTACK, new AttackView());
+        }
+
+        protected override void InitMulViews()
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }

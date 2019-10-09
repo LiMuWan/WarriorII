@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Game.AI.ViewEffect
 {
-    public class AttackView<T> : IFsmState<T>
+    public class AttackView : IFsmState<ActionEnum>
     {
         public ActionExcuteState ExcuteState { get; }
 
-        public T Label { get; }
+        public ActionEnum Label { get { return ActionEnum.ATTACK; } }
 
         public void Enter()
         {

@@ -53,7 +53,7 @@ namespace Game.AI
 
         private void InitViewMgr()
         {
-            AIViewEffectMgr<ActionEnum> viewMgr = new AIViewEffectMgr<ActionEnum>();
+            AIViewEffectMgr viewMgr = new AIViewEffectMgr();
 
             PeasantActMgr actMgr = ActionManager as PeasantActMgr;
             actMgr.AddExecuteNewStateListener(viewMgr.ExecuteState);
