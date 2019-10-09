@@ -83,7 +83,11 @@ namespace Game.AI
         /// <summary>
         /// 此单位的基础配置文件
         /// </summary>
-        CONFIG
+        CONFIG,
+        /// <summary>
+        /// 声音组件
+        /// </summary>
+        AUDIO_SOURCE
     }
 
     public enum AIEffectKeyEnum

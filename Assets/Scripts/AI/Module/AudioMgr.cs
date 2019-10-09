@@ -7,9 +7,9 @@ namespace Game.AI.ViewEffect
     {
         private AudioSource _audioSource;
 
-        public AudioMgr(AudioSource audioSource)
+        public AudioMgr(object audioSource)
         {
-            _audioSource = audioSource;
+            _audioSource = audioSource as AudioSource;
         }
 
         public void Play<T>(T audioName,float volume)

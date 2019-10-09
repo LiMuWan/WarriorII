@@ -53,7 +53,8 @@ namespace Game.AI
 
         private void InitViewMgr()
         {
-            AIViewEffectMgr viewMgr = new AIViewEffectMgr();
+            object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
+            AIViewEffectMgr viewMgr = new AIViewEffectMgr(audioSource);
 
             PeasantActMgr actMgr = ActionManager as PeasantActMgr;
             actMgr.AddExecuteNewStateListener(viewMgr.ExecuteState);

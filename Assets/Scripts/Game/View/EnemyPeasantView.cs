@@ -15,7 +15,7 @@ namespace Game.View
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
-            _ai = new PeasantAgent((agent, map) => { OnInitGameData(agent,map,contexts); });
+            _ai = new PeasantAgent((agent, map) => { OnInitGameData(agent,map,contexts,GetComponent<AudioSource>()); });
         }
 
         private void FixedUpdate()
@@ -23,7 +23,7 @@ namespace Game.View
             _ai.FrameFun();
         }
 
-        private void OnInitGameData(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps,Contexts contexts)
+        private void OnInitGameData(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps,Contexts contexts,AudioSource audioSource)
         {
             EnemyData temp = ModelManager.Single.EnemyDataModel.DataDic[Const.EnemyId.EnemyPeasant];
             EnemyData data = new EnemyData();
@@ -32,6 +32,8 @@ namespace Game.View
             maps.SetGameData(GameDataKeyEnum.SELF_TRANS, transform);
             Transform player = (contexts.game.gamePlayer.PlayerView as ViewBase).transform;
             maps.SetGameData(GameDataKeyEnum.ENEMY_TRANS, player);
+
+            maps.SetGameData(GameDataKeyEnum.AUDIO_SOURCE, audioSource);
         }
     }
 }
