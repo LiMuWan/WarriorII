@@ -10,6 +10,7 @@ namespace Game.AI.ViewEffect
         private IFSM<T> _mutilFsm;
         private Dictionary<T, IFsmState<T>> _viewDic;
         private Dictionary<T, IFsmState<T>> _mutilActionViews;
+        private AIModelMgrBase<T> _modelMgr;
 
         public AIViewEffectMgrBase()
         {
@@ -19,11 +20,14 @@ namespace Game.AI.ViewEffect
             _mutilActionViews = new Dictionary<T, IFsmState<T>>();
             InitViews();
             InitMulViews();
+            _modelMgr = InitModelMgr();
         }
 
         protected abstract void InitViews();
 
         protected abstract void InitMulViews();
+
+        protected abstract AIModelMgrBase<T> InitModelMgr();
 
         protected void AddView(IFsmState<T> state)
         {
@@ -79,19 +83,23 @@ namespace Game.AI.ViewEffect
 
         protected override void InitViews()
         {
-            AddView(new AttackView());
-            AddView(new DeadView());
-            AddView(new IdleView());
-            AddView(new IdleSwordView());
-            AddView(new InjureView());
-            AddView(new MoveBackwardView());
-            AddView(new MoveView());
+            AddView(new AttackView(this));
+            AddView(new DeadView(this));
+            AddView(new IdleView(this));
+            AddView(new IdleSwordView(this));
+            AddView(new InjureView(this));
+            AddView(new MoveBackwardView(this));
+            AddView(new MoveView(this));
         }
 
         protected override void InitMulViews()
         {
-            AddView(new AlertView());
+            AddView(new AlertView(this));
         }
 
+        protected override AIModelMgrBase<ActionEnum> InitModelMgr()
+        {
+            return new AIModelMgr();
+        }
     }
 }

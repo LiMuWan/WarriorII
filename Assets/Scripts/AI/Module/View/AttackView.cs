@@ -7,6 +7,11 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.ATTACK; } }
 
+        public AttackView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        {
+
+        }
+
         public override void Enter()
         {
             throw new System.NotImplementedException();
