@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 using Const;
 using Util;
@@ -8,14 +8,17 @@ namespace Manager
     public class LoadAudioManager:SingletonBase<LoadAudioManager>
     {
         /// <summary>
-        /// Íæ¼ÒÒôĞ§»º´æ
+        /// ç©å®¶éŸ³æ•ˆç¼“å­˜
         /// </summary>
-        private Dictionary<string, AudioClip> playerAudioDic;
+        private Dictionary<string, AudioClip> _playerAudioDic;
+        //ç¬¬ä¸€å±‚keyæ˜¯EnemyIDæšä¸¾å€¼ï¼Œvalueå€¼æ˜¯å½“å‰æ€ªç‰©å¯¹åº”çš„éŸ³æ•ˆå­—å…¸
+        private Dictionary<string, Dictionary<string, AudioClip>> _enemyClipsDic;
 
         public void Init()
         {
-            playerAudioDic = new Dictionary<string, AudioClip>();
-            LoadAllAudio(Const.Path.AUDIO_PLAYER_PATH, playerAudioDic);
+            _playerAudioDic = new Dictionary<string, AudioClip>();
+            LoadAllAudio(Const.Path.AUDIO_PLAYER_PATH, _playerAudioDic);
+            _enemyClipsDic = new Dictionary<string, Dictionary<string, AudioClip>>();
         }
 
         private void LoadAllAudio(string path,Dictionary<string,AudioClip> audioDic)
@@ -29,26 +32,26 @@ namespace Manager
 
         public AudioClip PlayerAudio(string name)
         {
-            if(playerAudioDic.ContainsKey(name))
+            if(_playerAudioDic.ContainsKey(name))
             {
-                return playerAudioDic[name];
+                return _playerAudioDic[name];
             }
             else
             {
-                Debug.LogErrorFormat("ÈËÎïÒôĞ§ÖĞÎ´·¢ÏÖÃûÎª{0}µÄAudioClip",name);
+                Debug.LogErrorFormat("äººç‰©éŸ³æ•ˆä¸­æœªå‘ç°åä¸º{0}çš„AudioClip",name);
                 return null;
             }
         }
 
         public AudioClip EnemyAudio(string name)
         {
-            if (playerAudioDic.ContainsKey(name))
+            if (_playerAudioDic.ContainsKey(name))
             {
-                return playerAudioDic[name];
+                return _playerAudioDic[name];
             }
             else
             {
-                Debug.LogErrorFormat("EnemyÒôĞ§ÖĞÎ´·¢ÏÖÃûÎª{0}µÄAudioClip", name);
+                Debug.LogErrorFormat("EnemyéŸ³æ•ˆä¸­æœªå‘ç°åä¸º{0}çš„AudioClip", name);
                 return null;
             }
         }
