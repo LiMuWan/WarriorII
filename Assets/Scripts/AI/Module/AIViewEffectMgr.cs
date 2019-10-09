@@ -25,9 +25,11 @@ namespace Game.AI.ViewEffect
 
         protected abstract void InitMulViews();
 
-        protected void AddView(T key,IFsmState<T> state)
+        protected void AddView(IFsmState<T> state)
         {
-            if(_viewDic.ContainsKey(key))
+            T key = state.Label;
+
+            if (_viewDic.ContainsKey(key))
             {
                 DebugMsg.LogError("_viewDic已经包含当前键值 : " + key);
             }
@@ -37,8 +39,10 @@ namespace Game.AI.ViewEffect
             }
         }
 
-        protected void AddMutilView(T key,IFsmState<T> state)
+        protected void AddMutilView(IFsmState<T> state)
         {
+            T key = state.Label;
+
             if (_mutilActionViews.ContainsKey(key))
             {
                 DebugMsg.LogError("_mutilActionViews已经包含当前键值 : " + key);
@@ -75,12 +79,18 @@ namespace Game.AI.ViewEffect
 
         protected override void InitViews()
         {
-            AddView(ActionEnum.ATTACK, new AttackView());
+            AddView(new AttackView());
+            AddView(new DeadView());
+            AddView(new IdleView());
+            AddView(new IdleSwordView());
+            AddView(new InjureView());
+            AddView(new MoveBackwardView());
+            AddView(new MoveView());
         }
 
         protected override void InitMulViews()
         {
-            throw new System.NotImplementedException();
+            AddView(new AlertView());
         }
 
     }

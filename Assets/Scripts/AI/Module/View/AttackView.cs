@@ -3,23 +3,21 @@ using UnityEngine;
 
 namespace Game.AI.ViewEffect
 {
-    public class AttackView : IFsmState<ActionEnum>
+    public class AttackView : ViewBase<ActionEnum>
     {
-        public ActionExcuteState ExcuteState { get; }
+        public override ActionEnum Label { get { return ActionEnum.ATTACK; } }
 
-        public ActionEnum Label { get { return ActionEnum.ATTACK; } }
-
-        public void Enter()
+        public override void Enter()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Execute()
+        public override void Execute()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Exit()
+        public override void Exit()
         {
             throw new System.NotImplementedException();
         }
