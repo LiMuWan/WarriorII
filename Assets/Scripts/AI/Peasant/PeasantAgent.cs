@@ -2,6 +2,7 @@
 using BlueGOAP;
 using System;
 using Game.AI.ViewEffect;
+using Const;
 
 namespace Game.AI
 {
@@ -54,7 +55,7 @@ namespace Game.AI
         private void InitViewMgr()
         {
             object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
-            AIViewEffectMgr viewMgr = new AIViewEffectMgr(audioSource);
+            AIViewEffectMgr viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(),audioSource);
 
             PeasantActMgr actMgr = ActionManager as PeasantActMgr;
             actMgr.AddExecuteNewStateListener(viewMgr.ExecuteState);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Const;
 using Util;
+using System;
 
 namespace Manager
 {
@@ -19,6 +20,11 @@ namespace Manager
             _playerAudioDic = new Dictionary<string, AudioClip>();
             LoadAllAudio(Const.Path.AUDIO_PLAYER_PATH, _playerAudioDic);
             _enemyClipsDic = new Dictionary<string, Dictionary<string, AudioClip>>();
+            foreach (EnemyId id in Enum.GetValues(typeof(EnemyId)))
+            {
+                _enemyClipsDic[id.ToString()] = new Dictionary<string, AudioClip>();
+                LoadAllAudio(Const.Path.AUDIO_PATH + id.ToString() + "/", _enemyClipsDic[id.ToString()]);
+            }
         }
 
         private void LoadAllAudio(string path,Dictionary<string,AudioClip> audioDic)
@@ -43,11 +49,11 @@ namespace Manager
             }
         }
 
-        public AudioClip EnemyAudio(string name)
+        public AudioClip EnemyAudio(string enemyId,string name)
         {
-            if (_playerAudioDic.ContainsKey(name))
+            if (_enemyClipsDic[enemyId].ContainsKey(name))
             {
-                return _playerAudioDic[name];
+                return _enemyClipsDic[enemyId][name];
             }
             else
             {

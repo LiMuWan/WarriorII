@@ -14,7 +14,7 @@ namespace Game.AI.ViewEffect
         public EffectMgr EffectMgr { get; private set; }
         public AudioMgr AudioMgr { get; private set; }
 
-        public AIViewEffectMgrBase(object audioSource)
+        public AIViewEffectMgrBase(string enemyId, object audioSource)
         {
             _fsm = new ActionFSM<T>();
             _mutilFsm = new ActionStateFSM<T>();
@@ -24,7 +24,7 @@ namespace Game.AI.ViewEffect
             InitMulViews();
             ModelMgr = InitModelMgr();
             EffectMgr = new EffectMgr();
-            AudioMgr = new AudioMgr(audioSource);
+            AudioMgr = new AudioMgr(enemyId,audioSource);
         }
 
         protected abstract void InitViews();
@@ -80,7 +80,7 @@ namespace Game.AI.ViewEffect
 
     public class AIViewEffectMgr : AIViewEffectMgrBase<ActionEnum>
     {
-        public AIViewEffectMgr(object audioSource) : base(audioSource)
+        public AIViewEffectMgr(string enemyId , object audioSource) : base(enemyId , audioSource)
         {
             
         }
