@@ -87,7 +87,11 @@ namespace Game.AI
         /// <summary>
         /// 声音组件
         /// </summary>
-        AUDIO_SOURCE
+        AUDIO_SOURCE,
+        /// <summary>
+        /// 动作组件
+        /// </summary>
+        ANIMATION
     }
 
     public enum AIEffectKeyEnum
