@@ -97,6 +97,8 @@ namespace Game.AI
     public enum AIPeasantAniName
     {
         idle,
-        idleSword
+        idleSword,
+        showSword,
+        hideSword
     }
 }

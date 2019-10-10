@@ -14,12 +14,13 @@ namespace Game.AI.ViewEffect
 
         public void Play<T>(T aniName)
         {
+            Debug.Log(aniName.ToString());
             _ani.CrossFade(aniName.ToString());
         }
 
-        public float GetAniLength(string aniName)
+        public float GetAniLength<T>(T aniName)
         {
-            return _ani[aniName].length;
+            return _ani[aniName.ToString()].length;
         }
     }
 }
