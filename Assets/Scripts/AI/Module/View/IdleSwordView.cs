@@ -10,5 +10,11 @@ namespace Game.AI.ViewEffect
         {
 
         }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _AniMgr.Play(AIPeasantAniName.idleSword);
+        }
     }
 }

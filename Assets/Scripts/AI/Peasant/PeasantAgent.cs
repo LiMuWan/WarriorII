@@ -12,7 +12,7 @@ namespace Game.AI
 
         public PeasantAgent(Action<IAgent<ActionEnum, GoalEnum>, IMaps<ActionEnum, GoalEnum>> onInitGameData) : base(onInitGameData)
         {
-
+            InitViewMgr();
         }
 
         protected override IState InitAgentState()

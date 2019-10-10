@@ -94,8 +94,9 @@ namespace Game.AI
         ANIMATION
     }
 
-    public enum AIEffectKeyEnum
+    public enum AIPeasantAniName
     {
-
+        idle,
+        idleSword
     }
 }

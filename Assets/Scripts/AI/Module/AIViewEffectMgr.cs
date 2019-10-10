@@ -21,12 +21,30 @@ namespace Game.AI.ViewEffect
             _mutilFsm = new ActionStateFSM<T>();
             _viewDic = new Dictionary<T, IFsmState<T>>();
             _mutilActionViews = new Dictionary<T, IFsmState<T>>();
-            InitViews();
-            InitMulViews();
             ModelMgr = InitModelMgr();
             EffectMgr = new EffectMgr();
             AudioMgr = new AudioMgr(enemyId,audioSource);
             AniMgr = new AIAniMgr(animation);
+            InitViews();
+            InitMulViews();
+            InitFsm();
+            InitMutilFsm();
+        }
+
+        private void InitFsm()
+        {
+            foreach (KeyValuePair<T,IFsmState<T>> state in _viewDic)
+            {
+                _fsm.AddState(state.Key, state.Value);
+            }
+        }
+
+        private void InitMutilFsm()
+        {
+            foreach (KeyValuePair<T, IFsmState<T>> state in _mutilActionViews)
+            {
+                _fsm.AddState(state.Key, state.Value);
+            }
         }
 
         protected abstract void InitViews();

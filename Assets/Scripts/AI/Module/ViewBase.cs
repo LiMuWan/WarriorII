@@ -10,11 +10,13 @@ namespace Game.AI.ViewEffect
 
         protected IModel _iModel;
         protected EffectMgr _effectMgr;
+        protected AIAniMgr _AniMgr;
 
         public ViewBase(AIViewEffectMgrBase<T> mgr)
         {
             _iModel = mgr.ModelMgr.GetModel(Label);
             _effectMgr = mgr.EffectMgr;
+            _AniMgr = mgr.AniMgr;
         }
 
         public virtual void Enter()

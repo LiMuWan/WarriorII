@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BlueGOAP;
+using UnityEngine;
 
 namespace Game.AI.ViewEffect
 {
@@ -11,9 +12,9 @@ namespace Game.AI.ViewEffect
             _ani = ani as Animation;
         }
 
-        public void Play(string aniName)
+        public void Play<T>(T aniName)
         {
-            _ani.CrossFade(aniName);
+            _ani.CrossFade(aniName.ToString());
         }
 
         public float GetAniLength(string aniName)
