@@ -2,11 +2,11 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class AlertView : ViewBase<ActionEnum>
+    public class AlertStateView : ViewBase<ActionEnum>
     {
-        public override ActionEnum Label { get { return ActionEnum.ALERT; } }
+        public override ActionEnum Label { get { return ActionEnum.ALERT_STATE; } }
 
-        public AlertView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public AlertStateView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
             AlertModel model = _iModel as AlertModel;
             model.ShowSwordDuration = _AniMgr.GetAniLength(AIPeasantAniName.showSword);

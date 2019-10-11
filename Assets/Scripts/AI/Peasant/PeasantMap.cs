@@ -23,7 +23,7 @@ namespace Game.AI
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
 
             //可叠加动作状态
-            AddAction<AlertHandler, AlertAction>();
+            AddAction<AlertStateHandler, AlertStateAction>();
         }
 
         protected override void InitGoalMaps()

@@ -4,25 +4,22 @@ using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class AlertHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class AlertStateHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
         private Transform _self, _enemy;
 
         private EnemyData _data;
-        private AlertModel _model;
 
-        public AlertHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        public AlertStateHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-            AIModelMgr mgr = GetGameData<GameDataKeyEnum, AIModelMgr>(GameDataKeyEnum.AI_MODEL_MANAGER);
-            _model = mgr.GetModel<AlertModel>(Action.Label);
+            _self = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
         }
 
         public override void Enter()
         {
             base.Enter();
             DebugMsg.Log("进入警戒状态");
-            _self = GetGameData<GameDataKeyEnum,Transform>(GameDataKeyEnum.SELF_TRANS);
-            _enemy = GetGameData<GameDataKeyEnum,Transform>(GameDataKeyEnum.ENEMY_TRANS);
             _data = GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
         }
 

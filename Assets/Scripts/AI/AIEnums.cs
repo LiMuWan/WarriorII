@@ -7,7 +7,9 @@ namespace Game.AI
     /// </summary>
     public enum ActionEnum
     {
-        ALERT,
+        ALERT_STATE,
+        ENTER_ALERT,
+        EXIT_ALERT,
         IDLE,
         IDLE_SWORD,
         ATTACK,
@@ -60,7 +62,11 @@ namespace Game.AI
         /// <summary>
         /// 是否在安全距离
         /// </summary>
-        IS_SAFE_DISTANCE
+        IS_SAFE_DISTANCE,
+        /// <summary>
+        /// 是否是警戒状态
+        /// </summary>
+        IS_ALERT
     }
 
     /// <summary>

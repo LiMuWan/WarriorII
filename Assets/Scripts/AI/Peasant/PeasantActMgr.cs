@@ -30,7 +30,7 @@ namespace Game.AI
 
         protected override void InitActionStateHandlers()
         {
-            AddActionStateHandler(ActionEnum.ALERT);
+            AddActionStateHandler(ActionEnum.ALERT_STATE);
         }
 
         public void AddExecuteNewStateListener(Action<ActionEnum> executeActionState)
