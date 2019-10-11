@@ -16,15 +16,11 @@ namespace Game.AI
 
         public override void LogError(string msg)
         {
-            if (!_canDebug)
-                return;
             Debug.LogError(msg);
         }
 
         public override void LogWarning(string msg)
         {
-            if (!_canDebug)
-                return;
             Debug.LogWarning(msg);
         }
     }

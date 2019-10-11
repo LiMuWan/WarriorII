@@ -91,7 +91,11 @@ namespace Game.AI
         /// <summary>
         /// 动作组件
         /// </summary>
-        ANIMATION
+        ANIMATION,
+        /// <summary>
+        /// AI部分数据管理类
+        /// </summary>
+        AI_MODEL_MANAGER
     }
 
     public enum AIPeasantAniName

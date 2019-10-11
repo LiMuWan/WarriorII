@@ -17,9 +17,9 @@ namespace Game.AI
         {
             base.Enter();
             DebugMsg.Log("进入后退状态");
-            _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
-            _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
-            _data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+            _self = _agent.Maps.GetGameData<GameDataKeyEnum,Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
+            _data = _agent.Maps.GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
             _controller = _self.GetComponent<CharacterController>();
         }
 

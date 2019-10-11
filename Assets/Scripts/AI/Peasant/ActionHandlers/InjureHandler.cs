@@ -15,8 +15,8 @@ namespace Game.AI
             base.Enter();
             DebugMsg.Log("进入受伤状态");
 
-            int injureValue = (int)GetGameData(GameDataKeyEnum.INJURE_VALUE);
-            EnemyData data = GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+            int injureValue = GetGameDataValue<GameDataKeyEnum,int>(GameDataKeyEnum.INJURE_VALUE);
+            EnemyData data = GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
 
             data.Life = data.Life - injureValue;
 

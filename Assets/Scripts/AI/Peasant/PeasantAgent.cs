@@ -10,6 +10,24 @@ namespace Game.AI
     {
         public override bool IsAgentOver { get; }
 
+        private AIViewEffectMgr _viewMgr;
+
+        public AIViewEffectMgr AIViewEffectMgr
+        {
+            get
+            {
+                if (_viewMgr == null)
+                {
+                    object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
+                    object animation = Maps.GetGameData(GameDataKeyEnum.ANIMATION);
+                  
+                    _viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, animation);
+                }
+                return _viewMgr;
+            }
+            private set { }
+        }
+
         public PeasantAgent(Action<IAgent<ActionEnum, GoalEnum>, IMaps<ActionEnum, GoalEnum>> onInitGameData) : base(onInitGameData)
         {
             InitViewMgr();
@@ -54,12 +72,8 @@ namespace Game.AI
 
         private void InitViewMgr()
         {
-            object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
-            object animation = Maps.GetGameData(GameDataKeyEnum.ANIMATION);
-            AIViewEffectMgr viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(),audioSource,animation);
-
             PeasantActMgr actMgr = ActionManager as PeasantActMgr;
-            actMgr.AddExecuteNewStateListener(viewMgr.ExecuteState);
+            actMgr.AddExecuteNewStateListener(_viewMgr.ExecuteState);
         }
     }
 }

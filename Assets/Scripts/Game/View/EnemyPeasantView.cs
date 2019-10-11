@@ -15,7 +15,7 @@ namespace Game.View
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
-            _ai = new PeasantAgent((agent, map) => { OnInitGameData(agent,map,contexts); });
+            _ai = new PeasantAgent((agent, maps) => { OnInitGameData(agent,maps,contexts); });
         }
 
         private void FixedUpdate()
@@ -35,6 +35,9 @@ namespace Game.View
 
             maps.SetGameData(GameDataKeyEnum.AUDIO_SOURCE, GetComponent<AudioSource>());
             maps.SetGameData(GameDataKeyEnum.ANIMATION, GetComponent<Animation>());
+
+            PeasantAgent peasantAgent = agent as PeasantAgent;
+            maps.SetGameData(GameDataKeyEnum.AI_MODEL_MANAGER, peasantAgent.AIViewEffectMgr.ModelMgr);
         }
     }
 }

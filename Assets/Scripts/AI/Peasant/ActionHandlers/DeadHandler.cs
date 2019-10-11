@@ -13,7 +13,7 @@ namespace Game.AI
         public override void Enter()
         {
             base.Enter();
-            int injureValue = (int)GetGameData(GameDataKeyEnum.INJURE_VALUE);
+            int injureValue = GetGameDataValue<GameDataKeyEnum,int>(GameDataKeyEnum.INJURE_VALUE);
 
             switch (injureValue)
             {
