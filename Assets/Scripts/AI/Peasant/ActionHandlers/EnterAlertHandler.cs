@@ -13,8 +13,7 @@ namespace Game.AI
 
         public EnterAlertHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-            AIModelMgr mgr = GetGameData<GameDataKeyEnum, AIModelMgr>(GameDataKeyEnum.AI_MODEL_MANAGER);
-            _model = mgr.GetModel<AlertModel>(Action.Label);
+            _model =this.GetModel<AlertModel>(maps);
             _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
         }
 
