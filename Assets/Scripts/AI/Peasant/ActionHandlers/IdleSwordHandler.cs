@@ -23,7 +23,7 @@ namespace Game.AI
         {
             base.Enter();
             DebugMsg.Log("进入攻击待机状态");
-            _timer = _timerService.CreateOrRestartTimer("IdleSwordHandler" + _id, Const.IDLE_SWORD_DELAY_TIME, false);
+            _timer = _timerService.CreateOrRestartTimer(Label.ToString() + _id, Const.IDLE_SWORD_DELAY_TIME, false);
             _timer.AddCompleteListener(() => OnComplete());
         }
 

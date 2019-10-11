@@ -21,6 +21,8 @@ namespace Game.AI
             AddAction<DeadHandler, DeadAction>();
             AddAction<MoveHandler, MoveAction>();
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
+            AddAction<EnterAlertHandler, EnterAlertAction>();
+            AddAction<ExitAlertHandler, ExitAlertAction>();
 
             //可叠加动作状态
             AddAction<AlertStateHandler, AlertStateAction>();

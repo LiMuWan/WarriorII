@@ -2,10 +2,20 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class EnterAlertView:MonoBehaviour     
+    public class EnterAlertView : ViewBase<ActionEnum>
     {
-        private  void Start()         
+        public override ActionEnum Label { get { return ActionEnum.ENTER_ALERT; } }
+
+        public EnterAlertView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
+            AlertModel model = _iModel as AlertModel;
+            model.ShowSwordDuration = _AniMgr.GetAniLength(AIPeasantAniName.showSword);
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _AniMgr.Play(AIPeasantAniName.showSword);
         }
     }
 }

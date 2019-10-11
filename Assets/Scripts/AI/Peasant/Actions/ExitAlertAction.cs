@@ -1,7 +1,6 @@
 ﻿using BlueGOAP;
-using UnityEngine;
 
-namespace Game.AI.ViewEffect
+namespace Game.AI
 {
     public class ExitAlertAction : ActionBase<ActionEnum, GoalEnum>
     {
@@ -18,7 +17,7 @@ namespace Game.AI.ViewEffect
         protected override IState InitPreconditions()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.IS_ALERT, true);
+            state.Set(StateKeyEnum.FIND_ENEMY, false);
             return state;
         }
 

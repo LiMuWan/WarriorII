@@ -14,7 +14,6 @@ namespace Game.AI.ViewEffect
 
         public void Play<T>(T aniName)
         {
-            Debug.Log(aniName.ToString());
             _ani.CrossFade(aniName.ToString());
         }
 

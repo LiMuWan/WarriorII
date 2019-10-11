@@ -114,6 +114,8 @@ namespace Game.AI.ViewEffect
             AddView(new InjureView(this));
             AddView(new MoveBackwardView(this));
             AddView(new MoveView(this));
+            AddView(new EnterAlertView(this));
+            AddView(new ExitAlertView(this));
         }
 
         protected override void InitMulViews()

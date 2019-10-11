@@ -1,6 +1,6 @@
 ﻿using BlueGOAP;
 
-namespace Game.AI.ViewEffect
+namespace Game.AI
 {
     public class EnterAlertAction : ActionBase<ActionEnum, GoalEnum>
     {

@@ -8,21 +8,17 @@ namespace Game.AI.ViewEffect
 
         public AlertStateView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
-            AlertModel model = _iModel as AlertModel;
-            model.ShowSwordDuration = _AniMgr.GetAniLength(AIPeasantAniName.showSword);
-            model.HideSwordDuration = _AniMgr.GetAniLength(AIPeasantAniName.hideSword);
+
         }
 
         public override void Enter()
         {
             base.Enter();
-            _AniMgr.Play(AIPeasantAniName.showSword);
         }
 
         public override void Exit()
         {
             base.Exit();
-            _AniMgr.Play(AIPeasantAniName.hideSword);
         }
     }
 }

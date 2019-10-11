@@ -52,7 +52,9 @@ namespace Game.AI.ViewEffect
         protected override void InitModels()
         {
             AddModel(ActionEnum.ATTACK, new AttackModel());
-            AddModel(ActionEnum.ALERT_STATE, new AlertModel());
+            AlertModel alert = new AlertModel();
+            AddModel(ActionEnum.ENTER_ALERT, alert);
+            AddModel(ActionEnum.EXIT_ALERT, alert);
             AddModel(ActionEnum.DEAD, new DeadModel());
             AddModel(ActionEnum.IDLE, new IdleModel());
             AddModel(ActionEnum.IDLE_SWORD, new IdleSwordModel());

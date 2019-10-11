@@ -26,6 +26,8 @@ namespace Game.AI
             AddActionHandler(ActionEnum.MoveBackward);
             AddActionHandler(ActionEnum.ATTACK);
             AddActionHandler(ActionEnum.DEAD);
+            AddActionHandler(ActionEnum.ENTER_ALERT);
+            AddActionHandler(ActionEnum.EXIT_ALERT);
         }
 
         protected override void InitActionStateHandlers()
