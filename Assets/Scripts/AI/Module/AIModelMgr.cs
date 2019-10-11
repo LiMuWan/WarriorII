@@ -14,7 +14,7 @@ namespace Game.AI.ViewEffect
             InitModels();
         }
 
-        public IModel GetModel(T label)
+        public TModel GetModel<TModel>(T label) where TModel : class , IModel
         {
             if(!_modelDic.ContainsKey(label))
             {
@@ -23,7 +23,7 @@ namespace Game.AI.ViewEffect
             }
             else
             {
-                return _modelDic[label];
+                return _modelDic[label] as TModel;
             }
         }
 

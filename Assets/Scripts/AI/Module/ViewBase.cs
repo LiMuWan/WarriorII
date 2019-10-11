@@ -14,7 +14,7 @@ namespace Game.AI.ViewEffect
 
         public ViewBase(AIViewEffectMgrBase<T> mgr)
         {
-            _iModel = mgr.ModelMgr.GetModel(Label);
+            _iModel = mgr.ModelMgr.GetModel<IModel>(Label);
             _effectMgr = mgr.EffectMgr;
             _AniMgr = mgr.AniMgr;
         }

@@ -12,20 +12,16 @@ namespace Game.AI
 
         private AIViewEffectMgr _viewMgr;
 
-        public AIViewEffectMgr AIViewEffectMgr
+        public AIViewEffectMgr AIViewEffectMgr(IMaps<ActionEnum, GoalEnum> maps)
         {
-            get
+            if (_viewMgr == null)
             {
-                if (_viewMgr == null)
-                {
-                    object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
-                    object animation = Maps.GetGameData(GameDataKeyEnum.ANIMATION);
-                  
-                    _viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, animation);
-                }
-                return _viewMgr;
+                object audioSource = maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
+                object animation = maps.GetGameData(GameDataKeyEnum.ANIMATION);
+              
+                _viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, animation);
             }
-            private set { }
+            return _viewMgr;
         }
 
         public PeasantAgent(Action<IAgent<ActionEnum, GoalEnum>, IMaps<ActionEnum, GoalEnum>> onInitGameData) : base(onInitGameData)

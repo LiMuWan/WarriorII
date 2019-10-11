@@ -37,7 +37,7 @@ namespace Game.View
             maps.SetGameData(GameDataKeyEnum.ANIMATION, GetComponent<Animation>());
 
             PeasantAgent peasantAgent = agent as PeasantAgent;
-            maps.SetGameData(GameDataKeyEnum.AI_MODEL_MANAGER, peasantAgent.AIViewEffectMgr.ModelMgr);
+            maps.SetGameData(GameDataKeyEnum.AI_MODEL_MANAGER, peasantAgent.AIViewEffectMgr(maps).ModelMgr);
         }
     }
 }

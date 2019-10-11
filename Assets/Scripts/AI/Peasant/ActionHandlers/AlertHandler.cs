@@ -14,11 +14,7 @@ namespace Game.AI
         public AlertHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
             AIModelMgr mgr = GetGameData<GameDataKeyEnum, AIModelMgr>(GameDataKeyEnum.AI_MODEL_MANAGER);
-            _model = mgr.GetModel(ActionEnum.ALERT) as AlertModel;
-            if(_model == null)
-            {
-                DebugMsg.LogError("获取" + Action.Label + "的数据类型失败");
-            }
+            _model = mgr.GetModel<AlertModel>(Action.Label);
         }
 
         public override void Enter()
