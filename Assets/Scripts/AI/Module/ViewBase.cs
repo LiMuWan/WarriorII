@@ -8,20 +8,33 @@ namespace Game.AI.ViewEffect
         public ActionExcuteState ExcuteState { get; private set; }
         public abstract T Label { get; }
 
+        public abstract string AniName { get; }
+
         protected IModel _iModel;
         protected EffectMgr _effectMgr;
         protected AIAniMgr _AniMgr;
 
         public ViewBase(AIViewEffectMgrBase<T> mgr)
         {
-            _iModel = mgr.ModelMgr.GetModel<IModel>(Label);
-            _effectMgr = mgr.EffectMgr;
             _AniMgr = mgr.AniMgr;
+            _effectMgr = mgr.EffectMgr;
+            _iModel = InitModel(mgr);
+        }
+
+        private IModel InitModel(AIViewEffectMgrBase<T> mgr)
+        {
+            IModel model = mgr.ModelMgr.GetModel<IModel>(Label);
+            if(model != null)
+            {
+                model.AniDuration = _AniMgr.GetAniLength(AniName);
+            }
+            return model;
         }
 
         public virtual void Enter()
         {
             ExcuteState = ActionExcuteState.ENTER;
+            _AniMgr.Play(AniName);
         }
 
         public virtual void Execute()

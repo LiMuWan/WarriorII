@@ -18,7 +18,7 @@ namespace Game.AI.ViewEffect
         {
             if(!_modelDic.ContainsKey(label))
             {
-                DebugMsg.LogError("缓存中未找到，未对该Model对象进行初始化，标签 : " + label);
+                DebugMsg.LogWarning("缓存中未找到，未对该Model对象进行初始化，标签 : " + label);
                 return null;
             }
             else

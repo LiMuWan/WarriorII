@@ -7,24 +7,11 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.ATTACK; } }
 
+        public override string AniName { get { return AIPeasantAniName.attackPeasant.ToString(); } }
+
         public AttackView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 
-        }
-
-        public override void Enter()
-        {
-            
-        }
-
-        public override void Execute()
-        {
-            
-        }
-
-        public override void Exit()
-        {
-            
         }
     }
 }

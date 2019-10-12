@@ -111,6 +111,9 @@ namespace Game.AI
         showSword,
         hideSword,
         runSwordBackward,
-        runSword
+        runSword,
+        attackPeasant,
+        death01,
+        injuryBack
     }
 }

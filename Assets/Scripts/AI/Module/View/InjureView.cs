@@ -6,6 +6,8 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.INJURE; } }
 
+        public override string AniName { get { return AIPeasantAniName.injuryBack.ToString(); } }
+
         public InjureView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 

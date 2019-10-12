@@ -6,15 +6,11 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.MOVE; } }
 
+        public override string AniName { get { return AIPeasantAniName.runSword.ToString(); } }
+
         public MoveView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-            _AniMgr.Play(AIPeasantAniName.runSword);
         }
     }
 }

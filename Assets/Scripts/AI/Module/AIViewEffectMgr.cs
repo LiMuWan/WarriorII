@@ -120,7 +120,7 @@ namespace Game.AI.ViewEffect
 
         protected override void InitMulViews()
         {
-            AddView(new AlertStateView(this));
+            //AddView(new AlertStateView(this));
         }
 
         protected override AIModelMgrBase<ActionEnum> InitModelMgr()

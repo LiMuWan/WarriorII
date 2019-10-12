@@ -6,15 +6,11 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.MoveBackward; } }
 
+        public override string AniName { get { return AIPeasantAniName.runSwordBackward.ToString(); } }
+
         public MoveBackwardView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-            _AniMgr.Play(AIPeasantAniName.runSwordBackward);
         }
     }
 }
