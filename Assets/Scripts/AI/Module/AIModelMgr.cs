@@ -54,7 +54,10 @@ namespace Game.AI.ViewEffect
             AddModel(ActionEnum.ATTACK, new AttackModel());
             AddModel(ActionEnum.ENTER_ALERT, new EnterAlertModel());
             AddModel(ActionEnum.EXIT_ALERT, new ExitAlertModel());
-            AddModel(ActionEnum.INJURE, new InjureModel());
+            AddModel(ActionEnum.INJURE_UP, new InjureUpModel());
+            AddModel(ActionEnum.INJURE_DOWN, new InjureDownModel());
+            AddModel(ActionEnum.INJURE_LEFT, new InjureLeftModel());
+            AddModel(ActionEnum.INJURE_RIGHT, new InjureRightModel());
         }
     }
 }

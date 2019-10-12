@@ -13,7 +13,10 @@ namespace Game.AI
         IDLE,
         IDLE_SWORD,
         ATTACK,
-        INJURE,
+        INJURE_UP,
+        INJURE_DOWN,
+        INJURE_LEFT,
+        INJURE_RIGHT,
         DEAD,
         MOVE,
         MoveBackward

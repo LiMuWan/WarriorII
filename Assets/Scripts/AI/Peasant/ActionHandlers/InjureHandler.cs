@@ -4,7 +4,7 @@ using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class InjureHandler : HandlerBase<IModel>
+    public class InjureHandler<TModel> : HandlerBase<TModel> where TModel : class , IModel
     {
         public InjureHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -13,7 +13,7 @@ namespace Game.AI
 
         public override void Enter()
         {
-            base.Enter();
+            
             DebugMsg.Log("进入受伤状态");
 
             int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
@@ -25,9 +25,38 @@ namespace Game.AI
             {
                 SetAgentState(StateKeyEnum.IS_DEAD, true);
             }
+            else
+            {
+                base.Enter();
+            }
+        }
+    }
 
-            //todo:动画执行完毕，执行OnComplete
-            OnComplete();
+    public class InjureUpHandler : InjureHandler<InjureUpModel>
+    {
+        public InjureUpHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        {
+        }
+    }
+
+    public class InjureDownHandler : InjureHandler<InjureDownModel>
+    {
+        public InjureDownHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        {
+        }
+    }
+
+    public class InjureLeftHandler : InjureHandler<InjureLeftModel>
+    {
+        public InjureLeftHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        {
+        }
+    }
+
+    public class InjureRightHandler : InjureHandler<InjureRightModel>
+    {
+        public InjureRightHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        {
         }
     }
 }
