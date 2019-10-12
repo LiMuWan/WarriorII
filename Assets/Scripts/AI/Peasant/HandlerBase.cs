@@ -16,6 +16,16 @@ namespace Game.AI.ViewEffect
             _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
         }
 
+        protected TClass GetGameData<TClass>(GameDataKeyEnum key) where TClass : class
+        {
+            return GetGameData<GameDataKeyEnum, TClass>(key);
+        }
+
+        protected TValue GetGameDataValue<TValue>(GameDataKeyEnum key) where TValue : struct
+        {
+            return GetGameDataValue<GameDataKeyEnum, TValue>(key);
+        }
+
         public override void Enter()
         {
             base.Enter();

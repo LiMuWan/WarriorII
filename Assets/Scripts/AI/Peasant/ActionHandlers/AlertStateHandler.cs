@@ -4,7 +4,7 @@ using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class AlertStateHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class AlertStateHandler : HandlerBase<IModel>
     {
         private Transform _self, _enemy;
 
@@ -12,15 +12,15 @@ namespace Game.AI
 
         public AlertStateHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-            _self = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
-            _enemy = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
+            _self = GetGameData<Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = GetGameData<Transform>(GameDataKeyEnum.ENEMY_TRANS);
         }
 
         public override void Enter()
         {
             base.Enter();
             DebugMsg.Log("进入警戒状态");
-            _data = GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
+            _data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
         }
 
         public override void Execute()

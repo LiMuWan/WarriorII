@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using BlueGOAP;
+using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class InjureHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class InjureHandler : HandlerBase<IModel>
     {
         public InjureHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -15,8 +16,8 @@ namespace Game.AI
             base.Enter();
             DebugMsg.Log("进入受伤状态");
 
-            int injureValue = GetGameDataValue<GameDataKeyEnum,int>(GameDataKeyEnum.INJURE_VALUE);
-            EnemyData data = GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
+            int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
+            EnemyData data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
 
             data.Life = data.Life - injureValue;
 

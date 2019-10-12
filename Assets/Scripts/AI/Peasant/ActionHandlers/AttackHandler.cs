@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using BlueGOAP;
+using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class AttackHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class AttackHandler : HandlerBase<AttackModel>
     {
         public AttackHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {

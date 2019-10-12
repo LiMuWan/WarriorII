@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using BlueGOAP;
+using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class MoveBackwardHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class MoveBackwardHandler : HandlerBase<IModel>
     {
         private Transform _self,_enemy;
         private CharacterController _controller;
         private EnemyData _data;
         public MoveBackwardHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-            _self = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
-            _enemy = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
+            _self = GetGameData<Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = GetGameData<Transform>(GameDataKeyEnum.ENEMY_TRANS);
             _controller = _self.GetComponent<CharacterController>();
         }
 
@@ -19,7 +20,7 @@ namespace Game.AI
         {
             base.Enter();
             DebugMsg.Log("进入后退状态");
-            _data = GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
+            _data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
         }
 
         public override void Execute()

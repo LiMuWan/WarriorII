@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using BlueGOAP;
+using Game.AI.ViewEffect;
 
 namespace Game.AI
 {
-    public class DeadHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class DeadHandler : HandlerBase<IModel>
     {
         public DeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -13,7 +14,7 @@ namespace Game.AI
         public override void Enter()
         {
             base.Enter();
-            int injureValue = GetGameDataValue<GameDataKeyEnum,int>(GameDataKeyEnum.INJURE_VALUE);
+            int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
 
             switch (injureValue)
             {
