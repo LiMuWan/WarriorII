@@ -7,13 +7,13 @@ namespace Game.AI
 {
     public class ExitAlertHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
-        private AlertModel _model;
+        private ExitAlertModel _model;
         private ITimerService _timerService;
         private ITimer _timer;
 
         public ExitAlertHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-            _model = this.GetModel<AlertModel>(maps);
+            _model = this.GetModel<ExitAlertModel>(maps);
             _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
         }
 
@@ -21,7 +21,7 @@ namespace Game.AI
         {
             base.Enter();
             DebugMsg.Log("退出警戒状态");
-            _timer = _timerService.CreateOrRestartTimer(Label.ToString() + ID, _model.HideSwordDuration, false);
+            _timer = _timerService.CreateOrRestartTimer(Label.ToString() + ID, _model.AniDuration, false);
             _timer.AddCompleteListener(() => OnComplete());
         }
     }

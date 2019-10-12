@@ -8,8 +8,8 @@ namespace Game.AI.ViewEffect
 
         public ExitAlertView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
-            AlertModel model = _iModel as AlertModel;
-            model.HideSwordDuration = _AniMgr.GetAniLength(AIPeasantAniName.hideSword);
+            ExitAlertModel model = _iModel as ExitAlertModel;
+            model.AniDuration = _AniMgr.GetAniLength(AIPeasantAniName.hideSword);
         }
 
         public override void Enter()

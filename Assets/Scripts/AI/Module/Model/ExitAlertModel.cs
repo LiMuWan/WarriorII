@@ -2,7 +2,7 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class InjureModel : IModel
+    public class ExitAlertModel : IModel
     {
         public float AniDuration { get; set; }
     }

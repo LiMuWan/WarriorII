@@ -8,8 +8,8 @@ namespace Game.AI.ViewEffect
 
         public EnterAlertView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
-            AlertModel model = _iModel as AlertModel;
-            model.ShowSwordDuration = _AniMgr.GetAniLength(AIPeasantAniName.showSword);
+            EnterAlertModel model = _iModel as EnterAlertModel;
+            model.AniDuration = _AniMgr.GetAniLength(AIPeasantAniName.showSword);
         }
 
         public override void Enter()

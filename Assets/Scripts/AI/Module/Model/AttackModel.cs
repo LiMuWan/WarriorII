@@ -2,8 +2,8 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class AttackModel : IModel    
+    public class AttackModel : IModel
     {
-       
+        public float AniDuration { get; set; }
     }
 }
