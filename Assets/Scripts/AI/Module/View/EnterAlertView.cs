@@ -15,6 +15,7 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             base.Enter();
+            Debug.Log(AIPeasantAniName.showSword.ToString());
             _AniMgr.Play(AIPeasantAniName.showSword);
         }
     }

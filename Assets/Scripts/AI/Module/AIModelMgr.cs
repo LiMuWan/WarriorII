@@ -55,6 +55,7 @@ namespace Game.AI.ViewEffect
             AlertModel alert = new AlertModel();
             AddModel(ActionEnum.ENTER_ALERT, alert);
             AddModel(ActionEnum.EXIT_ALERT, alert);
+            AddModel(ActionEnum.ALERT_STATE, alert);
             AddModel(ActionEnum.DEAD, new DeadModel());
             AddModel(ActionEnum.IDLE, new IdleModel());
             AddModel(ActionEnum.IDLE_SWORD, new IdleSwordModel());

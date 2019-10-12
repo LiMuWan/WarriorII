@@ -7,9 +7,9 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.IDLE_SWORD; } }
 
-        public override int Cost { get { return 1; } }
+        public override int Cost { get { return 10; } }
 
-        public override int Priority { get { return 1; } }
+        public override int Priority { get { return 10; } }
 
         public override bool CanInterruptiblePlan { get { return false; } }
 
