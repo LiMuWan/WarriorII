@@ -93,7 +93,7 @@ namespace Game.AI.ViewEffect
             }
             else
             {
-                DebugMsg.LogError("动作" + key + "不在当前动作缓存中");
+                DebugMsg.LogWarning("动作" + key + "不在当前动作缓存中");
             }
         }
     }

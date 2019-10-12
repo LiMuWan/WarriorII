@@ -110,6 +110,7 @@ namespace Game.AI
         idleSword,
         showSword,
         hideSword,
-        runSwordBackward
+        runSwordBackward,
+        runSword
     }
 }

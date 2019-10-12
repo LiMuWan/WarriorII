@@ -10,17 +10,16 @@ namespace Game.AI
 
         public MoveHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
-
+            _self = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
+            _controller = _self.GetComponent<CharacterController>();
         }
 
         public override void Enter()
         {
             base.Enter();
             DebugMsg.Log("进入移动状态");
-            _self = _agent.Maps.GetGameData<GameDataKeyEnum , Transform>(GameDataKeyEnum.SELF_TRANS);
-            _enemy = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
-            _controller = _self.GetComponent<CharacterController>();
-            _data = _agent.Maps.GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
+            _data = GetGameData<GameDataKeyEnum,EnemyData>(GameDataKeyEnum.CONFIG);
         }
 
         public override void Execute()
