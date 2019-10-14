@@ -7,10 +7,25 @@ namespace Game.AI
 {
     public abstract class BodyTrigger : TriggerBase
     {
+        private Vector3 _center;
+
         public BodyTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
+            InitCenter();
+            InitUnityTrigger();
+        }
+
+        private void InitCenter()
+        {
+            var _self = GetGameData<Transform>(GameDataKeyEnum.SELF_TRANS);
+            var controller = _self.GetComponent<CharacterController>();
+            _center = controller.center;
+        }
+
+        private void InitUnityTrigger()
+        {
             var unityTrigger = GetGameData<UnityTrigger>(GameDataKeyEnum.UNITY_TRIGGER);
-            if(unityTrigger != null)
+            if (unityTrigger != null)
             {
                 unityTrigger.AddColliderListener(Collider);
             }
