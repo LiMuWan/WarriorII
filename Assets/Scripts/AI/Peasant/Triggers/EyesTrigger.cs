@@ -3,7 +3,7 @@ using BlueGOAP;
 
 namespace Game.AI
 {
-    public class EyesTrigger : TriggerBase<ActionEnum, GoalEnum>
+    public class EyesTrigger : TriggerBase
     {
         public override int Priority { get { return 1; } }
         public override bool IsTrigger {
@@ -12,7 +12,7 @@ namespace Game.AI
                 if(_enemy == null ||  _self == null)
                     return false;
 
-                EnemyData data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+                EnemyData data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
 
                 //比对发现目标的距离
                 if(Vector3.Distance(_self.position,_enemy.position) < data.FindDistance)
@@ -35,8 +35,8 @@ namespace Game.AI
 
         public EyesTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
-            _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
-            _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
+            _self = GetGameData<Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = GetGameData<Transform>(GameDataKeyEnum.ENEMY_TRANS);
         }
 
         protected override IState InitEffects()

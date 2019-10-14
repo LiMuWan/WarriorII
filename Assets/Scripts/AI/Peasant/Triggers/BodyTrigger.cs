@@ -1,9 +1,9 @@
 ﻿using BlueGOAP;
 using UnityEngine;
 
-namespace Game.AI.ViewEffect
+namespace Game.AI
 {
-    public abstract class BodyTrigger : TriggerBase<ActionEnum, GoalEnum>
+    public abstract class BodyTrigger : TriggerBase
     {
         public BodyTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
