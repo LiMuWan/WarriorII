@@ -3,6 +3,7 @@ using BlueGOAP;
 using Entitas;
 using Entitas.Unity;
 using Game.AI;
+using Game.AI.ViewEffect;
 using Manager;
 using UnityEngine;
 
@@ -15,7 +16,8 @@ namespace Game.View
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
-            _ai = new PeasantAgent((agent, maps) => { OnInitGameData(agent,maps,contexts); });
+            UnityTrigger trigger = gameObject.AddComponent<UnityTrigger>();
+            _ai = new PeasantAgent((agent, maps) => { OnInitGameData(agent,maps,contexts,trigger); });
         }
 
         private void FixedUpdate()
@@ -23,7 +25,7 @@ namespace Game.View
             _ai.FrameFun();
         }
 
-        private void OnInitGameData(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps,Contexts contexts)
+        private void OnInitGameData(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps,Contexts contexts,UnityTrigger trigger)
         {
             EnemyData temp = ModelManager.Single.EnemyDataModel.DataDic[Const.EnemyId.EnemyPeasant];
             EnemyData data = new EnemyData();
@@ -38,6 +40,8 @@ namespace Game.View
 
             PeasantAgent peasantAgent = agent as PeasantAgent;
             maps.SetGameData(GameDataKeyEnum.AI_MODEL_MANAGER, peasantAgent.AIViewEffectMgr(maps).ModelMgr);
+
+            maps.SetGameData(GameDataKeyEnum.UNITY_TRIGGER, trigger);
         }
     }
 }

@@ -104,7 +104,11 @@ namespace Game.AI
         /// <summary>
         /// AI部分数据管理类
         /// </summary>
-        AI_MODEL_MANAGER
+        AI_MODEL_MANAGER,
+        /// <summary>
+        /// UnityTrigger触发器脚本
+        /// </summary>
+        UNITY_TRIGGER
     }
 
     public enum AIPeasantAniName
