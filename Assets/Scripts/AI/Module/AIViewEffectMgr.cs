@@ -111,7 +111,10 @@ namespace Game.AI.ViewEffect
             AddView(new DeadView(this));
             AddView(new IdleView(this));
             AddView(new IdleSwordView(this));
-            AddView(new InjureView(this));
+            AddView(new UpInjureView(this));
+            AddView(new DownInjureView(this));
+            AddView(new LeftInjureView(this));
+            AddView(new RightInjureView(this));
             AddView(new MoveBackwardView(this));
             AddView(new MoveView(this));
             AddView(new EnterAlertView(this));

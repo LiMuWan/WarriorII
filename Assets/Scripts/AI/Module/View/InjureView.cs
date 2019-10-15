@@ -2,11 +2,14 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class InjureView : ViewBase<ActionEnum>
+    /// <summary>
+    /// 防止外部new这个类
+    /// </summary>
+    public abstract class InjureView : ViewBase<ActionEnum>
     {
-        public override ActionEnum Label { get { return ActionEnum.INJURE_UP; } }
+        public override ActionEnum Label { get; }
 
-        public override string AniName { get { return AIPeasantAniName.injuryBack.ToString(); } }
+        public override string AniName { get; }
 
         public InjureView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
