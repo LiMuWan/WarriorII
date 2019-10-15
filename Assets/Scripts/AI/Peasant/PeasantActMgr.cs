@@ -28,6 +28,10 @@ namespace Game.AI
             AddActionHandler(ActionEnum.DEAD);
             AddActionHandler(ActionEnum.ENTER_ALERT);
             AddActionHandler(ActionEnum.EXIT_ALERT);
+            AddActionHandler(ActionEnum.INJURE_UP);
+            AddActionHandler(ActionEnum.INJURE_DOWN);
+            AddActionHandler(ActionEnum.INJURE_LEFT);
+            AddActionHandler(ActionEnum.INJURE_RIGHT);
         }
 
         protected override void InitActionStateHandlers()

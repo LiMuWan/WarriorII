@@ -38,6 +38,12 @@ namespace Game.AI
         {
 
         }
+
+        public override bool VerifyPreconditions()
+        {
+            //todo:判断当前击打位置
+            return base.VerifyPreconditions();
+        }
     }
 
     public class InjureDownAction : InjureAction

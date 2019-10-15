@@ -62,6 +62,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.up, _direction) < Const.BODY_PART_RANGE;
+                Debug.Log("与上方向的角度：" + Vector3.Angle(Vector3.up, _direction));
                 _direction = Vector3.zero;
                 return result;
             }
@@ -85,6 +86,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.down, _direction) < Const.BODY_PART_RANGE;
+                Debug.Log("与下方向的角度：" + Vector3.Angle(Vector3.down, _direction));
                 _direction = Vector3.zero;
                 return result;
             }
@@ -108,6 +110,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.left, _direction) < Const.BODY_PART_RANGE;
+                Debug.Log("与左方向的角度：" + Vector3.Angle(Vector3.left, _direction));
                 _direction = Vector3.zero;
                 return result;
             }
@@ -131,6 +134,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.right, _direction) < Const.BODY_PART_RANGE;
+                Debug.Log("与右方向的角度：" + Vector3.Angle(Vector3.right, _direction));
                 _direction = Vector3.zero;
                 return result;
             }
