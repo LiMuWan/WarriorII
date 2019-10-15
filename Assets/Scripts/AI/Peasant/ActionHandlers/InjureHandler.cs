@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using BlueGOAP;
 using Game.AI.ViewEffect;
+using System.Collections.Generic;
 
 namespace Game.AI
 {
@@ -30,12 +31,21 @@ namespace Game.AI
                 base.Enter();
             }
         }
+
+        public override bool CanPerformAction()
+        {
+            var dataDic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
+            var result = base.CanPerformAction() && dataDic[Label];
+            dataDic[Label] = false;
+            return result;
+        }
     }
 
     public class InjureUpHandler : InjureHandler<InjureUpModel>
     {
         public InjureUpHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
+            
         }
     }
 
