@@ -108,7 +108,11 @@ namespace Game.AI
         /// <summary>
         /// UnityTrigger触发器脚本
         /// </summary>
-        UNITY_TRIGGER
+        UNITY_TRIGGER,
+        /// <summary>
+        /// 受伤判定数据(字典)
+        /// </summary>
+        INJURE_COLLECT_DATA
     }
 
     public enum AIPeasantAniName

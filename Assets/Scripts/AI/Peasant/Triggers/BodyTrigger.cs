@@ -1,4 +1,5 @@
-﻿using BlueGOAP;
+﻿using System.Collections.Generic;
+using BlueGOAP;
 using Const;
 using Game.AI.ViewEffect;
 using UnityEngine;
@@ -49,6 +50,12 @@ namespace Game.AI
             state.Set(StateKeyEnum.IS_INJURE, true);
             return state;
         }
+
+        protected void SetColliderData(ActionEnum actionEnum , bool result)
+        {
+            var dic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
+            dic[actionEnum] = result;
+        }
     }
 
     public class BodyUpTrigger : BodyTrigger
@@ -62,6 +69,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.up, _direction) < Const.BODY_PART_RANGE;
+                SetColliderData(ActionEnum.INJURE_UP, result);
                 Debug.Log("与上方向的角度：" + Vector3.Angle(Vector3.up, _direction));
                 _direction = Vector3.zero;
                 return result;
@@ -86,6 +94,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.down, _direction) < Const.BODY_PART_RANGE;
+                SetColliderData(ActionEnum.INJURE_DOWN, result);
                 Debug.Log("与下方向的角度：" + Vector3.Angle(Vector3.down, _direction));
                 _direction = Vector3.zero;
                 return result;
@@ -110,6 +119,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.left, _direction) < Const.BODY_PART_RANGE;
+                SetColliderData(ActionEnum.INJURE_LEFT, result);
                 Debug.Log("与左方向的角度：" + Vector3.Angle(Vector3.left, _direction));
                 _direction = Vector3.zero;
                 return result;
@@ -134,6 +144,7 @@ namespace Game.AI
                     return false;
 
                 var result = Vector3.Angle(Vector3.right, _direction) < Const.BODY_PART_RANGE;
+                SetColliderData(ActionEnum.INJURE_RIGHT, result);
                 Debug.Log("与右方向的角度：" + Vector3.Angle(Vector3.right, _direction));
                 _direction = Vector3.zero;
                 return result;

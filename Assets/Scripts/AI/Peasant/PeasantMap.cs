@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using BlueGOAP;
 using System;
+using System.Collections.Generic;
 
 namespace Game.AI
 {
@@ -42,6 +43,7 @@ namespace Game.AI
         protected override void InitGameData(Action<IAgent<ActionEnum, GoalEnum>, IMaps<ActionEnum, GoalEnum>> onInitGameData)
         {
             base.InitGameData(onInitGameData);
+            SetGameData(GameDataKeyEnum.INJURE_COLLECT_DATA, new Dictionary<ActionEnum, bool>());
         }
     }
 }
