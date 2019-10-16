@@ -10,9 +10,24 @@ namespace Game.AI
         public override int Priority { get { return 100; } }
         public override bool CanInterruptiblePlan { get { return true; } }
 
+        private int _priority;
+        private const int DEFAULT_PRIORITY = 100;
+
         public InjureAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
+            _priority = DEFAULT_PRIORITY;
+        }
 
+        public void ChangePriority(bool isChange)
+        {
+            if(isChange)
+            {
+                _priority = DEFAULT_PRIORITY + 1;
+            }
+            else
+            {
+                _priority = DEFAULT_PRIORITY;
+            }
         }
 
         protected override IState InitPreconditions()

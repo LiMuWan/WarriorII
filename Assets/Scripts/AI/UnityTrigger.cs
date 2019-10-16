@@ -10,6 +10,7 @@ namespace Game.AI.ViewEffect
     {
         private Action<Collider> _colliderAction;
 
+#if INJURE_TEST
         private void Start()
         {
             Test();
@@ -40,17 +41,18 @@ namespace Game.AI.ViewEffect
             GameObject go = new GameObject();
             go.tag = TagAndLayer.WEAPON_TAG;
             Collider collider = go.AddComponent<BoxCollider>();
-            collider.transform.position = center + new Vector3(Mathf.Sin(Mathf.Deg2Rad * degress), Mathf.Cos(Mathf.Deg2Rad * degress), 0);
+            collider.transform.localPosition = center + new Vector3(Mathf.Sin(Mathf.Deg2Rad * degress), Mathf.Cos(Mathf.Deg2Rad * degress), 0);
             Vector3 direction = (collider.transform.position - center).normalized;
             Debug.Log("---------与上方向的角度：" + Vector3.Angle(Vector3.up, direction));
             return collider;
         }
+#endif
 
         private void OnTriggerEnter(Collider other)
         {
             if (_colliderAction != null)
-                _colliderAction(other);
-        }
+                _colliderAction(other); 
+         }
 
         public void AddColliderListener(Action<Collider> colliderAction)
         {
