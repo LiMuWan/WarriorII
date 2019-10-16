@@ -5,7 +5,7 @@ using Game.AI.Model;
 
 namespace Game.AI
 {
-    public class DeadHandler : HandlerBase<IModel>
+    public abstract class DeadHandler : HandlerBase<IModel>
     {
         public DeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -28,6 +28,18 @@ namespace Game.AI
             }
 
             DebugMsg.Log("进入死亡状态");
+        }
+
+        private void JudgeDead()
+        {
+            //todo:获取死亡方式的数据
+        }
+    }
+
+    public class NormalDeadHandler : DeadHandler
+    {
+        public NormalDeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        {
         }
     }
 }

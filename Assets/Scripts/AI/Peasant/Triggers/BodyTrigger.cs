@@ -10,6 +10,7 @@ namespace Game.AI
     {
         private Vector3 _center;
         protected Vector3 _direction;
+        protected float _height;
 
         public override int Priority { get;}
 
@@ -24,6 +25,7 @@ namespace Game.AI
             var _self = GetGameData<Transform>(GameDataKeyEnum.SELF_TRANS);
             var controller = _self.GetComponent<CharacterController>();
             _center = controller.center;
+            _height = controller.height;
         }
 
         private void InitUnityTrigger()
@@ -156,5 +158,14 @@ namespace Game.AI
         {
 
         }
+    }
+
+    public class BodyHeadTrigger : BodyTrigger
+    {
+        public override bool IsTrigger { get; set; }
+        public BodyHeadTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
+        {
+
+        } 
     }
 }

@@ -58,6 +58,10 @@ namespace Game.AI
             AddModel(ActionEnum.INJURE_DOWN, new InjureDownModel());
             AddModel(ActionEnum.INJURE_LEFT, new InjureLeftModel());
             AddModel(ActionEnum.INJURE_RIGHT, new InjureRightModel());
+            AddModel(ActionEnum.DEAD, new DeadModel());
+            AddModel(ActionEnum.DEAD, new DeadModel());
+            AddModel(ActionEnum.DEAD, new DeadModel());
+            AddModel(ActionEnum.DEAD, new DeadModel());
         }
     }
 }

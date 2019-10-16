@@ -18,6 +18,9 @@ namespace Game.AI
         INJURE_LEFT,
         INJURE_RIGHT,
         DEAD,
+        DEAD_HALF_BODY,
+        DEAD_HALF_HEAD,
+        DEAD_HALF_LEG,
         MOVE,
         MoveBackward
     }
