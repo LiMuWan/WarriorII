@@ -8,10 +8,10 @@ namespace Game.AI
 {
     public abstract class BodyTrigger : TriggerBase
     {
-        private Vector3 _center;
+        protected Vector3 _center;
         protected Vector3 _direction;
         protected float _height;
-
+        protected Vector3 _hitPosition;
         public override int Priority { get;}
 
         public BodyTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
@@ -41,6 +41,7 @@ namespace Game.AI
         {
             if(other.tag == TagAndLayer.WEAPON_TAG)
             {
+                _hitPosition = other.transform.position;
                 _direction = (other.transform.position - _center).normalized;
                 _direction.z = 0;
             }
@@ -162,7 +163,24 @@ namespace Game.AI
 
     public class BodyHeadTrigger : BodyTrigger
     {
-        public override bool IsTrigger { get; set; }
+        public override bool IsTrigger 
+        {
+            get
+            {
+                if (_hitPosition == Vector3.zero)
+                    return false;
+
+                float headTop = _center.y + _height * 0.5f;
+                float headBottom = headTop - _height * (Const.HEAD_SCALE / Const.ALL_BODY_SACLE);
+                if(_hitPosition.y > headBottom && _hitPosition.y < headTop)
+                {
+                    return true;
+                }
+                _hitPosition = Vector3.zero;
+                return false;
+            }
+            set { }
+        }
         public BodyHeadTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 

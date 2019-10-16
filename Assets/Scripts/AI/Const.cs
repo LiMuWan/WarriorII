@@ -23,5 +23,10 @@ namespace Game.AI
         /// 身体各部分的角度范围
         /// </summary>
         public const int BODY_PART_RANGE = 30;
+
+        public const int HEAD_SCALE = 1;
+        public const int BODY_SCALE = 2;
+        public const int LEG_SCALE = 2;
+        public const int ALL_BODY_SACLE = HEAD_SCALE + BODY_SCALE + LEG_SCALE;
     }
 }
