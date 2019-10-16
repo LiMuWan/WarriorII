@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-
-namespace Game.AI.ViewEffect
+﻿
+namespace Game.AI.Model
 {
     public class InjureUpModel : IModel
     {

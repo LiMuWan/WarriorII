@@ -1,7 +1,6 @@
 ﻿using BlueGOAP;
+using Game.AI.Model;
 using Game.AI.ViewEffect;
-using Game.Service;
-using Module.Timer;
 
 namespace Game.AI
 {

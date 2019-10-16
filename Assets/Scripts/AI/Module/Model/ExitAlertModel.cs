@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.AI.ViewEffect
+namespace Game.AI.Model
 {
     public class ExitAlertModel : IModel
     {

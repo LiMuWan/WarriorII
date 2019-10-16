@@ -1,7 +1,7 @@
 ﻿
 namespace Game.AI.Model
 {
-    public class AttackModel : IModel
+    public class DeadModel : IModel
     {
         public float AniDuration { get; set; }
     }

@@ -1,5 +1,5 @@
 ﻿
-namespace Game.AI.ViewEffect
+namespace Game.AI.Model
 {
     public class EnterAlertModel : IModel
     {

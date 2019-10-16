@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using BlueGOAP;
-using UnityEngine;
+using Game.AI.Model;
 
-namespace Game.AI.ViewEffect
+namespace Game.AI
 {
     public abstract class AIModelMgrBase<T>     
     {

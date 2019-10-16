@@ -2,6 +2,7 @@
 using BlueGOAP;
 using Game.AI.ViewEffect;
 using System.Collections.Generic;
+using Game.AI.Model;
 
 namespace Game.AI
 {

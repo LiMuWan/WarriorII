@@ -1,4 +1,5 @@
 ﻿using BlueGOAP;
+using Game.AI.Model;
 using UnityEngine;
 
 namespace Game.AI.ViewEffect

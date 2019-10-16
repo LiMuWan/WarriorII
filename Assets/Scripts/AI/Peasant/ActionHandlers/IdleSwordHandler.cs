@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using BlueGOAP;
-using Game.Service;
-using Module.Timer;
+﻿using BlueGOAP;
 using Game.AI.ViewEffect;
+using Game.AI.Model;
 
 namespace Game.AI
 {
