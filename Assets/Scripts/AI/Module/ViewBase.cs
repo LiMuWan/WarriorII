@@ -14,12 +14,14 @@ namespace Game.AI.ViewEffect
         protected IModel _iModel;
         protected EffectMgr _effectMgr;
         protected AIAniMgr _AniMgr;
+        protected AIViewEffectMgrBase<T> _mgr;
 
         public ViewBase(AIViewEffectMgrBase<T> mgr)
         {
             _AniMgr = mgr.AniMgr;
             _effectMgr = mgr.EffectMgr;
             _iModel = InitModel(mgr);
+            _mgr = mgr;
         }
 
         private IModel InitModel(AIViewEffectMgrBase<T> mgr)

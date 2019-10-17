@@ -46,7 +46,9 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
-            LoadManager.Single.Load<GameObject>(Path.PEASANT_DEAD_BODY_HEAD, "");
+            GameObject dead = LoadManager.Single.Load<GameObject>(Path.PEASANT_DEAD_BODY_HEAD, "");
+            Transform selfTrans = _mgr.Self as Transform;
+            dead.transform.position = selfTrans.position;
         }
     }
 

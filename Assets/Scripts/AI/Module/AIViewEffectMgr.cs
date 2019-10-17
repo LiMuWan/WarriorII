@@ -14,9 +14,11 @@ namespace Game.AI.ViewEffect
         public EffectMgr EffectMgr { get; private set; }
         public AudioMgr AudioMgr { get; private set; }
         public AIAniMgr AniMgr { get; private set; }
+        public object Self { get; private set; }
 
-        public AIViewEffectMgrBase(string enemyId, object audioSource,object animation)
+        public AIViewEffectMgrBase(string enemyId, object audioSource,object selfTransform)
         {
+            Self = selfTransform;
             _fsm = new ActionFSM<T>();
             _mutilFsm = new ActionStateFSM<T>();
             _viewDic = new Dictionary<T, IFsmState<T>>();
@@ -24,7 +26,7 @@ namespace Game.AI.ViewEffect
             ModelMgr = InitModelMgr();
             EffectMgr = new EffectMgr();
             AudioMgr = new AudioMgr(enemyId,audioSource);
-            AniMgr = new AIAniMgr(animation);
+            AniMgr = new AIAniMgr(selfTransform);
             InitViews();
             InitMulViews();
             InitFsm();
@@ -100,7 +102,7 @@ namespace Game.AI.ViewEffect
 
     public class AIViewEffectMgr : AIViewEffectMgrBase<ActionEnum>
     {
-        public AIViewEffectMgr(string enemyId , object audioSource,object animation) : base(enemyId , audioSource,animation)
+        public AIViewEffectMgr(string enemyId , object audioSource,object selfTransform) : base(enemyId , audioSource, selfTransform)
         {
             
         }

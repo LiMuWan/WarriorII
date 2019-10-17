@@ -17,9 +17,9 @@ namespace Game.AI
             if (_viewMgr == null)
             {
                 object audioSource = maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
-                object animation = maps.GetGameData(GameDataKeyEnum.ANIMATION);
+                object selfTrans = maps.GetGameData(GameDataKeyEnum.SELF_TRANS);
               
-                _viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, animation);
+                _viewMgr = new AIViewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, selfTrans);
             }
             return _viewMgr;
         }

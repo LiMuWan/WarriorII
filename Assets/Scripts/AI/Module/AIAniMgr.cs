@@ -7,9 +7,21 @@ namespace Game.AI.ViewEffect
     {
         private Animation _ani;
 
-        public AIAniMgr(object ani)
+        public AIAniMgr(object selfTransform)
         {
-            _ani = ani as Animation;
+            try
+            {
+                _ani = (selfTransform as Transform).GetComponent<Animation>();
+            }
+            catch (System.Exception)
+            {
+                Debug.LogError("为获取到当前对象的Transform组件");
+            }
+
+            if(_ani == null)
+            {
+                Debug.LogError("为获取到当前对象的动画组件");
+            }
         }
 
         public void Play<T>(T aniName)
