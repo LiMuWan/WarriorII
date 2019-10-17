@@ -32,6 +32,10 @@ namespace Game.AI
             AddActionHandler(ActionEnum.INJURE_DOWN);
             AddActionHandler(ActionEnum.INJURE_LEFT);
             AddActionHandler(ActionEnum.INJURE_RIGHT);
+            AddActionHandler(ActionEnum.DEAD);
+            AddActionHandler(ActionEnum.DEAD_HALF_HEAD);
+            AddActionHandler(ActionEnum.DEAD_HALF_BODY);
+            AddActionHandler(ActionEnum.DEAD_HALF_LEG);
         }
 
         protected override void InitActionStateHandlers()

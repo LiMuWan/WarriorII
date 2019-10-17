@@ -51,6 +51,7 @@ namespace Game.AI
 
         public DeadNormalAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
+
         }
     }
 
@@ -58,10 +59,9 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_HEAD; } }
 
-        public override int Priority { get { return DEFAULT_PRIORITY + 1; } }
-
         public DeadHeadAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
+
         }
     }
 
@@ -69,10 +69,9 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_BODY; } }
 
-        public override int Priority { get { return DEFAULT_PRIORITY + 2; } }
-
         public DeadBodyAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
+
         }
     }
 
@@ -80,10 +79,9 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_LEG; } }
 
-        public override int Priority { get { return DEFAULT_PRIORITY + 3; } }
-
         public DeadLegAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
+
         }
     }
 }

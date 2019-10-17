@@ -2,15 +2,24 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class DeadView : ViewBase<ActionEnum>
+    public abstract class DeadView : ViewBase<ActionEnum>
     {
-        public override ActionEnum Label { get { return ActionEnum.DEAD; } }
-
-        public override string AniName { get { return AIPeasantAniName.death01.ToString(); } }
-
         public DeadView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 
         }
     }
+
+    public abstract class DeadNormalView : ViewBase<ActionEnum>
+    {
+        public override ActionEnum Label { get { return ActionEnum.DEAD; } }
+
+        public override string AniName { get; }
+
+        public DeadNormalView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        {
+
+        }
+    }
+
 }

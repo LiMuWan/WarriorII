@@ -22,7 +22,10 @@ namespace Game.AI
             AddAction<InjureHandler, InjureDownAction>();
             AddAction<InjureHandler, InjureLeftAction>();
             AddAction<InjureHandler, InjureRightAction>();
-            AddAction<DeadHandler, DeadAction>();
+            AddAction<NormalDeadHandler, DeadNormalAction>();
+            AddAction<InstantSkillDeadHandler, DeadHeadAction>();
+            AddAction<InstantSkillDeadHandler, DeadBodyAction>();
+            AddAction<InstantSkillDeadHandler, DeadLegAction>();
             AddAction<MoveHandler, MoveAction>();
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
             AddAction<EnterAlertHandler, EnterAlertAction>();
