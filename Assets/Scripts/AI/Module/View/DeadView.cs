@@ -1,4 +1,6 @@
-﻿using BlueGOAP;
+﻿using System;
+using System.Threading.Tasks;
+using BlueGOAP;
 using Manager;
 using UnityEngine;
 
@@ -10,9 +12,32 @@ namespace Game.AI.ViewEffect
         {
 
         }
+
+        protected void InitSpecialDead(string path)
+        {
+            GameObject dead = LoadManager.Single.Load<GameObject>(path, "");
+            if (dead != null)
+            {
+                DeadAniController aniCtrl = dead.AddComponent<DeadAniController>();
+                Transform selfTrans = _mgr.Self as Transform;
+                aniCtrl.Init(selfTrans.position);
+
+                GameObject.Destroy(selfTrans.gameObject);
+            }
+            else
+            {
+                DebugMsg.LogError("死亡动画未找到，标签为 : " + Label);
+            }
+        }
+
+        protected void Destroy()
+        {
+            Transform selfTrans = _mgr.Self as Transform;
+            GameObject.Destroy(selfTrans.gameObject);
+        }
     }
 
-    public  class DeadNormalView : ViewBase<ActionEnum>
+    public  class DeadNormalView : DeadView
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD; } }
 
@@ -20,16 +45,34 @@ namespace Game.AI.ViewEffect
         {
             get 
             {
-                int index = Random.Range(0, aniNames.Length);
-                return aniNames[index].ToString();
+                if (_currentAniName == null)
+                {
+                    int index = UnityEngine.Random.Range(0, aniNames.Length);
+                    _currentAniName = aniNames[index].ToString();
+                    return _currentAniName;
+                }
+                else
+                {
+                    return _currentAniName;
+                }
             }
         }
 
         private AIPeasantAniName[] aniNames = { AIPeasantAniName.death01, AIPeasantAniName.death02 };
 
+        private string _currentAniName;
+
         public DeadNormalView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 
+        }
+
+        public async override void Enter()
+        {
+            base.Enter();
+            await Task.Delay(TimeSpan.FromSeconds(_AniMgr.GetAniLength(AniName)));
+
+            Destroy();
         }
     }
 
@@ -47,20 +90,43 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
-            GameObject dead = LoadManager.Single.Load<GameObject>(Path.PEASANT_DEAD_BODY_HEAD, "");
-            if (dead != null)
-            {
-                DeadAniController aniCtrl = dead.AddComponent<DeadAniController>();
-                Transform selfTrans = _mgr.Self as Transform;
-                aniCtrl.Init(selfTrans.position);
-
-                GameObject.Destroy(selfTrans.gameObject);
-            }
-            else
-            {
-                DebugMsg.LogError("死亡动画未找到，标签为 : " + Label);
-            }
+            InitSpecialDead(Path.PEASANT_DEAD_BODY_HEAD);
         }
     }
 
+    public class DeadBodyView : DeadView
+    {
+        public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_BODY; } }
+
+        public override string AniName { get; }
+
+        public DeadBodyView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        {
+
+        }
+
+        public override void Enter()
+        {
+            ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
+            InitSpecialDead(Path.PEASANT_DEAD_BODY_BODY);
+        }
+    }
+
+    public class DeadLegView : DeadView
+    {
+        public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_LEG; } }
+
+        public override string AniName { get; }
+
+        public DeadLegView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        {
+
+        }
+
+        public override void Enter()
+        {
+            ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
+            InitSpecialDead(Path.PEASANT_DEAD_BODY_LEG);
+        }
+    }
 }

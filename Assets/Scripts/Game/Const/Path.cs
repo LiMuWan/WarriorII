@@ -19,5 +19,7 @@ namespace Game
 
         public const string ENEMY_PATH = "Enemies/";
         public const string PEASANT_DEAD_BODY_HEAD = ENEMY_PATH + "DeadPeasantLowHHead";
+        public const string PEASANT_DEAD_BODY_BODY = ENEMY_PATH + "DeadTwoSwordsmanHBody";
+        public const string PEASANT_DEAD_BODY_LEG = ENEMY_PATH + "DeadTwoSwordsmanHLegs";
     }
 }
