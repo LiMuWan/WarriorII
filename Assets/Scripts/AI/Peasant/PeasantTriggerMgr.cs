@@ -17,6 +17,9 @@ namespace Game.AI
             AddTrigger(new BodyDownTrigger(_agent));
             AddTrigger(new BodyLeftTrigger(_agent));
             AddTrigger(new BodyRightTrigger(_agent));
+            AddTrigger(new BodyHeadTrigger(_agent));
+            AddTrigger(new BodyBodyTrigger(_agent));
+            AddTrigger(new BodyLegTrigger(_agent));
         }
     }
 }

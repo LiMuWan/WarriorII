@@ -2,6 +2,7 @@
 using BlueGOAP;
 using Game.AI.ViewEffect;
 using Game.AI.Model;
+using System.Collections.Generic;
 
 namespace Game.AI
 {
@@ -30,15 +31,23 @@ namespace Game.AI
             DebugMsg.Log("进入死亡状态");
         }
 
-        private void JudgeDead()
+        private bool JudgeDead()
         {
-            //todo:获取死亡方式的数据
+            var dataDic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
+            return dataDic[Label];
         }
     }
 
     public class NormalDeadHandler : DeadHandler
     {
         public NormalDeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
+        {
+        }
+    }
+
+    public class InstantSkillDeadHandler : DeadHandler
+    {
+        public InstantSkillDeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
         }
     }

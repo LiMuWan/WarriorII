@@ -177,14 +177,20 @@ namespace Game.AI
                 if (_hitPosition == Vector3.zero)
                     return false;
 
+                bool result = false;
                 float headTop = _center.y + _height * 0.5f;
                 float headBottom = headTop - _height * (Const.HEAD_SCALE / Const.ALL_BODY_SACLE);
                 if(_hitPosition.y > headBottom && _hitPosition.y < headTop)
                 {
-                    return true;
+                    result = true;
+                }
+                else
+                {
+                    result = false;
                 }
                 _hitPosition = Vector3.zero;
-                return false;
+                SetColliderData(ActionEnum.DEAD_HALF_HEAD, result);
+                return result;
             }
             set { }
         }
@@ -203,15 +209,21 @@ namespace Game.AI
                 if (_hitPosition == Vector3.zero)
                     return false;
 
+                bool result = false;
                 float headTop = GetHeightValue(0);
                 float bodyTop = headTop - GetHeightValue(Const.HEAD_SCALE);
                 float bodyBottom = headTop - _height * GetHeightValue(Const.HEAD_SCALE + Const.BODY_SCALE);
                 if (_hitPosition.y > bodyBottom && _hitPosition.y < bodyTop)
                 {
-                    return true;
+                    result = true;
+                }
+                else
+                {
+                    result = false;
                 }
                 _hitPosition = Vector3.zero;
-                return false;
+                SetColliderData(ActionEnum.DEAD_HALF_BODY, result);
+                return result;
             }
             set { }
         }
@@ -235,15 +247,21 @@ namespace Game.AI
                 if (_hitPosition == Vector3.zero)
                     return false;
 
+                bool result = false;
                 float headTop = GetHeightValue(0);
                 float legTop = headTop - GetHeightValue(Const.HEAD_SCALE + Const.BODY_SCALE);
                 float legBottom = headTop - GetHeightValue(Const.HEAD_SCALE + Const.BODY_SCALE + Const.LEG_SCALE);
                 if (_hitPosition.y > legBottom && _hitPosition.y < legTop)
                 {
-                    return true;
+                    result = true;
+                }
+                else
+                {
+                    result = false;
                 }
                 _hitPosition = Vector3.zero;
-                return false;
+                SetColliderData(ActionEnum.DEAD_HALF_LEG, result);
+                return result;
             }
             set { }
         }
