@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 
 namespace Game.AI.ViewEffect
 {
@@ -28,6 +29,24 @@ namespace Game.AI.ViewEffect
         public DeadNormalView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
 
+        }
+    }
+
+    public class DeadHeadView : DeadView
+    {
+        public override ActionEnum Label { get; }
+
+        public override string AniName { get; }
+
+        public DeadHeadView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        {
+
+        }
+
+        public override void Enter()
+        {
+            ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
+            LoadManager.Single.Load<GameObject>(Path.PEASANT_DEAD_BODY_HEAD, "");
         }
     }
 

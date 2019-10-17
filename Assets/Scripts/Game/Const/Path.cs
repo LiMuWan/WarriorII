@@ -18,5 +18,6 @@ namespace Game
         public const string TRAILCOMBO_PATH = PREFAB_PATH + "trails_combo01";
 
         public const string ENEMY_PATH = "Enemies/";
+        public const string PEASANT_DEAD_BODY_HEAD = ENEMY_PATH + "DeadPeasantLowHHead";
     }
 }

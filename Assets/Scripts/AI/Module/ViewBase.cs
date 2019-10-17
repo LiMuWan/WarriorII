@@ -6,7 +6,7 @@ namespace Game.AI.ViewEffect
 {
     public abstract class ViewBase<T> : IFsmState<T>
     {
-        public ActionExcuteState ExcuteState { get; private set; }
+        public ActionExcuteState ExcuteState { get; set; }
         public abstract T Label { get; }
 
         public abstract string AniName { get; }
