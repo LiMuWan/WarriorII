@@ -13,6 +13,17 @@ namespace Game.View
     {
         private IAgent<ActionEnum, GoalEnum> _ai;
 
+#if TEST
+        public IAgent<ActionEnum,GoalEnum> AI
+        {
+            get
+            {
+                return _ai;
+            }
+        }
+#endif 
+
+
         public  override void Init(Contexts contexts,IEntity entity)        
         {
             base.Init(contexts,entity);
