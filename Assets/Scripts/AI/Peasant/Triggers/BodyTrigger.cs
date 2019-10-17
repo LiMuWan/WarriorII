@@ -59,6 +59,13 @@ namespace Game.AI
             var dic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
             dic[actionEnum] = result;
         }
+
+        protected float GetHeightValue(float scale)
+        {
+            float headTop = _center.y + _height * 0.5f;
+            float height = headTop - _height * (scale / Const.ALL_BODY_SACLE);
+            return height;
+        }
     }
 
     public class BodyUpTrigger : BodyTrigger
@@ -185,5 +192,60 @@ namespace Game.AI
         {
 
         } 
+    }
+
+    public class BodyBodyTrigger : BodyTrigger
+    {
+        public override bool IsTrigger 
+        {
+            get 
+            {
+                if (_hitPosition == Vector3.zero)
+                    return false;
+
+                float headTop = GetHeightValue(0);
+                float bodyTop = headTop - GetHeightValue(Const.HEAD_SCALE);
+                float bodyBottom = headTop - _height * GetHeightValue(Const.HEAD_SCALE + Const.BODY_SCALE);
+                if (_hitPosition.y > bodyBottom && _hitPosition.y < bodyTop)
+                {
+                    return true;
+                }
+                _hitPosition = Vector3.zero;
+                return false;
+            }
+            set { }
+        }
+
+        public BodyBodyTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
+        {
+        }
+    }
+
+    public class BodyLegTrigger : BodyTrigger
+    {
+        public BodyLegTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
+        {
+
+        }
+
+        public override bool IsTrigger 
+        {
+            get 
+            {
+                if (_hitPosition == Vector3.zero)
+                    return false;
+
+                float headTop = GetHeightValue(0);
+                float legTop = headTop - GetHeightValue(Const.HEAD_SCALE + Const.BODY_SCALE);
+                float legBottom = headTop - GetHeightValue(Const.HEAD_SCALE + Const.BODY_SCALE + Const.LEG_SCALE);
+                if (_hitPosition.y > legBottom && _hitPosition.y < legTop)
+                {
+                    return true;
+                }
+                _hitPosition = Vector3.zero;
+                return false;
+            }
+            set { }
+        }
     }
 }
