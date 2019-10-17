@@ -6,7 +6,7 @@ using Game.AI.Model;
 
 namespace Game.AI
 {
-    public class InjureHandler<TModel> : HandlerBase<TModel> where TModel : class , IModel
+    public class InjureHandler : HandlerBase<InjureModel>
     {
         public InjureHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
@@ -18,19 +18,19 @@ namespace Game.AI
             
             DebugMsg.Log("进入受伤状态");
             base.Enter();
-            //int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
-            //EnemyData data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
+            int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
+            EnemyData data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
 
-            //data.Life = data.Life - injureValue;
+            data.Life = data.Life - injureValue;
 
-            //if (data.Life < 0)
-            //{
-            //    SetAgentState(StateKeyEnum.IS_DEAD, true);
-            //}
-            //else
-            //{
-            //    base.Enter();
-            //}
+            if (data.Life < 0)
+            {
+                SetAgentState(StateKeyEnum.IS_DEAD, true);
+            }
+            else
+            {
+                base.Enter();
+            }
         }
 
         public override bool CanPerformAction()
@@ -46,35 +46,6 @@ namespace Game.AI
         private void ChangeActionPriority(bool isChange)
         {
             ((InjureAction)Action).ChangePriority(isChange);
-        }
-    }
-
-    public class InjureUpHandler : InjureHandler<InjureUpModel>
-    {
-        public InjureUpHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
-        {
-            
-        }
-    }
-
-    public class InjureDownHandler : InjureHandler<InjureDownModel>
-    {
-        public InjureDownHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
-        {
-        }
-    }
-
-    public class InjureLeftHandler : InjureHandler<InjureLeftModel>
-    {
-        public InjureLeftHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
-        {
-        }
-    }
-
-    public class InjureRightHandler : InjureHandler<InjureRightModel>
-    {
-        public InjureRightHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
-        {
         }
     }
 }

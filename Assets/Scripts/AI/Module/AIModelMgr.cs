@@ -54,14 +54,14 @@ namespace Game.AI
             AddModel(ActionEnum.ATTACK, new AttackModel());
             AddModel(ActionEnum.ENTER_ALERT, new EnterAlertModel());
             AddModel(ActionEnum.EXIT_ALERT, new ExitAlertModel());
-            AddModel(ActionEnum.INJURE_UP, new InjureUpModel());
-            AddModel(ActionEnum.INJURE_DOWN, new InjureDownModel());
-            AddModel(ActionEnum.INJURE_LEFT, new InjureLeftModel());
-            AddModel(ActionEnum.INJURE_RIGHT, new InjureRightModel());
+            AddModel(ActionEnum.INJURE_UP, new InjureModel());
+            AddModel(ActionEnum.INJURE_DOWN, new InjureModel());
+            AddModel(ActionEnum.INJURE_LEFT, new InjureModel());
+            AddModel(ActionEnum.INJURE_RIGHT, new InjureModel());
             AddModel(ActionEnum.DEAD, new DeadModel());
-            AddModel(ActionEnum.DEAD, new DeadModel());
-            AddModel(ActionEnum.DEAD, new DeadModel());
-            AddModel(ActionEnum.DEAD, new DeadModel());
+            AddModel(ActionEnum.DEAD_HALF_HEAD, new DeadModel());
+            AddModel(ActionEnum.DEAD_HALF_BODY, new DeadModel());
+            AddModel(ActionEnum.DEAD_HALF_LEG, new DeadModel());
         }
     }
 }

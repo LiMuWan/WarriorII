@@ -13,42 +13,45 @@ namespace Game.AI
 
         }
 
-        public override void Enter()
+        public override bool CanPerformAction()
         {
-            base.Enter();
-            int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
-
-            switch (injureValue)
-            {
-                case Const.INSTANT_KILL:
-                    //todo: 一击必杀效果
-                    break;
-                default:
-                    //todo: 正常死亡逻辑
-                    break;
-            }
-
-            DebugMsg.Log("进入死亡状态");
+            bool result = base.CanPerformAction() && JudgeDead();
+            ((DeadAction)Action).ChangePriority(result);
+            return result;
         }
 
-        private bool JudgeDead()
-        {
-            var dataDic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
-            return dataDic[Label];
-        }
+        protected abstract bool JudgeDead();
     }
 
+    /// <summary>
+    /// 普通死亡方式
+    /// </summary>
     public class NormalDeadHandler : DeadHandler
     {
         public NormalDeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
         }
+
+        protected override bool JudgeDead()
+        {
+            return true;
+        }
     }
 
+    /// <summary>
+    /// 一击必杀死亡方式
+    /// </summary>
     public class InstantSkillDeadHandler : DeadHandler
     {
         public InstantSkillDeadHandler(IAgent<ActionEnum, GoalEnum> agent, IMaps<ActionEnum, GoalEnum> maps, IAction<ActionEnum> action) : base(agent, maps, action)
         {
+        }
+
+        protected override bool JudgeDead()
+        {
+            int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
+            var dataDic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
+            return dataDic[Label] && injureValue == Const.INSTANT_KILL;
         }
     }
 }
