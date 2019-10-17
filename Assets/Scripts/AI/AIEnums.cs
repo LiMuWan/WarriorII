@@ -128,6 +128,7 @@ namespace Game.AI
         runSword,
         attackPeasant,
         death01,
+        death02,
         injuryFront01,
         injuryFront02,
         injuryFront03,

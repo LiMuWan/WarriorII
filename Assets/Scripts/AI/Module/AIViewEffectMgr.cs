@@ -108,7 +108,7 @@ namespace Game.AI.ViewEffect
         protected override void InitViews()
         {
             AddView(new AttackView(this));
-            AddView(new DeadView(this));
+            AddView(new DeadNormalView(this));
             AddView(new IdleView(this));
             AddView(new IdleSwordView(this));
             AddView(new UpInjureView(this));
