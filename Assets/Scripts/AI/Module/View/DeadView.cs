@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using BlueGOAP;
+using Manager;
 using UnityEngine;
 
 namespace Game.AI.ViewEffect
@@ -34,7 +35,7 @@ namespace Game.AI.ViewEffect
 
     public class DeadHeadView : DeadView
     {
-        public override ActionEnum Label { get; }
+        public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_HEAD; } }
 
         public override string AniName { get; }
 
@@ -47,8 +48,18 @@ namespace Game.AI.ViewEffect
         {
             ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
             GameObject dead = LoadManager.Single.Load<GameObject>(Path.PEASANT_DEAD_BODY_HEAD, "");
-            Transform selfTrans = _mgr.Self as Transform;
-            dead.transform.position = selfTrans.position;
+            if (dead != null)
+            {
+                DeadAniController aniCtrl = dead.AddComponent<DeadAniController>();
+                Transform selfTrans = _mgr.Self as Transform;
+                aniCtrl.Init(selfTrans.position);
+
+                GameObject.Destroy(selfTrans.gameObject);
+            }
+            else
+            {
+                DebugMsg.LogError("死亡动画未找到，标签为 : " + Label);
+            }
         }
     }
 
