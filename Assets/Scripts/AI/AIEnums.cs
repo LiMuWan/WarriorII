@@ -132,6 +132,9 @@ namespace Game.AI
         injuryFront01,
         injuryFront02,
         injuryFront03,
-        injuryFront04
+        injuryFront04,
+        DeadPeasantLowHHead,
+        DeadTwoSwordsmanHBody,
+        DeadTwoSwordsmanHLegs
     }
 }

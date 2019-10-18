@@ -111,6 +111,9 @@ namespace Game.AI.ViewEffect
         {
             AddView(new AttackView(this));
             AddView(new DeadNormalView(this));
+            AddView(new DeadHeadView(this));
+            AddView(new DeadBodyView(this));
+            AddView(new DeadLegView(this));
             AddView(new IdleView(this));
             AddView(new IdleSwordView(this));
             AddView(new UpInjureView(this));

@@ -13,22 +13,7 @@ namespace Game.AI.ViewEffect
 
         }
 
-        protected void InitSpecialDead(string path)
-        {
-            GameObject dead = LoadManager.Single.Load<GameObject>(path, "");
-            if (dead != null)
-            {
-                DeadAniController aniCtrl = dead.AddComponent<DeadAniController>();
-                Transform selfTrans = _mgr.Self as Transform;
-                aniCtrl.Init(selfTrans.position);
-
-                GameObject.Destroy(selfTrans.gameObject);
-            }
-            else
-            {
-                DebugMsg.LogError("死亡动画未找到，标签为 : " + Label);
-            }
-        }
+       
 
         protected void Destroy()
         {

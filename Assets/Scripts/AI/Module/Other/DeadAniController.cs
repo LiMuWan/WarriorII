@@ -4,17 +4,24 @@ using UnityEngine;
 
 namespace Game.AI
 {
-    public class DeadAniController:MonoBehaviour     
+    public class AniController:MonoBehaviour     
     {
+        private Animation _ani;
+
         public async void Init(Vector3 position)
         {
             transform.position = position;
-            Animation ani = transform.GetComponent<Animation>();
-            ani.Play(ani.clip.name);
+            _ani = transform.GetComponent<Animation>();
+            _ani.Play(_ani.clip.name);
 
-            await Task.Delay(TimeSpan.FromSeconds(ani.clip.length));
+            await Task.Delay(TimeSpan.FromSeconds(_ani.clip.length));
 
             Destroy(gameObject);
+        }
+
+        public AnimationClip GetAniClip()
+        {
+            return _ani.clip;
         }
     }
 }
