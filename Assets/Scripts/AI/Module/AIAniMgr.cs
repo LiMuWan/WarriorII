@@ -32,8 +32,27 @@ namespace Game.AI.ViewEffect
 
         public void Play<T>(T aniName)
         {
-            Debug.Log(aniName.ToString());
-            _ani.CrossFade(aniName.ToString());
+            string name = aniName.ToString();
+            if (_ani[name] != null)
+            {
+                _ani.CrossFade(aniName.ToString());
+            }
+            else
+            {
+                GetAniCtrl(name).Play();
+            }
+        }
+
+        private AniController GetAniCtrl(string name)
+        {
+            if (!_specialAniDic.ContainsKey(name))
+            {
+                return _specialAniDic[name] = InitSpecial(Path.ENEMY_PATH + name);
+            }
+            else
+            {
+                return _specialAniDic[name];
+            }
         }
 
         private AnimationClip GetAniClip(string name)
@@ -44,35 +63,31 @@ namespace Game.AI.ViewEffect
             }
             else
             {
-                if (_specialAniDic.ContainsKey(name))
-                {
-                    return _specialAniDic[name].GetAniClip();
-                }
-                else
-                {
-                   AniController aniCtrl = InitSpecialDead(Path.ENEMY_PATH + name);
-                    _specialAniDic.Add(name, aniCtrl);
-                    return aniCtrl.GetAniClip();
-                }
+                return GetAniCtrl(name).GetAniClip();
             }
         }
 
         public float GetAniLength<T>(T aniName)
         {
-            return _ani[aniName.ToString()].length;
+            string name = aniName.ToString();
+            if (_ani[name] != null)
+            {
+                return _ani[aniName.ToString()].length;
+            }
+            else
+            {
+                return GetAniClip(name).length;
+            }
         }
 
-        private AniController InitSpecialDead(string path)
+        private AniController InitSpecial(string path)
         {
             GameObject dead = LoadManager.Single.Load<GameObject>(path, "");
             AniController aniCtrl = null;
             if (dead != null)
             {
                 aniCtrl = dead.AddComponent<AniController>();
-                Transform selfTrans = _self as Transform;
-                aniCtrl.Init(selfTrans.position);
-
-                GameObject.Destroy(selfTrans.gameObject);
+                aniCtrl.Init(_self.position);
             }
             else
             {

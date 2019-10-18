@@ -8,20 +8,26 @@ namespace Game.AI
     {
         private Animation _ani;
 
-        public async void Init(Vector3 position)
+        public  void Init(Vector3 position)
         {
             transform.position = position;
             _ani = transform.GetComponent<Animation>();
-            _ani.Play(_ani.clip.name);
-
-            await Task.Delay(TimeSpan.FromSeconds(_ani.clip.length));
-
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         public AnimationClip GetAniClip()
         {
             return _ani.clip;
+        }
+
+        public async void Play()
+        {
+            gameObject.SetActive(true);
+            _ani.Play(GetAniClip().name);
+
+            await Task.Delay(TimeSpan.FromSeconds(GetAniClip().length));
+
+            Destroy(gameObject);
         }
     }
 }
