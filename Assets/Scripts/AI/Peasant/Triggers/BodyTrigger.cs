@@ -70,6 +70,7 @@ namespace Game.AI
 
     public class BodyUpTrigger : BodyTrigger
     {
+        public override int Priority { get { return 1; } }
 
         public override bool IsTrigger
         {
@@ -95,7 +96,7 @@ namespace Game.AI
 
     public class BodyDownTrigger : BodyTrigger
     {
-
+        public override int Priority { get { return 1; } }
         public override bool IsTrigger
         {
             get
@@ -120,7 +121,7 @@ namespace Game.AI
 
     public class BodyLeftTrigger : BodyTrigger
     {
-
+        public override int Priority { get { return 1; } }
         public override bool IsTrigger
         {
             get
@@ -145,7 +146,7 @@ namespace Game.AI
 
     public class BodyRightTrigger : BodyTrigger
     {
-
+        public override int Priority { get { return 1; } }
         public override bool IsTrigger
         {
             get
@@ -170,6 +171,7 @@ namespace Game.AI
 
     public class BodyHeadTrigger : BodyTrigger
     {
+        public override int Priority { get { return 2; } }
         public override bool IsTrigger 
         {
             get
@@ -202,6 +204,7 @@ namespace Game.AI
 
     public class BodyBodyTrigger : BodyTrigger
     {
+        public override int Priority { get { return 2; } }
         public override bool IsTrigger 
         {
             get 
@@ -235,6 +238,7 @@ namespace Game.AI
 
     public class BodyLegTrigger : BodyTrigger
     {
+        public override int Priority { get { return 2; } }
         public BodyLegTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 
