@@ -13,8 +13,6 @@ namespace Game.AI.ViewEffect
 
         }
 
-       
-
         protected void Destroy()
         {
             Transform selfTrans = _mgr.Self as Transform;
@@ -56,7 +54,7 @@ namespace Game.AI.ViewEffect
         {
             base.Enter();
             await Task.Delay(TimeSpan.FromSeconds(_AniMgr.GetAniLength(AniName)));
-
+            _AniMgr.Play(AniName);
             Destroy();
         }
     }
@@ -65,7 +63,7 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_HEAD; } }
 
-        public override string AniName { get; }
+        public override string AniName { get { return AIPeasantAniName.DeadPeasantLowHHead.ToString(); } }
 
         public DeadHeadView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
@@ -75,7 +73,6 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
-            InitSpecialDead(Path.PEASANT_DEAD_BODY_HEAD);
         }
     }
 
@@ -83,7 +80,7 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_BODY; } }
 
-        public override string AniName { get; }
+        public override string AniName { get { return AIPeasantAniName.DeadTwoSwordsmanHBody.ToString(); } }
 
         public DeadBodyView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
@@ -93,7 +90,6 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
-            InitSpecialDead(Path.PEASANT_DEAD_BODY_BODY);
         }
     }
 
@@ -101,7 +97,7 @@ namespace Game.AI.ViewEffect
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_LEG; } }
 
-        public override string AniName { get; }
+        public override string AniName { get { return AIPeasantAniName.DeadTwoSwordsmanHLegs.ToString(); } }
 
         public DeadLegView(AIViewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
@@ -111,7 +107,6 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
-            InitSpecialDead(Path.PEASANT_DEAD_BODY_LEG);
         }
     }
 }

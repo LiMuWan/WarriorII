@@ -37,7 +37,6 @@ namespace Game.AI
         {
             var dataDic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
             var result = base.CanPerformAction() && dataDic[Label];
-            Debug.Log(Label + " : " + result);
             dataDic[Label] = false;
             ChangeActionPriority(result);
             return result;

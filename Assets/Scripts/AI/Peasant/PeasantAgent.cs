@@ -8,7 +8,13 @@ namespace Game.AI
 {
     public class PeasantAgent : AgentBase<ActionEnum, GoalEnum>
     {
-        public override bool IsAgentOver { get; }
+        public override bool IsAgentOver 
+        {
+            get
+            {
+                return AgentState.Get(StateKeyEnum.IS_OVER.ToString());
+            }
+        }
 
         private AIViewEffectMgr _viewMgr;
 

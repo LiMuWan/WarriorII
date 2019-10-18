@@ -72,7 +72,11 @@ namespace Game.AI
         /// <summary>
         /// 是否是警戒状态
         /// </summary>
-        IS_ALERT
+        IS_ALERT,
+        /// <summary>
+        /// AI是否结束
+        /// </summary>
+        IS_OVER
     }
 
     /// <summary>

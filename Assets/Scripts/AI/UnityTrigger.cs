@@ -21,7 +21,8 @@ namespace Game.AI.ViewEffect
         {
             CharacterController controller = GetComponent<CharacterController>();
             Vector3 center = controller.center;
-
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            transform.GetComponent<EnemyPeasantView>().AI.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 1000);
             ////上方向
             //_colliderAction(GetDirectionCollider(center,20));
             //await Task.Delay(TimeSpan.FromSeconds(1));
@@ -37,17 +38,16 @@ namespace Game.AI.ViewEffect
 
             //普通死亡
             _colliderAction(GetPosCollider(new Vector3(center.x, center.y + controller.height * 0.5f, center.z)));
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            transform.GetComponent<EnemyPeasantView>().AI.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 1000);
-            //头部
-            _colliderAction(GetPosCollider(new Vector3(center.x,center.y + controller.height * 0.5f ,center.z)));
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            //身体
-            _colliderAction(GetPosCollider(new Vector3(center.x, center.y, center.z)));
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            //腿
-            _colliderAction(GetPosCollider(new Vector3(center.x, center.y - controller.height * 0.5f, center.z)));
-            await Task.Delay(TimeSpan.FromSeconds(2));
+           
+            ////头部
+            //_colliderAction(GetPosCollider(new Vector3(center.x,center.y + controller.height * 0.5f ,center.z)));
+            //await Task.Delay(TimeSpan.FromSeconds(2));
+            ////身体
+            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y, center.z)));
+            //await Task.Delay(TimeSpan.FromSeconds(2));
+            ////腿
+            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y - controller.height * 0.5f, center.z)));
+            //await Task.Delay(TimeSpan.FromSeconds(2));
         }
 
         private Collider GetDirectionCollider(Vector3 center,float degress)

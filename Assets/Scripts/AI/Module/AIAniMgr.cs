@@ -72,7 +72,7 @@ namespace Game.AI.ViewEffect
             string name = aniName.ToString();
             if (_ani[name] != null)
             {
-                return _ani[aniName.ToString()].length;
+                return _ani[name].length;
             }
             else
             {
