@@ -51,7 +51,9 @@ namespace Game.AI
         {
             int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
             var dataDic = GetGameData<Dictionary<ActionEnum, bool>>(GameDataKeyEnum.INJURE_COLLECT_DATA);
-            return dataDic[Label] && injureValue == Const.INSTANT_KILL;
+            bool result = dataDic.ContainsKey(Label) && dataDic[Label] && injureValue == Const.INSTANT_KILL;
+            dataDic[Label] = false;
+            return result;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Game.AI.ViewEffect
             //await Task.Delay(TimeSpan.FromSeconds(1));
 
             //普通死亡
-            _colliderAction(GetPosCollider(new Vector3(center.x, center.y + controller.height * 0.5f, center.z)));
+            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y + controller.height * 0.5f, center.z)));
            
             ////头部
             //_colliderAction(GetPosCollider(new Vector3(center.x,center.y + controller.height * 0.5f ,center.z)));
@@ -46,8 +46,8 @@ namespace Game.AI.ViewEffect
             //_colliderAction(GetPosCollider(new Vector3(center.x, center.y, center.z)));
             //await Task.Delay(TimeSpan.FromSeconds(2));
             ////腿
-            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y - controller.height * 0.5f, center.z)));
-            //await Task.Delay(TimeSpan.FromSeconds(2));
+            _colliderAction(GetPosCollider(new Vector3(center.x, center.y - controller.height * 0.5f, center.z)));
+            await Task.Delay(TimeSpan.FromSeconds(2));
         }
 
         private Collider GetDirectionCollider(Vector3 center,float degress)

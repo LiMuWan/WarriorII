@@ -98,6 +98,7 @@ namespace BlueGOAP
             {
                 if (handler.Value.Action.CanInterruptiblePlan)
                 {
+                    DebugMsg.Log(handler.Value.Label + " : " +  handler.Value.Action.Priority.ToString());
                     _interruptibleHandlers.Add(handler.Value);
                 }
             }

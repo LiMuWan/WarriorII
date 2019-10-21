@@ -3,30 +3,30 @@ using BlueGOAP;
 
 namespace Game.AI
 {
-    public class DeadAction : ActionBase<ActionEnum, GoalEnum>
+    public  abstract class DeadAction : ActionBase<ActionEnum, GoalEnum>
     {
-        public override ActionEnum Label { get { return ActionEnum.DEAD; } }
         public override int Cost { get { return 1; } }
-        public override int Priority { get { return 1000; } }
+        public override int Priority { get { return _priority; } }
         public override bool CanInterruptiblePlan { get { return true; } }
 
+        protected abstract int DefaultPriority { get; }
         private int _priority;
         protected const int DEFAULT_PRIORITY = 1000;
 
         public DeadAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
-
+            _priority = DefaultPriority;
         }
 
         public void ChangePriority(bool isChange)
         {
             if(isChange)
             {
-                _priority = DEFAULT_PRIORITY + 2;
+                _priority = DefaultPriority + 2;
             }
             else
             {
-                _priority = DEFAULT_PRIORITY;
+                _priority = DefaultPriority;
             }
         }
 
@@ -39,7 +39,9 @@ namespace Game.AI
 
         protected override IState InitEffects()
         {
-            return null;
+            State<StateKeyEnum> state = new State<StateKeyEnum>();
+            state.Set(StateKeyEnum.IS_OVER, true);
+            return state;
         }
     }
 
@@ -47,7 +49,7 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD; } }
 
-        public override int Priority { get { return DEFAULT_PRIORITY + 1; } }
+        protected override int DefaultPriority { get { return DEFAULT_PRIORITY + 1; } }
 
         public DeadNormalAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
@@ -59,6 +61,8 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_HEAD; } }
 
+        protected override int DefaultPriority { get { return DEFAULT_PRIORITY + 2; } }
+
         public DeadHeadAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 
@@ -69,6 +73,8 @@ namespace Game.AI
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_BODY; } }
 
+        protected override int DefaultPriority { get { return DEFAULT_PRIORITY + 2; } }
+
         public DeadBodyAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 
@@ -78,7 +84,7 @@ namespace Game.AI
     public class DeadLegAction : DeadAction
     {
         public override ActionEnum Label { get { return ActionEnum.DEAD_HALF_LEG; } }
-
+        protected override int DefaultPriority { get { return DEFAULT_PRIORITY + 2; } }
         public DeadLegAction(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
 

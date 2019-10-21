@@ -72,7 +72,8 @@ namespace Game.AI.ViewEffect
 
         public override void Enter()
         {
-            ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
+            base.Enter();
+            Destroy();
         }
     }
 
@@ -89,7 +90,8 @@ namespace Game.AI.ViewEffect
 
         public override void Enter()
         {
-            ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
+            base.Enter();
+            Destroy();
         }
     }
 
@@ -106,7 +108,8 @@ namespace Game.AI.ViewEffect
 
         public override void Enter()
         {
-            ExcuteState = BlueGOAP.ActionExcuteState.ENTER;
+            base.Enter();
+            Destroy();
         }
     }
 }

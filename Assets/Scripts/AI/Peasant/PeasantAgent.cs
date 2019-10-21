@@ -12,6 +12,7 @@ namespace Game.AI
         {
             get
             {
+                Debug.Log(AgentState.Get(StateKeyEnum.IS_OVER.ToString()));
                 return AgentState.Get(StateKeyEnum.IS_OVER.ToString());
             }
         }
